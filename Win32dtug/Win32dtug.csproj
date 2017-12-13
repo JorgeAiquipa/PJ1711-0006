@@ -47,6 +47,7 @@
     <Compile Include="DT_CNX.cs" />
     <Compile Include="DT_M19.cs" />
     <Compile Include="DT_M27.cs" />
+    <Compile Include="DT_M38.cs" />
     <Compile Include="DT_M41.cs" />
     <Compile Include="DT_MAIN.cs" />
     <Compile Include="DT_MSSQL.cs" />
