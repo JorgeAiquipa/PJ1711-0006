@@ -127,7 +127,7 @@ namespace Win32dtug
 
 
         //Obtiene un DataSet a partir de un Procedimiento Almacenado y sus parámetros. 
-        public DataTable TraerDataTable(string procedimientoAlmacenado, params Object[] args)
+        public DataTable TraerDataTable_(string procedimientoAlmacenado, params Object[] args)
         { return TraerDataSet(procedimientoAlmacenado, args).Tables[0].Copy(); } // end TraerDataTable
 
         //Obtiene un DataTable a partir de un Query SQL

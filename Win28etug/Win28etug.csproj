@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ET_globales.cs" />
     <Compile Include="ET_M19.cs" />
     <Compile Include="ET_entidad.cs" />
+    <Compile Include="ET_M27.cs" />
+    <Compile Include="ET_M41.cs" />
     <Compile Include="ET_servicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

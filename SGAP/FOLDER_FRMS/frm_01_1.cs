@@ -15,9 +15,21 @@ namespace SGAP.FORLDER_FRMS
 {
     public partial class frm_01_1 : Form
     {
+        ET_entidad _entity = new ET_entidad();
+        ET_M19 _et_m19 = new ET_M19();
+        ET_M41 _et_m41 = new ET_M41();
+
+        NT_M19 _nt_m19 = new NT_M19();
+        NT_M27 _nt_m27 = new NT_M27();
+        NT_M41 _nt_m41 = new NT_M41();
+
         NT_servicio _nt_servicio = new NT_servicio();
-        
+        List<ET_M27> _lista_m27 = new List<ET_M27>();
+        List<ET_M41> _lista_m41 = new List<ET_M41>();
+
         #region Variables
+        string _id_tm19;
+        int _id_tm41;
         string nombre_cliente;
         string ruc_cliente;
         string direccion_cliente;
@@ -26,8 +38,10 @@ namespace SGAP.FORLDER_FRMS
         int cantidad_locales = 0;
         int cantidad_meses = 0;
 
+
+        string _tm41_id;
+
         AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
-        List<string> lista_string_ejemplo = new List<string>();
 
         #endregion
 
@@ -39,56 +53,34 @@ namespace SGAP.FORLDER_FRMS
             InitializeComponent();
 
             _nt_servicio.Mensaje_Alerta += Mensaje_alerta;
+            _nt_m19.Mensaje_Alerta += Mensaje_alerta;
+            _nt_m41.Mensaje_Alerta += Mensaje_alerta;
 
             //apariencia
             this.BackColor = background;
             dgv_informacion_locales.BackgroundColor = background;
-            /*dgv_informacion_locales.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgv_informacion_locales.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgv_informacion_locales.DefaultCellStyle.Font = new Font("Calibri", 11f, FontStyle.Regular);
-            dgv_informacion_locales.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 11, FontStyle.Regular);
-            dgv_informacion_locales.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(49, 188, 134);
-            dgv_informacion_locales.EnableHeadersVisualStyles = false;
-            //dataGridView1.RowHeadersVisible = false;
 
-            dgv_informacion_locales.BackgroundColor = Color.White;
-            dgv_informacion_locales.RowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-            dgv_informacion_locales.AlternatingRowsDefaultCellStyle.BackColor = Color.White;
-            dgv_informacion_locales.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            dgv_informacion_locales.DefaultCellStyle.SelectionBackColor = Color.Gray;
-            dgv_informacion_locales.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgv_informacion_locales.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            //dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgv_informacion_locales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgv_informacion_locales.AllowUserToResizeColumns = false;
-            dgv_informacion_locales.ColumnHeadersDefaultCellStyle.Font = new Font(dgv_informacion_locales.ColumnHeadersDefaultCellStyle.Font, FontStyle.Bold);
-            */
-
-
-            //txt cliente or ruc autocomplete
 
             txt_nombre_cliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txt_nombre_cliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            _nt_m19.txt_autocomplete(txt_nombre_cliente);
 
-            txt_nombre_cliente.AutoCompleteCustomSource = collection;
-
-            //metodos
             Metodo_obtener_tipo_servicio();
+            
         }
         void Metodo_obtener_tipo_servicio()
         {
             this.cbx_tipo_servicio.Items.Clear();
-            var entidad = _nt_servicio.Listar();
+            var entidad = _nt_m41.get_001();
 
             if (!entidad._hubo_error)
             {
-                // Ahora llenamos el combo con los tipos de servicios
-                foreach (ET_servicio row in entidad._servicio)
+                _lista_m41 = entidad._lista_et_m41.ToList();
+                foreach (ET_M41 row in entidad._lista_et_m41)
                 {
-                    this.cbx_tipo_servicio.Items.Add(row._c_nombre);
+                    this.cbx_tipo_servicio.Items.Add(row._TM41_DESCRIP);
                 }
 
-                // Seleccionamos el primer item
                 this.cbx_tipo_servicio.SelectedIndex = 0;
             }
 
@@ -99,12 +91,12 @@ namespace SGAP.FORLDER_FRMS
             ruc_cliente = txt_ruc_cliente.Text;
             direccion_cliente = txt_direccion_cliente.Text;
             tipo_servicio = cbx_tipo_servicio.Text;
-            nombre_de_Servicio = txt_nombre_Servicio.Text; ;
             /* contaremos las columnas llenas del gridview 
              * Solo aquellas que tengas los campos llenos
              * Se validara por cada campo ingresado
              */
             Metodo_Validar_ingreso_de_locales();
+
             cantidad_meses = Convert.ToInt16(nupd_periodo_de_servicio.Value);
         }
 
@@ -113,7 +105,6 @@ namespace SGAP.FORLDER_FRMS
             int filas_encontradas = dgv_informacion_locales.RowCount;
 
         }
-
         #endregion
 
         #region Eventos
@@ -129,9 +120,23 @@ namespace SGAP.FORLDER_FRMS
         }
         private void btn_continuar_Click(object sender, EventArgs e)
         {
-            //settear la informacion ingrsada
             Metodo_obtener_informacion_ingresada();
-            frm_02 FORM_ = new frm_02(tipo_servicio);
+
+            //seteamos locales
+            _entity._lista_et_m27 = _lista_m27;
+
+            //seteamos informacion del cliente
+            _et_m19._TM19_DESCRIP1 = ruc_cliente;
+            _et_m19._TM19_DESCRIP2 = nombre_cliente;
+            _et_m19._TM19_ID = _id_tm19;
+            _entity._entity_m19 = _et_m19;
+
+            //seteamos info del servicio seleccionado
+            _et_m41._TM41_DESCRIP = nombre_de_Servicio;
+            _et_m41._TM41_ID = _id_tm41;
+            _entity._entity_m41 = _et_m41;
+
+            frm_02 FORM_ = new frm_02(_entity);
             FORM_.Show();
             this.Close();
         }
@@ -203,30 +208,62 @@ namespace SGAP.FORLDER_FRMS
             }
 
         }
-        #endregion
 
-        private void txt_nombre_cliente_TextChanged(object sender, EventArgs e)
+        void obtener_cliente_info()
         {
-
-            lista_string_ejemplo.Add("clienteq"); 
-            lista_string_ejemplo.Add("manzana"); 
-            lista_string_ejemplo.Add("rojo"); 
-            lista_string_ejemplo.Add("mueble"); 
-            lista_string_ejemplo.Add("triton"); 
-            lista_string_ejemplo.Add("automovil");
-            lista_string_ejemplo.Add("batimovin");
-            lista_string_ejemplo.Add("baño");
-            lista_string_ejemplo.Add("mazmorra");
-            lista_string_ejemplo.Add("automovil");
-            lista_string_ejemplo.Add("automovil");
-            lista_string_ejemplo.Add("automovil");
-
-            foreach (string value in lista_string_ejemplo.ToList())
+            //una vez que deja el control estar en focus
+            // carga los locales del cliente
+            try
             {
-                collection.Add(value);
+                var entidad_resultado = _nt_m19.sel_001(txt_nombre_cliente.Text);
+                txt_ruc_cliente.Text = entidad_resultado._TM19_DESCRIP1.ToString();
+                _id_tm19 = entidad_resultado._TM19_ID.ToString();
+
+                _lista_m27.Clear();
+
+                _lista_m27 = _nt_m27.obtener_locales_por_cliente(entidad_resultado)._lista_et_m27;
+
+                dgv_informacion_locales.DataSource = _lista_m27.ToList();
+
+                txt_ruc_cliente.Focus();
+            }
+            catch (Exception ex)
+            {
+
+                txt_ruc_cliente.Text = string.Empty;
+                txt_nombre_cliente.Focus();
+                dgv_informacion_locales.Rows.Clear();
+
 
             }
+        }
+        #endregion
 
+        private void txt_nombre_cliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                obtener_cliente_info();
+            }
+
+            if (e.KeyCode == Keys.Tab)
+            {
+                obtener_cliente_info();
+            }
+        }
+        // cuando cambia el valor de seleccion del combo box
+        private void cbx_tipo_servicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
+
+            var result = _lista_m41.Where(p => p._TM41_DESCRIP == nombre_de_Servicio);
+
+            foreach (ET_M41 row in result)
+            {
+                _id_tm41 = row._TM41_ID;
+                break;
+            }
         }
     }
 }

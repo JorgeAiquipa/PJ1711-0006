@@ -19,10 +19,11 @@ namespace Win32dtug
 
         public ET_entidad get_list_of_services()
         {
-            DT_CNX.Abrir_conexion();
-
+            
             try
             {
+                DT_CNX.Abrir_conexion();
+
                 var result = DT_CNX._DT_MAIN.TraerDataSet("pa_servicioejemplo", "@p_mensaje_respuesta");
 
                 foreach (DataRow fila in result.Tables[0].Rows)
@@ -46,7 +47,7 @@ namespace Win32dtug
                 _Entidad._contenido_mensaje = "Ocurrio un error al obetener Informacion de la base de datos.\n"+ ex.ToString();
                 _Entidad._titulo_mensaje = "Alert!";
             }
-
+            
             return _Entidad;
         }
 

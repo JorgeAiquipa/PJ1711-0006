@@ -15,13 +15,15 @@ namespace Win32dtug
 {
     public class DT_CNX
     {
-        public static DT_MAIN _DT_MAIN; 
+       // public string _cnx = @"data source=TCP:192.168.1.5\DESA001,1434;initial catalog=DBPisersa;user id=sa;password=123456;persist security info=True;user id=sa;packet size=4096";
+        public static DT_MAIN _DT_MAIN;
+
         public static bool Abrir_conexion()
         {
-            string nombreServidor = @"PORTATIL-PC\SQLEXPRESS";
-            string baseDatos = "bd_Desarrollo";
+            string nombreServidor = @"TCP:192.168.1.5\DESA001,1434";//@"PORTATIL-PC\SQLEXPRESS";
+            string baseDatos = "DBPisersa";
             string usuario = "sa";
-            string password = "cesar.freitas";
+            string password = "123456";
 
             _DT_MAIN = new DT_MSSQL(nombreServidor, baseDatos, usuario, password);
             try
@@ -38,6 +40,6 @@ namespace Win32dtug
         {
             _DT_MAIN.CerrarConexion();
         } 
-
+        
     }
 }

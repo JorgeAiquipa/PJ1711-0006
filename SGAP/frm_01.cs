@@ -20,6 +20,7 @@ namespace SGAP
         #region Instancias
 
         ET_entidad et = new ET_entidad();
+        ET_globales _globales = new ET_globales();
         #endregion
         #region Variables
         string cliente_or_ruc;
@@ -45,6 +46,7 @@ namespace SGAP
             dgv_cotizaciones.BackgroundColor = Color.Silver;
 
             cargar_cotizaciones();
+            //_globales._TM2_ID = "PIS";
         }
 
         #region Métodos
@@ -52,7 +54,7 @@ namespace SGAP
         {
             // Llamanos al formulario de informcaion general
             FORLDER_FRMS.frm_01_1 frm_01_1 = new FORLDER_FRMS.frm_01_1();
-            frm_01_1.Show();
+            frm_01_1.ShowDialog();
         }
 
         void cargar_cotizaciones()
