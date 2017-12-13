@@ -28,6 +28,8 @@ namespace SGAP.FORLDER_FRMS
         {
             InitializeComponent();
 
+            this.BringToFront();
+
             this.tree_view_servicios.ContextMenuStrip = this.contextMenuStrip_tree_view;
             _entidad = _entity;
             __id_tm41 = _entity._entity_m41._TM41_ID;
@@ -70,10 +72,10 @@ namespace SGAP.FORLDER_FRMS
                 mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
             });
             servicio.Name = _entidad._entity_m41._TM41_DESCRIP;
-            servicio.Tag = _entidad._entity_m41._TM41_ID;
+            servicio.Tag = 0;//_entidad._entity_m41._TM41_ID;
 
             TreeNode nodo_principal = new TreeNode(_entidad._entity_m19._TM19_DESCRIP2, new TreeNode[] { servicio });
-            nodo_principal.Tag = _entidad._entity_m19._TM19_ID;
+            nodo_principal.Tag = 0; //_entidad._entity_m19._TM19_ID;
             nodo_principal.Name = _entidad._entity_m19._TM19_DESCRIP1;
 
             nodo_principal.ExpandAll();
