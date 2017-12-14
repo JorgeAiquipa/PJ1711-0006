@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControls\NumericUpDown.cs" />
     <Compile Include="FOLDER_FRMS\frm_02.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +69,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\GridTimeControl.cs" />
     <EmbeddedResource Include="FOLDER_FRMS\frm_02.resx">
       <DependentUpon>frm_02.cs</DependentUpon>
     </EmbeddedResource>

@@ -18,6 +18,9 @@ namespace SGAP.FORLDER_FRMS
         #region Variables
 
         ET_entidad _entidad = new ET_entidad();
+        NT_M38 _nt_m38 = new NT_M38();
+
+
         NT_cotizador ctr_cotizador_ = new NT_cotizador();
         int __id_tm41;
 
@@ -50,7 +53,7 @@ namespace SGAP.FORLDER_FRMS
             DisplayPanel(0);
         }
 
-
+         
         void Metodo_Obtener_conceptos_default()
         {
 
@@ -92,6 +95,9 @@ namespace SGAP.FORLDER_FRMS
 
             tree_view_servicios.Nodes.Add(nodo_principal);
         }
+
+
+
         #endregion
 
         #region Eventos
@@ -101,11 +107,8 @@ namespace SGAP.FORLDER_FRMS
             Metodo_Obtener_conceptos_default();
         }
 
-
-        #endregion
         List<Panel> Panels = new List<Panel>();
         Panel VisiblePanel = null;
-
         //tiene lugar cuando cambia ala selección.
         private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -128,6 +131,60 @@ namespace SGAP.FORLDER_FRMS
             // Display the appropriate Panel.
             Panels[index].Visible = true;
             VisiblePanel = Panels[index];
+        }
+
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            //tiene lugar cuando se clickea el contenido de una celda
+
+            string column_name = dgv_entrada_datos_mano_de_obra.Columns[0].Name; // cargo
+            if (column_name.Equals("cargo"))
+            {
+                TextBox auto_text = e.Control as TextBox;
+
+                if (auto_text != null)
+                {
+                    auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    _nt_m38.gridTextBoxAutocomplete(auto_text);
+                }
+            }
+
+
+        }
+
+
+
+
+        #endregion
+
+        #region Mano de obra
+        //
+
+
+        #endregion
+
+        #region Maquinaria y equipo
+
+        #endregion
+
+
+        private Boolean Dia_semana(String fecha)
+        {
+            try
+            {
+                DateTime.Parse(fecha);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private void dgv_entrada_datos_mano_de_obra_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            //validar celda
+
         }
     }
 }
