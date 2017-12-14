@@ -123,7 +123,16 @@ namespace SGAP.FORLDER_FRMS
             Metodo_obtener_informacion_ingresada();
 
             //seteamos locales
-            _entity._lista_et_m27 = _lista_m27;
+            //_entity._lista_et_m27 = _lista_m27;
+
+
+            //DIEGO
+            var mi_locales_seleccionados = _lista_m27.Where(local => local._seleccionado == true).ToList();
+            
+            _entity._lista_et_m27 = mi_locales_seleccionados;
+
+            int cantloc = mi_locales_seleccionados.Count;
+
 
             //seteamos informacion del cliente
             _et_m19._TM19_DESCRIP1 = ruc_cliente;
@@ -136,9 +145,9 @@ namespace SGAP.FORLDER_FRMS
             _et_m41._TM41_ID = _id_tm41;
             _entity._entity_m41 = _et_m41;
 
-            frm_02 FORM_ = new frm_02(_entity);
-            FORM_.Show();
+            frm_02 FORM_ = new frm_02(_entity);           
             this.Close();
+            FORM_.Show();
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
