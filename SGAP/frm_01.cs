@@ -20,6 +20,9 @@ namespace SGAP
         #region Instancias
 
         ET_entidad et = new ET_entidad();
+        ET_M39 _et_m39 = new ET_M39();
+
+        NT_M39 _nt_m39 = new NT_M39();
         ET_globales _globales = new ET_globales();
         #endregion
         #region Variables
@@ -55,11 +58,21 @@ namespace SGAP
             // Llamanos al formulario de informcaion general
             FORLDER_FRMS.frm_01_1 frm_01_1 = new FORLDER_FRMS.frm_01_1();
             frm_01_1.ShowDialog();
+
+            try
+            {
+
+                FORLDER_FRMS.frm_02 F2 = new FORLDER_FRMS.frm_02(frm_01_1._entity);
+                cargar_cotizaciones();
+                F2.ShowDialog();
+            }
+            catch (Exception ex)
+            { }
         }
 
-        void cargar_cotizaciones()
+        public void cargar_cotizaciones()
         {
-
+            _nt_m39.get_001(dgv_cotizaciones);
         }
         void filtrar_entre_fechas()
         {

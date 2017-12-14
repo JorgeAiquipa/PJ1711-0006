@@ -15,13 +15,15 @@ namespace SGAP.FORLDER_FRMS
 {
     public partial class frm_01_1 : Form
     {
-        ET_entidad _entity = new ET_entidad();
+        public ET_entidad _entity = new ET_entidad();
         ET_M19 _et_m19 = new ET_M19();
         ET_M41 _et_m41 = new ET_M41();
+        ET_M39 _et_m39 = new ET_M39();
 
         NT_M19 _nt_m19 = new NT_M19();
         NT_M27 _nt_m27 = new NT_M27();
         NT_M41 _nt_m41 = new NT_M41();
+        NT_M39 _nt_m39 = new NT_M39();
 
         NT_servicio _nt_servicio = new NT_servicio();
         List<ET_M27> _lista_m27 = new List<ET_M27>();
@@ -89,7 +91,6 @@ namespace SGAP.FORLDER_FRMS
         {
             nombre_cliente = txt_nombre_cliente.Text;
             ruc_cliente = txt_ruc_cliente.Text;
-            direccion_cliente = txt_direccion_cliente.Text;
             tipo_servicio = cbx_tipo_servicio.Text;
             /* contaremos las columnas llenas del gridview 
              * Solo aquellas que tengas los campos llenos
@@ -136,9 +137,15 @@ namespace SGAP.FORLDER_FRMS
             _et_m41._TM41_ID = _id_tm41;
             _entity._entity_m41 = _et_m41;
 
-            frm_02 FORM_ = new frm_02(_entity);
-            FORM_.Show();
-            this.Close();
+            _et_m39._TM39_DESCRIP = string.Format("{0} Para {1}", nombre_de_Servicio,nombre_cliente);//nombre de la cotizacion
+            _et_m39._TM39_UCREA = "Cesar.Freitas";
+            _et_m39._TM39_TM19_ID = _id_tm19;
+
+            _nt_m39.set_001(_et_m39);
+
+            //frm_02 FORM_ = new frm_02(_entity);
+            //FORM_.ShowDialog();
+            this.Hide();
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -225,7 +232,7 @@ namespace SGAP.FORLDER_FRMS
 
                 dgv_informacion_locales.DataSource = _lista_m27.ToList();
 
-                txt_ruc_cliente.Focus();
+                cbx_tipo_servicio.Focus();
             }
             catch (Exception ex)
             {
@@ -233,8 +240,6 @@ namespace SGAP.FORLDER_FRMS
                 txt_ruc_cliente.Text = string.Empty;
                 txt_nombre_cliente.Focus();
                 dgv_informacion_locales.Rows.Clear();
-
-
             }
         }
         #endregion

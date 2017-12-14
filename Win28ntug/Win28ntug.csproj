@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NT_cotizador.cs" />
+    <Compile Include="NT_helper.cs" />
     <Compile Include="NT_M19.cs" />
     <Compile Include="NT_M27.cs" />
     <Compile Include="NT_M38.cs" />
+    <Compile Include="NT_M39.cs" />
     <Compile Include="NT_M41.cs" />
     <Compile Include="NT_servicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

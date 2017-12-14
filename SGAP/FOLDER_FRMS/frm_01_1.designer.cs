@@ -33,16 +33,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_ruc_cliente = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txt_direccion_cliente = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.nupd_periodo_de_servicio = new System.Windows.Forms.NumericUpDown();
             this.dgv_informacion_locales = new System.Windows.Forms.DataGridView();
-            this.cbx_tipo_servicio = new System.Windows.Forms.ComboBox();
-            this.btn_cancelar = new System.Windows.Forms.Button();
-            this.btn_continuar = new System.Windows.Forms.Button();
             this._seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this._TM27_NOMBRE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._TM27_DIRECCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,6 +54,23 @@
             this._TM27_UACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._TM27_FACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.header_btn_delete_row_dgv_Informacion_locales = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cbx_tipo_servicio = new System.Windows.Forms.ComboBox();
+            this.btn_cancelar = new System.Windows.Forms.Button();
+            this.btn_continuar = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).BeginInit();
             this.SuspendLayout();
@@ -108,32 +120,15 @@
             this.txt_ruc_cliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.txt_ruc_cliente.Location = new System.Drawing.Point(136, 72);
             this.txt_ruc_cliente.Name = "txt_ruc_cliente";
+            this.txt_ruc_cliente.ReadOnly = true;
             this.txt_ruc_cliente.Size = new System.Drawing.Size(338, 20);
             this.txt_ruc_cliente.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label4.Location = new System.Drawing.Point(21, 111);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Dirección Cliente";
-            // 
-            // txt_direccion_cliente
-            // 
-            this.txt_direccion_cliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txt_direccion_cliente.Location = new System.Drawing.Point(136, 108);
-            this.txt_direccion_cliente.Name = "txt_direccion_cliente";
-            this.txt_direccion_cliente.Size = new System.Drawing.Size(338, 20);
-            this.txt_direccion_cliente.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(21, 147);
+            this.label5.Location = new System.Drawing.Point(21, 111);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 10;
@@ -143,7 +138,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(21, 188);
+            this.label7.Location = new System.Drawing.Point(21, 152);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 13);
             this.label7.TabIndex = 13;
@@ -153,7 +148,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.Location = new System.Drawing.Point(190, 188);
+            this.label8.Location = new System.Drawing.Point(190, 152);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 13);
             this.label8.TabIndex = 14;
@@ -162,10 +157,20 @@
             // nupd_periodo_de_servicio
             // 
             this.nupd_periodo_de_servicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.nupd_periodo_de_servicio.Location = new System.Drawing.Point(136, 186);
+            this.nupd_periodo_de_servicio.Location = new System.Drawing.Point(136, 150);
+            this.nupd_periodo_de_servicio.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nupd_periodo_de_servicio.Name = "nupd_periodo_de_servicio";
             this.nupd_periodo_de_servicio.Size = new System.Drawing.Size(48, 20);
             this.nupd_periodo_de_servicio.TabIndex = 15;
+            this.nupd_periodo_de_servicio.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // dgv_informacion_locales
             // 
@@ -189,46 +194,14 @@
             this._TM27_UACTUALIZA,
             this._TM27_FACTUALIZA,
             this.header_btn_delete_row_dgv_Informacion_locales});
-            this.dgv_informacion_locales.Location = new System.Drawing.Point(12, 226);
+            this.dgv_informacion_locales.Location = new System.Drawing.Point(12, 185);
             this.dgv_informacion_locales.Name = "dgv_informacion_locales";
-            this.dgv_informacion_locales.Size = new System.Drawing.Size(654, 314);
+            this.dgv_informacion_locales.Size = new System.Drawing.Size(654, 355);
             this.dgv_informacion_locales.TabIndex = 16;
             this.dgv_informacion_locales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellContentClick);
             this.dgv_informacion_locales.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellEndEdit);
             this.dgv_informacion_locales.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_informacion_locales_CellValidating);
             this.dgv_informacion_locales.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_informacion_locales_RowValidating);
-            // 
-            // cbx_tipo_servicio
-            // 
-            this.cbx_tipo_servicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.cbx_tipo_servicio.FormattingEnabled = true;
-            this.cbx_tipo_servicio.Location = new System.Drawing.Point(136, 144);
-            this.cbx_tipo_servicio.Name = "cbx_tipo_servicio";
-            this.cbx_tipo_servicio.Size = new System.Drawing.Size(338, 21);
-            this.cbx_tipo_servicio.TabIndex = 9;
-            this.cbx_tipo_servicio.SelectedIndexChanged += new System.EventHandler(this.cbx_tipo_servicio_SelectedIndexChanged);
-            // 
-            // btn_cancelar
-            // 
-            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_cancelar.Location = new System.Drawing.Point(566, 546);
-            this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(100, 23);
-            this.btn_cancelar.TabIndex = 17;
-            this.btn_cancelar.Text = "Cancelar";
-            this.btn_cancelar.UseVisualStyleBackColor = true;
-            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
-            // 
-            // btn_continuar
-            // 
-            this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_continuar.Location = new System.Drawing.Point(460, 546);
-            this.btn_continuar.Name = "btn_continuar";
-            this.btn_continuar.Size = new System.Drawing.Size(100, 23);
-            this.btn_continuar.TabIndex = 18;
-            this.btn_continuar.Text = "Continuar";
-            this.btn_continuar.UseVisualStyleBackColor = true;
-            this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
             // 
             // _seleccionado
             // 
@@ -345,6 +318,138 @@
             this.header_btn_delete_row_dgv_Informacion_locales.Name = "header_btn_delete_row_dgv_Informacion_locales";
             this.header_btn_delete_row_dgv_Informacion_locales.Visible = false;
             // 
+            // cbx_tipo_servicio
+            // 
+            this.cbx_tipo_servicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.cbx_tipo_servicio.FormattingEnabled = true;
+            this.cbx_tipo_servicio.Location = new System.Drawing.Point(136, 108);
+            this.cbx_tipo_servicio.Name = "cbx_tipo_servicio";
+            this.cbx_tipo_servicio.Size = new System.Drawing.Size(338, 21);
+            this.cbx_tipo_servicio.TabIndex = 9;
+            this.cbx_tipo_servicio.SelectedIndexChanged += new System.EventHandler(this.cbx_tipo_servicio_SelectedIndexChanged);
+            // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btn_cancelar.Location = new System.Drawing.Point(566, 546);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(100, 23);
+            this.btn_cancelar.TabIndex = 17;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
+            // btn_continuar
+            // 
+            this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btn_continuar.Location = new System.Drawing.Point(460, 546);
+            this.btn_continuar.Name = "btn_continuar";
+            this.btn_continuar.Size = new System.Drawing.Size(100, 23);
+            this.btn_continuar.TabIndex = 18;
+            this.btn_continuar.Text = "Continuar";
+            this.btn_continuar.UseVisualStyleBackColor = true;
+            this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "_TM27_NOMBRE";
+            this.dataGridViewTextBoxColumn1.FillWeight = 172.1251F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Nombre Local";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "_TM27_DIRECCION";
+            this.dataGridViewTextBoxColumn2.FillWeight = 101.1997F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Dirección";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 185;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "_TM27_ID";
+            this.dataGridViewTextBoxColumn3.HeaderText = "_TM27_ID";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "_TM27_TM19_ID";
+            this.dataGridViewTextBoxColumn4.HeaderText = "_TM27_TM19_ID";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "_TM27_TM2_ID";
+            this.dataGridViewTextBoxColumn5.HeaderText = "_TM27_TM2_ID";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "_TM27_TM9_DIST_CODIGO";
+            this.dataGridViewTextBoxColumn6.HeaderText = "_TM27_TM9_DIST_CODIGO";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "_TM27_TM28_ID";
+            this.dataGridViewTextBoxColumn7.HeaderText = "_TM27_TM28_ID";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "_TM27_ST";
+            this.dataGridViewTextBoxColumn8.HeaderText = "_TM27_ST";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "_TM27_FLG_ELIMINADO";
+            this.dataGridViewTextBoxColumn9.HeaderText = "_TM27_FLG_ELIMINADO";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "_TM27_CODGREEM";
+            this.dataGridViewTextBoxColumn10.HeaderText = "_TM27_CODGREEM";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "_TM27_UCREA";
+            this.dataGridViewTextBoxColumn11.HeaderText = "_TM27_UCREA";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "_TM27_FCREA";
+            this.dataGridViewTextBoxColumn12.HeaderText = "_TM27_FCREA";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "_TM27_UACTUALIZA";
+            this.dataGridViewTextBoxColumn13.HeaderText = "_TM27_UACTUALIZA";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "_TM27_FACTUALIZA";
+            this.dataGridViewTextBoxColumn14.HeaderText = "_TM27_FACTUALIZA";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.Visible = false;
+            // 
             // frm_01_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,14 +463,13 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txt_direccion_cliente);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_ruc_cliente);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txt_nombre_cliente);
             this.Controls.Add(this.label1);
             this.Name = "frm_01_1";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FRM_Informacion_general";
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).EndInit();
@@ -382,8 +486,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_ruc_cliente;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txt_direccion_cliente;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -408,5 +510,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _TM27_UACTUALIZA;
         private System.Windows.Forms.DataGridViewTextBoxColumn _TM27_FACTUALIZA;
         private System.Windows.Forms.DataGridViewButtonColumn header_btn_delete_row_dgv_Informacion_locales;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
     }
 }

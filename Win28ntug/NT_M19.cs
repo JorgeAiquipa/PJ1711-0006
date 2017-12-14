@@ -67,7 +67,7 @@ namespace Win28ntug
             catch (Exception ex)
             {           }
 
-            if (string.IsNullOrEmpty(_et_m19._TM19_DESCRIP1))
+            if (string.IsNullOrEmpty(_et_m19._TM19_ID))
             {
                 _entidad._hubo_error = true;
                 _entidad._titulo_mensaje = "Alert!";

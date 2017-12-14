@@ -27,6 +27,7 @@ namespace Win28etug
         public List<ET_M27> _lista_et_m27 { get; set; }
         public List<ET_M41> _lista_et_m41 { get; set; }
         public List<ET_M38> _lista_et_m38 { get; set; }
+        public List<ET_M39> _lista_et_m39 { get; set; }
 
 
         public ET_M19 _entity_m19 { get; set; }

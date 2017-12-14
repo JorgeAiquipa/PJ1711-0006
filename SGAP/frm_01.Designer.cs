@@ -29,16 +29,8 @@
         private void InitializeComponent()
         {
             this.dgv_cotizaciones = new System.Windows.Forms.DataGridView();
-            this.c_numero = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_ruc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_direccion_cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_servicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_locales_Cant = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_fecha_creacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_version = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnl_left = new System.Windows.Forms.Panel();
+            this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -46,7 +38,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.txt_cliente_or_ruc = new System.Windows.Forms.TextBox();
             this.chkb_estado_pendiente = new System.Windows.Forms.CheckBox();
             this.chkb_estado_cerrado = new System.Windows.Forms.CheckBox();
@@ -55,8 +46,27 @@
             this.dtp_fecha_fin = new System.Windows.Forms.DateTimePicker();
             this.dtp_fecha_inicio = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btn_filtrar = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridTimeControl1 = new SGAP.UserControls.GridTimeControl();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TM39_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TM19_DESCRIP2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TM19_DESCRIP1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TM39_DESCRIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.c_locales_Cant = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TM39_UCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TM39_FCREA = new SGAP.UserControls.GridTimeControl();
+            this.TM39_ST = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.c_version = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_cotizaciones)).BeginInit();
             this.pnl_left.SuspendLayout();
             this.pnl_filter_wraper.SuspendLayout();
@@ -71,79 +81,19 @@
             this.dgv_cotizaciones.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgv_cotizaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_cotizaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.c_numero,
-            this.c_cliente,
-            this.c_ruc,
-            this.c_direccion_cliente,
-            this.c_servicio,
+            this.TM39_ID,
+            this.TM19_DESCRIP2,
+            this.TM19_DESCRIP1,
+            this.TM39_DESCRIP,
             this.c_locales_Cant,
-            this.c_fecha_creacion,
-            this.c_estado,
+            this.TM39_UCREA,
+            this.TM39_FCREA,
+            this.TM39_ST,
             this.c_version});
             this.dgv_cotizaciones.Location = new System.Drawing.Point(262, 50);
             this.dgv_cotizaciones.Name = "dgv_cotizaciones";
             this.dgv_cotizaciones.Size = new System.Drawing.Size(681, 590);
             this.dgv_cotizaciones.TabIndex = 13;
-            // 
-            // c_numero
-            // 
-            this.c_numero.FillWeight = 126.5823F;
-            this.c_numero.HeaderText = "#";
-            this.c_numero.Name = "c_numero";
-            this.c_numero.Width = 30;
-            // 
-            // c_cliente
-            // 
-            this.c_cliente.FillWeight = 265.9851F;
-            this.c_cliente.HeaderText = "Cliente";
-            this.c_cliente.Name = "c_cliente";
-            this.c_cliente.Width = 300;
-            // 
-            // c_ruc
-            // 
-            this.c_ruc.FillWeight = 146.0292F;
-            this.c_ruc.HeaderText = "RUC";
-            this.c_ruc.Name = "c_ruc";
-            this.c_ruc.Width = 120;
-            // 
-            // c_direccion_cliente
-            // 
-            this.c_direccion_cliente.FillWeight = 108.3648F;
-            this.c_direccion_cliente.HeaderText = "Dirección Cliente";
-            this.c_direccion_cliente.Name = "c_direccion_cliente";
-            this.c_direccion_cliente.Width = 300;
-            // 
-            // c_servicio
-            // 
-            this.c_servicio.HeaderText = "Nombre de Servicio";
-            this.c_servicio.Name = "c_servicio";
-            this.c_servicio.Width = 300;
-            // 
-            // c_locales_Cant
-            // 
-            this.c_locales_Cant.FillWeight = 41.30978F;
-            this.c_locales_Cant.HeaderText = "Cant Loc";
-            this.c_locales_Cant.Name = "c_locales_Cant";
-            // 
-            // c_fecha_creacion
-            // 
-            this.c_fecha_creacion.FillWeight = 39.04712F;
-            this.c_fecha_creacion.HeaderText = "Fec Crea";
-            this.c_fecha_creacion.Name = "c_fecha_creacion";
-            // 
-            // c_estado
-            // 
-            this.c_estado.FillWeight = 37.14248F;
-            this.c_estado.HeaderText = "Estado";
-            this.c_estado.Name = "c_estado";
-            this.c_estado.Width = 60;
-            // 
-            // c_version
-            // 
-            this.c_version.FillWeight = 35.53922F;
-            this.c_version.HeaderText = "Version";
-            this.c_version.Name = "c_version";
-            this.c_version.Width = 120;
             // 
             // pnl_left
             // 
@@ -169,6 +119,15 @@
             this.pnl_left.Size = new System.Drawing.Size(261, 640);
             this.pnl_left.TabIndex = 2;
             // 
+            // btn_filtrar
+            // 
+            this.btn_filtrar.Location = new System.Drawing.Point(26, 366);
+            this.btn_filtrar.Name = "btn_filtrar";
+            this.btn_filtrar.Size = new System.Drawing.Size(75, 23);
+            this.btn_filtrar.TabIndex = 18;
+            this.btn_filtrar.Text = "Filtrar";
+            this.btn_filtrar.UseVisualStyleBackColor = true;
+            // 
             // pnl_filter_wraper
             // 
             this.pnl_filter_wraper.BackColor = System.Drawing.Color.Silver;
@@ -190,7 +149,7 @@
             this.label4.ForeColor = System.Drawing.Color.GhostWhite;
             this.label4.Location = new System.Drawing.Point(52, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 15);
+            this.label4.Size = new System.Drawing.Size(53, 15);
             this.label4.TabIndex = 17;
             this.label4.Text = "FILTROS";
             // 
@@ -243,17 +202,6 @@
             this.label6.Size = new System.Drawing.Size(60, 15);
             this.label6.TabIndex = 13;
             this.label6.Text = "Fecha fin:";
-            // 
-            // btnNuevoCotizacion
-            // 
-            this.btnNuevoCotizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnNuevoCotizacion.Location = new System.Drawing.Point(13, 12);
-            this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
-            this.btnNuevoCotizacion.Size = new System.Drawing.Size(149, 26);
-            this.btnNuevoCotizacion.TabIndex = 1;
-            this.btnNuevoCotizacion.Text = "Nueva Cotización";
-            this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
-            this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
             // 
             // txt_cliente_or_ruc
             // 
@@ -345,6 +293,17 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Filtro por Fecha";
             // 
+            // btnNuevoCotizacion
+            // 
+            this.btnNuevoCotizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnNuevoCotizacion.Location = new System.Drawing.Point(13, 12);
+            this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
+            this.btnNuevoCotizacion.Size = new System.Drawing.Size(149, 26);
+            this.btnNuevoCotizacion.TabIndex = 1;
+            this.btnNuevoCotizacion.Text = "Nueva Cotización";
+            this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
+            this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
+            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -357,14 +316,148 @@
             this.panel2.Size = new System.Drawing.Size(683, 50);
             this.panel2.TabIndex = 14;
             // 
-            // btn_filtrar
+            // dataGridViewTextBoxColumn1
             // 
-            this.btn_filtrar.Location = new System.Drawing.Point(26, 366);
-            this.btn_filtrar.Name = "btn_filtrar";
-            this.btn_filtrar.Size = new System.Drawing.Size(75, 23);
-            this.btn_filtrar.TabIndex = 18;
-            this.btn_filtrar.Text = "Filtrar";
-            this.btn_filtrar.UseVisualStyleBackColor = true;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "TM39_ID";
+            this.dataGridViewTextBoxColumn1.FillWeight = 126.5823F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "#";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "TM19_DESCRIP2";
+            this.dataGridViewTextBoxColumn2.FillWeight = 265.9851F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Cliente";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "TM19_DESCRIP1";
+            this.dataGridViewTextBoxColumn3.FillWeight = 146.0292F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "RUC";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "TM39_DESCRIP";
+            this.dataGridViewTextBoxColumn4.FillWeight = 108.3648F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Dirección Cliente";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.FillWeight = 41.30978F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Nombre de Servicio";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "TM39_UCREA";
+            this.dataGridViewTextBoxColumn6.FillWeight = 41.30978F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Cant Loc";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // gridTimeControl1
+            // 
+            this.gridTimeControl1.DataPropertyName = "TM39_FCREA";
+            this.gridTimeControl1.FillWeight = 39.04712F;
+            this.gridTimeControl1.HeaderText = "Fec Crea";
+            this.gridTimeControl1.Name = "gridTimeControl1";
+            this.gridTimeControl1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridTimeControl1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "TM39_ST";
+            this.dataGridViewTextBoxColumn7.FillWeight = 39.04712F;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Fec Crea";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.FillWeight = 37.14248F;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Estado";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.FillWeight = 35.53922F;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Version";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 120;
+            // 
+            // TM39_ID
+            // 
+            this.TM39_ID.DataPropertyName = "_TM39_ID";
+            this.TM39_ID.FillWeight = 126.5823F;
+            this.TM39_ID.HeaderText = "Código";
+            this.TM39_ID.Name = "TM39_ID";
+            // 
+            // TM19_DESCRIP2
+            // 
+            this.TM19_DESCRIP2.DataPropertyName = "_TM19_DESCRIP2";
+            this.TM19_DESCRIP2.FillWeight = 265.9851F;
+            this.TM19_DESCRIP2.HeaderText = "Cliente";
+            this.TM19_DESCRIP2.Name = "TM19_DESCRIP2";
+            this.TM19_DESCRIP2.Width = 300;
+            // 
+            // TM19_DESCRIP1
+            // 
+            this.TM19_DESCRIP1.DataPropertyName = "_TM19_DESCRIP1";
+            this.TM19_DESCRIP1.FillWeight = 146.0292F;
+            this.TM19_DESCRIP1.HeaderText = "RUC";
+            this.TM19_DESCRIP1.Name = "TM19_DESCRIP1";
+            this.TM19_DESCRIP1.Width = 120;
+            // 
+            // TM39_DESCRIP
+            // 
+            this.TM39_DESCRIP.DataPropertyName = "_TM39_DESCRIP";
+            this.TM39_DESCRIP.HeaderText = "Nombre de Servicio";
+            this.TM39_DESCRIP.Name = "TM39_DESCRIP";
+            this.TM39_DESCRIP.Width = 300;
+            // 
+            // c_locales_Cant
+            // 
+            this.c_locales_Cant.FillWeight = 41.30978F;
+            this.c_locales_Cant.HeaderText = "Cant Loc";
+            this.c_locales_Cant.Name = "c_locales_Cant";
+            // 
+            // TM39_UCREA
+            // 
+            this.TM39_UCREA.DataPropertyName = "_TM39_UCREA";
+            this.TM39_UCREA.HeaderText = "Creado Por";
+            this.TM39_UCREA.Name = "TM39_UCREA";
+            // 
+            // TM39_FCREA
+            // 
+            this.TM39_FCREA.DataPropertyName = "_TM39_FCREA";
+            this.TM39_FCREA.FillWeight = 39.04712F;
+            this.TM39_FCREA.HeaderText = "Fec Crea";
+            this.TM39_FCREA.Name = "TM39_FCREA";
+            this.TM39_FCREA.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TM39_FCREA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // TM39_ST
+            // 
+            this.TM39_ST.DataPropertyName = "_TM39_ST";
+            this.TM39_ST.FillWeight = 37.14248F;
+            this.TM39_ST.HeaderText = "Estado";
+            this.TM39_ST.Name = "TM39_ST";
+            this.TM39_ST.Width = 60;
+            // 
+            // c_version
+            // 
+            this.c_version.FillWeight = 35.53922F;
+            this.c_version.HeaderText = "Version";
+            this.c_version.Name = "c_version";
+            this.c_version.Width = 120;
             // 
             // frm_01
             // 
@@ -409,17 +502,27 @@
         private System.Windows.Forms.Panel pnl_cd_close;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_numero;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_ruc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_direccion_cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_servicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_locales_Cant;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_fecha_creacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_version;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btn_filtrar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private UserControls.GridTimeControl gridTimeControl1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TM19_DESCRIP2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TM19_DESCRIP1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_DESCRIP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn c_locales_Cant;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_UCREA;
+        private UserControls.GridTimeControl TM39_FCREA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_ST;
+        private System.Windows.Forms.DataGridViewTextBoxColumn c_version;
     }
 }
 
