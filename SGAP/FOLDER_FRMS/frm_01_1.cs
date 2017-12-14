@@ -124,7 +124,16 @@ namespace SGAP.FORLDER_FRMS
             Metodo_obtener_informacion_ingresada();
 
             //seteamos locales
-            _entity._lista_et_m27 = _lista_m27;
+            //_entity._lista_et_m27 = _lista_m27;
+
+
+            //DIEGO
+            var mi_locales_seleccionados = _lista_m27.Where(local => local._seleccionado == true).ToList();
+            
+            _entity._lista_et_m27 = mi_locales_seleccionados;
+
+            int cantloc = mi_locales_seleccionados.Count;
+
 
             //seteamos informacion del cliente
             _et_m19._TM19_DESCRIP1 = ruc_cliente;
@@ -240,6 +249,8 @@ namespace SGAP.FORLDER_FRMS
                 txt_ruc_cliente.Text = string.Empty;
                 txt_nombre_cliente.Focus();
                 dgv_informacion_locales.Rows.Clear();
+
+
             }
         }
         #endregion

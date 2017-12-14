@@ -15,10 +15,16 @@ namespace SGAP.FORLDER_FRMS
 {
     public partial class frm_02 : Form
     {
+
+
         #region Variables
 
         ET_entidad _entidad = new ET_entidad();
         NT_M38 _nt_m38 = new NT_M38();
+
+        //Diego
+        int cant;
+        //
 
 
         NT_cotizador ctr_cotizador_ = new NT_cotizador();
@@ -30,6 +36,10 @@ namespace SGAP.FORLDER_FRMS
         public frm_02(ET_entidad _entity)
         {
             InitializeComponent();
+            
+            //Diego
+            CreateColumn(cant);
+            //
 
             this.BringToFront();
 
@@ -186,5 +196,44 @@ namespace SGAP.FORLDER_FRMS
             //validar celda
 
         }
+
+        private void dgv_entrada_datos_mano_de_obra_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
+        //diego
+        private void CreateColumn(int cant)
+        {
+          
+            // Initialize the column.
+            DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn();
+            Column.Name = "local1";
+            Column.HeaderText = "LOCAL 1";
+
+            // Add the column to the control.
+            dataGridView1.Columns.Insert(6, Column);
+
+        }
+
+
+        #region Mano de obra
+        //
+
+
+        #endregion
+
+        #region Maquinaria y equipo
+
+        #endregion
+
+
+
     }
 }
