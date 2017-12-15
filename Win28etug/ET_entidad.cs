@@ -33,6 +33,7 @@ namespace Win28etug
         public ET_M19 _entity_m19 { get; set; }
         public ET_M41 _entity_m41 { get; set; }
         public ET_M39 _entity_m39 { get; set; }
+        public ET_R28 _entity_r28 { get; set; }
     }
     public interface ET_generic<T>
     {
