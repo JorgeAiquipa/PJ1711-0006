@@ -229,6 +229,7 @@ namespace SGAP.FORLDER_FRMS
                     index++;
                 }
             }
+
             catch (Exception ex){
             }
             listView_materiales_equipos.Columns.Add("Cantidad Total", -2, HorizontalAlignment.Left);
