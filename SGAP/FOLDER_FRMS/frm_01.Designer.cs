@@ -1,4 +1,4 @@
-﻿namespace SGAP
+﻿namespace SGAP.FOLDER_FRMS
 {
     partial class frm_01
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgv_cotizaciones = new System.Windows.Forms.DataGridView();
             this.pnl_left = new System.Windows.Forms.Panel();
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
@@ -58,42 +57,11 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TM39_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TM19_DESCRIP2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TM19_DESCRIP1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TM39_DESCRIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_locales_Cant = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TM39_UCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TM39_FCREA = new SGAP.UserControls.GridTimeControl();
-            this.TM39_ST = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.c_version = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_cotizaciones)).BeginInit();
+            this.listView_Cotizaciones = new System.Windows.Forms.ListView();
             this.pnl_left.SuspendLayout();
             this.pnl_filter_wraper.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dgv_cotizaciones
-            // 
-            this.dgv_cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_cotizaciones.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgv_cotizaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_cotizaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TM39_ID,
-            this.TM19_DESCRIP2,
-            this.TM19_DESCRIP1,
-            this.TM39_DESCRIP,
-            this.c_locales_Cant,
-            this.TM39_UCREA,
-            this.TM39_FCREA,
-            this.TM39_ST,
-            this.c_version});
-            this.dgv_cotizaciones.Location = new System.Drawing.Point(262, 50);
-            this.dgv_cotizaciones.Name = "dgv_cotizaciones";
-            this.dgv_cotizaciones.Size = new System.Drawing.Size(681, 590);
-            this.dgv_cotizaciones.TabIndex = 13;
             // 
             // pnl_left
             // 
@@ -127,6 +95,7 @@
             this.btn_filtrar.TabIndex = 18;
             this.btn_filtrar.Text = "Filtrar";
             this.btn_filtrar.UseVisualStyleBackColor = true;
+            this.btn_filtrar.Click += new System.EventHandler(this.btn_filtrar_Click);
             // 
             // pnl_filter_wraper
             // 
@@ -180,6 +149,7 @@
             this.label2.Size = new System.Drawing.Size(150, 25);
             this.label2.TabIndex = 15;
             this.label2.Text = "Filtro por Estado";
+            this.label2.Visible = false;
             // 
             // label7
             // 
@@ -223,7 +193,7 @@
             this.chkb_estado_pendiente.TabIndex = 11;
             this.chkb_estado_pendiente.Text = "Pendientes";
             this.chkb_estado_pendiente.UseVisualStyleBackColor = true;
-            this.chkb_estado_pendiente.CheckedChanged += new System.EventHandler(this.chkb_estado_pendiente_CheckedChanged);
+            this.chkb_estado_pendiente.Visible = false;
             // 
             // chkb_estado_cerrado
             // 
@@ -236,7 +206,7 @@
             this.chkb_estado_cerrado.TabIndex = 10;
             this.chkb_estado_cerrado.Text = "Cerrados";
             this.chkb_estado_cerrado.UseVisualStyleBackColor = true;
-            this.chkb_estado_cerrado.CheckedChanged += new System.EventHandler(this.chkb_estado_cerrado_CheckedChanged);
+            this.chkb_estado_cerrado.Visible = false;
             // 
             // chkb_estado_aprobado
             // 
@@ -249,7 +219,7 @@
             this.chkb_estado_aprobado.TabIndex = 9;
             this.chkb_estado_aprobado.Text = "Aprobados";
             this.chkb_estado_aprobado.UseVisualStyleBackColor = true;
-            this.chkb_estado_aprobado.CheckedChanged += new System.EventHandler(this.chkb_estado_aprobado_CheckedChanged);
+            this.chkb_estado_aprobado.Visible = false;
             // 
             // label5
             // 
@@ -393,86 +363,31 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Width = 120;
             // 
-            // TM39_ID
+            // listView_Cotizaciones
             // 
-            this.TM39_ID.DataPropertyName = "_TM39_ID";
-            this.TM39_ID.FillWeight = 126.5823F;
-            this.TM39_ID.HeaderText = "Código";
-            this.TM39_ID.Name = "TM39_ID";
-            // 
-            // TM19_DESCRIP2
-            // 
-            this.TM19_DESCRIP2.DataPropertyName = "_TM19_DESCRIP2";
-            this.TM19_DESCRIP2.FillWeight = 265.9851F;
-            this.TM19_DESCRIP2.HeaderText = "Cliente";
-            this.TM19_DESCRIP2.Name = "TM19_DESCRIP2";
-            this.TM19_DESCRIP2.Width = 300;
-            // 
-            // TM19_DESCRIP1
-            // 
-            this.TM19_DESCRIP1.DataPropertyName = "_TM19_DESCRIP1";
-            this.TM19_DESCRIP1.FillWeight = 146.0292F;
-            this.TM19_DESCRIP1.HeaderText = "RUC";
-            this.TM19_DESCRIP1.Name = "TM19_DESCRIP1";
-            this.TM19_DESCRIP1.Width = 120;
-            // 
-            // TM39_DESCRIP
-            // 
-            this.TM39_DESCRIP.DataPropertyName = "_TM39_DESCRIP";
-            this.TM39_DESCRIP.HeaderText = "Nombre de Servicio";
-            this.TM39_DESCRIP.Name = "TM39_DESCRIP";
-            this.TM39_DESCRIP.Width = 300;
-            // 
-            // c_locales_Cant
-            // 
-            this.c_locales_Cant.FillWeight = 41.30978F;
-            this.c_locales_Cant.HeaderText = "Cant Loc";
-            this.c_locales_Cant.Name = "c_locales_Cant";
-            // 
-            // TM39_UCREA
-            // 
-            this.TM39_UCREA.DataPropertyName = "_TM39_UCREA";
-            this.TM39_UCREA.HeaderText = "Creado Por";
-            this.TM39_UCREA.Name = "TM39_UCREA";
-            // 
-            // TM39_FCREA
-            // 
-            this.TM39_FCREA.DataPropertyName = "_TM39_FCREA";
-            this.TM39_FCREA.FillWeight = 39.04712F;
-            this.TM39_FCREA.HeaderText = "Fec Crea";
-            this.TM39_FCREA.Name = "TM39_FCREA";
-            this.TM39_FCREA.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TM39_FCREA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // TM39_ST
-            // 
-            this.TM39_ST.DataPropertyName = "_TM39_ST";
-            this.TM39_ST.FillWeight = 37.14248F;
-            this.TM39_ST.HeaderText = "Estado";
-            this.TM39_ST.Name = "TM39_ST";
-            this.TM39_ST.Width = 60;
-            // 
-            // c_version
-            // 
-            this.c_version.FillWeight = 35.53922F;
-            this.c_version.HeaderText = "Version";
-            this.c_version.Name = "c_version";
-            this.c_version.Width = 120;
+            this.listView_Cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView_Cotizaciones.Location = new System.Drawing.Point(261, 50);
+            this.listView_Cotizaciones.Name = "listView_Cotizaciones";
+            this.listView_Cotizaciones.Size = new System.Drawing.Size(683, 590);
+            this.listView_Cotizaciones.TabIndex = 15;
+            this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
+            this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
             // 
             // frm_01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 640);
+            this.Controls.Add(this.listView_Cotizaciones);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.dgv_cotizaciones);
             this.Controls.Add(this.pnl_left);
             this.MinimumSize = new System.Drawing.Size(960, 600);
             this.Name = "frm_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_cotizaciones)).EndInit();
             this.pnl_left.ResumeLayout(false);
             this.pnl_left.PerformLayout();
             this.pnl_filter_wraper.ResumeLayout(false);
@@ -483,8 +398,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgv_cotizaciones;
         private System.Windows.Forms.Panel pnl_left;
         private System.Windows.Forms.TextBox txt_cliente_or_ruc;
         private System.Windows.Forms.CheckBox chkb_estado_pendiente;
@@ -514,15 +427,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private UserControls.GridTimeControl gridTimeControl1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TM19_DESCRIP2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TM19_DESCRIP1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_DESCRIP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_locales_Cant;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_UCREA;
-        private UserControls.GridTimeControl TM39_FCREA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TM39_ST;
-        private System.Windows.Forms.DataGridViewTextBoxColumn c_version;
+        private System.Windows.Forms.ListView listView_Cotizaciones;
     }
 }
 

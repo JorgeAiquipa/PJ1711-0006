@@ -44,6 +44,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-
-exec pa_tm19_get_001 'c'

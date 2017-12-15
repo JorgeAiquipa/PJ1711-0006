@@ -44,9 +44,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-select * from T_M27;
-
-exec pa_tm27_sel_001 'E93'
-
-

@@ -20,8 +20,10 @@ namespace Win28etug
         public string _TM19_UCREA { get; set; }
         public DateTime _TM19_FCREA { get; set; }
         public string _TM19_UACTUALIZA { get; set; }
-        public string _TM19_FACTUALIZA { get; set; }
+        public DateTime _TM19_FACTUALIZA { get; set; }
         public string _filtro { get; set; }
+        public DateTime _fecha_Inicio { get; set; }
+        public DateTime _fecha_Fin { get; set; }
 
     }
 }

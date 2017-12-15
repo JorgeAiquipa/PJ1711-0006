@@ -7,7 +7,7 @@ GO
 -- Create date: 2017.12.14
 -- Descripcion : Insertamos los datos de la cotizacion iniciada.
 -- =============================================
-CREATE PROCEDURE pa_tm39_set_001
+CREATE PROCEDURE pa_tm39set_001
 
  @p_TM39_DESCRIP varchar(3000)
 --,@p_TM39_ST int
@@ -18,7 +18,9 @@ CREATE PROCEDURE pa_tm39_set_001
 --,@p_TM39_FACTUALIZA
 ,@p_TM39_TM19_ID varchar(10) -- cliente id
 ,@p_TM39_TM2_ID VARCHAR(10)-- PIS
+,@p_CodigoCotizacion varchar(20) output
 ,@p_Mensaje varchar(200) output
+
 AS
 
 BEGIN TRY
@@ -55,14 +57,14 @@ BEGIN TRY
 		,@p_TM39_TM2_ID
 		)
 
-		if (@@ROWCOUNT <= 0)
-			BEGIN
-				set @p_Mensaje = 'Ocurrio un error al registrar la cotizacion'
-			END
+		set @p_CodigoCotizacion = @l_codigo_cotizacion;
+
+		IF @@ROWCOUNT <= 0  
+			SET @p_Mensaje = 'La cotizacion no se registro.'
 END TRY
 BEGIN CATCH
 	ROLLBACK TRAN
-			set @p_Mensaje = 'Ocurrio un error al registrar la cotizacion'
+		SET @p_Mensaje = 'Error al registrar cotización.'
 END CATCH
 GO
 
@@ -72,9 +74,10 @@ GO
 
 select RIGHT('C0000001',7)
 
-SELECT * FROM T_M39;
 
+delete FROM T_M39;
 
+delete from T_R27
 
 select CONCAT('COT',RIGHT((concat('000000000',CAST(RIGHT(isnull(max(TM39_ID),0),5) AS int)+1)),5)) from dbo.T_M39
 

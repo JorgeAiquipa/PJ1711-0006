@@ -34,10 +34,8 @@ namespace SGAP.FORLDER_FRMS
         int _id_tm41;
         string nombre_cliente;
         string ruc_cliente;
-        string direccion_cliente;
         string tipo_servicio;
         string nombre_de_Servicio;
-        int cantidad_locales = 0;
         int cantidad_meses = 0;
 
 
@@ -123,18 +121,10 @@ namespace SGAP.FORLDER_FRMS
         {
             Metodo_obtener_informacion_ingresada();
 
-            //seteamos locales
-            //_entity._lista_et_m27 = _lista_m27;
-
-
             //DIEGO
-            var mi_locales_seleccionados = _lista_m27.Where(local => local._seleccionado == true).ToList();
+            //informacion de locales seleccionados por el usuario
+            _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
             
-            _entity._lista_et_m27 = mi_locales_seleccionados;
-
-            int cantloc = mi_locales_seleccionados.Count;
-
-
             //seteamos informacion del cliente
             _et_m19._TM19_DESCRIP1 = ruc_cliente;
             _et_m19._TM19_DESCRIP2 = nombre_cliente;
@@ -146,11 +136,13 @@ namespace SGAP.FORLDER_FRMS
             _et_m41._TM41_ID = _id_tm41;
             _entity._entity_m41 = _et_m41;
 
+            //informacion de la cotizacion a registrar
             _et_m39._TM39_DESCRIP = string.Format("{0} Para {1}", nombre_de_Servicio,nombre_cliente);//nombre de la cotizacion
-            _et_m39._TM39_UCREA = "Cesar.Freitas";
             _et_m39._TM39_TM19_ID = _id_tm19;
 
-            _nt_m39.set_001(_et_m39);
+            _entity._entity_m39 = _et_m39;
+
+            _nt_m39.set_001(_entity);
 
             //frm_02 FORM_ = new frm_02(_entity);
             //FORM_.ShowDialog();

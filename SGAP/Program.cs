@@ -16,7 +16,7 @@ namespace SGAP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_01());
+            Application.Run(new FOLDER_FRMS.frm_01());
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Win32dtug
 
         public static bool Abrir_conexion()
         {
+            string cnx = ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString();
             string DataSource = Properties.Settings.Default.DataSource;
             string InitialCatalog = Properties.Settings.Default.InitialCatalog;
             string User =Properties.Settings.Default.User;

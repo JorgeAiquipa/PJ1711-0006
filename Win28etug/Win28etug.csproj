@@ -47,11 +47,11 @@
     <Compile Include="ET_M19.cs" />
     <Compile Include="ET_entidad.cs" />
     <Compile Include="ET_M27.cs" />
-    <Compile Include="ET_M31.cs" />
     <Compile Include="ET_M38.cs" />
     <Compile Include="ET_M39.cs" />
     <Compile Include="ET_M41.cs" />
     <Compile Include="ET_servicio.cs" />
+    <Compile Include="ET_TR27.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

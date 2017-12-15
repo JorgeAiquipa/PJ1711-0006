@@ -13,7 +13,7 @@ using Win28ntug;
 
 namespace SGAP.FORLDER_FRMS
 {
-    public partial class frm_02 : Form
+    public partial class frm_01_2 : Form
     {
 
 
@@ -22,6 +22,10 @@ namespace SGAP.FORLDER_FRMS
         ET_entidad _entidad = new ET_entidad();
         NT_M38 _nt_m38 = new NT_M38();
 
+        //Diego
+        int cant;
+        //
+
 
         NT_cotizador ctr_cotizador_ = new NT_cotizador();
         int __id_tm41;
@@ -29,16 +33,18 @@ namespace SGAP.FORLDER_FRMS
         #endregion
 
         #region Metodos
-        public frm_02(ET_entidad _entity)
+        public frm_01_2(ET_entidad _entity)
         {
             InitializeComponent();
             
+            //Diego
+            CreateColumn(cant);
+            //
 
             this.BringToFront();
 
             this.tree_view_servicios.ContextMenuStrip = this.contextMenuStrip_tree_view;
             _entidad = _entity;
-
             __id_tm41 = _entity._entity_m41._TM41_ID;
             Metodo_Obtener_conceptos_default();
 
@@ -55,15 +61,9 @@ namespace SGAP.FORLDER_FRMS
             }
 
             DisplayPanel(0);
-
-
-            //Diego
-            CreateColumn();
-            //
-
         }
 
-
+         
         void Metodo_Obtener_conceptos_default()
         {
 
@@ -209,36 +209,19 @@ namespace SGAP.FORLDER_FRMS
 
 
         //diego
-        private void CreateColumn()
+        private void CreateColumn(int cant)
         {
-            //int cantd =_entidad._lista_et_m27.Count;
-            try
-            {
-                int index = 1;
+          
+            // Initialize the column.
+            DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn();
+            Column.Name = "local1";
+            Column.HeaderText = "LOCAL 1";
 
-                listView_materiales_equipos.Columns.Add("Nombre", 200, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Codigo", 100, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Marca", 60, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Und", -2, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Maquinaria", -2, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Equipos", -2, HorizontalAlignment.Left);
+            // Add the column to the control.
+            dataGridView1.Columns.Insert(6, Column);
 
-                foreach (ET_M27 fila in _entidad._lista_et_m27)
-                {
-                    listView_materiales_equipos.Columns.Add(string.Format("Local {0}", fila._TM27_NOMBRE), -2, HorizontalAlignment.Left);
-                    index++;
-                }
-            }
-
-            catch (Exception ex){
-            }
-            listView_materiales_equipos.Columns.Add("Cantidad Total", -2, HorizontalAlignment.Left);
-            listView_materiales_equipos.Columns.Add("Costo Unitario", -2, HorizontalAlignment.Left);
-            listView_materiales_equipos.Columns.Add("Costo Total", -2, HorizontalAlignment.Left);
-
-
-            
         }
+
 
         #region Mano de obra
         //
@@ -250,9 +233,7 @@ namespace SGAP.FORLDER_FRMS
 
         #endregion
 
-        private void listView_materiales_equipos_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
+
     }
 }

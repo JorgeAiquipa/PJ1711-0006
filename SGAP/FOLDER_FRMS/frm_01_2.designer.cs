@@ -1,6 +1,6 @@
 ﻿namespace SGAP.FORLDER_FRMS
 {
-    partial class frm_02
+    partial class frm_01_2
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStrip_tree_view = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStreep_Agregar_servicio_complementario = new System.Windows.Forms.ToolStripMenuItem();
             this.quitarServicioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +49,16 @@
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.listView_materiales_equipos = new System.Windows.Forms.ListView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maq = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.equipo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cant_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costo_unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costo_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -80,6 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -240,9 +250,72 @@
             // 
             // dias_x_semana
             // 
-            dataGridViewCellStyle2.NullValue = "0";
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
-            this.dias_x_semana.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.NullValue = "0";
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            this.dias_x_semana.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dias_x_semana.HeaderText = "DxS";
+            this.dias_x_semana.MinimumWidth = 80;
+            this.dias_x_semana.Name = "dias_x_semana";
+            this.dias_x_semana.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dias_x_semana.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dias_x_semana.Width = 116;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(787, 172);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // split_mano_obra
+            // 
+            this.split_mano_obra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_mano_obra.Location = new System.Drawing.Point(0, 22);
+            this.split_mano_obra.Name = "split_mano_obra";
+            this.split_mano_obra.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // split_mano_obra.Panel1
+            // 
+            this.split_mano_obra.Panel1.Controls.Add(this.dgv_entrada_datos_mano_de_obra);
+            // 
+            // split_mano_obra.Panel2
+            // 
+            this.split_mano_obra.Panel2.Controls.Add(this.dataGridView2);
+            this.split_mano_obra.Size = new System.Drawing.Size(787, 347);
+            this.split_mano_obra.SplitterDistance = 171;
+            this.split_mano_obra.TabIndex = 7;
+// 
+            // cargo
+            // 
+            this.cargo.HeaderText = "Tipo cargo";
+            this.cargo.Name = "cargo";
+            this.cargo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cargo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.cargo.Width = 180;
+            // 
+            // hora_entrada
+            // 
+            this.hora_entrada.HeaderText = "Hora Entrada";
+            this.hora_entrada.Name = "hora_entrada";
+            this.hora_entrada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.hora_entrada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.hora_entrada.Width = 120;
+            // 
+            // hora_salida
+            // 
+            this.hora_salida.HeaderText = "Hora Salida";
+            this.hora_salida.Name = "hora_salida";
+            this.hora_salida.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.hora_salida.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.hora_salida.Width = 120;
+            // 
+            // dias_x_semana
+            // 
+            dataGridViewCellStyle1.NullValue = "0";
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            this.dias_x_semana.DefaultCellStyle = dataGridViewCellStyle1;
             this.dias_x_semana.HeaderText = "DxS";
             this.dias_x_semana.MinimumWidth = 80;
             this.dias_x_semana.Name = "dias_x_semana";
@@ -284,7 +357,7 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.listView_materiales_equipos);
+            this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Controls.Add(this.label11);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
@@ -292,16 +365,85 @@
             this.panel3.Size = new System.Drawing.Size(787, 369);
             this.panel3.TabIndex = 4;
             // 
-            // listView_materiales_equipos
+            // dataGridView1
             // 
-            this.listView_materiales_equipos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_materiales_equipos.Location = new System.Drawing.Point(0, 22);
-            this.listView_materiales_equipos.Name = "listView_materiales_equipos";
-            this.listView_materiales_equipos.Size = new System.Drawing.Size(787, 347);
-            this.listView_materiales_equipos.TabIndex = 9;
-            this.listView_materiales_equipos.UseCompatibleStateImageBehavior = false;
-            this.listView_materiales_equipos.View = System.Windows.Forms.View.Details;
-            this.listView_materiales_equipos.SelectedIndexChanged += new System.EventHandler(this.listView_materiales_equipos_SelectedIndexChanged);
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nombre,
+            this.codigo,
+            this.marca,
+            this.und,
+            this.maq,
+            this.equipo,
+            this.cant_total,
+            this.costo_unit,
+            this.costo_total});
+            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(780, 150);
+            this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // nombre
+            // 
+            this.nombre.FillWeight = 46.25288F;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            // 
+            // codigo
+            // 
+            this.codigo.FillWeight = 46.25288F;
+            this.codigo.HeaderText = "Código";
+            this.codigo.Name = "codigo";
+            // 
+            // marca
+            // 
+            this.marca.FillWeight = 46.25288F;
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            // 
+            // und
+            // 
+            this.und.FillWeight = 46.25288F;
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            // 
+            // maq
+            // 
+            this.maq.FillWeight = 41.03411F;
+            this.maq.HeaderText = "Maquina";
+            this.maq.Name = "maq";
+            this.maq.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.maq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // equipo
+            // 
+            this.equipo.FillWeight = 50F;
+            this.equipo.HeaderText = "Equipo";
+            this.equipo.Name = "equipo";
+            this.equipo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.equipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // cant_total
+            // 
+            this.cant_total.FillWeight = 46.25288F;
+            this.cant_total.HeaderText = "Cant. Total";
+            this.cant_total.Name = "cant_total";
+            // 
+            // costo_unit
+            // 
+            this.costo_unit.FillWeight = 46.25288F;
+            this.costo_unit.HeaderText = "Costo Unitario";
+            this.costo_unit.Name = "costo_unit";
+            // 
+            // costo_total
+            // 
+            this.costo_total.FillWeight = 46.25288F;
+            this.costo_total.HeaderText = "Costo Total";
+            this.costo_total.Name = "costo_total";
             // 
             // label11
             // 
@@ -480,6 +622,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
@@ -528,6 +671,15 @@
         private UserControls.GridTimeControl hora_entrada;
         private UserControls.GridTimeControl hora_salida;
         private UserControls.NumericUpDownColumn dias_x_semana;
-        private System.Windows.Forms.ListView listView_materiales_equipos;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn marca;
+        private System.Windows.Forms.DataGridViewTextBoxColumn und;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn maq;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn equipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cant_total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costo_unit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costo_total;
     }
 }

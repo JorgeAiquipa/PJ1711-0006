@@ -20,8 +20,17 @@ namespace Win28etug
         public string _TM39_TM2_ID { get; set; }
 
         public ET_M19 _entity_et_m19 { get; set; }
+        public ET_M39()
+        {
+            ET_M19 _entity_et_m19 = new ET_M19();
+        }
         public string _TM19_ID { get; set; }
         public string _TM19_DESCRIP1 { get; set; }
         public string _TM19_DESCRIP2 { get; set; }
+        public string _filtro { get; set; }
+        public DateTime _fecha_Inicio { get; set; }
+        public DateTime _fecha_Fin { get; set; }
+
+        public int _TM39_tm27_count { get; set; }
     }
 }

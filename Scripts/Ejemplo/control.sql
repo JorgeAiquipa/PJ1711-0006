@@ -1,9 +1,15 @@
 SELECT 
--- *
-CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
+
+--CONCAT(',',COLUMN_NAME)
+*
+--CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
+
+--CONCAT('_etm39._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
 FROM INFORMATION_SCHEMA.COLUMNS
 
-WHERE TABLE_NAME = 'T_M39'
+WHERE TABLE_NAME = 'T_r27'
 
 -- CREAMOS UN CODIGO PARA LA COTIZACION 
 
+
+select * from T_R27
