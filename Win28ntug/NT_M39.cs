@@ -12,11 +12,15 @@ namespace Win28ntug
     {
         DT_M39 _dt_m39 = new DT_M39();
         DT_R27 _dt_r27 = new DT_R27();
+        DT_R28 _dt_r28 = new DT_R28();
+
         ET_globales _globales = new ET_globales();
         ET_entidad _entity = new ET_entidad();
         public ET_M39 _et_m39 = new ET_M39();
         ET_M27 _et_m27 = new ET_M27();
         ET_R27 _et_r27 = new ET_R27();
+
+        ET_R28 _et_r28 = new ET_R28();
 
         List<ET_M39> _lista_mt39 = new List<ET_M39>();
 
@@ -42,6 +46,16 @@ namespace Win28ntug
 
                         _dt_r27.set_001(_et_r27);
                     }
+
+                    _et_r28 = new ET_R28();
+                    //registramos servicio padre
+                    _et_r28._TR28_TM39_ID = codigo_cotizacion;
+                    _et_r28._TR28_TM41_ID = _obj._entity_m41._TM41_ID;
+                    _et_r28._TR28_PERIODO = _obj._entity_r28._TR28_PERIODO;
+                    _et_r28._TR28_DESCRIP = _obj._entity_m41._TM41_DESCRIP;
+
+                    _entity = _dt_r28.set_001(_et_r28);
+
                 }
                 catch (Exception ex)
                 { }

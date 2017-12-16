@@ -19,11 +19,13 @@ namespace SGAP.FORLDER_FRMS
         ET_M19 _et_m19 = new ET_M19();
         ET_M41 _et_m41 = new ET_M41();
         ET_M39 _et_m39 = new ET_M39();
+        ET_R28 _et_r28 = new ET_R28();
 
         NT_M19 _nt_m19 = new NT_M19();
         NT_M27 _nt_m27 = new NT_M27();
         NT_M41 _nt_m41 = new NT_M41();
         NT_M39 _nt_m39 = new NT_M39();
+        NT_R28 _nt_r28 = new NT_R28();
 
         NT_servicio _nt_servicio = new NT_servicio();
         List<ET_M27> _lista_m27 = new List<ET_M27>();
@@ -141,6 +143,7 @@ namespace SGAP.FORLDER_FRMS
             _et_m39._TM39_TM19_ID = _id_tm19;
 
             _entity._entity_m39 = _et_m39;
+            _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
 
             _nt_m39.set_001(_entity);
 

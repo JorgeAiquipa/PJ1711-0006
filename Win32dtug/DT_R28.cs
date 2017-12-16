@@ -30,20 +30,24 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_tm39set_001", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tr28set_001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    cmd.Parameters.Add("@p_Mensaje", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
-                    //cmd.Parameters.Add("@p_TM39_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TM39_DESCRIP;
-                    //cmd.Parameters.Add("@p_TM39_UCREA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
-                    //cmd.Parameters.Add("@p_TM39_TM19_ID", SqlDbType.VarChar, 10).Value = objEntity._TM39_TM19_ID;
-                    //cmd.Parameters.Add("@p_TM39_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
+                    cmd.Parameters.Add("@p_TR28_PADRE", SqlDbType.Int ).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@p_TR28_TM39_ID", SqlDbType.VarChar, 300).Value = objEntity._TR28_TM39_ID;
+                    cmd.Parameters.Add("@p_TR28_TM41_ID", SqlDbType.VarChar, 300).Value = objEntity._TR28_TM41_ID;
+                    cmd.Parameters.Add("@p_TR28_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR28_DESCRIP;
+                    cmd.Parameters.Add("@p_TR28_PERIODO", SqlDbType.VarChar, 300).Value = objEntity._TR28_PERIODO;
+                    cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 300).Value = _globales._U_CREA;
+                    cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 20).Value = _globales._TM2_ID;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
 
-                    Msg_respuesta = cmd.Parameters["@p_Mensaje"].Value.ToString();
+                    Msg_respuesta = cmd.Parameters["@P_MENSAJE_RESPUESTA"].Value.ToString();
 
+                    _Entidad._entity_r28._TR28_PADRE = Convert.ToInt32(cmd.Parameters["@p_TR28_PADRE"].Value.ToString());
                     _Entidad._hubo_error = false;
                 }
                 catch (SqlException exsql)

@@ -9,7 +9,8 @@ GO
 -- =============================================
 CREATE PROCEDURE pa_tm27_sel_001
 	--@p_mensaje_respuesta varchar(250) output,
-	@p_TM27_TM19_ID varchar(10)
+	 @p_TM27_TM19_ID varchar(10)
+	,@P_TM27_TM2_ID VARCHAR(20)
 AS
 
 BEGIN TRY
@@ -34,6 +35,8 @@ BEGIN TRY
 	FROM 
 		T_M27
 	WHERE
+		TM27_TM2_ID LIKE @P_TM27_TM2_ID 
+		AND
 		TM27_TM19_ID LIKE @p_TM27_TM19_ID
 
 END TRY
@@ -44,3 +47,5 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
+
+exec pa_tm27_sel_001 'e1','pis'

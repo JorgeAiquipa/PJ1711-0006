@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tm39_set_001]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_tm39_set_001;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tm39set_001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tm39set_001;
 GO
 
 -- =============================================
@@ -75,9 +75,9 @@ GO
 select RIGHT('C0000001',7)
 
 
-delete FROM T_M39;
+select *  FROM T_M39;
 
-delete from T_R27
+select * from T_R27
 
 select CONCAT('COT',RIGHT((concat('000000000',CAST(RIGHT(isnull(max(TM39_ID),0),5) AS int)+1)),5)) from dbo.T_M39
 

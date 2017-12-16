@@ -14,6 +14,7 @@ namespace Win32dtug
     {
         DT_CNX _cnx = new DT_CNX();
         ET_entidad _Entidad = new ET_entidad();
+        ET_globales _globales = new ET_globales();
         ET_M27 _etm27 = new ET_M27();
         List<ET_M27> _lista = new List<ET_M27>();
 /*
@@ -77,6 +78,8 @@ namespace Win32dtug
                 try
                 {
                     cmd.Parameters.Add("@p_TM27_TM19_ID", SqlDbType.VarChar, 10).Value = objEntity._TM19_ID;
+                    cmd.Parameters.Add("@P_TM27_TM2_ID", SqlDbType.VarChar, 20).Value = _globales._TM2_ID;
+                    
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);
