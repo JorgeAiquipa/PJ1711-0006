@@ -94,15 +94,8 @@ namespace SGAP.FORLDER_FRMS
              * Solo aquellas que tengas los campos llenos
              * Se validara por cada campo ingresado
              */
-            Metodo_Validar_ingreso_de_locales();
-
-            cantidad_meses = Convert.ToInt16(nupd_periodo_de_servicio.Value);
-        }
-
-        void Metodo_Validar_ingreso_de_locales()
-        {
             int filas_encontradas = dgv_informacion_locales.RowCount;
-
+            cantidad_meses = Convert.ToInt16(nupd_periodo_de_servicio.Value);
         }
         #endregion
 
@@ -144,16 +137,12 @@ namespace SGAP.FORLDER_FRMS
             _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
 
 
-
-
             var result  = _nt_m39.set_001(_entity);
 
             _entity._entity_m39._TM39_ID = result;
             _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
             _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
 
-            //frm_02 FORM_ = new frm_02(_entity);
-            //FORM_.ShowDialog();
             this.Hide();
         }
 
@@ -162,7 +151,7 @@ namespace SGAP.FORLDER_FRMS
             this.Close();
         }
 
-        // Este eventio valida lo que se ingresa en cada celda
+        // Este evento valida lo que se ingresa en cada celda
         private void dgv_informacion_locales_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             if (!dgv_informacion_locales.Rows[e.RowIndex].IsNewRow)

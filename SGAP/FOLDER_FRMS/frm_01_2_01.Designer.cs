@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.btn_continuar = new System.Windows.Forms.Button();
             this.dgv_entrada_datos_mano_de_obra = new System.Windows.Forms.DataGridView();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hora_entrada = new SGAP.UserControls.GridTimeControl();
             this.hora_salida = new SGAP.UserControls.GridTimeControl();
             this.dias_x_semana = new SGAP.UserControls.NumericUpDownColumn();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +81,9 @@
             this.dgv_entrada_datos_mano_de_obra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_entrada_datos_mano_de_obra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_entrada_datos_mano_de_obra.BackgroundColor = System.Drawing.Color.White;
+            this.dgv_entrada_datos_mano_de_obra.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgv_entrada_datos_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_entrada_datos_mano_de_obra.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cargo,
@@ -93,43 +96,10 @@
             this.dgv_entrada_datos_mano_de_obra.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(569, 312);
             this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
+            this.dgv_entrada_datos_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEndEdit);
+            this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
+            this.dgv_entrada_datos_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded);
             this.dgv_entrada_datos_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_entrada_datos_mano_de_obra_EditingControlShowing);
-            // 
-            // cargo
-            // 
-            this.cargo.HeaderText = "Tipo cargo";
-            this.cargo.Name = "cargo";
-            this.cargo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cargo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cargo.Width = 180;
-            // 
-            // hora_entrada
-            // 
-            this.hora_entrada.HeaderText = "Hora Entrada";
-            this.hora_entrada.Name = "hora_entrada";
-            this.hora_entrada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.hora_entrada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.hora_entrada.Width = 120;
-            // 
-            // hora_salida
-            // 
-            this.hora_salida.HeaderText = "Hora Salida";
-            this.hora_salida.Name = "hora_salida";
-            this.hora_salida.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.hora_salida.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.hora_salida.Width = 120;
-            // 
-            // dias_x_semana
-            // 
-            dataGridViewCellStyle2.NullValue = "0";
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
-            this.dias_x_semana.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dias_x_semana.HeaderText = "DxS";
-            this.dias_x_semana.MinimumWidth = 80;
-            this.dias_x_semana.Name = "dias_x_semana";
-            this.dias_x_semana.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dias_x_semana.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dias_x_semana.Width = 116;
             // 
             // label10
             // 
@@ -142,6 +112,36 @@
             this.label10.TabIndex = 6;
             this.label10.Text = "Ingreso de cargos y horarios.";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // cargo
+            // 
+            this.cargo.HeaderText = "Cargo";
+            this.cargo.Name = "cargo";
+            // 
+            // hora_entrada
+            // 
+            this.hora_entrada.HeaderText = "Hora entrada";
+            this.hora_entrada.Name = "hora_entrada";
+            this.hora_entrada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.hora_entrada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // hora_salida
+            // 
+            this.hora_salida.HeaderText = "Hora salida";
+            this.hora_salida.Name = "hora_salida";
+            this.hora_salida.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.hora_salida.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dias_x_semana
+            // 
+            this.dias_x_semana.HeaderText = "Dias por semana";
+            this.dias_x_semana.Name = "dias_x_semana";
+            this.dias_x_semana.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dias_x_semana.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // frm_01_2_01
             // 
@@ -164,10 +164,11 @@
         private System.Windows.Forms.Button btn_cancelar;
         private System.Windows.Forms.Button btn_continuar;
         private System.Windows.Forms.DataGridView dgv_entrada_datos_mano_de_obra;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn cargo;
         private UserControls.GridTimeControl hora_entrada;
         private UserControls.GridTimeControl hora_salida;
         private UserControls.NumericUpDownColumn dias_x_semana;
-        private System.Windows.Forms.Label label10;
     }
 }

@@ -43,6 +43,7 @@ namespace Win28ntug
 
                 result._lista_et_r28.ForEach(x =>
                 {
+                    //Id_servicio_hijo = x._TR28_ID;
                     Id_servicio_Padre = x._TR28_PADRE;
                     Periodo_Servicio = x._TR28_PERIODO;
 
@@ -63,8 +64,9 @@ namespace Win28ntug
                     TreeNode node = new TreeNode(x._TR28_DESCRIP, new TreeNode[] {
                         mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
                     });
-                    node.Name = x._TR28_DESCRIP;
+                    node.Text = x._TR28_DESCRIP;
                     node.Tag = 1000;
+                    node.Name = x._TR28_ID.ToString();
                     z_index++;
 
                     nodo_principal.Nodes.Add(node);

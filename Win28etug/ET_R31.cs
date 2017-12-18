@@ -8,6 +8,7 @@ namespace Win28etug
 {
     public class ET_R31
     {
+        public int _Fila { get; set; }
         public int _TR31_ID { get; set; }
         public int _TR31_TR29_ID { get; set; }
         public int _TR31_TR27_ID { get; set; }
