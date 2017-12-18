@@ -15,6 +15,7 @@ namespace SGAP.FORLDER_FRMS
 {
     public partial class frm_01_2 : Form
     {
+
         #region Variables
 
         ET_entidad _entidad = new ET_entidad();
@@ -22,6 +23,15 @@ namespace SGAP.FORLDER_FRMS
         NT_M41 _nt_m41 = new NT_M41();
         NT_R28 _nt_r28 = new NT_R28();
         NT_R27 _nt_r27 = new NT_R27();
+        NT_M31 _nt_m31 = new NT_M31();
+        ET_M31 _et_m31 = new ET_M31();
+        List<ET_M31> _lista_m31 = new List<ET_M31>();
+        
+        public string nom;
+        public string cod;
+        public string marc;
+        public string undad;
+        public string precio;
 
         #endregion
 
@@ -145,7 +155,22 @@ namespace SGAP.FORLDER_FRMS
         #endregion
 
         #region Maquinaria y equipo
-
+        //diego
+        private void CreateColumn()
+        {            
+            int index = 1;
+            foreach (ET_M27 fila in _entidad._lista_et_m27)
+            {
+                // Initialize the button column.
+                DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn
+                {
+                    HeaderText = string.Format("{0}", fila._TM27_NOMBRE),
+                };
+                // Add the column to the control.
+                dgv_entrada_datos_mq_eq.Columns.Insert(6, Column);                
+                index++;
+            }
+        }
         #endregion
 
 
@@ -167,64 +192,79 @@ namespace SGAP.FORLDER_FRMS
 
         }
 
-        #region Mano de obra
+        private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            //tiene lugar cuando se clickea el contenido de una celda
 
-
-        #endregion
-
-            }
-
-
-            //diego
-            private void CreateColumn()
+            string column_name = dgv_entrada_datos_mq_eq.Columns[0].Name; // nombre
+            if (column_name.Equals("nombre"))
             {
+                TextBox auto_text = e.Control as TextBox;
 
-
-
-            int index = 1;
-            foreach (ET_M27 fila in _entidad._lista_et_m27)
-            {
-                // Initialize the button column.
-                DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn
+                if (auto_text != null)
                 {
-                    HeaderText = string.Format("{0}", fila._TM27_NOMBRE),
-                };
-                // Add the column to the control.
-                dataGridView1.Columns.Insert(6, Column);
-                index++;
+                    auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                    ET_entidad _entidades_ = new ET_entidad();
+
+                    _entidades_= _nt_m31.gridTextBoxAutocomplete(auto_text);
+                    _lista_m31 = _entidades_._lista_et_m31;                
+                }
             }
 
-
-
-            ////int cantd =_entidad._lista_et_m27.Count;
-            //try
-            //{
-            //        //int index = 1;
-
-            //        listView_materiales_equipos.Columns.Add("Nombre", 200, HorizontalAlignment.Left);
-            //        listView_materiales_equipos.Columns.Add("Codigo", 100, HorizontalAlignment.Left);
-            //        listView_materiales_equipos.Columns.Add("Marca", 60, HorizontalAlignment.Left);
-            //        listView_materiales_equipos.Columns.Add("Und", -2, HorizontalAlignment.Left);
-            //        listView_materiales_equipos.Columns.Add("Maquinaria", -2, HorizontalAlignment.Left);
-            //        listView_materiales_equipos.Columns.Add("Equipos", -2, HorizontalAlignment.Left);
-
-            //        foreach (ET_M27 fila in _entidad._lista_et_m27)
-            //        {
-            //            listView_materiales_equipos.Columns.Add(string.Format("{0}", fila._TM27_NOMBRE), -2, HorizontalAlignment.Left);
-            //            index++;
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //    }
-            //    listView_materiales_equipos.Columns.Add("Cantidad Total", -2, HorizontalAlignment.Left);
-            //    listView_materiales_equipos.Columns.Add("Costo Unitario", -2, HorizontalAlignment.Left);
-            //    listView_materiales_equipos.Columns.Add("Costo Total", -2, HorizontalAlignment.Left);
-
-
-
         }
-        #endregion
 
+        private void dgv_entrada_datos_mq_eq_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+            //dvg_entrada_datos_mq_eq.Rows.Add(_lista_m31._TM31_DESCRIP, _et_m31._TM31_ID);
+
+            //string codigo = string.Format(_et_m31._TM31_ID);
+            //string nombre = _et_m31._TM31_DESCRIP;
+            //dgv_entrada_datos_mq_eq.Rows.Add("TV", "PRO03");  
+
+            //int cont = _entidad._lista_et_m27.count;
+
+            //DataGridViewRow fila = new DataGridViewRow();
+            //fila.CreateCells(dgv_entrada_datos_mq_eq);
+            //fila.Cells[0].Value = nom;
+            //fila.Cells[1].Value = codigo;
+
+            //dgv_entrada_datos_mq_eq.Rows.Add(fila);
         }
+
+
+        private void dgv_entrada_datos_mq_eq_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            string nombre = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name;
+            if (nombre=="nombre")
+            {
+                bool existe = _lista_m31.Any(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
+                if (existe)
+                {
+                    ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
+
+                    nom = fila._TM31_DESCRIP;//
+                    cod = fila._TM31_ID;
+                    marc = fila._TM31_TM33_ID;
+                    undad = fila._TM31_TM72_ID;
+                    precio = fila._TM31_PRECIO;
+                }
+            }
+            
+        }
+
+        private void dgv_entrada_datos_mq_eq_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow fila = new DataGridViewRow();
+            fila.CreateCells(dgv_entrada_datos_mq_eq);
+            //fila.Cells[0].Value = nom;
+            fila.Cells[1].Value = cod;
+            fila.Cells[2].Value = marc;
+            fila.Cells[3].Value = undad;
+
+            dgv_entrada_datos_mq_eq.Rows.Add(fila);
+        }
+    }
     }
