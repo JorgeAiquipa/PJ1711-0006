@@ -485,48 +485,41 @@
             // 
             // Codigo
             // 
-            this.Codigo.Frozen = true;
             this.Codigo.HeaderText = "Codigo";
             this.Codigo.Name = "Codigo";
             // 
             // marca
             // 
-            this.marca.Frozen = true;
             this.marca.HeaderText = "Marca";
             this.marca.Name = "marca";
             this.marca.Width = 60;
             // 
             // und
             // 
-            this.und.Frozen = true;
             this.und.HeaderText = "Und.";
             this.und.Name = "und";
             this.und.Width = 40;
             // 
             // maquinaria
             // 
-            this.maquinaria.Frozen = true;
             this.maquinaria.HeaderText = "Maquinaria";
             this.maquinaria.Name = "maquinaria";
             this.maquinaria.Width = 70;
             // 
             // equipos
             // 
-            this.equipos.Frozen = true;
             this.equipos.HeaderText = "Equipos";
             this.equipos.Name = "equipos";
             this.equipos.Width = 60;
             // 
             // cantotal
             // 
-            this.cantotal.Frozen = true;
             this.cantotal.HeaderText = "Cant. Total";
             this.cantotal.Name = "cantotal";
             this.cantotal.Width = 60;
             // 
             // costounitario
             // 
-            this.costounitario.Frozen = true;
             this.costounitario.HeaderText = "Costo Unitario";
             this.costounitario.Name = "costounitario";
             this.costounitario.Width = 60;
