@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 using Win28etug;
 using Win32dtug;
 
@@ -33,8 +33,6 @@ namespace Win28ntug
 
             return _entidad;
         }
-
-
 
         #region Mensaje
         protected virtual void Mensaje(ET_entidad e)

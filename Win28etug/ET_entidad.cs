@@ -28,6 +28,8 @@ namespace Win28etug
         public List<ET_M41> _lista_et_m41 { get; set; }
         public List<ET_M38> _lista_et_m38 { get; set; }
         public List<ET_M39> _lista_et_m39 { get; set; }
+        public List<ET_R28> _lista_et_r28 { get; set; }
+        public List<ET_R27> _lista_et_r27 { get; set; }
 
 
         public ET_M19 _entity_m19 { get; set; }
@@ -40,24 +42,8 @@ namespace Win28etug
         {
             _entity_r28 = new ET_R28();
             _entity_r27 = new ET_R27();
+            _entity_m39 = new ET_M39();
         }
     }
-    public interface ET_generic<T>
-    {
-        //LISTAR
-        List<T> get_list();
-        //FILTRAR
-        List<T> filter_list(T objEntity);
-        //BUSCAR SELECCIONAR
-        T search(T objEntity);
-        //INSERTAR
-        bool insert_01(T objEntity);
-        //ACTUALIZAR
-        bool update_01(T objEntity);
-        //BORRAR
-        bool delete_01(T objEntity);
-
-    }
-
-
+ 
 }

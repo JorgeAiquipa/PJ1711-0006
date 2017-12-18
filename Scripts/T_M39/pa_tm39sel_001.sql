@@ -1,17 +1,16 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tm39_get_002]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_tm39_get_002;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tm39sel_001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tm39sel_001;
 GO
 
 -- =============================================
 -- Author:		cesar.freitas
--- Create date: 2017.12.15
--- Descripcion : Procedimiento para leer las cotizaciones.
+-- Create date: 2017.12.16
+-- Descripcion : Procedimiento para obtener la cabecera de una cotizacion.
 -- =============================================
-CREATE PROCEDURE pa_tm39get_002
- @p_TM39_TM2_ID VARCHAR(10)-- PIS
-,@p_tm19_filtro varchar(50)
-,@p_Fecha_Inicio DATETIME
-,@p_Fecha_Fin DATETIME
+CREATE PROCEDURE pa_tm39sel_001
+ @P_TM39_TM2_ID VARCHAR(10)-- PIS -- CODIGO DE EMPRESA
+,@P_TM39_ID VARCHAR(20) -- CODIGO DE COTIZACION
+,@P_TM39_TM19_ID VARCHAR(10) -- ID DEL CLIENTE
 AS
 
 BEGIN TRY
@@ -33,6 +32,13 @@ BEGIN TRY
 			,_tm_19.TM19_DESCRIP1 --RUC
 			,_tm_19.TM19_DESCRIP2 --RAZON SOCIAL
 			,_tm_19.TM19_ID --ID ENTIDAD (CLIENTE)
+			,(
+				select 
+					COUNT(*) AS cant_locales 
+				from t_R27 where 
+					TR27_TM2_ID = TM39_TM2_ID AND
+					TR27_TM39_ID = TM39_ID
+			) as _TM39_tm27_count
 			FROM
 
 			DBO.T_M39 as _t_m39 join 
@@ -44,16 +50,11 @@ BEGIN TRY
 			_t_m39.TM39_TM19_ID = _tm_19.TM19_ID
 
 			WHERE
-			TM39_TM2_ID = @p_TM39_TM2_ID
-			and 
-			(
-			_tm_19.TM19_DESCRIP1 like concat('%',@p_tm19_filtro,'%') or
-			_tm_19.TM19_DESCRIP2 like concat('%',@p_tm19_filtro,'%')
-			)
-			and
-			(
-			_t_m39.TM39_FCREA between @p_Fecha_Inicio and @p_Fecha_Fin
-			)
+			TM39_TM2_ID = @P_TM39_TM2_ID
+			AND 
+			TM39_ID = @P_TM39_ID
+			AND
+			TM39_TM19_ID = @P_TM39_TM19_ID
 
 END TRY
 BEGIN CATCH
@@ -62,3 +63,9 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
+
+
+exec pa_tm39sel_001 'pis','COT00030','e134'
+
+
+SELECT * FROM T_M41

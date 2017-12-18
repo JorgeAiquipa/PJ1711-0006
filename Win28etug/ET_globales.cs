@@ -10,7 +10,8 @@ namespace Win28etug
     {
         // variables globales
         public string _TM2_ID = "PIS";
-        //public string _U_CREA = "CESAR1";
-        public string _U_CREA = "DIEGO1";
+        public string _U_CREA = "CESAR1";
+
+
     }
 }

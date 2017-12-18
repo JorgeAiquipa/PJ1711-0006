@@ -15,193 +15,162 @@ namespace SGAP.FORLDER_FRMS
 {
     public partial class frm_01_2 : Form
     {
-            #region Variables
+        #region Variables
 
-            ET_entidad _entidad = new ET_entidad();
-            NT_M38 _nt_m38 = new NT_M38();
+        ET_entidad _entidad = new ET_entidad();
+        NT_M38 _nt_m38 = new NT_M38();
+        NT_M41 _nt_m41 = new NT_M41();
+        NT_R28 _nt_r28 = new NT_R28();
+        NT_R27 _nt_r27 = new NT_R27();
 
+        #endregion
 
-            NT_cotizador ctr_cotizador_ = new NT_cotizador();
-            int __id_tm41;
+        #region Metodos
+        public frm_01_2(ET_entidad _entity, bool editar = false)
+        {
+            InitializeComponent();
+            this.BringToFront();
+            this.tree_view_servicios.ContextMenuStrip = this.contextMenuStrip_tree_view;
+            _entidad = _entity;
 
-            #endregion
+            // obtener los servicios 
+            _nt_r28.get_001(_entity, tree_view_servicios);
 
-            #region Metodos
-            public frm_01_2(ET_entidad _entity)
+            if (editar)
             {
-                InitializeComponent();
 
 
-                this.BringToFront();
-
-                this.tree_view_servicios.ContextMenuStrip = this.contextMenuStrip_tree_view;
-                _entidad = _entity;
-
-                __id_tm41 = _entity._entity_m41._TM41_ID;
-                Metodo_Obtener_conceptos_default();
-
-                tabControl1.Visible = false;
-
-                foreach (TabPage page in tabControl1.TabPages)
-                {
-                    Panel panel = page.Controls[0] as Panel;
-                    Panels.Add(panel);
-
-                    panel.Parent = tabControl1.Parent;
-                    panel.Location = tabControl1.Location;
-                    panel.Visible = false;
-                }
-
-                DisplayPanel(0);
-
-
-                //Diego
-                CreateColumn();
-                //
-
+                
+                //obtener los locales que posee la cotizacion seleccionada
+                //_entidad
+                _entidad._entity_r27._TR27_TM39_ID = _entidad._entity_m39._TM39_ID;
+                _entidad._entity_r27._TR27_TM19_ID = _entidad._entity_m39._entity_et_m19._TM19_ID;
+                var result = _nt_r27.get_001(_entidad);
+                _entidad._lista_et_m27 = result._lista_et_m27;
             }
 
 
-            void Metodo_Obtener_conceptos_default()
+            //__id_tm41 = _entity._entity_m41._TM41_ID;
+            //Metodo_Obtener_conceptos_default();
+
+            tabControl1.Visible = false;
+
+            foreach (TabPage page in tabControl1.TabPages)
             {
+                Panel panel = page.Controls[0] as Panel;
+                Panels.Add(panel);
 
-                TreeNode mano_obra = new TreeNode("Mano de Obra");
-                mano_obra.Name = "Mano de Obra";
-                mano_obra.Tag = 0;
-                TreeNode maquinaria = new TreeNode("Maquinaria y Equipo");
-                maquinaria.Tag = 1;
-                TreeNode materiales = new TreeNode("Materiales e Insumos");
-                materiales.Tag = 2;
-                TreeNode implementos = new TreeNode("Implementos de Limpieza");
-                implementos.Tag = 3;
-                TreeNode suministros = new TreeNode("Suministros");
-                suministros.Tag = 4;
-                TreeNode indumentaria = new TreeNode("Indumentaria");
-                indumentaria.Tag = 5;
-
-                TreeNode servicio = new TreeNode(_entidad._entity_m41._TM41_DESCRIP, new TreeNode[] {
-                mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
-            });
-                servicio.Name = _entidad._entity_m41._TM41_DESCRIP;
-                servicio.Tag = 0;//_entidad._entity_m41._TM41_ID;
-
-                TreeNode nodo_principal = new TreeNode(_entidad._entity_m19._TM19_DESCRIP2, new TreeNode[] { servicio });
-                nodo_principal.Tag = 0; //_entidad._entity_m19._TM19_ID;
-                nodo_principal.Name = _entidad._entity_m19._TM19_DESCRIP1;
-
-                nodo_principal.ExpandAll();
-
-                //DataSet resultado = ctr_cotizador_.Lista();
-
-                /*
-                foreach (DataRow row in resultado.Tables[0].Rows)
-                {
-                    string textbox = row[1].ToString();
-                    nodo_principal.Nodes.Add(textbox);
-                }
-                */
-
-                tree_view_servicios.Nodes.Add(nodo_principal);
+                panel.Parent = tabControl1.Parent;
+                panel.Location = tabControl1.Location;
+                panel.Visible = false;
             }
 
+            DisplayPanel(0);
 
 
-            #endregion
-
-            #region Eventos
-
-            private void toolStreep_Agregar_servicio_complementario_Click(object sender, EventArgs e)
-            {
-                Metodo_Obtener_conceptos_default();
-            }
-
-            List<Panel> Panels = new List<Panel>();
-            Panel VisiblePanel = null;
-            //tiene lugar cuando cambia ala selección.
-            private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
-            {
-                int index = int.Parse(e.Node.Tag.ToString());
-                DisplayPanel(index);
-            }
-
-
-            // Display the appropriate Panel.
-            private void DisplayPanel(int index)
-            {
-                if (Panels.Count < 1) return;
-
-                // If this is the same Panel, do nothing.
-                if (VisiblePanel == Panels[index]) return;
-
-                // Hide the previously visible Panel.
-                if (VisiblePanel != null) VisiblePanel.Visible = false;
-
-                // Display the appropriate Panel.
-                Panels[index].Visible = true;
-                VisiblePanel = Panels[index];
-            }
-
-            private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-            {
-                //tiene lugar cuando se clickea el contenido de una celda
-
-                string column_name = dgv_entrada_datos_mano_de_obra.Columns[0].Name; // cargo
-                if (column_name.Equals("cargo"))
-                {
-                    TextBox auto_text = e.Control as TextBox;
-
-                    if (auto_text != null)
-                    {
-                        auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
-                        auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                        _nt_m38.gridTextBoxAutocomplete(auto_text);
-                    }
-                }
-
-
-            }
-
-
-
-
-            #endregion
-
-            #region Mano de obra
+            //Diego
+            CreateColumn();
             //
 
 
-            #endregion
+        }
 
-            #region Maquinaria y equipo
+        #endregion
 
-            #endregion
+        #region Eventos
+
+        private void toolStreep_Agregar_servicio_complementario_Click(object sender, EventArgs e)
+        {
+            //Metodo_Obtener_conceptos_default();
+
+            _nt_r28.set_002(_entidad);
+        }
+
+        List<Panel> Panels = new List<Panel>();
+        Panel VisiblePanel = null;
+        //tiene lugar cuando cambia ala selección.
+        private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            int index = int.Parse(e.Node.Tag.ToString());
+            DisplayPanel(index);
+        }
 
 
-            private Boolean Dia_semana(String fecha)
+        private void DisplayPanel(int index)
+        {
+            // si el indice esta furea del intervalo veremos los resumenes general
+
+            if (index <= 5)
+            { 
+                if (Panels.Count < 1) return;
+
+                if (VisiblePanel == Panels[index]) return;
+
+                if (VisiblePanel != null) VisiblePanel.Visible = false;
+
+                Panels[index].Visible = true;
+                VisiblePanel = Panels[index];
+            }
+        }
+
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            //tiene lugar cuando se clickea el contenido de una celda
+
+            string column_name = dgv_entrada_datos_mano_de_obra.Columns[0].Name; // cargo
+            if (column_name.Equals("cargo"))
             {
-                try
+                TextBox auto_text = e.Control as TextBox;
+
+                if (auto_text != null)
                 {
-                    DateTime.Parse(fecha);
-                    return true;
-                }
-                catch
-                {
-                    return false;
+                    auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    _nt_m38.gridTextBoxAutocomplete(auto_text);
                 }
             }
-            private void dgv_entrada_datos_mano_de_obra_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-            {
-                //validar celda
 
+
+        }
+
+
+
+
+        #endregion
+
+        #region Mano de obra
+        //
+
+
+        #endregion
+
+        #region Maquinaria y equipo
+
+        #endregion
+
+
+        private Boolean Dia_semana(String fecha)
+        {
+            try
+            {
+                DateTime.Parse(fecha);
+                return true;
             }
-
-            private void dgv_entrada_datos_mano_de_obra_CellContentClick(object sender, DataGridViewCellEventArgs e)
+            catch
             {
-
+                return false;
             }
+        }
+        private void dgv_entrada_datos_mano_de_obra_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            //validar celda
 
-            private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-            {
+        }
+
+        #region Mano de obra
+
+
+        #endregion
 
             }
 
@@ -254,21 +223,8 @@ namespace SGAP.FORLDER_FRMS
 
 
 
-            }
+        }
+        #endregion
 
-            #region Mano de obra
-            //
-
-
-            #endregion
-
-            #region Maquinaria y equipo
-
-            #endregion
-
-            private void listView_materiales_equipos_SelectedIndexChanged(object sender, EventArgs e)
-            {
-
-            }
         }
     }
