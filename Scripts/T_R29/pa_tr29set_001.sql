@@ -9,7 +9,7 @@ GO
 -- =============================================
 CREATE PROCEDURE pa_tr29set_001
  --@p_TR29_ID int id de la tabla
- @p_TR29_TR28_ID int -- codigo servicio
+ @p_TR29_TR28_ID int -- codigo servicio _al que pertenece
 ,@p_TR29_TM38_ID varchar -- id cargo
 ,@p_TR29_HORA_ENTRADA datetime 
 ,@p_TR29_HORA_SALIDA datetime

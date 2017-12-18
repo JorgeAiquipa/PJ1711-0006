@@ -235,10 +235,13 @@ namespace SGAP.FORLDER_FRMS
             catch (Exception ex)
             {
 
-                txt_ruc_cliente.Text = string.Empty;
-                txt_nombre_cliente.Focus();
-                dgv_informacion_locales.Rows.Clear();
-
+                try
+                {
+                    txt_ruc_cliente.Text = string.Empty;
+                    txt_nombre_cliente.Focus();
+                    dgv_informacion_locales.Rows.Clear();
+                }
+                catch (Exception ) { }
 
             }
         }

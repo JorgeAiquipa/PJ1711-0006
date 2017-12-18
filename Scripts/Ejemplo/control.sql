@@ -1,8 +1,9 @@
 SELECT 
 *
--- CONCAT(',',COLUMN_NAME)
+--CONCAT(',',COLUMN_NAME)
 --CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
 --concat(',@p_',COLUMN_NAME,' ',DATA_TYPE)
+--concat(',@p_',COLUMN_NAME)
 --CONCAT('_et_r31._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
 FROM INFORMATION_SCHEMA.COLUMNS
 

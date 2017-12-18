@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using Win28ntug;
 using Win28etug;
+using SGAP.FORLDER_FRMS;
+
 namespace SGAP.FOLDER_FRMS
 {
     public partial class frm_01_2_01 : Form
@@ -23,9 +25,11 @@ namespace SGAP.FOLDER_FRMS
 
         List<ET_R29> _lista_et_r29 = new List<ET_R29>();
 
-        public frm_01_2_01()
+        int id_Servicio_hijo;
+        public frm_01_2_01(int __id_Servicio_hijo)
         {
             InitializeComponent();
+            id_Servicio_hijo = __id_Servicio_hijo;
         }
         public void Analizar_informacion_ingresada()
         {
@@ -38,10 +42,12 @@ namespace SGAP.FOLDER_FRMS
 
             //_lista_et_r29
             _et_entidad = new ET_entidad();
+            _et_entidad._entity_r28._TR28_ID = id_Servicio_hijo;
             _et_entidad._lista_et_r29 = _lista_et_r29;
             _nt_r29.set_001(_et_entidad);
         }
 
+        List<ET_M38> _lista_ = new List<ET_M38>();
         private void dgv_entrada_datos_mano_de_obra_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             //tiene lugar cuando se clickea el contenido de una celda
@@ -55,7 +61,7 @@ namespace SGAP.FOLDER_FRMS
                 {
                     auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
                     auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                    _nt_m38.gridTextBoxAutocomplete(auto_text);
+                    _lista_ = _nt_m38.gridTextBoxAutocomplete(auto_text)._lista_et_m38;
                 }
             }
             if (colum_dias_x_Semana.Equals("dias_x_semana"))
@@ -72,7 +78,7 @@ namespace SGAP.FOLDER_FRMS
         private void btn_continuar_Click(object sender, EventArgs e)
         {
             // guardamos los cambios
-            Analizar_informacion_ingresada();
+            //Analizar_informacion_ingresada();
             this.DialogResult = DialogResult.OK;
         }
 
@@ -106,11 +112,13 @@ namespace SGAP.FOLDER_FRMS
                 {
                     _et_r29 = new ET_R29();
                     _et_r29._Fila = e.RowIndex;
-
+                    _et_r29._TR29_TR28_ID = id_Servicio_hijo;
                     switch (nombre_columna)
                     {
                         case "cargo":
                             _et_r29._TR29_DESCRIP = e.FormattedValue.ToString();
+                            
+                                 bool existe_ = _lista_et_r29.Any(item => item._Fila == e.RowIndex);
                             break;
                         case "hora_entrada":
                             _et_r29._TR29_HORA_ENTRADA = Convert.ToDateTime(e.FormattedValue.ToString());
@@ -134,6 +142,7 @@ namespace SGAP.FOLDER_FRMS
                         {
                             case "cargo":
                                 _fila._TR29_DESCRIP = _et_r29._TR29_DESCRIP;
+                                _fila._TR29_TM38_ID = ""; //id_cargo
                                 break;
                             case "hora_entrada":
                                 _fila._TR29_HORA_ENTRADA = _et_r29._TR29_HORA_ENTRADA;
@@ -145,6 +154,7 @@ namespace SGAP.FOLDER_FRMS
                                 _fila._TR29_DIAS_SEMANA = _et_r29._TR29_DIAS_SEMANA;
                                 break;
                         }
+                        _fila._TR29_TR28_ID = id_Servicio_hijo;
                     }
                     else
                     {

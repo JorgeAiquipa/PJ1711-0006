@@ -29,6 +29,7 @@ namespace SGAP.FORLDER_FRMS
         ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
 
         int Id_Servicio_Padre;
+        public int Id_servicio_hijo;
         int Periodo_servicio;
         #endregion
 
@@ -176,12 +177,14 @@ namespace SGAP.FORLDER_FRMS
                     m_OldSelectNode = tree_view_servicios.SelectedNode;
                     tree_view_servicios.SelectedNode = node;
 
+
                     switch (Convert.ToString(node.Tag))
                     {
                         case "10100": // ver menu nuevo servicio
                             MenuStrip_AddService.Show(tree_view_servicios, p);
                             break;
                         case "0": // ver menu para mano de obra
+                            Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
                             MenuStrip_ViewProperties_.Show(tree_view_servicios,p);
                         break;
                     }
@@ -198,9 +201,16 @@ namespace SGAP.FORLDER_FRMS
             int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
             string Nombre_Servicio_seleccionado = item.Text;
 
+            string tm39_id;
+
+            if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
+                tm39_id = _entidad._entity_m39._TM39_ID;
+            else
+                tm39_id = _entidad._entity_r27._TR27_TM39_ID;
+
             //agregar servicio nuevo
             _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
-            _entidad._entity_r28._TR28_TM39_ID = _entidad._entity_r27._TR27_TM39_ID;
+            _entidad._entity_r28._TR28_TM39_ID = tm39_id;
             _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
             _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
             _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
@@ -213,7 +223,7 @@ namespace SGAP.FORLDER_FRMS
 
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
-            frm_01_2_01 form_2_1 = new frm_01_2_01();
+            frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo);
             form_2_1.ShowDialog();
             if (form_2_1.DialogResult != DialogResult.Cancel)
             {
