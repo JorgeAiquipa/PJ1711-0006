@@ -209,30 +209,48 @@ namespace SGAP.FORLDER_FRMS
             //diego
             private void CreateColumn()
             {
-                //int cantd =_entidad._lista_et_m27.Count;
-                try
-                {
-                    int index = 1;
 
-                    listView_materiales_equipos.Columns.Add("Nombre", 200, HorizontalAlignment.Left);
-                    listView_materiales_equipos.Columns.Add("Codigo", 100, HorizontalAlignment.Left);
-                    listView_materiales_equipos.Columns.Add("Marca", 60, HorizontalAlignment.Left);
-                    listView_materiales_equipos.Columns.Add("Und", -2, HorizontalAlignment.Left);
-                    listView_materiales_equipos.Columns.Add("Maquinaria", -2, HorizontalAlignment.Left);
-                    listView_materiales_equipos.Columns.Add("Equipos", -2, HorizontalAlignment.Left);
 
-                    foreach (ET_M27 fila in _entidad._lista_et_m27)
-                    {
-                        listView_materiales_equipos.Columns.Add(string.Format("{0}", fila._TM27_NOMBRE), -2, HorizontalAlignment.Left);
-                        index++;
-                    }
-                }
-                catch (Exception ex)
+
+            int index = 1;
+            foreach (ET_M27 fila in _entidad._lista_et_m27)
+            {
+                // Initialize the button column.
+                DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn
                 {
-                }
-                listView_materiales_equipos.Columns.Add("Cantidad Total", -2, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Costo Unitario", -2, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Costo Total", -2, HorizontalAlignment.Left);
+                    HeaderText = string.Format("{0}", fila._TM27_NOMBRE),
+                };
+                // Add the column to the control.
+                dataGridView1.Columns.Insert(6, Column);
+                index++;
+            }
+
+
+
+            ////int cantd =_entidad._lista_et_m27.Count;
+            //try
+            //{
+            //        //int index = 1;
+
+            //        listView_materiales_equipos.Columns.Add("Nombre", 200, HorizontalAlignment.Left);
+            //        listView_materiales_equipos.Columns.Add("Codigo", 100, HorizontalAlignment.Left);
+            //        listView_materiales_equipos.Columns.Add("Marca", 60, HorizontalAlignment.Left);
+            //        listView_materiales_equipos.Columns.Add("Und", -2, HorizontalAlignment.Left);
+            //        listView_materiales_equipos.Columns.Add("Maquinaria", -2, HorizontalAlignment.Left);
+            //        listView_materiales_equipos.Columns.Add("Equipos", -2, HorizontalAlignment.Left);
+
+            //        foreach (ET_M27 fila in _entidad._lista_et_m27)
+            //        {
+            //            listView_materiales_equipos.Columns.Add(string.Format("{0}", fila._TM27_NOMBRE), -2, HorizontalAlignment.Left);
+            //            index++;
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //    }
+            //    listView_materiales_equipos.Columns.Add("Cantidad Total", -2, HorizontalAlignment.Left);
+            //    listView_materiales_equipos.Columns.Add("Costo Unitario", -2, HorizontalAlignment.Left);
+            //    listView_materiales_equipos.Columns.Add("Costo Total", -2, HorizontalAlignment.Left);
 
 
 
