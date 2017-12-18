@@ -49,6 +49,7 @@
     <Compile Include="NT_M41.cs" />
     <Compile Include="NT_R27.cs" />
     <Compile Include="NT_R28.cs" />
+    <Compile Include="NT_R31.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
