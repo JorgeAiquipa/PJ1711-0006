@@ -24,7 +24,7 @@ namespace Win28ntug
 
         List<ET_M39> _lista_mt39 = new List<ET_M39>();
 
-        public void set_001(ET_entidad _obj)
+        public string set_001(ET_entidad _obj)
         {
             var result = _dt_m39.set_001(_obj._entity_m39);
             if (!result._hubo_error)
@@ -59,7 +59,10 @@ namespace Win28ntug
                 }
                 catch (Exception ex)
                 { }
+
+                return codigo_cotizacion;
             }
+            return "";
         }
 
         public void get_001(ListView list_view)
@@ -74,6 +77,7 @@ namespace Win28ntug
                     string[] row =
                     {
                         fila._TM39_ID,
+                        fila._entity_et_m19._TM19_ID,
                         fila._entity_et_m19._TM19_DESCRIP2,
                         fila._entity_et_m19._TM19_DESCRIP1, 
                         fila._TM39_tm27_count.ToString(),
@@ -98,9 +102,10 @@ namespace Win28ntug
                     string[] row =
                     {
                         fila._TM39_ID,
+                        fila._entity_et_m19._TM19_ID,
                         fila._entity_et_m19._TM19_DESCRIP2,
                         fila._entity_et_m19._TM19_DESCRIP1,
-                        "canti",
+                        fila._TM39_tm27_count.ToString(),
                         fila._TM39_UCREA,
                         fila._TM39_FCREA.ToString(),
                         fila._TM39_FACTUALIZA.ToString()

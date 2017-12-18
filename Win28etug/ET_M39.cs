@@ -22,7 +22,7 @@ namespace Win28etug
         public ET_M19 _entity_et_m19 { get; set; }
         public ET_M39()
         {
-            ET_M19 _entity_et_m19 = new ET_M19();
+            _entity_et_m19 = new ET_M19();
         }
         public string _TM19_ID { get; set; }
         public string _TM19_DESCRIP1 { get; set; }

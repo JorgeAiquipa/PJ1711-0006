@@ -26,7 +26,7 @@ namespace Win32dtug
         public ET_entidad get_001()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
@@ -57,7 +57,7 @@ namespace Win32dtug
                         _etm39._TM39_TM19_ID = fila["TM39_TM19_ID"].ToString();
                         _etm39._TM39_TM2_ID = fila["TM39_TM2_ID"].ToString();
                         _etm39._TM39_tm27_count = Convert.ToInt32(fila["_TM39_tm27_count"].ToString());
-                        
+
 
                         _et_m19._TM19_DESCRIP1 = fila["TM19_DESCRIP1"].ToString();
                         _et_m19._TM19_DESCRIP2 = fila["TM19_DESCRIP2"].ToString();
@@ -134,6 +134,7 @@ namespace Win32dtug
                         _etm39._TM39_FACTUALIZA = Convert.ToDateTime(fila["TM39_FACTUALIZA"].ToString());
                         _etm39._TM39_TM19_ID = fila["TM39_TM19_ID"].ToString();
                         _etm39._TM39_TM2_ID = fila["TM39_TM2_ID"].ToString();
+                        _etm39._TM39_tm27_count = Convert.ToInt32(fila["_TM39_tm27_count"].ToString());
 
                         _et_m19._TM19_DESCRIP1 = fila["TM19_DESCRIP1"].ToString();
                         _et_m19._TM19_DESCRIP2 = fila["TM19_DESCRIP2"].ToString();

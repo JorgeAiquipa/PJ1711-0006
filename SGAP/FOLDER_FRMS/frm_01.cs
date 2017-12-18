@@ -20,7 +20,7 @@ namespace SGAP.FOLDER_FRMS
         #region Instancias
 
 
-        ET_entidad et = new ET_entidad();
+        ET_entidad _entidad = new ET_entidad();
         ET_M39 _et_m39 = new ET_M39();
 
         NT_M39 _nt_m39 = new NT_M39();
@@ -44,6 +44,7 @@ namespace SGAP.FOLDER_FRMS
 
             //Columnas
             listView_Cotizaciones.Columns.Add("Codigo Cotización",210);
+            listView_Cotizaciones.Columns.Add("Id cliente",50);
             listView_Cotizaciones.Columns.Add("Cliente",210);
             listView_Cotizaciones.Columns.Add("Ruc",160);
             listView_Cotizaciones.Columns.Add("Cantidad Locales",100);
@@ -116,10 +117,17 @@ namespace SGAP.FOLDER_FRMS
         private void listView_Cotizaciones_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             string codigo_cotizacion = listView_Cotizaciones.SelectedItems[0].SubItems[0].Text;
+            string codigo_cliente = listView_Cotizaciones.SelectedItems[0].SubItems[1].Text;
+            string descripcion_cliente = listView_Cotizaciones.SelectedItems[0].SubItems[2].Text;
 
-            //abrir cotizacion para editar en funcion al codigo de la cotizacion
+            _entidad = new ET_entidad();
+            _entidad._entity_m39._TM39_ID = codigo_cotizacion;
+            _entidad._entity_m39._entity_et_m19._TM19_ID = codigo_cliente;
+            _entidad._entity_m39._entity_et_m19._TM19_DESCRIP2 = descripcion_cliente; //razon social
 
-
+            FORLDER_FRMS.frm_01_2 F2 = new FORLDER_FRMS.frm_01_2(_entidad, true);
+            cargar_cotizaciones();
+            F2.ShowDialog();
         }
     }
         #endregion

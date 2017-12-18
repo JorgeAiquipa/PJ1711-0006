@@ -17,8 +17,10 @@ namespace Win32dtug
         ET_entidad _Entidad = new ET_entidad();
         ET_globales _globales = new ET_globales();
         ET_R27 _et_r27 = new ET_R27();
+        ET_M27 _et_m27 = new ET_M27();
         List<ET_R27> _lista_et_r27 = new List<ET_R27>();
-    
+        List<ET_M27> _lista_et_m27 = new List<ET_M27>();
+
         public ET_entidad set_001(ET_R27 _entity_tr27)
         {
             _Entidad = new ET_entidad();
@@ -72,6 +74,86 @@ namespace Win32dtug
             }
             return _Entidad;
 
+        }
+
+        //OBTENEMOS LOS LOCALES QUE POSEE UNA COTIZACION
+        public ET_entidad get_001(ET_R27 _entity_tr27)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            {
+                cn.Open();
+                SqlTransaction sqlTran = cn.BeginTransaction();
+                SqlCommand cmd = new SqlCommand("pa_tr27Get_001", cn, sqlTran);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    _lista_et_m27 = new List<ET_M27>();
+                    _lista_et_r27 = new List<ET_R27>();
+
+                    cmd.Parameters.Add("@P_TR27_TM39_ID", SqlDbType.VarChar, 20).Value = _entity_tr27._TR27_TM39_ID;
+                    cmd.Parameters.Add("@p_TR27_TM19_ID", SqlDbType.VarChar, 50).Value = _entity_tr27._TR27_TM19_ID;
+                    cmd.Parameters.Add("@p_TR27_TM2_ID", SqlDbType.VarChar, 50).Value = _globales._TM2_ID;
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+
+                    foreach (DataRow fila in dt.Rows)
+                    {
+                        _et_r27 = new ET_R27();
+                        _et_m27 = new ET_M27();
+
+                        _et_r27._TR27_ID = Convert.ToInt32(fila["TR27_ID"].ToString());
+                        _et_r27._TR27_TM39_ID = fila["TR27_TM39_ID"].ToString();
+                        _et_r27._TR27_TM27_ID = fila["TR27_TM27_ID"].ToString();
+                        _et_r27._TR27_DESCRIP = fila["TR27_DESCRIP"].ToString();
+                        _et_r27._TR27_ST = Convert.ToInt32(fila["TR27_ST"].ToString());
+                        _et_r27._TR27_FLG_ELIMINADO = Convert.ToInt32(fila["TR27_FLG_ELIMINADO"].ToString());
+                        _et_r27._TR27_UCREA = fila["TR27_UCREA"].ToString();
+                        _et_r27._TR27_FCREA = Convert.ToDateTime(fila["TR27_FCREA"].ToString());
+                        _et_r27._TR27_UACTUALIZA = fila["TR27_UACTUALIZA"].ToString();
+                        _et_r27._TR27_FACTUALIZA = Convert.ToDateTime(fila["TR27_FACTUALIZA"].ToString());
+                        _et_r27._TR27_TM19_ID = fila["TR27_TM19_ID"].ToString();
+                        _et_r27._TR27_TM2_ID = fila["TR27_TM2_ID"].ToString();
+
+
+                        _et_m27._TM27_ID = fila["TR27_TM27_ID"].ToString();
+                        _et_m27._TM27_TM19_ID = fila["TR27_TM19_ID"].ToString();
+                        _et_m27._TM27_TM2_ID = fila["TR27_TM2_ID"].ToString();
+                        _et_m27._TM27_NOMBRE = fila["TR27_DESCRIP"].ToString();
+                        _et_m27._TM27_DIRECCION = fila["TR27_TM27_DIRECCION"].ToString();
+
+                        _lista_et_m27.Add(_et_m27);
+                        _lista_et_r27.Add(_et_r27);
+                    }
+
+                    _Entidad._lista_et_r27 = _lista_et_r27;
+                    _Entidad._lista_et_m27 = _lista_et_m27;
+                    _Entidad._hubo_error = false;
+                }
+                catch (SqlException exsql)
+                {
+                    try
+                    {
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _Entidad._hubo_error = true;
+                    _Entidad._contenido_mensaje = "Ocurrio un error al obetener Informacion de la base de datos.\n" + ex.ToString();
+                    _Entidad._titulo_mensaje = "Alert!";
+                }
+                finally
+                {
+                    cn.Close();
+
+                }
+                return _Entidad;
+            }
         }
     }
 }

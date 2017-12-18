@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,41 +23,67 @@ namespace Win32dtug
 
         public ET_entidad filter_list(ET_M38 objEntity)
         {
-            try
+
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
             {
-                DT_CNX.Abrir_conexion();
-
-                DataTable result = DT_CNX._DT_MAIN.TraerDataTable_("pa_tm38_get_001", _global._TM2_ID, objEntity._filtro);
-
-                foreach (DataRow fila in result.Rows)
+                cn.Open();
+                SqlTransaction sqlTran = cn.BeginTransaction();
+                SqlCommand cmd = new SqlCommand("pa_tm38_get_001", cn, sqlTran);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
                 {
-                    _etm38 = new ET_M38();
+                    _lista_m38 = new List<ET_M38>();
+                    cmd.Parameters.Add("@p_TM38_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
+                    cmd.Parameters.Add("@p_filtro", SqlDbType.VarChar, 50).Value = objEntity._filtro;
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
 
-                    _etm38._TM38_ID = fila["TM38_ID"].ToString();
-                    _etm38._TM38_TM2_ID = fila["TM38_TM2_ID"].ToString();
-                    _etm38._TM38_DESCRIP = fila["TM38_DESCRIP"].ToString();
-                    //_etm38._TM38_UCREA = fila["TM38_UCREA"].ToString();
-                    //_etm38._TM38_FCREA = fila["TM38_FCREA"].ToString();
-                    //_etm38._TM38_UACTUALIZA = fila["TM38_UACTUALIZA"].ToString();
-                    //_etm38._TM38_FACTUALIZA = fila["TM38_FACTUALIZA"].ToString();
+                    foreach (DataRow fila in dt.Rows)
+                    {
+                        _etm38 = new ET_M38();
 
-                    _lista_m38.Add(_etm38);
+                        _etm38._TM38_ID = fila["TM38_ID"].ToString();
+                        _etm38._TM38_TM2_ID = fila["TM38_TM2_ID"].ToString();
+                        _etm38._TM38_DESCRIP = fila["TM38_DESCRIP"].ToString();
+                        //_etm38._TM38_UCREA = fila["TM38_UCREA"].ToString();
+                        //_etm38._TM38_FCREA = fila["TM38_FCREA"].ToString();
+                        //_etm38._TM38_UACTUALIZA = fila["TM38_UACTUALIZA"].ToString();
+                        //_etm38._TM38_FACTUALIZA = fila["TM38_FACTUALIZA"].ToString();
+
+                        _lista_m38.Add(_etm38);
+                    }
+                    _Entidad._lista_et_m38 = _lista_m38;
+                    _Entidad._hubo_error = false;
                 }
+                catch (SqlException exsql)
+                {
+                    try
+                    {
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _Entidad._hubo_error = true;
+                    _Entidad._contenido_mensaje = "Ocurrio un error al obetener Informacion de la base de datos.\n" + ex.ToString();
+                    _Entidad._titulo_mensaje = "Alert!";
+                }
+                finally
+                {
+                    cn.Close();
 
-
-                DT_CNX.Cerrar_conexion();
-                _Entidad._lista_et_m38 = _lista_m38;
-                _Entidad._hubo_error = false;
-
+                }
+                return _Entidad;
             }
-            catch (Exception ex)
-            {
-                _Entidad._hubo_error = true;
-                _Entidad._contenido_mensaje = "Ocurrio un error al obetener Informacion de la base de datos.\n" + ex.ToString();
-                _Entidad._titulo_mensaje = "Alert!";
-            }
 
-            return _Entidad;
+
+
+
         }
 
     }

@@ -27,7 +27,6 @@ namespace SGAP.FORLDER_FRMS
         NT_M39 _nt_m39 = new NT_M39();
         NT_R28 _nt_r28 = new NT_R28();
 
-        NT_servicio _nt_servicio = new NT_servicio();
         List<ET_M27> _lista_m27 = new List<ET_M27>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
 
@@ -54,7 +53,6 @@ namespace SGAP.FORLDER_FRMS
             //instancias
             InitializeComponent();
 
-            _nt_servicio.Mensaje_Alerta += Mensaje_alerta;
             _nt_m19.Mensaje_Alerta += Mensaje_alerta;
             _nt_m41.Mensaje_Alerta += Mensaje_alerta;
 
@@ -145,7 +143,14 @@ namespace SGAP.FORLDER_FRMS
             _entity._entity_m39 = _et_m39;
             _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
 
-            _nt_m39.set_001(_entity);
+
+
+
+            var result  = _nt_m39.set_001(_entity);
+
+            _entity._entity_m39._TM39_ID = result;
+            _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
+            _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
 
             //frm_02 FORM_ = new frm_02(_entity);
             //FORM_.ShowDialog();

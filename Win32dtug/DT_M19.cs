@@ -63,7 +63,7 @@ namespace Win32dtug
         public ET_entidad filter_001(ET_M19 objEntity)
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();

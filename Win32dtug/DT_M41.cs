@@ -72,5 +72,7 @@ namespace Win32dtug
                 return _Entidad;
             }
         }
+
+
     }
 }
