@@ -51,15 +51,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maquinaria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.equipos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -76,6 +67,15 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_tree_view.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
@@ -330,61 +330,6 @@
             this.dgv_entrada_datos_mq_eq.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mq_eq_CellValidating);
             this.dgv_entrada_datos_mq_eq.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dvg_entrada_datos_mq_eq_EditingControlShowing_1);
             // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.Width = 200;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "Codigo";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.Width = 82;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.Width = 82;
-            // 
-            // und
-            // 
-            this.und.HeaderText = "Und.";
-            this.und.Name = "und";
-            this.und.Width = 50;
-            // 
-            // maquinaria
-            // 
-            this.maquinaria.HeaderText = "Maquinaria";
-            this.maquinaria.Name = "maquinaria";
-            this.maquinaria.Width = 65;
-            // 
-            // equipos
-            // 
-            this.equipos.HeaderText = "Equipos";
-            this.equipos.Name = "equipos";
-            this.equipos.Width = 55;
-            // 
-            // cantotal
-            // 
-            this.cantotal.HeaderText = "Cant. Total";
-            this.cantotal.Name = "cantotal";
-            this.cantotal.Width = 82;
-            // 
-            // costounitario
-            // 
-            this.costounitario.HeaderText = "Costo Unitario";
-            this.costounitario.Name = "costounitario";
-            this.costounitario.Width = 82;
-            // 
-            // costototal
-            // 
-            this.costototal.HeaderText = "Costo Total";
-            this.costototal.Name = "costototal";
-            this.costototal.Width = 82;
-            // 
             // label11
             // 
             this.label11.BackColor = System.Drawing.Color.LightGreen;
@@ -538,6 +483,65 @@
             this.numericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.numericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
+            // nombre
+            // 
+            this.nombre.Frozen = true;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 200;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.Width = 82;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.Width = 82;
+            // 
+            // und
+            // 
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            this.und.Width = 50;
+            // 
+            // maquinaria
+            // 
+            this.maquinaria.HeaderText = "Maquinaria";
+            this.maquinaria.Name = "maquinaria";
+            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.maquinaria.Width = 65;
+            // 
+            // equipos
+            // 
+            this.equipos.HeaderText = "Equipos";
+            this.equipos.Name = "equipos";
+            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.equipos.Width = 55;
+            // 
+            // cantotal
+            // 
+            this.cantotal.HeaderText = "Cant. Total";
+            this.cantotal.Name = "cantotal";
+            this.cantotal.Width = 82;
+            // 
+            // costounitario
+            // 
+            this.costounitario.HeaderText = "Costo Unitario";
+            this.costounitario.Name = "costounitario";
+            this.costounitario.Width = 82;
+            // 
+            // costototal
+            // 
+            this.costototal.HeaderText = "Costo Total";
+            this.costototal.Name = "costototal";
+            this.costototal.Width = 82;
+            // 
             // frm_01_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -616,8 +620,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn marca;
         private System.Windows.Forms.DataGridViewTextBoxColumn und;
-        private System.Windows.Forms.DataGridViewTextBoxColumn maquinaria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn equipos;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn maquinaria;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn equipos;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn costounitario;
         private System.Windows.Forms.DataGridViewTextBoxColumn costototal;

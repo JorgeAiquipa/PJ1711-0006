@@ -32,6 +32,7 @@ namespace SGAP.FORLDER_FRMS
         public string marc;
         public string undad;
         public string precio;
+        public string tipo;
 
         #endregion
 
@@ -250,6 +251,7 @@ namespace SGAP.FORLDER_FRMS
                     marc = fila._TM31_TM33_ID;
                     undad = fila._TM31_TM72_ID;
                     precio = fila._TM31_PRECIO;
+                    tipo = fila._TM31_TM34_ID;
                 }
             }
             
@@ -257,14 +259,37 @@ namespace SGAP.FORLDER_FRMS
 
         private void dgv_entrada_datos_mq_eq_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow fila = new DataGridViewRow();
-            fila.CreateCells(dgv_entrada_datos_mq_eq);
-            //fila.Cells[0].Value = nom;
-            fila.Cells[1].Value = cod;
-            fila.Cells[2].Value = marc;
-            fila.Cells[3].Value = undad;
 
-            dgv_entrada_datos_mq_eq.Rows.Add(fila);
+            string column_name = dgv_entrada_datos_mq_eq.Columns[0].Name; // nombre
+            if (column_name.Equals("nombre"))
+            {
+                int cont =  _entidad._lista_et_m27.Count;
+                int i;
+                i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = cod;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = marc;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = undad;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[7+cont].Value = precio;
+
+                if (tipo == "MQ")
+                {
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 1;
+
+                }else if (tipo == "EQ")
+                {
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 1;
+                }
+
+            }
+            //DataGridViewRow fila = new DataGridViewRow();
+            //fila.CreateCells(dgv_entrada_datos_mq_eq);
+            ////fila.Cells[0].Value = nom;
+            //fila.Cells[1].Value = cod;
+            //fila.Cells[2].Value = marc;
+            //fila.Cells[3].Value = undad;
+
+            //dgv_entrada_datos_mq_eq.Rows.Add(fila);
         }
     }
     }
