@@ -10,7 +10,14 @@ namespace Win28ntug
 {
     public class NT_R29
     {
+        ET_entidad _et_entidad = new ET_entidad();
         DT_R29 _dt_r29 = new DT_R29();
+
+        public ET_entidad get_001(ET_R29 obj)
+        {
+
+            return _dt_r29.get_001(obj);
+        }
         public void set_001(ET_entidad obj)
         {
 
@@ -22,6 +29,7 @@ namespace Win28ntug
                 _et_r29._TR29_HORA_ENTRADA = row._TR29_HORA_ENTRADA;
                 _et_r29._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
                 _et_r29._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
+                _et_r29._TR29_DESCRIP = row._TR29_DESCRIP;
 
                 var result = _dt_r29.set_001(_et_r29);
             }

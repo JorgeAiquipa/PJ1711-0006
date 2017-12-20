@@ -60,14 +60,16 @@ namespace SGAP.UserControls
             // Set the value of the editing control to the current cell value.
             base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
             NumericUpDownEditingControl ctl = (NumericUpDownEditingControl)DataGridView.EditingControl;
-            if (string.IsNullOrEmpty(this.Value.ToString()))
+            if (Convert.ToUInt32(this.Value.ToString()) > 0)
             {
-                ctl.Value = Convert.ToDecimal(0);
-            }
-            else
-            {
-                ctl.Value = Convert.ToDecimal(this.Value);
-
+                if (string.IsNullOrEmpty(this.Value.ToString()))
+                {
+                    ctl.Value = Convert.ToDecimal(0);
+                }
+                else
+                {
+                    ctl.Value = Convert.ToInt32(this.Value);
+                }
             }
         }
 

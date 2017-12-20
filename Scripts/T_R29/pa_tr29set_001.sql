@@ -10,26 +10,24 @@ GO
 CREATE PROCEDURE pa_tr29set_001
  --@p_TR29_ID int id de la tabla
  @p_TR29_TR28_ID int -- codigo servicio _al que pertenece
-,@p_TR29_TM38_ID varchar -- id cargo
+,@p_TR29_TM38_ID varchar(10) -- id cargo
 ,@p_TR29_HORA_ENTRADA datetime 
 ,@p_TR29_HORA_SALIDA datetime
 ,@p_TR29_DIAS_SEMANA int
---,@p_TR29_DESCRIP varchar 
+,@p_TR29_DESCRIP varchar(3000)
 --,@p_TR29_ST smallint
 --,@p_TR29_FLG_ELIMINADO smallint
-,@p_TR29_UCREA varchar
+,@p_TR29_UCREA varchar(20)
 --,@p_TR29_FCREA datetime
 --,@p_TR29_UACTUALIZA varchar
 --,@p_TR29_FACTUALIZA datetime
 --,@p_TR29_REMUNERACION decimal
-,@p_TR29_TM2_ID varchar
+,@p_TR29_TM2_ID varchar(10)
 ,@P_MENSAJE_RESPUESTA varchar(200) output
 AS
 
-BEGIN TRY
+BEGIN
 	
-SET NOCOUNT ON;
-
 		DECLARE @L_TR29_ID INT
 
 		SET @L_TR29_ID = (SELECT CAST((ISNULL(MAX(TR29_ID),0)+1) AS int) FROM DBO.T_R29)
@@ -42,7 +40,7 @@ SET NOCOUNT ON;
 			,TR29_HORA_ENTRADA
 			,TR29_HORA_SALIDA
 			,TR29_DIAS_SEMANA
-			--,TR29_DESCRIP
+			,TR29_DESCRIP
 			,TR29_ST
 			,TR29_FLG_ELIMINADO
 			,TR29_UCREA
@@ -62,7 +60,7 @@ SET NOCOUNT ON;
 			,@p_TR29_HORA_ENTRADA
 			,@p_TR29_HORA_SALIDA
 			,@p_TR29_DIAS_SEMANA
-			--,@p_TR29_DESCRIP
+			,@p_TR29_DESCRIP
 			,1
 			,0
 			,@p_TR29_UCREA
@@ -75,11 +73,7 @@ SET NOCOUNT ON;
 
 		IF @@ROWCOUNT <= 0  
 			SET @P_MENSAJE_RESPUESTA = 'ERROR'
-END TRY
-BEGIN CATCH
-	ROLLBACK TRAN
-		SET @P_MENSAJE_RESPUESTA = 'ERROR'
-END CATCH
+END
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *

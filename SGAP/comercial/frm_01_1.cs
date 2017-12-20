@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Win28etug;
 using Win28ntug;
 
-namespace SGAP.FORLDER_FRMS
+namespace SGAP.comercial
 {
     public partial class frm_01_1 : Form
     {

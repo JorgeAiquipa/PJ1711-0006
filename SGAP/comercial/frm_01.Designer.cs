@@ -1,4 +1,4 @@
-﻿namespace SGAP.FOLDER_FRMS
+﻿namespace SGAP.comercial
 {
     partial class frm_01
     {

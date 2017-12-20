@@ -1,14 +1,14 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tm38_get_001]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_tm38_get_001;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tm38get_001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tm38get_001;
 GO
 
 -- =============================================
 -- Author:		cesar.freitas
 -- Create date: 2017.12.13
--- Descripcion : Obtiene una lista de los servicios registrados de acuerdo
+-- Descripcion : Obtiene una lista de los cargos registrados de acuerdo
 -- a una condicion establecida.
 -- =============================================
-CREATE PROCEDURE pa_tm38_get_001
+CREATE PROCEDURE pa_tm38get_001
 	@p_TM38_TM2_ID varchar(50),
 	@p_filtro varchar(50)
 AS
@@ -43,4 +43,4 @@ GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
-EXEC pa_tm38_get_001 'pis' , 's'
+EXEC pa_tm38get_001 'pis' , 's'

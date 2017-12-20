@@ -1,4 +1,4 @@
-﻿namespace SGAP.FORLDER_FRMS
+﻿namespace SGAP.comercial
 {
     partial class frm_01_2
     {
@@ -35,10 +35,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dgv_mano_de_obra = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.listView_materiales_equipos = new System.Windows.Forms.ListView();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -52,7 +52,6 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
@@ -61,6 +60,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_mano_de_obra)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -71,7 +71,6 @@
             this.panel6.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tree_view_servicios
@@ -134,13 +133,22 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.dataGridView1);
+            this.panel2.Controls.Add(this.dgv_mano_de_obra);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(787, 369);
             this.panel2.TabIndex = 6;
+            // 
+            // dgv_mano_de_obra
+            // 
+            this.dgv_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 22);
+            this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
+            this.dgv_mano_de_obra.Size = new System.Drawing.Size(787, 347);
+            this.dgv_mano_de_obra.TabIndex = 7;
             // 
             // label10
             // 
@@ -167,23 +175,12 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.listView_materiales_equipos);
             this.panel3.Controls.Add(this.label11);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(787, 369);
             this.panel3.TabIndex = 4;
-            // 
-            // listView_materiales_equipos
-            // 
-            this.listView_materiales_equipos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_materiales_equipos.Location = new System.Drawing.Point(0, 22);
-            this.listView_materiales_equipos.Name = "listView_materiales_equipos";
-            this.listView_materiales_equipos.Size = new System.Drawing.Size(787, 347);
-            this.listView_materiales_equipos.TabIndex = 9;
-            this.listView_materiales_equipos.UseCompatibleStateImageBehavior = false;
-            this.listView_materiales_equipos.View = System.Windows.Forms.View.Details;
             // 
             // label11
             // 
@@ -321,15 +318,6 @@
             this.label4.Text = "Page 6";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 22);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(787, 347);
-            this.dataGridView1.TabIndex = 7;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Hora Entrada";
@@ -362,6 +350,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_mano_de_obra)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -372,7 +361,6 @@
             this.panel6.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
             }
@@ -403,7 +391,6 @@
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
             private UserControls.NumericUpDownColumn numericUpDownColumn1;
-            private System.Windows.Forms.ListView listView_materiales_equipos;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv_mano_de_obra;
     }
     }

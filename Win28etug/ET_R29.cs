@@ -25,5 +25,11 @@ namespace Win28etug
         public Decimal _TR29_REMUNERACION { get; set; }
         public string _TR29_TM2_ID { get; set; }
 
+        public ET_R29()
+        {
+            _TR29_HORA_ENTRADA = new DateTime(1900, 1, 1, hour: 7, minute: 0, second: 0);
+            _TR29_HORA_SALIDA = new DateTime(1900, 1, 1, hour: 15, minute: 0, second: 0);
+            _TR29_DIAS_SEMANA = 6;
+        }
     }
 }

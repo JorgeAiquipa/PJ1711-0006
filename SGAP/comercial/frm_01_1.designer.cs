@@ -1,4 +1,4 @@
-﻿namespace SGAP.FORLDER_FRMS
+﻿namespace SGAP.comercial
 {
     partial class frm_01_1
     {
@@ -130,9 +130,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label5.Location = new System.Drawing.Point(21, 111);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Tipo de Servicio";
+            this.label5.Text = "Servicio";
             // 
             // label7
             // 
@@ -167,7 +167,7 @@
             this.nupd_periodo_de_servicio.Size = new System.Drawing.Size(48, 20);
             this.nupd_periodo_de_servicio.TabIndex = 15;
             this.nupd_periodo_de_servicio.Value = new decimal(new int[] {
-            1,
+            12,
             0,
             0,
             0});
@@ -331,22 +331,22 @@
             // btn_cancelar
             // 
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_cancelar.Location = new System.Drawing.Point(566, 546);
+            this.btn_cancelar.Location = new System.Drawing.Point(541, 546);
             this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(100, 23);
+            this.btn_cancelar.Size = new System.Drawing.Size(125, 23);
             this.btn_cancelar.TabIndex = 17;
-            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.Text = "Cancelar <esc>";
             this.btn_cancelar.UseVisualStyleBackColor = true;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // btn_continuar
             // 
             this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_continuar.Location = new System.Drawing.Point(460, 546);
+            this.btn_continuar.Location = new System.Drawing.Point(357, 546);
             this.btn_continuar.Name = "btn_continuar";
-            this.btn_continuar.Size = new System.Drawing.Size(100, 23);
+            this.btn_continuar.Size = new System.Drawing.Size(178, 23);
             this.btn_continuar.TabIndex = 18;
-            this.btn_continuar.Text = "Continuar";
+            this.btn_continuar.Text = "Continuar <ctr +G>";
             this.btn_continuar.UseVisualStyleBackColor = true;
             this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
             // 

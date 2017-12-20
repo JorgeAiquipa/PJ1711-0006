@@ -29,7 +29,7 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_tm38_get_001", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tm38get_001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {

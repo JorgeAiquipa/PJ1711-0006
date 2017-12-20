@@ -1,5 +1,4 @@
-﻿using SGAP.FOLDER_FRMS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +11,7 @@ using System.Windows.Forms;
 using Win28etug;
 using Win28ntug;
 
-namespace SGAP.FORLDER_FRMS
+namespace SGAP.comercial
 {
     public partial class frm_01_2 : Form
     {
@@ -23,7 +22,7 @@ namespace SGAP.FORLDER_FRMS
         NT_M41 _nt_m41 = new NT_M41();
         NT_R28 _nt_r28 = new NT_R28();
         NT_R27 _nt_r27 = new NT_R27();
-
+        NT_R29 _nt_r29 = new NT_R29();
 
         ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
@@ -45,6 +44,7 @@ namespace SGAP.FORLDER_FRMS
             // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.
             Cargar_servicios();
 
+            Id_servicio_hijo = Id_Servicio_Padre;
             if (editar)
             {
                 //Obtenemos los locales que posee la cotización seleccionada
@@ -52,6 +52,8 @@ namespace SGAP.FORLDER_FRMS
                 _entidad._entity_r27._TR27_TM19_ID = _entidad._entity_m39._entity_et_m19._TM19_ID;
                 var result = _nt_r27.get_001(_entidad);
                 _entidad._lista_et_m27 = result._lista_et_m27;
+
+                Metodo_cargar_informacion_mano_de_obra();
             }
 
 
@@ -69,10 +71,6 @@ namespace SGAP.FORLDER_FRMS
 
             DisplayPanel(0);
 
-
-            //Diego
-            CreateColumn();
-            //
         }
 
         void Cargar_servicios()
@@ -151,7 +149,7 @@ namespace SGAP.FORLDER_FRMS
             // si el indice esta furea del intervalo veremos los resumenes general
 
             if (index <= 5)
-            { 
+            {
                 if (Panels.Count < 1) return;
 
                 if (VisiblePanel == Panels[index]) return;
@@ -167,11 +165,13 @@ namespace SGAP.FORLDER_FRMS
         private TreeNode m_OldSelectNode;
         private void tree_view_servicios_MouseUp(object sender, MouseEventArgs e)
         {
+            Point p = new Point(e.X, e.Y);
+
+            TreeNode node = tree_view_servicios.GetNodeAt(p);
+
             if (e.Button == MouseButtons.Right)
             {
-                Point p = new Point(e.X, e.Y);
 
-                TreeNode node = tree_view_servicios.GetNodeAt(p);
                 if (node != null)
                 {
                     m_OldSelectNode = tree_view_servicios.SelectedNode;
@@ -185,8 +185,30 @@ namespace SGAP.FORLDER_FRMS
                             break;
                         case "0": // ver menu para mano de obra
                             Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
-                            MenuStrip_ViewProperties_.Show(tree_view_servicios,p);
-                        break;
+                            Metodo_cargar_informacion_mano_de_obra();
+                            MenuStrip_ViewProperties_.Show(tree_view_servicios, p);
+                            break;
+                    }
+
+                    tree_view_servicios.SelectedNode = m_OldSelectNode;
+                    m_OldSelectNode = null;
+                }
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+
+                if (node != null)
+                {
+                    m_OldSelectNode = tree_view_servicios.SelectedNode;
+                    tree_view_servicios.SelectedNode = node;
+
+                    switch (Convert.ToString(node.Tag))
+                    {
+                        case "0": // ver menu para mano de obra
+                            Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
+                            //cargar pagina de mano de obra para el servicio seleccionado
+                            Metodo_cargar_informacion_mano_de_obra();
+                            break;
                     }
 
                     tree_view_servicios.SelectedNode = m_OldSelectNode;
@@ -227,13 +249,20 @@ namespace SGAP.FORLDER_FRMS
             form_2_1.ShowDialog();
             if (form_2_1.DialogResult != DialogResult.Cancel)
             {
-                //acciones a realiazar
+                Metodo_cargar_informacion_mano_de_obra();
             }
+            
         }
         #endregion
 
         #region Mano de obra
-        //
+        void Metodo_cargar_informacion_mano_de_obra()
+        {
+            ET_R29 _et = new ET_R29();
+            _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
+            dgv_mano_de_obra.DataSource = _nt_r29.get_001(_et)._lista_et_r29;
+            Contruir_DataGrid_Mano_Obra();
+        }
 
 
         #endregion
@@ -262,42 +291,52 @@ namespace SGAP.FORLDER_FRMS
         }
 
         #region Mano de obra
+        //cargar datagridview
 
+        void Contruir_DataGrid_Mano_Obra()
+        {
+
+            dgv_mano_de_obra.Columns["_Fila"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_TM38_ID"].Visible = false;
+
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].HeaderText = "Cargo";
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].DisplayIndex = 0;
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Width = 200;
+
+
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].HeaderText = "Hora Entrada";
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DefaultCellStyle.Format = "hh:mm tt";
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DisplayIndex = 1;
+
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].HeaderText = "Hora Salida";
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DefaultCellStyle.Format = "hh:mm tt";
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DisplayIndex = 2;
+
+            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
+            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
+
+
+            dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_UCREA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
+
+        }
 
         #endregion
 
         #region Maquinaria y equipo
-        //diego
-        private void CreateColumn()
-        {
-            //int cantd =_entidad._lista_et_m27.Count;
-            try
-            {
-                int index = 1;
 
-                listView_materiales_equipos.Columns.Add("Nombre", 200, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Codigo", 100, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Marca", 60, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Und", -2, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Maquinaria", -2, HorizontalAlignment.Left);
-                listView_materiales_equipos.Columns.Add("Equipos", -2, HorizontalAlignment.Left);
-
-                foreach (ET_M27 fila in _entidad._lista_et_m27)
-                {
-                    listView_materiales_equipos.Columns.Add(string.Format("{0}", fila._TM27_NOMBRE), -2, HorizontalAlignment.Left);
-                    index++;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            listView_materiales_equipos.Columns.Add("Cantidad Total", -2, HorizontalAlignment.Left);
-            listView_materiales_equipos.Columns.Add("Costo Unitario", -2, HorizontalAlignment.Left);
-            listView_materiales_equipos.Columns.Add("Costo Total", -2, HorizontalAlignment.Left);
-
-
-
-        }
         #endregion
     }
 }

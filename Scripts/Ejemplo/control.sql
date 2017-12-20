@@ -1,6 +1,5 @@
 SELECT 
-*
---CONCAT(',',COLUMN_NAME)
+CONCAT(',',COLUMN_NAME)
 --CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
 --concat(',@p_',COLUMN_NAME,' ',DATA_TYPE)
 --concat(',@p_',COLUMN_NAME)
@@ -26,3 +25,12 @@ t_m72 -- unidad de medida
 
 
 select * from t_r31
+
+
+
+-- pis
+-- tr29_tr28_id 
+select * from dbo.T_R29
+
+SELECT * FROM DBO.T_R28 WHERE TR28_ID = 61
+

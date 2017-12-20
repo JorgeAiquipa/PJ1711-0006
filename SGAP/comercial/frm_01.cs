@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using Win28etug;
 using Win28ntug;
 
-namespace SGAP.FOLDER_FRMS
+namespace SGAP.comercial
 {
     public partial class frm_01 : Form
     {
@@ -44,13 +44,13 @@ namespace SGAP.FOLDER_FRMS
 
             //Columnas
             listView_Cotizaciones.Columns.Add("Codigo Cotización",210);
-            listView_Cotizaciones.Columns.Add("Id cliente",50);
+            //listView_Cotizaciones.Columns.Add("Id cliente",50);
             listView_Cotizaciones.Columns.Add("Cliente",210);
             listView_Cotizaciones.Columns.Add("Ruc",160);
             listView_Cotizaciones.Columns.Add("Cantidad Locales",100);
             listView_Cotizaciones.Columns.Add("Creado Por",200);
             listView_Cotizaciones.Columns.Add("Fecha Creación",200);
-            listView_Cotizaciones.Columns.Add("Fecha actualización",200);
+            //listView_Cotizaciones.Columns.Add("Fecha actualización",200);
             //propiedades
             listView_Cotizaciones.View = View.Details;
             listView_Cotizaciones.FullRowSelect = true;
@@ -66,18 +66,20 @@ namespace SGAP.FOLDER_FRMS
         void call_Form()
         {
             // Llamanos al formulario de informcaion general
-            FORLDER_FRMS.frm_01_1 frm_01_1 = new FORLDER_FRMS.frm_01_1();
+            frm_01_1 frm_01_1 = new frm_01_1();
             frm_01_1.ShowDialog();
 
             try
             {
 
-                FORLDER_FRMS.frm_01_2 F2 = new FORLDER_FRMS.frm_01_2(frm_01_1._entity);
+                frm_01_2 F2 = new frm_01_2(frm_01_1._entity);
                 cargar_cotizaciones();
                 F2.ShowDialog();
             }
             catch (Exception ex)
-            { }
+            {
+                //
+            }
         }
 
         public void cargar_cotizaciones()
@@ -125,7 +127,7 @@ namespace SGAP.FOLDER_FRMS
             _entidad._entity_m39._entity_et_m19._TM19_ID = codigo_cliente;
             _entidad._entity_m39._entity_et_m19._TM19_DESCRIP2 = descripcion_cliente; //razon social
 
-            FORLDER_FRMS.frm_01_2 F2 = new FORLDER_FRMS.frm_01_2(_entidad, true);
+            frm_01_2 F2 = new frm_01_2(_entidad, true);
             cargar_cotizaciones();
             F2.ShowDialog();
         }
