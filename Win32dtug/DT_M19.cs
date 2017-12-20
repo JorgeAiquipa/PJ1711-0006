@@ -62,6 +62,9 @@ namespace Win32dtug
         //OBTENER LISTA DE CLIENTES MEDIANTE UN FILTRO
         public ET_entidad filter_001(ET_M19 objEntity)
         {
+            string Mensaje_error = "";
+
+
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(_cnx.conexion))
             {
@@ -79,7 +82,7 @@ namespace Win32dtug
                     foreach (DataRow fila in dt.Rows)
                     {
                         _etm19 = new ET_M19();
-                        _etm19._TM19_DESCRIP1 = fila["TM19_DESCRIP1"].ToString();
+                        _etm19._TM19_DESCRIP1 = fila["TM19_DESCIP1"].ToString();
                         _etm19._TM19_DESCRIP2 = fila["TM19_DESCRIP2"].ToString();
                         //_etm19.TM19_FACTUALIZA = fila["TM19_FACTUALIZA"].ToString();
                         //_etm19.TM19_FCREA = Convert.ToDateTime(fila["TM19_FCREA"].ToString());
@@ -107,9 +110,14 @@ namespace Win32dtug
                 }
                 catch (Exception ex)
                 {
+                    Mensaje_error = string.Format("{1}{0}", Environment.NewLine, (Mensaje_error + ex.Message.ToString()));
+                    if (ex.InnerException != null)
+                        Mensaje_error = string.Format("{1}{0}", Environment.NewLine, (Mensaje_error + "Inner exception: " + ex.InnerException.Message));
+                    Mensaje_error = string.Format("{1}{0}", Environment.NewLine ,(Mensaje_error + "Stack trace: " + ex.StackTrace));
+
                     _Entidad._hubo_error = true;
-                    _Entidad._contenido_mensaje = "Ocurrio un error al obetener Informacion de la base de datos.\n" + ex.ToString();
-                    _Entidad._titulo_mensaje = "Alert!";
+                    _Entidad._contenido_mensaje = Mensaje_error;
+                    _Entidad._titulo_mensaje = "Error!";
                 }
                 finally
                 {

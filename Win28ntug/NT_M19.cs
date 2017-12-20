@@ -41,11 +41,11 @@ namespace Win28ntug
             }
             else
             {
-                _entidad._hubo_error = true;
-                _entidad._titulo_mensaje = "Alert!";
+                _entidad._contenido_mensaje = result._contenido_mensaje;
+                Mensaje(_entidad);
             }
 
-            
+
         }
 
         public ET_M19 sel_001(string cliente)
@@ -93,31 +93,5 @@ namespace Win28ntug
         public event EventHandler<ET_entidad> Mensaje_Alerta;
         #endregion
 
-
-        public List<ET_M19> get_list()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public ET_M19 search(ET_M19 objEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool insert_01(ET_M19 objEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool update_01(ET_M19 objEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool delete_01(ET_M19 objEntity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
