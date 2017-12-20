@@ -229,7 +229,6 @@ namespace SGAP.comercial
                 e.CellStyle.Format = "hh:mm tt";
                 //e.Value = "15:00:00 pm";
                 e.FormattingApplied = true;
-
             }
         }
 
