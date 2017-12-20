@@ -23,6 +23,7 @@ namespace SGAP.comercial
         NT_R28 _nt_r28 = new NT_R28();
         NT_R27 _nt_r27 = new NT_R27();
         NT_M31 _nt_m31 = new NT_M31();
+        NT_R29 _nt_r29 = new NT_R29();
         ET_M31 _et_m31 = new ET_M31();
         List<ET_M31> _lista_m31 = new List<ET_M31>();
         
@@ -79,6 +80,8 @@ namespace SGAP.comercial
             }
 
             DisplayPanel(0);
+
+            CreateColumn();
 
         }
 
@@ -395,7 +398,6 @@ namespace SGAP.comercial
                 if (nombre != "")
 
                 {    
-                              
                     
                     //dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
                     dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = cod;
@@ -415,17 +417,9 @@ namespace SGAP.comercial
                         dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 0;
                     }
 
-
-
-                    
-
                 }
 
-
-
             }
-
-        }
 
         }
 
@@ -447,50 +441,47 @@ namespace SGAP.comercial
             }
         }
 
-    void Contruir_DataGrid_Mano_Obra()
-    {
+        void Contruir_DataGrid_Mano_Obra()
+        {
 
-        dgv_mano_de_obra.Columns["_Fila"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_TM38_ID"].Visible = false;
+            dgv_mano_de_obra.Columns["_Fila"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_TM38_ID"].Visible = false;
 
-        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Visible = true;
-        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].HeaderText = "Cargo";
-        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].DisplayIndex = 0;
-        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Width = 200;
-
-
-        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].Visible = true;
-        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].HeaderText = "Hora Entrada";
-        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DefaultCellStyle.Format = "hh:mm tt";
-        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DisplayIndex = 1;
-
-        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].Visible = true;
-        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].HeaderText = "Hora Salida";
-        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DefaultCellStyle.Format = "hh:mm tt";
-        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DisplayIndex = 2;
-
-        dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].Visible = true;
-        dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
-        dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].HeaderText = "Cargo";
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].DisplayIndex = 0;
+            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Width = 200;
 
 
-        dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_UCREA"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
-        dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
-        dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].HeaderText = "Hora Entrada";
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DefaultCellStyle.Format = "hh:mm tt";
+            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DisplayIndex = 1;
+
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].HeaderText = "Hora Salida";
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DefaultCellStyle.Format = "hh:mm tt";
+            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DisplayIndex = 2;
+
+            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
+            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
+
+
+            dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_UCREA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
+            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
+
+        }
+
+
 
     }
-
-    #endregion
-
-    #region Maquinaria y equipo
-
-    #endregion
-}
 }

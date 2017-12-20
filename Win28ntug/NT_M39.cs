@@ -77,7 +77,7 @@ namespace Win28ntug
                     string[] row =
                     {
                         fila._TM39_ID,
-                        //fila._entity_et_m19._TM19_ID,
+                        fila._entity_et_m19._TM19_ID,
                         fila._entity_et_m19._TM19_DESCRIP2,
                         fila._entity_et_m19._TM19_DESCRIP1, 
                         fila._TM39_tm27_count.ToString(),

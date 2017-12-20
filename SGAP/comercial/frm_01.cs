@@ -44,7 +44,8 @@ namespace SGAP.comercial
 
             //Columnas
             listView_Cotizaciones.Columns.Add("Codigo Cotización",210);
-            //listView_Cotizaciones.Columns.Add("Id cliente",50);
+            listView_Cotizaciones.Columns.Add("Id cliente",0);
+
             listView_Cotizaciones.Columns.Add("Cliente",210);
             listView_Cotizaciones.Columns.Add("Ruc",160);
             listView_Cotizaciones.Columns.Add("Cantidad Locales",100);
@@ -54,6 +55,8 @@ namespace SGAP.comercial
             //propiedades
             listView_Cotizaciones.View = View.Details;
             listView_Cotizaciones.FullRowSelect = true;
+
+            listView_Cotizaciones.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
 
         }
 
