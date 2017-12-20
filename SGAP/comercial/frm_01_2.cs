@@ -27,12 +27,12 @@ namespace SGAP.comercial
         ET_M31 _et_m31 = new ET_M31();
         List<ET_M31> _lista_m31 = new List<ET_M31>();
         
-        public string nom;
-        public string cod;
-        public string marc;
-        public string undad;
-        public string precio;
-        public string tipo;
+        public string nom = "";
+        public string cod = "";
+        public string marc = "";
+        public string undad = "";
+        public double precio = 0;
+        public string tipo = "";
 
         ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
@@ -83,8 +83,19 @@ namespace SGAP.comercial
 
             CreateColumn();
 
-        }
 
+            _nt_m31.Mensaje_Alerta += Mensaje_alerta;
+
+        }
+        static void Mensaje_alerta(object sender, ET_entidad e)
+        {
+            MessageBox.Show
+            (
+                e._contenido_mensaje, e._titulo_mensaje,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
         void Cargar_servicios()
         {
             var result_array_int = _nt_r28.get_001(_entidad, tree_view_servicios);
@@ -319,9 +330,9 @@ namespace SGAP.comercial
 
         private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-
+            int cont = _entidad._lista_et_m27.Count;
             e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
-            if (dgv_entrada_datos_mq_eq.CurrentCell.ColumnIndex == 6) //Desired Column
+            if (dgv_entrada_datos_mq_eq.CurrentCell.ColumnIndex > 5 && dgv_entrada_datos_mq_eq.CurrentCell.ColumnIndex <= cont + 5) //Desired Column
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)
@@ -371,20 +382,21 @@ namespace SGAP.comercial
             string nombre = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name;
             if (nombre=="nombre")
             {
-                //bool existe = _lista_m31.Any(item => item._TM31_DESCRIP + item._TM31_TM33_ID + item._TM31_TM72_ID == e.FormattedValue.ToString());
-                bool existe = _lista_m31.Any(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
-                if (existe)
-                {
-                    //ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP + item._TM31_TM33_ID + item._TM31_TM72_ID == e.FormattedValue.ToString());
-                    ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
+                    bool existe = _lista_m31.Any(item => (item._TM31_DESCRIP + " " + item._TM31_TM33_ID + " " + item._TM31_TM72_ID) == e.FormattedValue.ToString());
+                    //bool existe = _lista_m31.Any(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
+                    if (existe)
+                    {
+                        ET_M31 fila = _lista_m31.FirstOrDefault(item => (item._TM31_DESCRIP + " " + item._TM31_TM33_ID + " " + item._TM31_TM72_ID) == e.FormattedValue.ToString());
+                        //ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
 
-                    nom = fila._TM31_DESCRIP;//
-                    cod = fila._TM31_ID;
-                    marc = fila._TM31_TM33_ID;
-                    undad = fila._TM31_TM72_ID;
-                    precio = fila._TM31_PRECIO;
-                    tipo = fila._TM31_TM34_ID;
-                }
+                        nom = fila._TM31_DESCRIP;//
+                        cod = fila._TM31_ID;
+                        marc = fila._TM31_TM33_ID;
+                        undad = fila._TM31_TM72_ID;
+                        precio = Convert.ToDouble(fila._TM31_PRECIO);
+                        tipo = fila._TM31_TM34_ID;
+                    }
+                
             }
             
         }
@@ -404,7 +416,7 @@ namespace SGAP.comercial
                 cel++;
             }
 
-            double total = suma * Convert.ToDouble(precio);
+            double total = suma * precio;
 
             dgv_entrada_datos_mq_eq.Rows[i].Cells[6 + cont].Value = suma;
             dgv_entrada_datos_mq_eq.Rows[i].Cells[8 + cont].Value = total;
@@ -413,13 +425,15 @@ namespace SGAP.comercial
             if (column_name.Equals("nombre"))
             {
 
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
+
                 string nombre = Convert.ToString(dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value);
 
                 if (nombre != "")
 
                 {    
                     
-                    //dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
+                    
                     dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = cod;
                     dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = marc;
                     dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = undad;
@@ -455,8 +469,17 @@ namespace SGAP.comercial
                 dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = "";
                 dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = "";
                 dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = "";
-                dgv_entrada_datos_mq_eq.Rows[i].Cells[7 + cont].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 0;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 0;
+                int cel = 6;
+                for (int o = 1; o <= cont; o++)
+                {
+                    int celda = Convert.ToInt32(dgv_entrada_datos_mq_eq.Rows[i].Cells[cel].Value);
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[cel].Value = null;
+                    cel++;
+                }
                 dgv_entrada_datos_mq_eq.Rows[i].Cells[6 + cont].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[7 + cont].Value = "";
 
             }
         }

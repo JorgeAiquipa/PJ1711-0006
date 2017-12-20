@@ -35,11 +35,22 @@ namespace Win28ntug
             }
             else
             {
-                _entidad._hubo_error = true;
-                _entidad._titulo_mensaje = "Alert!";
+                Mensaje(result);
             }
 
             return result;
         }
+
+        #region Mensaje
+        protected virtual void Mensaje(ET_entidad e)
+        {
+            EventHandler<ET_entidad> handler = Mensaje_Alerta;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler<ET_entidad> Mensaje_Alerta;
+        #endregion
     }
 }
