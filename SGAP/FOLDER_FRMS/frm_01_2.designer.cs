@@ -68,7 +68,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
-            this.contextMenuStrip_tree_view.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -76,7 +75,6 @@
             this.panel2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mq_eq)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -85,28 +83,8 @@
             this.panel6.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // contextMenuStrip_tree_view
-            // 
-            this.contextMenuStrip_tree_view.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStreep_Agregar_servicio_complementario,
-            this.quitarServicioToolStripMenuItem});
-            this.contextMenuStrip_tree_view.Name = "contextMenuStrip_tree_view";
-            this.contextMenuStrip_tree_view.Size = new System.Drawing.Size(254, 48);
-            // 
-            // toolStreep_Agregar_servicio_complementario
-            // 
-            this.toolStreep_Agregar_servicio_complementario.Name = "toolStreep_Agregar_servicio_complementario";
-            this.toolStreep_Agregar_servicio_complementario.Size = new System.Drawing.Size(253, 22);
-            this.toolStreep_Agregar_servicio_complementario.Text = "Agregar Servicio Complementario";
-            this.toolStreep_Agregar_servicio_complementario.Click += new System.EventHandler(this.toolStreep_Agregar_servicio_complementario_Click);
-            // 
-            // quitarServicioToolStripMenuItem
-            // 
-            this.quitarServicioToolStripMenuItem.Name = "quitarServicioToolStripMenuItem";
-            this.quitarServicioToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.quitarServicioToolStripMenuItem.Text = "Quitar Servicio";
             // 
             // tree_view_servicios
             // 
@@ -117,6 +95,7 @@
             this.tree_view_servicios.Size = new System.Drawing.Size(260, 405);
             this.tree_view_servicios.TabIndex = 0;
             this.tree_view_servicios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_view_servicios_AfterSelect);
+            this.tree_view_servicios.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tree_view_servicios_MouseUp);
             // 
             // panel1
             // 
@@ -183,7 +162,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(787, 22);
             this.label10.TabIndex = 6;
-            this.label10.Text = "Page 1";
+            this.label10.Text = "Mano de Obra";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPage2
@@ -199,7 +178,7 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.dgv_entrada_datos_mq_eq);
+            this.panel3.Controls.Add(this.listView_materiales_equipos);
             this.panel3.Controls.Add(this.label11);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
@@ -207,7 +186,7 @@
             this.panel3.Size = new System.Drawing.Size(787, 369);
             this.panel3.TabIndex = 4;
             // 
-            // dgv_entrada_datos_mq_eq
+            // listView_materiales_equipos
             // 
             this.dgv_entrada_datos_mq_eq.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -457,7 +436,6 @@
             this.Name = "frm_01_2";
             this.Text = "FRM_Cotizador";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.contextMenuStrip_tree_view.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panPages.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -465,7 +443,6 @@
             this.panel2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mq_eq)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
@@ -474,14 +451,12 @@
             this.panel6.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
             }
 
             #endregion
-            private System.Windows.Forms.ContextMenuStrip contextMenuStrip_tree_view;
-            private System.Windows.Forms.ToolStripMenuItem toolStreep_Agregar_servicio_complementario;
-            private System.Windows.Forms.ToolStripMenuItem quitarServicioToolStripMenuItem;
             private System.Windows.Forms.TreeView tree_view_servicios;
             private System.Windows.Forms.Panel panel1;
             private System.Windows.Forms.Panel panPages;

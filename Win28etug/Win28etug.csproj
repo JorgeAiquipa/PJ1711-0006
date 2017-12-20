@@ -52,6 +52,8 @@
     <Compile Include="ET_M39.cs" />
     <Compile Include="ET_M41.cs" />
     <Compile Include="ET_R28.cs" />
+    <Compile Include="ET_R29.cs" />
+    <Compile Include="ET_R31.cs" />
     <Compile Include="ET_servicio.cs" />
     <Compile Include="ET_TR27.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

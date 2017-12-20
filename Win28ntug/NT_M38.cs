@@ -16,7 +16,7 @@ namespace Win28ntug
 
 
 
-        public void gridTextBoxAutocomplete(TextBox _textbox)
+        public ET_entidad gridTextBoxAutocomplete(TextBox _textbox)
         {
 
             _et_m38 = new ET_M38();
@@ -39,7 +39,7 @@ namespace Win28ntug
                 _entidad._titulo_mensaje = "Alert!";
             }
 
-
+            return result;
         }
     }
 }

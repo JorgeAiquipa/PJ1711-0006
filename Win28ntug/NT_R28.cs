@@ -22,26 +22,16 @@ namespace Win28ntug
         }
 
         //obtenemos los servicios de una cotización
-        public void get_001(ET_entidad entity, TreeView treview) 
+        public int[] get_001(ET_entidad entity, TreeView treview) 
         {
+            treview.Nodes.Clear();
+            int Id_servicio_Padre = 0;
+            int Periodo_Servicio = 0;
             entity._entity_r28._TR28_TM39_ID = entity._entity_m39._TM39_ID;
             var result = _dt_r28.get_001(entity._entity_r28);
 
             if (!result._hubo_error && result._lista_et_r28.Count > 0)
             {
-                TreeNode mano_obra = new TreeNode("Mano de Obra");
-                mano_obra.Name = "Mano de Obra";
-                mano_obra.Tag = 0;
-                TreeNode maquinaria = new TreeNode("Maquinaria y Equipo");
-                maquinaria.Tag = 1;
-                TreeNode materiales = new TreeNode("Materiales e Insumos");
-                materiales.Tag = 2;
-                TreeNode implementos = new TreeNode("Implementos de Limpieza");
-                implementos.Tag = 3;
-                TreeNode suministros = new TreeNode("Suministros");
-                suministros.Tag = 4;
-                TreeNode indumentaria = new TreeNode("Indumentaria");
-                indumentaria.Tag = 5;
 
                 string name_nodo = string.Format("{0} - {1}", entity._entity_m39._TM39_ID, entity._entity_m39._entity_et_m19._TM19_DESCRIP2);
                 TreeNode nodo_principal = new TreeNode();
@@ -53,11 +43,30 @@ namespace Win28ntug
 
                 result._lista_et_r28.ForEach(x =>
                 {
+                    //Id_servicio_hijo = x._TR28_ID;
+                    Id_servicio_Padre = x._TR28_PADRE;
+                    Periodo_Servicio = x._TR28_PERIODO;
+
+                    TreeNode mano_obra = new TreeNode("Mano de Obra");
+                    mano_obra.Name = "Mano de Obra";
+                    mano_obra.Tag = 0;
+                    TreeNode maquinaria = new TreeNode("Maquinaria y Equipo");
+                    maquinaria.Tag = 1;
+                    TreeNode materiales = new TreeNode("Materiales e Insumos");
+                    materiales.Tag = 2;
+                    TreeNode implementos = new TreeNode("Implementos de Limpieza");
+                    implementos.Tag = 3;
+                    TreeNode suministros = new TreeNode("Suministros");
+                    suministros.Tag = 4;
+                    TreeNode indumentaria = new TreeNode("Indumentaria");
+                    indumentaria.Tag = 5;
+
                     TreeNode node = new TreeNode(x._TR28_DESCRIP, new TreeNode[] {
                         mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
                     });
-                    node.Name = x._TR28_DESCRIP;
+                    node.Text = x._TR28_DESCRIP;
                     node.Tag = 1000;
+                    node.Name = x._TR28_ID.ToString();
                     z_index++;
 
                     nodo_principal.Nodes.Add(node);
@@ -67,6 +76,10 @@ namespace Win28ntug
 
                 treview.Nodes.Add(nodo_principal);
             }
+
+            int[] resultado = { Id_servicio_Padre, Periodo_Servicio };
+
+            return resultado;
         }
         
     }
