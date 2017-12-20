@@ -124,28 +124,6 @@ namespace SGAP.FORLDER_FRMS
             }
         }
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            //tiene lugar cuando se clickea el contenido de una celda
-
-            string column_name = dgv_entrada_datos_mano_de_obra.Columns[0].Name; // cargo
-            if (column_name.Equals("cargo"))
-            {
-                TextBox auto_text = e.Control as TextBox;
-
-                if (auto_text != null)
-                {
-                    auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
-                    auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                    _nt_m38.gridTextBoxAutocomplete(auto_text);
-                }
-            }
-
-
-        }
-
-
-
 
         #endregion
 
@@ -196,8 +174,9 @@ namespace SGAP.FORLDER_FRMS
         private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             //tiene lugar cuando se clickea el contenido de una celda
-
-            string column_name = dgv_entrada_datos_mq_eq.Columns[0].Name; // nombre
+            int i;
+            i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
+            string column_name = dgv_entrada_datos_mq_eq.Columns[i].Name; // nombre
             if (column_name.Equals("nombre"))
             {
                 TextBox auto_text = e.Control as TextBox;
@@ -218,21 +197,6 @@ namespace SGAP.FORLDER_FRMS
 
         private void dgv_entrada_datos_mq_eq_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-
-            //dvg_entrada_datos_mq_eq.Rows.Add(_lista_m31._TM31_DESCRIP, _et_m31._TM31_ID);
-
-            //string codigo = string.Format(_et_m31._TM31_ID);
-            //string nombre = _et_m31._TM31_DESCRIP;
-            //dgv_entrada_datos_mq_eq.Rows.Add("TV", "PRO03");  
-
-            //int cont = _entidad._lista_et_m27.count;
-
-            //DataGridViewRow fila = new DataGridViewRow();
-            //fila.CreateCells(dgv_entrada_datos_mq_eq);
-            //fila.Cells[0].Value = nom;
-            //fila.Cells[1].Value = codigo;
-
-            //dgv_entrada_datos_mq_eq.Rows.Add(fila);
         }
 
 
@@ -241,9 +205,11 @@ namespace SGAP.FORLDER_FRMS
             string nombre = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name;
             if (nombre=="nombre")
             {
+                //bool existe = _lista_m31.Any(item => item._TM31_DESCRIP + item._TM31_TM33_ID + item._TM31_TM72_ID == e.FormattedValue.ToString());
                 bool existe = _lista_m31.Any(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
                 if (existe)
                 {
+                    //ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP + item._TM31_TM33_ID + item._TM31_TM72_ID == e.FormattedValue.ToString());
                     ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
 
                     nom = fila._TM31_DESCRIP;//
@@ -259,37 +225,82 @@ namespace SGAP.FORLDER_FRMS
 
         private void dgv_entrada_datos_mq_eq_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            int cont = _entidad._lista_et_m27.Count;
+            int i;
+            i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
 
-            string column_name = dgv_entrada_datos_mq_eq.Columns[0].Name; // nombre
+            int suma = 0;
+            int cel = 6;
+            for (int o = 1; o <= cont; o++)
+            {
+                int celda = Convert.ToInt32(dgv_entrada_datos_mq_eq.Rows[i].Cells[cel].Value);
+                suma = suma + celda;
+                cel++;
+            }
+
+            double total = suma * Convert.ToDouble(precio);
+
+            dgv_entrada_datos_mq_eq.Rows[i].Cells[6 + cont].Value = suma;
+            dgv_entrada_datos_mq_eq.Rows[i].Cells[8 + cont].Value = total;
+
+            string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
             if (column_name.Equals("nombre"))
             {
-                int cont =  _entidad._lista_et_m27.Count;
-                int i;
-                i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
-                dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
-                dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = cod;
-                dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = marc;
-                dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = undad;
-                dgv_entrada_datos_mq_eq.Rows[i].Cells[7+cont].Value = precio;
 
-                if (tipo == "MQ")
-                {
-                    dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 1;
+                string nombre = Convert.ToString(dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value);
 
-                }else if (tipo == "EQ")
-                {
-                    dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 1;
+                if (nombre != "")
+
+                {    
+                              
+                    
+                    //dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = cod;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = marc;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = undad;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[7 + cont].Value = precio;
+
+                    if (tipo == "MQ")
+                    {
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 1;
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 0;
+
+                    }
+                    else if (tipo == "EQ")
+                    {
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 1;
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 0;
+                    }
+
+
+
+                    
+
                 }
 
-            }
-            //DataGridViewRow fila = new DataGridViewRow();
-            //fila.CreateCells(dgv_entrada_datos_mq_eq);
-            ////fila.Cells[0].Value = nom;
-            //fila.Cells[1].Value = cod;
-            //fila.Cells[2].Value = marc;
-            //fila.Cells[3].Value = undad;
 
-            //dgv_entrada_datos_mq_eq.Rows.Add(fila);
+
+            }
+
+
+        }
+
+        private void dgv_entrada_datos_mq_eq_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
+            if (column_name.Equals("nombre"))
+            {
+                int cont = _entidad._lista_et_m27.Count;
+                int i;
+                i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[7 + cont].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[6 + cont].Value = "";
+
+            }
         }
     }
     }

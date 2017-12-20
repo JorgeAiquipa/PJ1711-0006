@@ -30,7 +30,6 @@
             private void InitializeComponent()
             {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStrip_tree_view = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStreep_Agregar_servicio_complementario = new System.Windows.Forms.ToolStripMenuItem();
             this.quitarServicioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,17 +39,19 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.split_mano_obra = new System.Windows.Forms.SplitContainer();
-            this.dgv_entrada_datos_mano_de_obra = new System.Windows.Forms.DataGridView();
-            this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hora_entrada = new SGAP.UserControls.GridTimeControl();
-            this.hora_salida = new SGAP.UserControls.GridTimeControl();
-            this.dias_x_semana = new SGAP.UserControls.NumericUpDownColumn();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -67,27 +68,12 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_tree_view.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.split_mano_obra)).BeginInit();
-            this.split_mano_obra.Panel1.SuspendLayout();
-            this.split_mano_obra.Panel2.SuspendLayout();
-            this.split_mano_obra.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mq_eq)).BeginInit();
@@ -181,94 +167,12 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.split_mano_obra);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(787, 369);
             this.panel2.TabIndex = 6;
-            // 
-            // split_mano_obra
-            // 
-            this.split_mano_obra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.split_mano_obra.Location = new System.Drawing.Point(0, 22);
-            this.split_mano_obra.Name = "split_mano_obra";
-            this.split_mano_obra.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // split_mano_obra.Panel1
-            // 
-            this.split_mano_obra.Panel1.Controls.Add(this.dgv_entrada_datos_mano_de_obra);
-            // 
-            // split_mano_obra.Panel2
-            // 
-            this.split_mano_obra.Panel2.Controls.Add(this.dataGridView2);
-            this.split_mano_obra.Size = new System.Drawing.Size(787, 347);
-            this.split_mano_obra.SplitterDistance = 171;
-            this.split_mano_obra.TabIndex = 7;
-            // 
-            // dgv_entrada_datos_mano_de_obra
-            // 
-            this.dgv_entrada_datos_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_entrada_datos_mano_de_obra.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cargo,
-            this.hora_entrada,
-            this.hora_salida,
-            this.dias_x_semana});
-            this.dgv_entrada_datos_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_entrada_datos_mano_de_obra.Location = new System.Drawing.Point(0, 0);
-            this.dgv_entrada_datos_mano_de_obra.Name = "dgv_entrada_datos_mano_de_obra";
-            this.dgv_entrada_datos_mano_de_obra.RowHeadersWidth = 30;
-            this.dgv_entrada_datos_mano_de_obra.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(787, 171);
-            this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
-            this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
-            this.dgv_entrada_datos_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
-            // 
-            // cargo
-            // 
-            this.cargo.HeaderText = "Tipo cargo";
-            this.cargo.Name = "cargo";
-            this.cargo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cargo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cargo.Width = 180;
-            // 
-            // hora_entrada
-            // 
-            this.hora_entrada.HeaderText = "Hora Entrada";
-            this.hora_entrada.Name = "hora_entrada";
-            this.hora_entrada.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.hora_entrada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.hora_entrada.Width = 120;
-            // 
-            // hora_salida
-            // 
-            this.hora_salida.HeaderText = "Hora Salida";
-            this.hora_salida.Name = "hora_salida";
-            this.hora_salida.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.hora_salida.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.hora_salida.Width = 120;
-            // 
-            // dias_x_semana
-            // 
-            dataGridViewCellStyle1.NullValue = "0";
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
-            this.dias_x_semana.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dias_x_semana.HeaderText = "DxS";
-            this.dias_x_semana.MinimumWidth = 80;
-            this.dias_x_semana.Name = "dias_x_semana";
-            this.dias_x_semana.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dias_x_semana.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dias_x_semana.Width = 116;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(787, 172);
-            this.dataGridView2.TabIndex = 0;
             // 
             // label10
             // 
@@ -325,10 +229,70 @@
             this.dgv_entrada_datos_mq_eq.Name = "dgv_entrada_datos_mq_eq";
             this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(780, 341);
             this.dgv_entrada_datos_mq_eq.TabIndex = 10;
+            this.dgv_entrada_datos_mq_eq.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_entrada_datos_mq_eq_CellBeginEdit);
             this.dgv_entrada_datos_mq_eq.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellEndEdit);
             this.dgv_entrada_datos_mq_eq.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellLeave);
             this.dgv_entrada_datos_mq_eq.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mq_eq_CellValidating);
             this.dgv_entrada_datos_mq_eq.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dvg_entrada_datos_mq_eq_EditingControlShowing_1);
+            // 
+            // nombre
+            // 
+            this.nombre.Frozen = true;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 200;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.Width = 82;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.Width = 82;
+            // 
+            // und
+            // 
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            this.und.Width = 50;
+            // 
+            // maquinaria
+            // 
+            this.maquinaria.HeaderText = "Maquinaria";
+            this.maquinaria.Name = "maquinaria";
+            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.maquinaria.Width = 65;
+            // 
+            // equipos
+            // 
+            this.equipos.HeaderText = "Equipos";
+            this.equipos.Name = "equipos";
+            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.equipos.Width = 55;
+            // 
+            // cantotal
+            // 
+            this.cantotal.HeaderText = "Cant. Total";
+            this.cantotal.Name = "cantotal";
+            this.cantotal.Width = 82;
+            // 
+            // costounitario
+            // 
+            this.costounitario.HeaderText = "Costo Unitario";
+            this.costounitario.Name = "costounitario";
+            this.costounitario.Width = 82;
+            // 
+            // costototal
+            // 
+            this.costototal.HeaderText = "Costo Total";
+            this.costototal.Name = "costototal";
+            this.costototal.Width = 82;
             // 
             // label11
             // 
@@ -483,65 +447,6 @@
             this.numericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.numericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.Width = 200;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "Codigo";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.Width = 82;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.Width = 82;
-            // 
-            // und
-            // 
-            this.und.HeaderText = "Und.";
-            this.und.Name = "und";
-            this.und.Width = 50;
-            // 
-            // maquinaria
-            // 
-            this.maquinaria.HeaderText = "Maquinaria";
-            this.maquinaria.Name = "maquinaria";
-            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.maquinaria.Width = 65;
-            // 
-            // equipos
-            // 
-            this.equipos.HeaderText = "Equipos";
-            this.equipos.Name = "equipos";
-            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.equipos.Width = 55;
-            // 
-            // cantotal
-            // 
-            this.cantotal.HeaderText = "Cant. Total";
-            this.cantotal.Name = "cantotal";
-            this.cantotal.Width = 82;
-            // 
-            // costounitario
-            // 
-            this.costounitario.HeaderText = "Costo Unitario";
-            this.costounitario.Name = "costounitario";
-            this.costounitario.Width = 82;
-            // 
-            // costototal
-            // 
-            this.costototal.HeaderText = "Costo Total";
-            this.costototal.Name = "costototal";
-            this.costototal.Width = 82;
-            // 
             // frm_01_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,12 +463,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.split_mano_obra.Panel1.ResumeLayout(false);
-            this.split_mano_obra.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.split_mano_obra)).EndInit();
-            this.split_mano_obra.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mq_eq)).EndInit();
@@ -605,16 +504,9 @@
             private System.Windows.Forms.TabPage tabPage6;
             private System.Windows.Forms.Panel panel7;
             private System.Windows.Forms.Label label4;
-            private System.Windows.Forms.SplitContainer split_mano_obra;
-            private System.Windows.Forms.DataGridView dgv_entrada_datos_mano_de_obra;
-            private System.Windows.Forms.DataGridView dataGridView2;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
             private UserControls.NumericUpDownColumn numericUpDownColumn1;
-            private System.Windows.Forms.DataGridViewTextBoxColumn cargo;
-            private UserControls.GridTimeControl hora_entrada;
-            private UserControls.GridTimeControl hora_salida;
-            private UserControls.NumericUpDownColumn dias_x_semana;
         private System.Windows.Forms.DataGridView dgv_entrada_datos_mq_eq;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
