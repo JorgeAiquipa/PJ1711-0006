@@ -319,6 +319,17 @@ namespace SGAP.comercial
 
         private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dgv_entrada_datos_mq_eq.CurrentCell.ColumnIndex == 6) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+
             //tiene lugar cuando se clickea el contenido de una celda
             int i;
             i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
@@ -339,6 +350,15 @@ namespace SGAP.comercial
                 }
             }
 
+        }
+
+
+        private void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void dgv_entrada_datos_mq_eq_CellLeave(object sender, DataGridViewCellEventArgs e)
