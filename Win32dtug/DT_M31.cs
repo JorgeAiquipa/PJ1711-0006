@@ -52,6 +52,7 @@ namespace Win32dtug
                         _etm31._TM31_TM33_ID = fila["TM31_TM33_ID"].ToString(); //MARCA
                         _etm31._TM31_TM72_ID = fila["TM31_TM72_ID"].ToString(); //UND
                         _etm31._TM31_PRECIO = fila["TM31_PRECIO"].ToString(); //PRECIO UNITARIO
+                        _etm31._TM31_TM34_ID = fila["TM31_TM34_ID"].ToString(); //CATEGORIA,TIPO
                         //_etm31._TM31_UCREA = fila["TM31_UCREA"].ToString();
                         //_etm31._TM31_FCREA = fila["TM31_FCREA"].ToString();
                         //_etm31._TM31_UACTUALIZA = fila["TM31_UACTUALIZA"].ToString();

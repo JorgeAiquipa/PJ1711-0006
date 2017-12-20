@@ -22,7 +22,16 @@ namespace SGAP.comercial
         NT_M41 _nt_m41 = new NT_M41();
         NT_R28 _nt_r28 = new NT_R28();
         NT_R27 _nt_r27 = new NT_R27();
-        NT_R29 _nt_r29 = new NT_R29();
+        NT_M31 _nt_m31 = new NT_M31();
+        ET_M31 _et_m31 = new ET_M31();
+        List<ET_M31> _lista_m31 = new List<ET_M31>();
+        
+        public string nom;
+        public string cod;
+        public string marc;
+        public string undad;
+        public string precio;
+        public string tipo;
 
         ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
@@ -268,7 +277,22 @@ namespace SGAP.comercial
         #endregion
 
         #region Maquinaria y equipo
-
+        //diego
+        private void CreateColumn()
+        {            
+            int index = 1;
+            foreach (ET_M27 fila in _entidad._lista_et_m27)
+            {
+                // Initialize the button column.
+                DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn
+                {
+                    HeaderText = string.Format("{0}", fila._TM27_NOMBRE),
+                };
+                // Add the column to the control.
+                dgv_entrada_datos_mq_eq.Columns.Insert(6, Column);                
+                index++;
+            }
+        }
         #endregion
 
 
@@ -290,53 +314,183 @@ namespace SGAP.comercial
 
         }
 
-        #region Mano de obra
-        //cargar datagridview
-
-        void Contruir_DataGrid_Mano_Obra()
+        private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            //tiene lugar cuando se clickea el contenido de una celda
+            int i;
+            i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
+            string column_name = dgv_entrada_datos_mq_eq.Columns[i].Name; // nombre
+            if (column_name.Equals("nombre"))
+            {
+                TextBox auto_text = e.Control as TextBox;
 
-            dgv_mano_de_obra.Columns["_Fila"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_TM38_ID"].Visible = false;
+                if (auto_text != null)
+                {
+                    auto_text.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    auto_text.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].HeaderText = "Cargo";
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].DisplayIndex = 0;
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Width = 200;
+                    ET_entidad _entidades_ = new ET_entidad();
 
-
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].HeaderText = "Hora Entrada";
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DefaultCellStyle.Format = "hh:mm tt";
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DisplayIndex = 1;
-
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].HeaderText = "Hora Salida";
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DefaultCellStyle.Format = "hh:mm tt";
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DisplayIndex = 2;
-
-            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
-            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
-
-
-            dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_UCREA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
+                    _entidades_= _nt_m31.gridTextBoxAutocomplete(auto_text);
+                    _lista_m31 = _entidades_._lista_et_m31;                
+                }
+            }
 
         }
 
-        #endregion
+        private void dgv_entrada_datos_mq_eq_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+        }
 
-        #region Maquinaria y equipo
 
-        #endregion
+        private void dgv_entrada_datos_mq_eq_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            string nombre = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name;
+            if (nombre=="nombre")
+            {
+                //bool existe = _lista_m31.Any(item => item._TM31_DESCRIP + item._TM31_TM33_ID + item._TM31_TM72_ID == e.FormattedValue.ToString());
+                bool existe = _lista_m31.Any(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
+                if (existe)
+                {
+                    //ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP + item._TM31_TM33_ID + item._TM31_TM72_ID == e.FormattedValue.ToString());
+                    ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
+
+                    nom = fila._TM31_DESCRIP;//
+                    cod = fila._TM31_ID;
+                    marc = fila._TM31_TM33_ID;
+                    undad = fila._TM31_TM72_ID;
+                    precio = fila._TM31_PRECIO;
+                    tipo = fila._TM31_TM34_ID;
+                }
+            }
+            
+        }
+
+        private void dgv_entrada_datos_mq_eq_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int cont = _entidad._lista_et_m27.Count;
+            int i;
+            i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
+
+            int suma = 0;
+            int cel = 6;
+            for (int o = 1; o <= cont; o++)
+            {
+                int celda = Convert.ToInt32(dgv_entrada_datos_mq_eq.Rows[i].Cells[cel].Value);
+                suma = suma + celda;
+                cel++;
+            }
+
+            double total = suma * Convert.ToDouble(precio);
+
+            dgv_entrada_datos_mq_eq.Rows[i].Cells[6 + cont].Value = suma;
+            dgv_entrada_datos_mq_eq.Rows[i].Cells[8 + cont].Value = total;
+
+            string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
+            if (column_name.Equals("nombre"))
+            {
+
+                string nombre = Convert.ToString(dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value);
+
+                if (nombre != "")
+
+                {    
+                              
+                    
+                    //dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = nom;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = cod;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = marc;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = undad;
+                    dgv_entrada_datos_mq_eq.Rows[i].Cells[7 + cont].Value = precio;
+
+                    if (tipo == "MQ")
+                    {
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 1;
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 0;
+
+                    }
+                    else if (tipo == "EQ")
+                    {
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[5].Value = 1;
+                        dgv_entrada_datos_mq_eq.Rows[i].Cells[4].Value = 0;
+                    }
+
+
+
+                    
+
+                }
+
+
+
+            }
+
+        }
+
+        }
+
+        private void dgv_entrada_datos_mq_eq_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
+            if (column_name.Equals("nombre"))
+            {
+                int cont = _entidad._lista_et_m27.Count;
+                int i;
+                i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[1].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[2].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[3].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[7 + cont].Value = "";
+                dgv_entrada_datos_mq_eq.Rows[i].Cells[6 + cont].Value = "";
+
+            }
+        }
+
+    void Contruir_DataGrid_Mano_Obra()
+    {
+
+        dgv_mano_de_obra.Columns["_Fila"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_TM38_ID"].Visible = false;
+
+        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Visible = true;
+        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].HeaderText = "Cargo";
+        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].DisplayIndex = 0;
+        dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Width = 200;
+
+
+        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].Visible = true;
+        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].HeaderText = "Hora Entrada";
+        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DefaultCellStyle.Format = "hh:mm tt";
+        dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DisplayIndex = 1;
+
+        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].Visible = true;
+        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].HeaderText = "Hora Salida";
+        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DefaultCellStyle.Format = "hh:mm tt";
+        dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DisplayIndex = 2;
+
+        dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].Visible = true;
+        dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
+        dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
+
+
+        dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_UCREA"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
+        dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
+        dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
+
     }
+
+    #endregion
+
+    #region Maquinaria y equipo
+
+    #endregion
+}
 }
