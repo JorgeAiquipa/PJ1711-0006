@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Win28etug
 {
-    class ET_R30
+    public class ET_R30
     {
 
         public int _TR30_ID { get; set; }

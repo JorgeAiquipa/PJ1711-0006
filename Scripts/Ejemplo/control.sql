@@ -1,17 +1,21 @@
 SELECT 
-CONCAT(',',COLUMN_NAME)
+*
+--CONCAT('dgv_mano_de_obra.Columns["_',COLUMN_NAME,'"].Visible = false;')
+--CONCAT(',',COLUMN_NAME)
 --CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
 --concat(',@p_',COLUMN_NAME,' ',DATA_TYPE)
 --concat(',@p_',COLUMN_NAME)
---CONCAT('_et_r31._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
+--CONCAT('_et_m40._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
 FROM INFORMATION_SCHEMA.COLUMNS
 
-WHERE TABLE_NAME = 'T_r29'
+WHERE TABLE_NAME = 'T_r30'
 
 -- CREAMOS UN CODIGO PARA LA COTIZACION 
 
 
-select * from T_m27
+select * from T_r30
+
+
 
 
 t_m31 -- produ
@@ -34,3 +38,18 @@ select * from dbo.T_R29
 
 SELECT * FROM DBO.T_R28 WHERE TR28_ID = 61
 
+
+
+select * from T_M38
+
+
+insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
+values('P1','Transporte',1)
+insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
+values('P2','Movilidad',1)
+insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
+values('P3','Asignación Familiar',1)
+insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
+values('P4','Alimentación',1)
+insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
+values('P5','Bonif.Afecta',1)

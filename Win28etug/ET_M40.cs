@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Win28etug
 {
-    class ET_M40
+    public class ET_M40
     {
 
         public string _TM40_ID { get; set; }
@@ -18,5 +18,8 @@ namespace Win28etug
         public string _TM40_UACTUALIZA { get; set; }
         public DateTime _TM40_FACTUALIZA { get; set; }
 
+        public string _Filtro { get; set; }
+        public bool _Seleccionado { get; set; }
+        public int _fila { get; set; }
     }
 }
