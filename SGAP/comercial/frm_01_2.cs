@@ -91,13 +91,13 @@ namespace SGAP.comercial
             //PerformCalculations();//diego
         }
 
-        public void PerformCalculations()
-        {
-            int tipo = _entidad._entity_m41._TM41_TIPO;//diego
-            string servicio = _entidad._entity_m41._TM41_DESCRIP;//diego
-            MessageBox.Show("El tipo de servicio es:"  + tipo + " El Servicio es: " + servicio, "Tipo de servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);//diego
+        //public void PerformCalculations()
+        //{
+        //    int tipo = _entidad._entity_m41._TM41_TIPO;//diego
+        //    string servicio = _entidad._entity_m41._TM41_DESCRIP;//diego
+        //    MessageBox.Show("El tipo de servicio es:"  + tipo + " El Servicio es: " + servicio, "Tipo de servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);//diego
             
-        }//diego
+        //}//diego
 
         static void Mensaje_alerta(object sender, ET_entidad e)
         {
@@ -293,32 +293,32 @@ namespace SGAP.comercial
         }
         //diego
 
-        private void Item_servicio_click(object sender, EventArgs e)
-        {
-            //cargar servicio en el tree
-            ToolStripItem item = (ToolStripItem)sender;
-            int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
-            string Nombre_Servicio_seleccionado = item.Text;
+        //private void Item_servicio_click(object sender, EventArgs e)
+        //{
+        //    //cargar servicio en el tree
+        //    ToolStripItem item = (ToolStripItem)sender;
+        //    int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
+        //    string Nombre_Servicio_seleccionado = item.Text;
 
-            string tm39_id;
+        //    string tm39_id;
 
-            if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
-                tm39_id = _entidad._entity_m39._TM39_ID;
-            else
-                tm39_id = _entidad._entity_r27._TR27_TM39_ID;
+        //    if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
+        //        tm39_id = _entidad._entity_m39._TM39_ID;
+        //    else
+        //        tm39_id = _entidad._entity_r27._TR27_TM39_ID;
 
-            //agregar servicio nuevo
-            _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
-            _entidad._entity_r28._TR28_TM39_ID = tm39_id;
-            _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
-            _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
-            _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+        //    //agregar servicio nuevo
+        //    _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
+        //    _entidad._entity_r28._TR28_TM39_ID = tm39_id;
+        //    _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
+        //    _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
+        //    _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
 
-            _nt_r28.set_002(_entidad);
+        //    _nt_r28.set_002(_entidad);
 
 
-            Cargar_servicios();
-        }
+        //    Cargar_servicios();
+        //}
 
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {

@@ -41,7 +41,7 @@ namespace Win28ntug
 
                 int z_index = 1000;
 
-                result._lista_et_r28.ForEach(x =>
+                result._lista_et_r28.ForEach(x => 
                 {
                     //Id_servicio_hijo = x._TR28_ID;
                     Id_servicio_Padre = x._TR28_PADRE;
