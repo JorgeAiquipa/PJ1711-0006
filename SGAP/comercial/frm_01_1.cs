@@ -37,6 +37,7 @@ namespace SGAP.comercial
         string ruc_cliente;
         string tipo_servicio;
         string nombre_de_Servicio;
+        int tipo_de_Servicio;//diego
         int cantidad_meses = 0;
 
 
@@ -87,6 +88,18 @@ namespace SGAP.comercial
         }
         void Metodo_obtener_informacion_ingresada()
         {
+            //diego
+            if (rb_tipo1.Checked == true)
+            {
+                tipo_de_Servicio = 1;//diego
+                //tipo_de_Servicio = rb_tipo1.Text.ToString();//diego
+            }
+            else if (rb_tipo2.Checked == true)
+            {
+                tipo_de_Servicio = 2;//diego
+                //tipo_de_Servicio = rb_tipo2.Text.ToString();//diego
+            }//diego
+
             nombre_cliente = txt_nombre_cliente.Text;
             ruc_cliente = txt_ruc_cliente.Text;
             tipo_servicio = cbx_tipo_servicio.Text;
@@ -125,6 +138,9 @@ namespace SGAP.comercial
             _entity._entity_m19 = _et_m19;
 
             //seteamos info del servicio seleccionado
+
+            _et_m41._TM41_TIPO = tipo_de_Servicio;//diego
+
             _et_m41._TM41_DESCRIP = nombre_de_Servicio;
             _et_m41._TM41_ID = _id_tm41;
             _entity._entity_m41 = _et_m41;
@@ -263,6 +279,7 @@ namespace SGAP.comercial
         private void cbx_tipo_servicio_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            
             nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
 
             var result = _lista_m41.Where(p => p._TM41_DESCRIP == nombre_de_Servicio);
@@ -272,6 +289,29 @@ namespace SGAP.comercial
                 _id_tm41 = row._TM41_ID;
                 break;
             }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            //diego
+            if (rb_tipo1.Checked == true)
+            {
+                tipo_de_Servicio = 1;//diego
+            }
+            else if (rb_tipo2.Checked == true)
+            {
+                tipo_de_Servicio = 2;//diego
+            }//diego
+
+            var result = _lista_m41.Where(p => p._TM41_TIPO == tipo_de_Servicio);
+
+            foreach (ET_M41 row in result)
+            {
+                _id_tm41 = row._TM41_ID;
+                break;
+            }//DIEGO
+
+
         }
     }
 }

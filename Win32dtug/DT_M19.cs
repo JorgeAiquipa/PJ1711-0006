@@ -82,7 +82,7 @@ namespace Win32dtug
                     foreach (DataRow fila in dt.Rows)
                     {
                         _etm19 = new ET_M19();
-                        _etm19._TM19_DESCRIP1 = fila["TM19_DESCIRP1"].ToString();
+                        _etm19._TM19_DESCRIP1 = fila["TM19_DESCRIP1"].ToString();
                         _etm19._TM19_DESCRIP2 = fila["TM19_DESCRIP2"].ToString();
                         //_etm19.TM19_FACTUALIZA = fila["TM19_FACTUALIZA"].ToString();
                         //_etm19.TM19_FCREA = Convert.ToDateTime(fila["TM19_FCREA"].ToString());

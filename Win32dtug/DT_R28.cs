@@ -95,7 +95,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@p_TR28_PADRE", SqlDbType.Int).Value = objEntity._TR28_PADRE;
                     cmd.Parameters.Add("@p_TR28_TM39_ID", SqlDbType.VarChar, 300).Value = objEntity._TR28_TM39_ID;
-                    cmd.Parameters.Add("@p_TR28_TM41_ID", SqlDbType.Int).Value = objEntity._TR28_TM41_ID;
+                    cmd.Parameters.Add("@p_TR28_TM41_ID", SqlDbType.Int).Value = objEntity._TR28_TM41_ID;//servicio
                     cmd.Parameters.Add("@p_TR28_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR28_DESCRIP;
                     cmd.Parameters.Add("@p_TR28_PERIODO", SqlDbType.Int).Value = objEntity._TR28_PERIODO;
                     cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_CREA;
@@ -159,7 +159,7 @@ namespace Win32dtug
                         _et_r28._TR28_ID = Convert.ToInt32(fila["TR28_ID"].ToString());
                         _et_r28._TR28_PADRE = Convert.ToInt32(fila["TR28_PADRE"].ToString());
                         _et_r28._TR28_TM39_ID = fila["TR28_TM39_ID"].ToString();
-                        _et_r28._TR28_TM41_ID = Convert.ToInt32(fila["TR28_TM41_ID"].ToString());
+                        _et_r28._TR28_TM41_ID = Convert.ToInt32(fila["TR28_TM41_ID"].ToString());//servicio
                         _et_r28._TR28_PERIODO = Convert.ToInt32(fila["TR28_PERIODO"].ToString());
                         _et_r28._TR28_DESCRIP = fila["TR28_DESCRIP"].ToString();
                         _et_r28._TR28_ST = Convert.ToInt32(fila["TR28_ST"].ToString());
