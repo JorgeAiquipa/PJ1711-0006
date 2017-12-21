@@ -79,6 +79,9 @@ namespace Win32dtug
         //OBTENEMOS LOS LOCALES QUE POSEE UNA COTIZACION
         public ET_entidad get_001(ET_R27 _entity_tr27)
         {
+
+            string Mensaje_error = "";
+
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
             {
@@ -143,9 +146,14 @@ namespace Win32dtug
                 }
                 catch (Exception ex)
                 {
+                    Mensaje_error = string.Format("{1}{0}", Environment.NewLine, (Mensaje_error + ex.Message.ToString()));
+                    if (ex.InnerException != null)
+                        Mensaje_error = string.Format("{1}{0}", Environment.NewLine, (Mensaje_error + "Inner exception: " + ex.InnerException.Message));
+                    Mensaje_error = string.Format("{1}{0}", Environment.NewLine, (Mensaje_error + "Stack trace: " + ex.StackTrace));
+
                     _Entidad._hubo_error = true;
-                    _Entidad._contenido_mensaje = "Ocurrio un error al obetener Informacion de la base de datos.\n" + ex.ToString();
-                    _Entidad._titulo_mensaje = "Alert!";
+                    _Entidad._contenido_mensaje = Mensaje_error;
+                    _Entidad._titulo_mensaje = "Error!";
                 }
                 finally
                 {

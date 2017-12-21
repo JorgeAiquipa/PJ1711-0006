@@ -27,18 +27,27 @@ namespace Win28ntug
                 _lista_m31 = result._lista_et_m31.ToList();
                 foreach (ET_M31 row in result._lista_et_m31.ToList())
                 {
-                    //_textbox.AutoCompleteCustomSource.Add(row._TM31_DESCRIP + " " + row._TM31_TM33_ID + " " + row._TM31_TM72_ID);
-                    _textbox.AutoCompleteCustomSource.Add(row._TM31_DESCRIP);
+                    _textbox.AutoCompleteCustomSource.Add(row._TM31_DESCRIP + " " + row._TM31_TM33_ID + " " + row._TM31_TM72_ID);
+                    //_textbox.AutoCompleteCustomSource.Add(row._TM31_DESCRIP);
                 }
             }
             else
             {
-                _entidad._hubo_error = true;
-                _entidad._titulo_mensaje = "Alert!";
+                Mensaje(result);
             }
             return result;
         }
 
-
+        #region Mensaje
+        protected virtual void Mensaje(ET_entidad e)
+        {
+            EventHandler<ET_entidad> handler = Mensaje_Alerta;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler<ET_entidad> Mensaje_Alerta;
+        #endregion
     }
 }
