@@ -16,7 +16,7 @@ namespace Win28ntug
 
 
 
-        public ET_entidad gridTextBoxAutocomplete(TextBox _textbox)
+        public ET_entidad TexBox_Cargo(TextBox _textbox)
         {
 
             _et_m38 = new ET_M38();
@@ -26,6 +26,7 @@ namespace Win28ntug
 
             if (!result._hubo_error)
             {
+                _textbox.AutoCompleteCustomSource.Clear();
                 List<ET_M38> _lista_m38 = new List<ET_M38>();
                 _lista_m38 = result._lista_et_m38.ToList();
                 foreach (ET_M38 row in result._lista_et_m38.ToList())
@@ -35,11 +36,24 @@ namespace Win28ntug
             }
             else
             {
-                _entidad._hubo_error = true;
-                _entidad._titulo_mensaje = "Alert!";
+                _entidad = result;
+                Mensaje(_entidad);
             }
 
             return result;
         }
+
+
+        #region Mensaje
+        protected virtual void Mensaje(ET_entidad e)
+        {
+            EventHandler<ET_entidad> handler = Mensaje_Alerta;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler<ET_entidad> Mensaje_Alerta;
+        #endregion
     }
 }

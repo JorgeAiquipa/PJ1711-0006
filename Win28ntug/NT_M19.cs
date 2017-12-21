@@ -26,7 +26,7 @@ namespace Win28ntug
             _et_m19 = new ET_M19();
             _et_m19._filtro = _textbox.Text.ToString();
 
-            var result = _dt_m19.filter_001(_et_m19);
+            var result = _dt_m19.get_001(_et_m19);
 
             int index = 1;
             if (!result._hubo_error)

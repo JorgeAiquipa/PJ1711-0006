@@ -101,11 +101,13 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_tr29set_001", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_set54", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@p_TR29_ID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
                     cmd.Parameters.Add("@p_TR29_TR28_ID", SqlDbType.Int).Value = objEntity._TR29_TR28_ID;
                     cmd.Parameters.Add("@p_TR29_TM38_ID", SqlDbType.VarChar, 300).Value = objEntity._TR29_TM38_ID;
                     cmd.Parameters.Add("@p_TR29_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR29_DESCRIP;
@@ -120,6 +122,7 @@ namespace Win32dtug
 
                     Msg_respuesta = cmd.Parameters["@P_MENSAJE_RESPUESTA"].Value.ToString();
 
+                    _Entidad._entity_r29._TR29_ID = Convert.ToInt32(cmd.Parameters["@p_TR29_ID"].Value.ToString());
                     _Entidad._hubo_error = false;
                 }
                 catch (SqlException exsql)

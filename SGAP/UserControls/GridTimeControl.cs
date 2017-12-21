@@ -83,7 +83,10 @@ namespace SGAP.UserControls
         {
             get
             {
-                return DateTime.Now.ToShortTimeString();
+                DateTime hora = new DateTime(1900, 1, 1, hour: 0, minute: 0, second: 0, millisecond: 0);
+                //return DateTime.Now.ToShortTimeString();
+                return hora;
+
             }
         }
     }

@@ -1,14 +1,15 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr29set_001]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_tr29set_001;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_set54]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_set54;
 GO
 
 -- =============================================
 -- Author:		cesar.freitas
 -- Create date: 2017.12.18
+-- Update date: 2017.12.21 -> devuelve el id del cargo registrado.
+-- Table : T_R29
 -- Descripcion : Insertamos los cargos, hora entrada, hora salida dias por semana para mano de obra
 -- =============================================
-CREATE PROCEDURE pa_tr29set_001
- --@p_TR29_ID int id de la tabla
+CREATE PROCEDURE pa_set54
  @p_TR29_TR28_ID int -- codigo servicio _al que pertenece
 ,@p_TR29_TM38_ID varchar(10) -- id cargo
 ,@p_TR29_HORA_ENTRADA datetime 
@@ -24,6 +25,7 @@ CREATE PROCEDURE pa_tr29set_001
 --,@p_TR29_REMUNERACION decimal
 ,@p_TR29_TM2_ID varchar(10)
 ,@P_MENSAJE_RESPUESTA varchar(200) output
+,@p_TR29_ID int output--id de la tabla
 AS
 
 BEGIN
@@ -71,12 +73,11 @@ BEGIN
 			,@p_TR29_TM2_ID
 		)
 
+		SET @p_TR29_ID = @L_TR29_ID
+
 		IF @@ROWCOUNT <= 0  
 			SET @P_MENSAJE_RESPUESTA = 'ERROR'
 END
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-
-select   CONVERT(VARCHAR(8),GETDATE(),108) ,GETDATE()
