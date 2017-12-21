@@ -20,26 +20,23 @@ namespace SGAP.comercial
         NT_M41 _nt_m41 = new NT_M41();
         NT_R28 _nt_r28 = new NT_R28();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
+        List<ET_R28> _lista_r28 = new List<ET_R28>();
 
         public int Id_Servicio_Padre;
-        public int tm39_id;
+        public string tm39_id;
         public int id_Servicio_seleccionado;
         public string Nombre_Servicio_seleccionado;
         public int Periodo_servicio;
 
-        //_entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
-        //_entidad._entity_r28._TR28_TM39_ID = tm39_id;
-        //_entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
-        //_entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
-        //_entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
-
-        int id_Servicio_hijo;
-        public frm_01_2_02(int __id_Servicio_hijo)
+        int Id_Servicio_hijo;
+        public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id)
         {
             InitializeComponent();
-            id_Servicio_hijo = __id_Servicio_hijo;
+            Id_Servicio_hijo = __id_Servicio_hijo;
             Metodo_obtener_tipo_servicio();
-
+            Id_Servicio_Padre = __id_Servicio_padre;
+            Periodo_servicio = _periodo_servicio;
+            tm39_id = _tm39_id;
         }
 
         void Metodo_obtener_tipo_servicio()
@@ -61,34 +58,32 @@ namespace SGAP.comercial
         }
 
 
-
-        private void Item_servicio_click()
+        private void btn_continuar_Click(object sender, EventArgs e)
         {
-            //int id_Servicio_seleccionado = Convert.ToInt32(cbx_tipo_servicio2.Name.ToString());
-            string Nombre_Servicio_seleccionado = cbx_tipo_servicio2.Text;
+            //id_Servicio_seleccionado = Convert.ToInt32(cbx_tipo_servicio2.Name.ToString());
+            Nombre_Servicio_seleccionado = cbx_tipo_servicio2.Text;
 
-            string tm39_id;
-
-            if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
-                tm39_id = _entidad._entity_m39._TM39_ID;
-            else
-                tm39_id = _entidad._entity_r27._TR27_TM39_ID;
+            ET_M41 servicio = _lista_m41.FirstOrDefault(gg => gg._TM41_DESCRIP == Nombre_Servicio_seleccionado);
 
             //agregar servicio nuevo
             _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
             _entidad._entity_r28._TR28_TM39_ID = tm39_id;
-            _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
+            _entidad._entity_r28._TR28_TM41_ID = servicio._TM41_ID;
             _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
             _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+            //tipo
+            //frecuencia
 
             _nt_r28.set_002(_entidad);
 
-        }
-
-        private void btn_continuar_Click(object sender, EventArgs e)
-        {
-            Item_servicio_click();
             this.DialogResult = DialogResult.OK;
         }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.DialogResult = DialogResult.Cancel;
+        }
+    
     }
 }

@@ -133,7 +133,7 @@ namespace SGAP.comercial
             View_Properties.Click += new System.EventHandler(this.Item_mano_de_obra_click);
 
             
-
+            //Agregar Servicio
             MenuStrip_AddService.Text = "Servicios";
             MenuStrip_AddService.Name = "Menu_strip_for_TreeView";
             MenuStrip_AddService.Size = new System.Drawing.Size(153, 48);
@@ -266,12 +266,21 @@ namespace SGAP.comercial
         //diego
         private void Item_Add_Service_click(object sender, EventArgs e)
         {
-            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo);
+            string tm39_id;
+
+            if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
+                tm39_id = _entidad._entity_m39._TM39_ID;
+            else
+                tm39_id = _entidad._entity_r27._TR27_TM39_ID;
+
+            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id);
             form_2_2.ShowDialog();
 
             if (form_2_2.DialogResult == DialogResult.OK)
             {
+                //Item_servicio_click(object sender);
                 Metodo_cargar_informacion_servicio();
+
                 Cargar_servicios();
             }
 
@@ -284,32 +293,32 @@ namespace SGAP.comercial
         }
         //diego
 
-        //private void Item_servicio_click(object sender, EventArgs e)
-        //{
-        //    //cargar servicio en el tree
-        //    ToolStripItem item = (ToolStripItem)sender;
-        //    int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
-        //    string Nombre_Servicio_seleccionado = item.Text;
+        private void Item_servicio_click(object sender, EventArgs e)
+        {
+            //cargar servicio en el tree
+            ToolStripItem item = (ToolStripItem)sender;
+            int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
+            string Nombre_Servicio_seleccionado = item.Text;
 
-        //    string tm39_id;
+            string tm39_id;
 
-        //    if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
-        //        tm39_id = _entidad._entity_m39._TM39_ID;
-        //    else
-        //        tm39_id = _entidad._entity_r27._TR27_TM39_ID;
+            if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
+                tm39_id = _entidad._entity_m39._TM39_ID;
+            else
+                tm39_id = _entidad._entity_r27._TR27_TM39_ID;
 
-        //    //agregar servicio nuevo
-        //    _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
-        //    _entidad._entity_r28._TR28_TM39_ID = tm39_id;
-        //    _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
-        //    _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
-        //    _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+            //agregar servicio nuevo
+            _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
+            _entidad._entity_r28._TR28_TM39_ID = tm39_id;
+            _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
+            _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
+            _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
 
-        //    _nt_r28.set_002(_entidad);
+            _nt_r28.set_002(_entidad);
 
 
-        //    Cargar_servicios();
-        //}
+            Cargar_servicios();
+        }
 
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
@@ -348,9 +357,10 @@ namespace SGAP.comercial
                     HeaderText = string.Format("{0}", fila._TM27_NOMBRE),
                 };
                 // Add the column to the control.
-                dgv_entrada_datos_mq_eq.Columns.Insert(6, Column);                
+                dgv_entrada_datos_mq_eq.Columns.Insert(6, Column);
                 index++;
-            }
+            }   
+
         }
         #endregion
 
@@ -504,6 +514,7 @@ namespace SGAP.comercial
 
         private void dgv_entrada_datos_mq_eq_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+
             string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
             if (column_name.Equals("nombre"))
             {
@@ -568,8 +579,6 @@ namespace SGAP.comercial
             dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
 
         }
-
-
 
     }
 }
