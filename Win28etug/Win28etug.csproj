@@ -52,6 +52,7 @@
     <Compile Include="ET_M39.cs" />
     <Compile Include="ET_M40.cs" />
     <Compile Include="ET_M41.cs" />
+    <Compile Include="ET_M42.cs" />
     <Compile Include="ET_R28.cs" />
     <Compile Include="ET_R29.cs" />
     <Compile Include="ET_R30.cs" />

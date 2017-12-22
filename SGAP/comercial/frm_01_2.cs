@@ -18,6 +18,7 @@ namespace SGAP.comercial
         #region Variables
 
         ET_entidad _entidad = new ET_entidad();
+        ET_M41 _et_m41 = new ET_M41();
         NT_M38 _nt_m38 = new NT_M38();
         NT_M41 _nt_m41 = new NT_M41();
         NT_R28 _nt_r28 = new NT_R28();
@@ -26,7 +27,8 @@ namespace SGAP.comercial
         NT_R29 _nt_r29 = new NT_R29();
         ET_M31 _et_m31 = new ET_M31();
         List<ET_M31> _lista_m31 = new List<ET_M31>();
-        
+        List<ET_M41> _lista_m41 = new List<ET_M41>();
+
         public string nom = "";
         public string cod = "";
         public string marc = "";
@@ -86,7 +88,17 @@ namespace SGAP.comercial
 
             _nt_m31.Mensaje_Alerta += Mensaje_alerta;
 
+            //PerformCalculations();//diego
         }
+
+        //public void PerformCalculations()
+        //{
+        //    int tipo = _entidad._entity_m41._TM41_TIPO;//diego
+        //    string servicio = _entidad._entity_m41._TM41_DESCRIP;//diego
+        //    MessageBox.Show("El tipo de servicio es:"  + tipo + " El Servicio es: " + servicio, "Tipo de servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);//diego
+            
+        //}//diego
+
         static void Mensaje_alerta(object sender, ET_entidad e)
         {
             MessageBox.Show
@@ -96,7 +108,7 @@ namespace SGAP.comercial
                 MessageBoxIcon.Information
             );
         }
-        void Cargar_servicios()
+        public void Cargar_servicios()
         {
             var result_array_int = _nt_r28.get_001(_entidad, tree_view_servicios);
             Id_Servicio_Padre = result_array_int[0];
@@ -120,7 +132,8 @@ namespace SGAP.comercial
 
             View_Properties.Click += new System.EventHandler(this.Item_mano_de_obra_click);
 
-
+            
+            //Agregar Servicio
             MenuStrip_AddService.Text = "Servicios";
             MenuStrip_AddService.Name = "Menu_strip_for_TreeView";
             MenuStrip_AddService.Size = new System.Drawing.Size(153, 48);
@@ -131,24 +144,33 @@ namespace SGAP.comercial
             Add_service.Size = new System.Drawing.Size(132, 22);
             Add_service.Text = "Agregar Servicio ->";
 
-            var result = _nt_m41.get_001();
-
-            if (!result._hubo_error)
-            {
-                result._lista_et_m41.ForEach(x =>
-                {
-                    ToolStripMenuItem item_ = new ToolStripMenuItem();
-                    item_.Name = x._TM41_ID.ToString();
-                    item_.Size = new System.Drawing.Size(152, 22);
-                    item_.Text = x._TM41_DESCRIP;
-
-                    Add_service.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                        item_
+            //diego
+            MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                        Add_service
                     });
 
-                    item_.Click += new System.EventHandler(this.Item_servicio_click);
-                });
-            }
+            Add_service.Click += new System.EventHandler(this.Item_Add_Service_click);            
+            //diego
+
+            var result = _nt_m41.get_001();
+
+            //if (!result._hubo_error)
+            //{
+            //    result._lista_et_m41.ForEach(x =>
+            //    {
+            //        ToolStripMenuItem item_ = new ToolStripMenuItem();
+            //        item_.Name = x._TM41_ID.ToString();
+            //        item_.Size = new System.Drawing.Size(152, 22);
+            //        item_.Text = x._TM41_DESCRIP;
+
+            //        Add_service.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            //            item_
+            //        });
+
+            //        item_.Click += new System.EventHandler(this.Item_servicio_click);
+            //    });
+            //}
+
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 Add_service
             });
@@ -240,12 +262,10 @@ namespace SGAP.comercial
             }
         }
 
-        private void Item_servicio_click(object sender, EventArgs e)
-        {
-            ToolStripItem item = (ToolStripItem)sender;
-            int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
-            string Nombre_Servicio_seleccionado = item.Text;
 
+        //diego
+        private void Item_Add_Service_click(object sender, EventArgs e)
+        {
             string tm39_id;
 
             if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
@@ -253,18 +273,52 @@ namespace SGAP.comercial
             else
                 tm39_id = _entidad._entity_r27._TR27_TM39_ID;
 
-            //agregar servicio nuevo
-            _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
-            _entidad._entity_r28._TR28_TM39_ID = tm39_id;
-            _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
-            _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
-            _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id);
+            form_2_2.ShowDialog();
 
-            _nt_r28.set_002(_entidad);
+            if (form_2_2.DialogResult == DialogResult.OK)
+            {
+                //Item_servicio_click(object sender);
+                Metodo_cargar_informacion_servicio();
 
+                Cargar_servicios();
+            }
 
-            Cargar_servicios();
         }
+
+        void Metodo_cargar_informacion_servicio()//diego
+        {
+            ET_R29 _et = new ET_R29();
+            _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
+        }
+        //diego
+
+        //private void Item_servicio_click(object sender, EventArgs e)
+        //{
+        //    //cargar servicio en el tree
+        //    ToolStripItem item = (ToolStripItem)sender;
+        //    int id_Servicio_seleccionado = Convert.ToInt32(item.Name.ToString());
+        //    string Nombre_Servicio_seleccionado = item.Text;
+
+        //    string tm39_id;
+
+        //    if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
+        //        tm39_id = _entidad._entity_m39._TM39_ID;
+        //    else
+        //        tm39_id = _entidad._entity_r27._TR27_TM39_ID;
+
+        //    //agregar servicio nuevo
+        //    _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
+        //    _entidad._entity_r28._TR28_TM39_ID = tm39_id;
+        //    _entidad._entity_r28._TR28_TM41_ID = id_Servicio_seleccionado;
+        //    _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
+        //    _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+
+        //    _nt_r28.set_002(_entidad);
+
+
+        //    Cargar_servicios();
+        //}
 
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
@@ -303,9 +357,10 @@ namespace SGAP.comercial
                     HeaderText = string.Format("{0}", fila._TM27_NOMBRE),
                 };
                 // Add the column to the control.
-                dgv_entrada_datos_mq_eq.Columns.Insert(6, Column);                
+                dgv_entrada_datos_mq_eq.Columns.Insert(6, Column);
                 index++;
-            }
+            }   
+
         }
         #endregion
 
@@ -459,6 +514,7 @@ namespace SGAP.comercial
 
         private void dgv_entrada_datos_mq_eq_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+
             string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
             if (column_name.Equals("nombre"))
             {
@@ -550,8 +606,6 @@ namespace SGAP.comercial
             //}
 
         }
-
-
 
     }
 }

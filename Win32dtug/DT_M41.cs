@@ -44,6 +44,8 @@ namespace Win32dtug
                         _et_m41._TM41_TM2_ID = fila["TM41_TM2_ID"].ToString();
                         _et_m41._TM41_DESCRIP = fila["TM41_DESCRIP"].ToString();
 
+                        _et_m41._TM41_TIPO = 1;//diego
+
                         _lista_mtm41.Add(_et_m41);
                     }
 

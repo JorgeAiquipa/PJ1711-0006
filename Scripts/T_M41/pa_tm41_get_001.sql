@@ -10,6 +10,7 @@ GO
 -- =============================================
 CREATE PROCEDURE pa_tm41_get_001
 	@p_TM41_TM2_ID varchar(50)
+	,@p_TM41_TIPO varchar(50)
 AS
 
 BEGIN TRY
@@ -26,12 +27,15 @@ BEGIN TRY
 		,TM41_UACTUALIZA
 		,TM41_FACTUALIZA
 
+		,T.TM41_TIPO
+
 		FROM
 
-		T_M41
+		T_M41 M41 inner join TM41_TIPO T ON M41.TM41_ID=T.TM41_TIPO_ID
 
 		WHERE 
-		TM41_TM2_ID like @p_TM41_TM2_ID 
+		TM41_TM2_ID like @p_TM41_TM2_ID
+		 
 
 END TRY
 BEGIN CATCH

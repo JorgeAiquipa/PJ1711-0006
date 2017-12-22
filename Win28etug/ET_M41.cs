@@ -15,5 +15,7 @@ namespace Win28etug
         public DateTime _TM41_FCREA { get; set; }
         public string _TM41_UACTUALIZA { get; set; }
         public DateTime _TM41_FACTUALIZA { get; set; }
+
+        public int _TM41_TIPO { get; set; }//TIPO SERVICIO //diego
     }
 }

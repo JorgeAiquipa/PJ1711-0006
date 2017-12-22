@@ -54,6 +54,12 @@
     <Compile Include="comercial\frm_01.Designer.cs">
       <DependentUpon>frm_01.cs</DependentUpon>
     </Compile>
+    <Compile Include="comercial\frm_01_2_02.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="comercial\frm_01_2_02.Designer.cs">
+      <DependentUpon>frm_01_2_02.cs</DependentUpon>
+    </Compile>
     <Compile Include="comercial\frm_01_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     <Compile Include="UserControls\GridTimeControl.cs" />
     <EmbeddedResource Include="comercial\frm_01.resx">
       <DependentUpon>frm_01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="comercial\frm_01_2_02.resx">
+      <DependentUpon>frm_01_2_02.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="comercial\frm_01_1.resx">
       <DependentUpon>frm_01_1.cs</DependentUpon>

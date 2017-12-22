@@ -57,6 +57,9 @@
             this.cbx_tipo_servicio = new System.Windows.Forms.ComboBox();
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.btn_continuar = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.rb_tipo1 = new System.Windows.Forms.RadioButton();
+            this.rb_tipo2 = new System.Windows.Forms.RadioButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -350,6 +353,38 @@
             this.btn_continuar.UseVisualStyleBackColor = true;
             this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(507, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Tipo";
+            // 
+            // rb_tipo1
+            // 
+            this.rb_tipo1.AutoSize = true;
+            this.rb_tipo1.Checked = true;
+            this.rb_tipo1.Location = new System.Drawing.Point(557, 37);
+            this.rb_tipo1.Name = "rb_tipo1";
+            this.rb_tipo1.Size = new System.Drawing.Size(62, 17);
+            this.rb_tipo1.TabIndex = 20;
+            this.rb_tipo1.TabStop = true;
+            this.rb_tipo1.Text = "General";
+            this.rb_tipo1.UseVisualStyleBackColor = true;
+            this.rb_tipo1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // rb_tipo2
+            // 
+            this.rb_tipo2.AutoSize = true;
+            this.rb_tipo2.Location = new System.Drawing.Point(557, 60);
+            this.rb_tipo2.Name = "rb_tipo2";
+            this.rb_tipo2.Size = new System.Drawing.Size(65, 17);
+            this.rb_tipo2.TabIndex = 21;
+            this.rb_tipo2.Text = "Especial";
+            this.rb_tipo2.UseVisualStyleBackColor = true;
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -455,6 +490,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 584);
+            this.Controls.Add(this.rb_tipo2);
+            this.Controls.Add(this.rb_tipo1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btn_continuar);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.cbx_tipo_servicio);
@@ -524,5 +562,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton rb_tipo1;
+        private System.Windows.Forms.RadioButton rb_tipo2;
     }
 }
