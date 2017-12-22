@@ -28,7 +28,7 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_tr29get_001", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_sel100", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -57,7 +57,10 @@ namespace Win32dtug
                         //_etr29._TR29_FCREA = fila["TR29_FCREA"].ToString();
                         //_etr29._TR29_UACTUALIZA = fila["TR29_UACTUALIZA"].ToString();
                         //_etr29._TR29_FACTUALIZA = fila["TR29_FACTUALIZA"].ToString();
-                        //_etr29._TR29_REMUNERACION = fila["TR29_REMUNERACION"].ToString();
+                        string res = "0.00";
+                        if (!string.IsNullOrEmpty(fila["TR29_REMUNERACION"].ToString()))
+                            res = fila["TR29_REMUNERACION"].ToString();
+                        _etr29._TR29_REMUNERACION = Convert.ToDecimal(res);
                         //_etr29._TR29_TM2_ID = fila["TR29_TM2_ID"].ToString();
 
                         _lista_r29.Add(_etr29);
@@ -118,12 +121,12 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR29_TR28_ID", SqlDbType.Int).Value = objEntity._TR29_TR28_ID;
                     cmd.Parameters.Add("@p_TR29_TM38_ID", SqlDbType.VarChar, 300).Value = objEntity._TR29_TM38_ID;
                     cmd.Parameters.Add("@p_TR29_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR29_DESCRIP;
-                    cmd.Parameters.Add("@p_TR29_HORA_ENTRADA", SqlDbType.DateTime ).Value = objEntity._TR29_HORA_ENTRADA;
-                    cmd.Parameters.Add("@p_TR29_HORA_SALIDA", SqlDbType.DateTime ).Value = objEntity._TR29_HORA_SALIDA;
+                    cmd.Parameters.Add("@p_TR29_HORA_ENTRADA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_ENTRADA;
+                    cmd.Parameters.Add("@p_TR29_HORA_SALIDA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_SALIDA;
                     cmd.Parameters.Add("@p_TR29_DIAS_SEMANA", SqlDbType.Int).Value = objEntity._TR29_DIAS_SEMANA;
                     cmd.Parameters.Add("@p_TR29_UCREA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
                     cmd.Parameters.Add("@p_TR29_TM2_ID", SqlDbType.VarChar, 20).Value = _global._TM2_ID;
-
+                    cmd.Parameters.Add("@p_TR29_REMUNERACION", SqlDbType.Decimal).Value = objEntity._TR29_REMUNERACION;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
 

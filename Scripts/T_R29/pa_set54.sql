@@ -22,7 +22,7 @@ CREATE PROCEDURE pa_set54
 --,@p_TR29_FCREA datetime
 --,@p_TR29_UACTUALIZA varchar
 --,@p_TR29_FACTUALIZA datetime
---,@p_TR29_REMUNERACION decimal
+,@p_TR29_REMUNERACION decimal
 ,@p_TR29_TM2_ID varchar(10)
 ,@P_MENSAJE_RESPUESTA varchar(200) output
 ,@p_TR29_ID int output--id de la tabla
@@ -49,7 +49,7 @@ BEGIN
 			,TR29_FCREA
 			,TR29_UACTUALIZA
 			,TR29_FACTUALIZA
-			--,TR29_REMUNERACION
+			,TR29_REMUNERACION
 			,TR29_TM2_ID
 		)
 
@@ -69,7 +69,7 @@ BEGIN
 			,GETDATE()
 			,@p_TR29_UCREA
 			,GETDATE()
-			--,@p_TR29_REMUNERACION
+			,@p_TR29_REMUNERACION
 			,@p_TR29_TM2_ID
 		)
 

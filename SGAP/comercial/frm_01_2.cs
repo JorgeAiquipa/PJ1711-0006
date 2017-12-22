@@ -487,6 +487,8 @@ namespace SGAP.comercial
         void Contruir_DataGrid_Mano_Obra()
         {
 
+            dgv_mano_de_obra.AutoGenerateColumns = false;
+
             dgv_mano_de_obra.Columns["_Fila"].Visible = false;
             dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
             dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
@@ -512,6 +514,9 @@ namespace SGAP.comercial
             dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
             dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
 
+            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
+            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].HeaderText = "Remuneración";
+            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].DisplayIndex = 4;
 
             dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
             dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
@@ -519,8 +524,30 @@ namespace SGAP.comercial
             dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
             dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
             dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
+
+
+
+
             dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
+
+
+
+            //// CARGAR COLUMNAS DE MANERA DINAMICA
+            //if (_lista_et_m40.Count > 0)
+            //{
+            //    int cantidad_final_de_indices = (dgv_entrada_datos_mano_de_obra.ColumnCount + _lista_et_m40.Count);
+            //    dgv_entrada_datos_mano_de_obra.ColumnCount = cantidad_final_de_indices;
+
+            //    int indice_de_inicio = cantidad_final_de_indices - _lista_et_m40.Count;
+
+            //    _lista_et_m40.ForEach(x =>
+            //    {
+            //        //dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].
+            //        //dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].Name = x._TM40_ID;
+            //        dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
+            //        indice_de_inicio++;
+            //    });
+            //}
 
         }
 
