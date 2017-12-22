@@ -1,8 +1,8 @@
 SELECT 
---*
+*
 --CONCAT('dgv_mano_de_obra.Columns["_',COLUMN_NAME,'"].Visible = false;')
 --CONCAT(',',COLUMN_NAME)
-CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
+--CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
 --concat(',@p_',COLUMN_NAME,' ',DATA_TYPE)
 --concat(COLUMN_NAME,' ',DATA_TYPE,',')
 --concat(',@p_',COLUMN_NAME)
