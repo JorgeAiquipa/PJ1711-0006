@@ -33,10 +33,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dgv_conceptos_remunerativos = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dgv_entrada_datos_mano_de_obra = new System.Windows.Forms.DataGridView();
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.btn_continuar = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
+            this.dgv_entrada_datos_mano_de_obra = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridTimeControl1 = new SGAP.UserControls.GridTimeControl();
             this.gridTimeControl2 = new SGAP.UserControls.GridTimeControl();
@@ -58,16 +58,18 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(609, 507);
+            this.panel2.Size = new System.Drawing.Size(680, 507);
             this.panel2.TabIndex = 7;
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.dgv_conceptos_remunerativos);
             this.groupBox2.Location = new System.Drawing.Point(15, 262);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(579, 207);
+            this.groupBox2.Size = new System.Drawing.Size(650, 207);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Conceptos remunerativos para la fila seleccionada";
@@ -84,8 +86,6 @@
             // 
             // dgv_conceptos_remunerativos
             // 
-            this.dgv_conceptos_remunerativos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_conceptos_remunerativos.BackgroundColor = System.Drawing.Color.White;
             this.dgv_conceptos_remunerativos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgv_conceptos_remunerativos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgv_conceptos_remunerativos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -95,7 +95,7 @@
             this.dgv_conceptos_remunerativos.Name = "dgv_conceptos_remunerativos";
             this.dgv_conceptos_remunerativos.RowHeadersWidth = 30;
             this.dgv_conceptos_remunerativos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(573, 188);
+            this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(644, 188);
             this.dgv_conceptos_remunerativos.TabIndex = 0;
             this.dgv_conceptos_remunerativos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_conceptos_remunerativos_CellPainting);
             this.dgv_conceptos_remunerativos.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_conceptos_remunerativos_CellValidating);
@@ -104,44 +104,20 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgv_entrada_datos_mano_de_obra);
             this.groupBox1.Location = new System.Drawing.Point(12, 28);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(585, 224);
+            this.groupBox1.Size = new System.Drawing.Size(656, 224);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingreso de cargos y horarios.";
             // 
-            // dgv_entrada_datos_mano_de_obra
-            // 
-            this.dgv_entrada_datos_mano_de_obra.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_entrada_datos_mano_de_obra.BackgroundColor = System.Drawing.Color.White;
-            this.dgv_entrada_datos_mano_de_obra.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgv_entrada_datos_mano_de_obra.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgv_entrada_datos_mano_de_obra.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dgv_entrada_datos_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_entrada_datos_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_entrada_datos_mano_de_obra.Location = new System.Drawing.Point(3, 16);
-            this.dgv_entrada_datos_mano_de_obra.Name = "dgv_entrada_datos_mano_de_obra";
-            this.dgv_entrada_datos_mano_de_obra.RowHeadersWidth = 30;
-            this.dgv_entrada_datos_mano_de_obra.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(579, 205);
-            this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
-            this.dgv_entrada_datos_mano_de_obra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellClick);
-            this.dgv_entrada_datos_mano_de_obra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellContentClick);
-            this.dgv_entrada_datos_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEndEdit);
-            this.dgv_entrada_datos_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
-            this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
-            this.dgv_entrada_datos_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded);
-            this.dgv_entrada_datos_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_entrada_datos_mano_de_obra_EditingControlShowing);
-            this.dgv_entrada_datos_mano_de_obra.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_RowLeave);
-            this.dgv_entrada_datos_mano_de_obra.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_entrada_datos_mano_de_obra_RowsAdded);
-            this.dgv_entrada_datos_mano_de_obra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_entrada_datos_mano_de_obra_KeyDown);
-            // 
             // btn_cancelar
             // 
             this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_cancelar.Location = new System.Drawing.Point(467, 475);
+            this.btn_cancelar.Location = new System.Drawing.Point(538, 475);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(124, 23);
             this.btn_cancelar.TabIndex = 8;
@@ -152,7 +128,7 @@
             // btn_continuar
             // 
             this.btn_continuar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_continuar.Location = new System.Drawing.Point(327, 475);
+            this.btn_continuar.Location = new System.Drawing.Point(398, 475);
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(134, 23);
             this.btn_continuar.TabIndex = 7;
@@ -167,10 +143,26 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(0, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(609, 22);
+            this.label10.Size = new System.Drawing.Size(680, 22);
             this.label10.TabIndex = 6;
             this.label10.Text = "Entrada de Datos";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dgv_entrada_datos_mano_de_obra
+            // 
+            this.dgv_entrada_datos_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_entrada_datos_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_entrada_datos_mano_de_obra.Location = new System.Drawing.Point(3, 16);
+            this.dgv_entrada_datos_mano_de_obra.Name = "dgv_entrada_datos_mano_de_obra";
+            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(650, 205);
+            this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
+            this.dgv_entrada_datos_mano_de_obra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellContentClick);
+            this.dgv_entrada_datos_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEndEdit);
+            this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
+            this.dgv_entrada_datos_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded);
+            this.dgv_entrada_datos_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_entrada_datos_mano_de_obra_EditingControlShowing);
+            this.dgv_entrada_datos_mano_de_obra.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_entrada_datos_mano_de_obra_RowsAdded);
+            this.dgv_entrada_datos_mano_de_obra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_entrada_datos_mano_de_obra_KeyDown);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -205,11 +197,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 507);
+            this.ClientSize = new System.Drawing.Size(680, 507);
             this.Controls.Add(this.panel2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.MaximumSize = new System.Drawing.Size(625, 546);
-            this.MinimumSize = new System.Drawing.Size(625, 546);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(696, 546);
+            this.MinimumSize = new System.Drawing.Size(696, 546);
             this.Name = "frm_01_2_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Entrada de Datos";
@@ -227,7 +220,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btn_cancelar;
         private System.Windows.Forms.Button btn_continuar;
-        private System.Windows.Forms.DataGridView dgv_entrada_datos_mano_de_obra;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private UserControls.GridTimeControl gridTimeControl1;
@@ -237,5 +229,6 @@
         private System.Windows.Forms.DataGridView dgv_conceptos_remunerativos;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dgv_entrada_datos_mano_de_obra;
     }
 }

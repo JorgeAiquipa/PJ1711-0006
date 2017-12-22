@@ -18,6 +18,47 @@ namespace Win28ntug
 
             return _dt_r29.get_001(obj);
         }
+
+
+        public int[] Metodo_Analizar_filas_repetidas(List<ET_R29> obj)
+        {
+            var clon_ = obj;
+
+            int indice_repetido = 0;
+            bool existe = false;
+            int[] respuesta = new int[2];
+
+            foreach (ET_R29 row in obj)
+            {
+                int _indice = row._Fila; // 0 ,1, 2
+                string _id_Cargo = row._TR29_TM38_ID; //sup
+                string _descripcion = row._TR29_DESCRIP;
+                DateTime _hora_e = row._TR29_HORA_ENTRADA;
+                DateTime _hora_s = row._TR29_HORA_SALIDA;
+                int _dias = row._TR29_DIAS_SEMANA;
+                decimal _remuneracion = row._TR29_REMUNERACION;
+
+                foreach (ET_R29 row_clon in clon_)
+                {
+                    if (row_clon._Fila != _indice)
+                    {
+                        if (
+                                row_clon._TR29_DESCRIP == _descripcion &&
+                                row_clon._TR29_TM38_ID == _id_Cargo &&
+                                row_clon._TR29_HORA_ENTRADA == _hora_e &&
+                                row_clon._TR29_HORA_SALIDA == _hora_s &&
+                                row_clon._TR29_DIAS_SEMANA == _dias &&
+                                row_clon._TR29_REMUNERACION == _remuneracion
+                            ) { indice_repetido = row_clon._Fila; existe = true; }
+                    }
+                }
+            }
+
+            respuesta[0] = indice_repetido;
+            respuesta[1] = Convert.ToInt32(existe);
+            return respuesta;
+        }
+
         public void set_001(ET_entidad obj)
         {
 
@@ -30,6 +71,7 @@ namespace Win28ntug
                 _et_r29._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
                 _et_r29._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
                 _et_r29._TR29_DESCRIP = row._TR29_DESCRIP;
+                _et_r29._TR29_REMUNERACION = row._TR29_REMUNERACION;
 
                 var result = _dt_r29.set_001(_et_r29);
 
