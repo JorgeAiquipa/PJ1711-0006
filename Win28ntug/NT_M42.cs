@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Win28etug;
 using Win32dtug;
 
 namespace Win28ntug
 {
-    public class NT_M41 
+    public class NT_M42
     {
-        ET_entidad _entidad = new ET_entidad();
-        DT_M41 _dt_m41 = new DT_M41();
-        List<ET_M41> _lista_tm41 = new List<ET_M41>();
 
-        public ET_entidad get_001(ET_M41 objEntity)
+
+        ET_entidad _entidad = new ET_entidad();
+        DT_M42 _dt_m42 = new DT_M42();
+        List<ET_M42> _lista_tm42 = new List<ET_M42>();
+
+
+        public ET_entidad get_001() //obtener lista de tipo de servicios
         {
-            var result = _dt_m41.get_001(objEntity);
-            if (result._hubo_error)
+            var resultado = _dt_m42.get_001();
+
+            if (resultado._hubo_error)
             {
-                Mensaje(result);
+                Mensaje(resultado);
                 return null;
             }
             else
             {
-                return result;
+                return resultado;
             }
-            
+
         }
 
         #region Mensaje

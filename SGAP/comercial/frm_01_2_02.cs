@@ -16,52 +16,93 @@ namespace SGAP.comercial
     public partial class frm_01_2_02 : Form
     {
         public ET_entidad _entidad = new ET_entidad();
+        ET_globales globales = new ET_globales();
         ET_M41 _et_m41 = new ET_M41();
+        NT_M42 _nt_m42 = new NT_M42();
         NT_M41 _nt_m41 = new NT_M41();
         NT_R28 _nt_r28 = new NT_R28();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R28> _lista_r28 = new List<ET_R28>();
+        List<ET_M42> _lista_m42 = new List<ET_M42>();
 
         public int Id_Servicio_Padre;
         public string tm39_id;
         public int id_Servicio_seleccionado;
         public string Nombre_Servicio_seleccionado;
         public int Periodo_servicio;
+        string nombre_tipo_servicio;
+
+        int tipo_de_Servicio = 1;//diego
 
         int Id_Servicio_hijo;
         public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id)
         {
             InitializeComponent();
             Id_Servicio_hijo = __id_Servicio_hijo;
-            Metodo_obtener_tipo_servicio();
             Id_Servicio_Padre = __id_Servicio_padre;
             Periodo_servicio = _periodo_servicio;
             tm39_id = _tm39_id;
+
+            Metodo_obtener_tipo_servicio();
+
+            Metodo_cargar_frecuencias();
         }
 
         void Metodo_obtener_tipo_servicio()
         {
-            this.cbx_tipo_servicio2.Items.Clear();
-            var entidad = _nt_m41.get_001();
-
-            if (!entidad._hubo_error)
+            var resultado_ = _nt_m42.get_001();
+            if (resultado_ != null)
             {
-                _lista_m41 = entidad._lista_et_m41.ToList();
-                foreach (ET_M41 row in entidad._lista_et_m41)
-                {
-                    this.cbx_tipo_servicio2.Items.Add(row._TM41_DESCRIP);
-                }
+                _lista_m42 = resultado_._lista_et_m42;
+                _lista_m42.ForEach(x=> {
+                    cb_tipo.Items.Add(x._TM42_DESCRIP);
+                });
 
-                this.cbx_tipo_servicio2.SelectedIndex = 0;
+                cb_tipo.SelectedIndex = 0;
+            }
+        }
+        void Metodo_obtener_servicios_por_tipo(ET_M41 entidad)
+        {
+            cbx_servicio.Items.Clear();
+            var resultado = _nt_m41.get_001(entidad);
+            if (resultado != null)
+            {
+                _lista_m41 = new List<ET_M41>();
+                _lista_m41 = resultado._lista_et_m41;
+                if (_lista_m41.Count > 0)
+                {
+                    cbx_servicio.Enabled = true;
+                    cbx_frecuencia.Enabled = true;
+
+                    _lista_m41.ForEach(x =>
+                    {
+                        cbx_servicio.Items.Add(x._TM41_DESCRIP);
+                    });
+
+                    cbx_servicio.SelectedIndex = 0;
+                }
+                else
+                {
+                    cbx_servicio.Text = string.Empty;
+                    cbx_servicio.Enabled = false;
+                    cbx_frecuencia.Enabled = false;
+                }
             }
 
         }
+        void Metodo_cargar_frecuencias()
+        {
+            for(int a = 0; a<globales.Fecuencia_.Count; a++)
+            {
+                cbx_frecuencia.Items.Add(globales.Fecuencia_[a]);
+            }
 
+            cbx_frecuencia.SelectedIndex = 0;
+        }
 
         private void btn_continuar_Click(object sender, EventArgs e)
         {
-            //id_Servicio_seleccionado = Convert.ToInt32(cbx_tipo_servicio2.Name.ToString());
-            Nombre_Servicio_seleccionado = cbx_tipo_servicio2.Text;
+            Nombre_Servicio_seleccionado = cbx_servicio.Text;
 
             ET_M41 servicio = _lista_m41.FirstOrDefault(gg => gg._TM41_DESCRIP == Nombre_Servicio_seleccionado);
 
@@ -84,6 +125,24 @@ namespace SGAP.comercial
             this.Close();
             this.DialogResult = DialogResult.Cancel;
         }
-    
+
+        private void cb_tipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            nombre_tipo_servicio = cb_tipo.Text;
+            ET_M42 entidad_m42 = _lista_m42.FirstOrDefault(x => x._TM42_DESCRIP == nombre_tipo_servicio);
+            ET_M41 entidad_m41 = new ET_M41();
+            entidad_m41._TM41_TM42_ID = entidad_m42._TM42_ID;
+            //Listar los servicios de acuerdo al tipo seleccionado
+            Metodo_obtener_servicios_por_tipo(entidad_m41);
+        }
+
+        private void frm_01_2_02_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.G)
+            {
+                // guardar
+                btn_continuar_Click(null,null);
+            }
+        }
     }
 }

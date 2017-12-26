@@ -9,33 +9,31 @@ GO
 -- a una condicion establecida.
 -- =============================================
 CREATE PROCEDURE pa_tm41_get_001
-	@p_TM41_TM2_ID varchar(50)
-	,@p_TM41_TM42_ID varchar(50)
+	 @p_TM41_TM2_ID varchar(50) -- pis
+	,@p_TM41_TM42_ID int -- id tipo de servicio
 AS
 
 BEGIN TRY
 	
 	SET NOCOUNT ON;
 
-
 		SELECT 
-		 TM41_ID
-		,TM41_TM2_ID
-		,TM41_DESCRIP
-		,TM41_UCREA
-		,TM41_FCREA
-		,TM41_UACTUALIZA
-		,TM41_FACTUALIZA
-
-		,TM41_TM42_ID
-
+			 TM41_ID
+			,TM41_TM2_ID
+			,TM41_DESCRIP
+			,TM41_UCREA
+			,TM41_FCREA
+			,TM41_UACTUALIZA
+			,TM41_FACTUALIZA
+			,TM41_TM42_ID
 		FROM
-
-		T_M41 --M41 inner join T_M42 T ON M41.TM41_ID=T.TM42_ID
-
+			DBO.T_M41
 		WHERE 
-		TM41_TM2_ID like @p_TM41_TM2_ID AND
-		TM41_TM42_ID like @p_TM41_TM42_ID
+			TM41_TM2_ID LIKE @p_TM41_TM2_ID 
+			AND
+			TM41_TM42_ID LIKE @p_TM41_TM42_ID
+			AND
+			TM42_FLG_ELIMINADO = 0
 		 
 
 END TRY
@@ -45,5 +43,10 @@ BEGIN CATCH
 END CATCH
 GO
 
+exec pa_tm41_get_001 'PIS', '4'
+
+
+
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
+SELECT * FROM T_M41

@@ -31,17 +31,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.cbx_tipo_servicio2 = new System.Windows.Forms.ComboBox();
+            this.cb_tipo = new System.Windows.Forms.ComboBox();
+            this.cbx_servicio = new System.Windows.Forms.ComboBox();
             this.btn_continuar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbx_frecuencia = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 36);
+            this.label1.Location = new System.Drawing.Point(15, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(28, 13);
             this.label1.TabIndex = 2;
@@ -50,7 +50,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 72);
+            this.label2.Location = new System.Drawing.Point(15, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 3;
@@ -59,36 +59,36 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 115);
+            this.label3.Location = new System.Drawing.Point(15, 75);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Frecuencia";
             // 
-            // comboBox1
+            // cb_tipo
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(104, 33);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(164, 21);
-            this.comboBox1.TabIndex = 5;
+            this.cb_tipo.FormattingEnabled = true;
+            this.cb_tipo.Location = new System.Drawing.Point(93, 14);
+            this.cb_tipo.Name = "cb_tipo";
+            this.cb_tipo.Size = new System.Drawing.Size(164, 21);
+            this.cb_tipo.TabIndex = 0;
+            this.cb_tipo.SelectedIndexChanged += new System.EventHandler(this.cb_tipo_SelectedIndexChanged);
             // 
-            // cbx_tipo_servicio2
+            // cbx_servicio
             // 
-            this.cbx_tipo_servicio2.FormattingEnabled = true;
-            this.cbx_tipo_servicio2.Location = new System.Drawing.Point(104, 69);
-            this.cbx_tipo_servicio2.Name = "cbx_tipo_servicio2";
-            this.cbx_tipo_servicio2.Size = new System.Drawing.Size(164, 21);
-            this.cbx_tipo_servicio2.TabIndex = 6;
+            this.cbx_servicio.FormattingEnabled = true;
+            this.cbx_servicio.Location = new System.Drawing.Point(93, 43);
+            this.cbx_servicio.Name = "cbx_servicio";
+            this.cbx_servicio.Size = new System.Drawing.Size(164, 21);
+            this.cbx_servicio.TabIndex = 1;
             // 
             // btn_continuar
             // 
             this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_continuar.Location = new System.Drawing.Point(31, 163);
+            this.btn_continuar.Location = new System.Drawing.Point(18, 123);
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(117, 23);
-            this.btn_continuar.TabIndex = 20;
+            this.btn_continuar.TabIndex = 3;
             this.btn_continuar.Text = "Continuar <ctr + G>";
             this.btn_continuar.UseVisualStyleBackColor = true;
             this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
@@ -96,38 +96,40 @@
             // btn_cancelar
             // 
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_cancelar.Location = new System.Drawing.Point(204, 163);
+            this.btn_cancelar.Location = new System.Drawing.Point(193, 123);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(64, 23);
-            this.btn_cancelar.TabIndex = 19;
+            this.btn_cancelar.TabIndex = 4;
             this.btn_cancelar.Text = "Cancelar <esc>";
             this.btn_cancelar.UseVisualStyleBackColor = true;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
-            // comboBox2
+            // cbx_frecuencia
             // 
-            this.comboBox2.Enabled = false;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(104, 112);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 21;
+            this.cbx_frecuencia.FormattingEnabled = true;
+            this.cbx_frecuencia.Location = new System.Drawing.Point(93, 72);
+            this.cbx_frecuencia.Name = "cbx_frecuencia";
+            this.cbx_frecuencia.Size = new System.Drawing.Size(131, 21);
+            this.cbx_frecuencia.TabIndex = 2;
             // 
             // frm_01_2_02
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 208);
-            this.Controls.Add(this.comboBox2);
+            this.ClientSize = new System.Drawing.Size(271, 163);
+            this.Controls.Add(this.cbx_frecuencia);
             this.Controls.Add(this.btn_continuar);
             this.Controls.Add(this.btn_cancelar);
-            this.Controls.Add(this.cbx_tipo_servicio2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbx_servicio);
+            this.Controls.Add(this.cb_tipo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frm_01_2_02";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_01_02";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_01_2_02_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,10 +139,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox cbx_tipo_servicio2;
+        private System.Windows.Forms.ComboBox cb_tipo;
+        private System.Windows.Forms.ComboBox cbx_servicio;
         private System.Windows.Forms.Button btn_continuar;
         private System.Windows.Forms.Button btn_cancelar;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbx_frecuencia;
     }
 }

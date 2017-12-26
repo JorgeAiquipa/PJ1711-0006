@@ -82,7 +82,7 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
+            //this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -590,14 +590,14 @@
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 82;
             // 
-            // numericUpDownColumn1
-            // 
-            this.numericUpDownColumn1.HeaderText = "DxS";
-            this.numericUpDownColumn1.Name = "numericUpDownColumn1";
-            this.numericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.numericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // frm_01_2
+            //// numericUpDownColumn1
+            //// 
+            //this.numericUpDownColumn1.HeaderText = "DxS";
+            //this.numericUpDownColumn1.Name = "numericUpDownColumn1";
+            //this.numericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            //this.numericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            //// 
+            //// frm_01_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -653,7 +653,7 @@
             private System.Windows.Forms.Label label4;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-            private UserControls.NumericUpDownColumn numericUpDownColumn1;
+            //private UserControls.NumericUpDownColumn numericUpDownColumn1;
         private System.Windows.Forms.DataGridView dgv_entrada_datos_mq_eq;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;

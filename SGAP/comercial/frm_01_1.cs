@@ -37,7 +37,7 @@ namespace SGAP.comercial
         string ruc_cliente;
         string tipo_servicio;
         string nombre_de_Servicio;
-        int tipo_de_Servicio;//diego
+        int tipo_de_Servicio=1;//diego
         int cantidad_meses = 0;
 
 
@@ -72,18 +72,25 @@ namespace SGAP.comercial
         void Metodo_obtener_tipo_servicio()
         {
             this.cbx_tipo_servicio.Items.Clear();
-            var entidad = _nt_m41.get_001();
+            ET_M41 _et_41 = new ET_M41();
+            _et_41._TM41_TM42_ID = tipo_de_Servicio;
+            var entidad = _nt_m41.get_001(_et_41);
 
             if (!entidad._hubo_error)
             {
-                _lista_m41 = entidad._lista_et_m41.ToList();
-                foreach (ET_M41 row in entidad._lista_et_m41)
+                if (entidad._lista_et_m41 != null)
                 {
-                    this.cbx_tipo_servicio.Items.Add(row._TM41_DESCRIP);
-                }
 
-                this.cbx_tipo_servicio.SelectedIndex = 0;
+                    _lista_m41 = entidad._lista_et_m41.ToList();
+                    foreach (ET_M41 row in entidad._lista_et_m41)
+                    {
+                        this.cbx_tipo_servicio.Items.Add(row._TM41_DESCRIP);
+                    }
+
+                    this.cbx_tipo_servicio.SelectedIndex = 0;
+                }
             }
+
 
         }
         void Metodo_obtener_informacion_ingresada()
@@ -96,7 +103,7 @@ namespace SGAP.comercial
             }
             else if (rb_tipo2.Checked == true)
             {
-                tipo_de_Servicio = 2;//diego
+                tipo_de_Servicio = 4;//diego
                 //tipo_de_Servicio = rb_tipo2.Text.ToString();//diego
             }//diego
 
@@ -139,7 +146,7 @@ namespace SGAP.comercial
 
             //seteamos info del servicio seleccionado
 
-            _et_m41._TM41_TIPO = tipo_de_Servicio;//diego
+            _et_m41._TM41_TM42_ID = tipo_de_Servicio;//diego
 
             _et_m41._TM41_DESCRIP = nombre_de_Servicio;
             _et_m41._TM41_ID = _id_tm41;
@@ -279,7 +286,6 @@ namespace SGAP.comercial
         private void cbx_tipo_servicio_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            
             nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
 
             var result = _lista_m41.Where(p => p._TM41_DESCRIP == nombre_de_Servicio);
@@ -297,21 +303,22 @@ namespace SGAP.comercial
             if (rb_tipo1.Checked == true)
             {
                 tipo_de_Servicio = 1;//diego
+                //Listar();
+                Metodo_obtener_tipo_servicio();
             }
-            else if (rb_tipo2.Checked == true)
-            {
-                tipo_de_Servicio = 2;//diego
-            }//diego
-
-            var result = _lista_m41.Where(p => p._TM41_TIPO == tipo_de_Servicio);
-
-            foreach (ET_M41 row in result)
-            {
-                _id_tm41 = row._TM41_ID;
-                break;
-            }//DIEGO
-
-
+          
         }
+
+        private void rb_tipo2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_tipo2.Checked == true)
+            {
+                tipo_de_Servicio = 4;//diego
+                //Listar();
+                Metodo_obtener_tipo_servicio();
+            }
+        }
+
+
     }
 }

@@ -384,6 +384,7 @@
             this.rb_tipo2.TabIndex = 21;
             this.rb_tipo2.Text = "Especial";
             this.rb_tipo2.UseVisualStyleBackColor = true;
+            this.rb_tipo2.CheckedChanged += new System.EventHandler(this.rb_tipo2_CheckedChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 

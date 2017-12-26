@@ -9,32 +9,26 @@ GO
 -- a una condicion establecida.
 -- =============================================
 CREATE PROCEDURE pa_tm42_get_001	
-	--@p_TM42_ID varchar(50)
 AS
 
 BEGIN TRY
 	
 	SET NOCOUNT ON;
 
-
 		SELECT 
-
-		TM42_ID
-		,TM42_DESCRIP
-		,TM42_ST
-		,TM42_FLG_ELIMINADO
-		,TM42_UCREA
-		,TM42_FCREA
-		,TM42_UACTUALIZA
-		,TM42_FACTUALIZA
+			 TM42_ID
+			,TM42_DESCRIP
+			,TM42_ST
+			,TM42_FLG_ELIMINADO
+			,TM42_UCREA
+			,TM42_FCREA
+			,TM42_UACTUALIZA
+			,TM42_FACTUALIZA
 
 		FROM
-
-		T_M42
-
-		--WHERE 
-		--TM42_ID like @p_TM42_ID
-		 
+			DBO.T_M42
+		WHERE
+			TM42_FLG_ELIMINADO = 0
 
 END TRY
 BEGIN CATCH
@@ -42,6 +36,8 @@ BEGIN CATCH
 	
 END CATCH
 GO
+
+exec pa_tm42_get_001
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 

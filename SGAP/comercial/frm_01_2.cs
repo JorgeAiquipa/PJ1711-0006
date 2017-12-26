@@ -152,25 +152,6 @@ namespace SGAP.comercial
             Add_service.Click += new System.EventHandler(this.Item_Add_Service_click);            
             //diego
 
-            var result = _nt_m41.get_001();
-
-            //if (!result._hubo_error)
-            //{
-            //    result._lista_et_m41.ForEach(x =>
-            //    {
-            //        ToolStripMenuItem item_ = new ToolStripMenuItem();
-            //        item_.Name = x._TM41_ID.ToString();
-            //        item_.Size = new System.Drawing.Size(152, 22);
-            //        item_.Text = x._TM41_DESCRIP;
-
-            //        Add_service.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            //            item_
-            //        });
-
-            //        item_.Click += new System.EventHandler(this.Item_servicio_click);
-            //    });
-            //}
-
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 Add_service
             });
