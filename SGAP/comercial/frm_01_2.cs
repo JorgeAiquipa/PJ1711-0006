@@ -106,17 +106,7 @@ namespace SGAP.comercial
 
 
             _nt_m31.Mensaje_Alerta += Mensaje_alerta;
-
-            //PerformCalculations();//diego
         }
-
-        //public void PerformCalculations()
-        //{
-        //    int tipo = _entidad._entity_m41._TM41_TIPO;//diego
-        //    string servicio = _entidad._entity_m41._TM41_DESCRIP;//diego
-        //    MessageBox.Show("El tipo de servicio es:"  + tipo + " El Servicio es: " + servicio, "Tipo de servicio", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);//diego
-            
-        //}//diego
 
         static void Mensaje_alerta(object sender, ET_entidad e)
         {
@@ -185,8 +175,8 @@ namespace SGAP.comercial
         //tiene lugar cuando cambia ala selección.
         private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            int index = int.Parse(e.Node.Tag.ToString());
-            DisplayPanel(index);
+            //int index = int.Parse(e.Node.Tag.ToString());
+            //DisplayPanel(index);
         }
 
         private void DisplayPanel(int index)

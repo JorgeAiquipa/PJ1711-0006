@@ -14,6 +14,7 @@ namespace Win28ntug
         ET_entidad _entidad = new ET_entidad();
         ET_R28 _et_r28 = new ET_R28();
         DT_R28 _dt_r28 = new DT_R28();
+            
 
         //Registramos el servicio seleccionado para una cotizacion
         public ET_entidad set_002(ET_entidad objEntity)
@@ -30,6 +31,7 @@ namespace Win28ntug
             entity._entity_r28._TR28_TM39_ID = entity._entity_m39._TM39_ID;
             var result = _dt_r28.get_001(entity._entity_r28);
 
+
             if (!result._hubo_error && result._lista_et_r28.Count > 0)
             {
 
@@ -39,39 +41,63 @@ namespace Win28ntug
                 nodo_principal.Name = name_nodo;
                 nodo_principal.Text = name_nodo;
 
-                result._lista_et_r28.ForEach(x => 
+                var lista_resultadito = result._lista_et_r28
+                    .GroupBy(u => u._TR28_TM42_ID)
+                    .Select(grp => grp.ToList())
+                    .ToList();
+                
+                foreach (List<ET_R28> list in lista_resultadito)
                 {
-                    //Id_servicio_hijo = x._TR28_ID;
-                    Id_servicio_Padre = x._TR28_PADRE;
-                    Periodo_Servicio = x._TR28_PERIODO;
+                    string id_tipo_Servicio = "";
+                    string nombre_servicio = "";
 
-                    TreeNode mano_obra = new TreeNode("Mano de Obra");
-                    mano_obra.Name = "Mano de Obra";
-                    mano_obra.Tag = 0;
-                    TreeNode maquinaria = new TreeNode("Maquinaria y Equipo");
-                    maquinaria.Tag = 1;
-                    TreeNode materiales = new TreeNode("Materiales e Insumos");
-                    materiales.Tag = 2;
-                    TreeNode implementos = new TreeNode("Implementos de Limpieza");
-                    implementos.Tag = 3;
-                    TreeNode suministros = new TreeNode("Suministros");
-                    suministros.Tag = 4;
-                    TreeNode indumentaria = new TreeNode("Indumentaria");
-                    indumentaria.Tag = 5;
+                    TreeNode servicios = new TreeNode();
 
-                    TreeNode node = new TreeNode(x._TR28_DESCRIP, new TreeNode[] {
-                        mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
-                    });
-                    node.Text = x._TR28_DESCRIP;
-                    node.Tag = 1000;
-                    node.Name = x._TR28_ID.ToString();
+                    foreach (ET_R28 row_u in list)
+                    {
+                        // 
+                        id_tipo_Servicio = row_u._TR28_TM42_ID;
+                        nombre_servicio = row_u._TR28_TM42_DESCRIP;
+                        //Id_servicio_hijo = x._TR28_ID;
+                        //Id_servicio_Padre = row_u._TR28_PADRE;
+                        //Periodo_Servicio = row_u._TR28_PERIODO;
 
-                    nodo_principal.Nodes.Add(node);
-                });
+                        TreeNode mano_obra = new TreeNode("Mano de Obra");
+                        mano_obra.Name = "Mano de Obra";
+                        mano_obra.Tag = 0;
+                        TreeNode maquinaria = new TreeNode("Maquinaria y Equipo");
+                        maquinaria.Tag = 1;
+                        TreeNode materiales = new TreeNode("Materiales e Insumos");
+                        materiales.Tag = 2;
+                        TreeNode implementos = new TreeNode("Implementos de Limpieza");
+                        implementos.Tag = 3;
+                        TreeNode suministros = new TreeNode("Suministros");
+                        suministros.Tag = 4;
+                        TreeNode indumentaria = new TreeNode("Indumentaria");
+                        indumentaria.Tag = 5;
+
+
+                        TreeNode node_hijo = new TreeNode(row_u._TR28_DESCRIP, new TreeNode[] {
+                                mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
+                                        });
+                        node_hijo.Text = row_u._TR28_DESCRIP;
+                        node_hijo.Tag = 1000;
+                        node_hijo.Name = row_u._TR28_ID.ToString();
+
+                        servicios.Nodes.Add(node_hijo);
+                        servicios.Text = row_u._TR28_TM42_DESCRIP;
+                        servicios.Name = id_tipo_Servicio;
+                    }
+
+                    nodo_principal.Nodes.Add(servicios);
+
+                }
 
                 nodo_principal.ExpandAll();
 
                 treview.Nodes.Add(nodo_principal);
+
+
             }
 
             int[] resultado = { Id_servicio_Padre, Periodo_Servicio };
