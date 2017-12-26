@@ -23,5 +23,11 @@ namespace Win28etug
         public DateTime _TR28_FACTUALIZA { get; set; }
         public string _TR28_TM2_ID { get; set; }
 
+        public string _TR28_TM42_DESCRIP { get; set; }//diego
+        public string _TR28_TM42_ID { get; set; }//diego
+
+       
+
+
     }
 }

@@ -25,14 +25,14 @@ namespace SGAP.comercial
         List<ET_R28> _lista_r28 = new List<ET_R28>();
         List<ET_M42> _lista_m42 = new List<ET_M42>();
 
+        List<ET_R19> _lista_R19 = new List<ET_R19>();
+
         public int Id_Servicio_Padre;
         public string tm39_id;
         public int id_Servicio_seleccionado;
         public string Nombre_Servicio_seleccionado;
         public int Periodo_servicio;
         string nombre_tipo_servicio;
-
-        int tipo_de_Servicio = 1;//diego
 
         int Id_Servicio_hijo;
         public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id)
@@ -67,16 +67,16 @@ namespace SGAP.comercial
             var resultado = _nt_m41.get_001(entidad);
             if (resultado != null)
             {
-                _lista_m41 = new List<ET_M41>();
-                _lista_m41 = resultado._lista_et_m41;
-                if (_lista_m41.Count > 0)
+                _lista_R19 = new List<ET_R19>();
+                _lista_R19 = resultado._lista_et_r19;
+                if (_lista_R19.Count > 0)
                 {
                     cbx_servicio.Enabled = true;
                     cbx_frecuencia.Enabled = true;
 
-                    _lista_m41.ForEach(x =>
+                    _lista_R19.ForEach(x =>
                     {
-                        cbx_servicio.Items.Add(x._TM41_DESCRIP);
+                        cbx_servicio.Items.Add(x._TR19_TM41_DESCRIP);
                     });
 
                     cbx_servicio.SelectedIndex = 0;
@@ -104,12 +104,12 @@ namespace SGAP.comercial
         {
             Nombre_Servicio_seleccionado = cbx_servicio.Text;
 
-            ET_M41 servicio = _lista_m41.FirstOrDefault(gg => gg._TM41_DESCRIP == Nombre_Servicio_seleccionado);
+            ET_R19 servicio = _lista_R19.FirstOrDefault(gg => gg._TR19_TM41_DESCRIP == Nombre_Servicio_seleccionado);
 
             //agregar servicio nuevo
             _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
             _entidad._entity_r28._TR28_TM39_ID = tm39_id;
-            _entidad._entity_r28._TR28_TM41_ID = servicio._TM41_ID;
+            _entidad._entity_r28._TR28_TM41_ID = servicio._TR19_TM41_ID;
             _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
             _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
             //tipo

@@ -170,6 +170,11 @@ namespace Win32dtug
                         _et_r28._TR28_FACTUALIZA = Convert.ToDateTime(fila["TR28_FACTUALIZA"].ToString());
                         _et_r28._TR28_TM2_ID = fila["TR28_TM2_ID"].ToString();
 
+                        _et_r28._TR28_TM42_DESCRIP = fila["TR28_TM42_DESCRIP"].ToString();//diego
+                        _et_r28._TR28_TM42_ID = fila["TR28_TM42_ID"].ToString();//diego
+
+
+
                         _lista_et_r28.Add(_et_r28);
                     }
 
