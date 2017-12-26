@@ -87,6 +87,7 @@ namespace Win28ntug
                         servicios.Nodes.Add(node_hijo);
                         servicios.Text = row_u._TR28_TM42_DESCRIP;
                         servicios.Name = id_tipo_Servicio;
+                        servicios.Tag = 2000;
                     }
 
                     nodo_principal.Nodes.Add(servicios);

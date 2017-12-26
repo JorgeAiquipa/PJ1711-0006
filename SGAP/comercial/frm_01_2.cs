@@ -180,8 +180,9 @@ namespace SGAP.comercial
         //tiene lugar cuando cambia ala selección.
         private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            //int index = int.Parse(e.Node.Tag.ToString());
-            //DisplayPanel(index);
+
+            int index = int.Parse(e.Node.Tag.ToString());
+            DisplayPanel(index);
         }
 
         private void DisplayPanel(int index)
@@ -757,7 +758,8 @@ namespace SGAP.comercial
             {
                 dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            { }
         }
 
         private void dgv_mano_de_obra_right_Scroll(object sender, ScrollEventArgs e)
@@ -766,7 +768,8 @@ namespace SGAP.comercial
             {
                 dgv_mano_de_obra.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex;
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            { }
         }
 
         private void tabControl1_KeyDown(object sender, KeyEventArgs e)
