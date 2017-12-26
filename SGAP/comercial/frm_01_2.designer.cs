@@ -35,20 +35,14 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dgv_mano_de_obra_right = new System.Windows.Forms.DataGridView();
             this.dgv_mano_de_obra = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -71,6 +65,13 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,6 +88,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_mano_de_obra_right)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_mano_de_obra)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -147,6 +149,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(956, 494);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tabControl1_KeyDown);
             // 
             // tabPage1
             // 
@@ -161,6 +164,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.dgv_mano_de_obra_right);
             this.panel2.Controls.Add(this.dgv_mano_de_obra);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -169,13 +173,30 @@
             this.panel2.Size = new System.Drawing.Size(942, 462);
             this.panel2.TabIndex = 6;
             // 
+            // dgv_mano_de_obra_right
+            // 
+            this.dgv_mano_de_obra_right.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgv_mano_de_obra_right.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_mano_de_obra_right.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(542, 22);
+            this.dgv_mano_de_obra_right.Name = "dgv_mano_de_obra_right";
+            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(400, 440);
+            this.dgv_mano_de_obra_right.TabIndex = 8;
+            this.dgv_mano_de_obra_right.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_right_Scroll);
+            // 
             // dgv_mano_de_obra
             // 
+            this.dgv_mano_de_obra.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_mano_de_obra.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra.Location = new System.Drawing.Point(4, 25);
+            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 22);
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
-            this.dgv_mano_de_obra.Size = new System.Drawing.Size(532, 431);
+            this.dgv_mano_de_obra.Size = new System.Drawing.Size(541, 440);
             this.dgv_mano_de_obra.TabIndex = 7;
+            this.dgv_mano_de_obra.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_Scroll);
+            this.dgv_mano_de_obra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_mano_de_obra_KeyDown);
             // 
             // label10
             // 
@@ -238,34 +259,6 @@
             this.dgv_entrada_datos_mq_eq.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mq_eq_CellValidating);
             this.dgv_entrada_datos_mq_eq.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dvg_entrada_datos_mq_eq_EditingControlShowing_1);
             // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.Width = 200;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "Codigo";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.ReadOnly = true;
-            this.Codigo.Width = 82;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            this.marca.Width = 82;
-            // 
-            // und
-            // 
-            this.und.HeaderText = "Und.";
-            this.und.Name = "und";
-            this.und.ReadOnly = true;
-            this.und.Width = 50;
-            // 
             // maquinaria
             // 
             this.maquinaria.HeaderText = "Maquinaria";
@@ -283,27 +276,6 @@
             this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.equipos.Width = 55;
-            // 
-            // cantotal
-            // 
-            this.cantotal.HeaderText = "Cant. Total";
-            this.cantotal.Name = "cantotal";
-            this.cantotal.ReadOnly = true;
-            this.cantotal.Width = 82;
-            // 
-            // costounitario
-            // 
-            this.costounitario.HeaderText = "Costo Unitario";
-            this.costounitario.Name = "costounitario";
-            this.costounitario.ReadOnly = true;
-            this.costounitario.Width = 82;
-            // 
-            // costototal
-            // 
-            this.costototal.HeaderText = "Costo Total";
-            this.costototal.Name = "costototal";
-            this.costototal.ReadOnly = true;
-            this.costototal.Width = 82;
             // 
             // label11
             // 
@@ -512,6 +484,55 @@
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 82;
             // 
+            // nombre
+            // 
+            this.nombre.Frozen = true;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 200;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.ReadOnly = true;
+            this.Codigo.Width = 82;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            this.marca.Width = 82;
+            // 
+            // und
+            // 
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            this.und.ReadOnly = true;
+            this.und.Width = 50;
+            // 
+            // cantotal
+            // 
+            this.cantotal.HeaderText = "Cant. Total";
+            this.cantotal.Name = "cantotal";
+            this.cantotal.ReadOnly = true;
+            this.cantotal.Width = 82;
+            // 
+            // costounitario
+            // 
+            this.costounitario.HeaderText = "Costo Unitario";
+            this.costounitario.Name = "costounitario";
+            this.costounitario.ReadOnly = true;
+            this.costounitario.Width = 82;
+            // 
+            // costototal
+            // 
+            this.costototal.HeaderText = "Costo Total";
+            this.costototal.Name = "costototal";
+            this.costototal.ReadOnly = true;
+            this.costototal.Width = 82;
+            // 
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.HeaderText = "Costo Unitario";
@@ -595,6 +616,7 @@
             this.ClientSize = new System.Drawing.Size(1237, 506);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tree_view_servicios);
+            this.MinimumSize = new System.Drawing.Size(1253, 545);
             this.Name = "frm_01_2";
             this.Text = "FRM_Cotizador";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -603,6 +625,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_mano_de_obra_right)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_mano_de_obra)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -674,5 +697,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private System.Windows.Forms.DataGridView dgv_mano_de_obra_right;
     }
     }

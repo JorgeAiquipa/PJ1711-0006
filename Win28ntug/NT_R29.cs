@@ -64,11 +64,16 @@ namespace Win28ntug
 
             foreach (ET_R29 row in obj._lista_et_r29)
             {
+                DateTime h_e_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_ENTRADA.Hour, minute: row._TR29_HORA_ENTRADA.Minute,second:0); // reset
+                DateTime h_s_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_SALIDA.Hour, minute: row._TR29_HORA_SALIDA.Minute,second:0); // reset
+
+
                 ET_R29 _et_r29 = new ET_R29();
                 _et_r29._TR29_TR28_ID = row._TR29_TR28_ID;
                 _et_r29._TR29_TM38_ID = row._TR29_TM38_ID;
-                _et_r29._TR29_HORA_ENTRADA = row._TR29_HORA_ENTRADA;
-                _et_r29._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
+
+                _et_r29._TR29_HORA_ENTRADA = h_e_;
+                _et_r29._TR29_HORA_SALIDA = h_s_;
                 _et_r29._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
                 _et_r29._TR29_DESCRIP = row._TR29_DESCRIP;
                 _et_r29._TR29_REMUNERACION = row._TR29_REMUNERACION;

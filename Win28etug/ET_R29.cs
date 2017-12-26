@@ -26,13 +26,16 @@ namespace Win28etug
         public string _TR29_TM2_ID { get; set; }
 
         public List<ET_M40> _lista_et_m40 { get; set; }
+        public List<ET_R30> _lista_et_r30 { get; set; }
 
         public ET_R29()
         {
             _TR29_HORA_ENTRADA = new DateTime(1900, 1, 1, hour: 7, minute: 0, second: 0);
             _TR29_HORA_SALIDA = new DateTime(1900, 1, 1, hour: 15, minute: 0, second: 0);
             _TR29_DIAS_SEMANA = 6;
+            _TR29_REMUNERACION = 850;
             _lista_et_m40 = new List<ET_M40>();
+            _lista_et_r30 = new List<ET_R30>();
         }
     }
 }

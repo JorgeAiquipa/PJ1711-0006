@@ -1,20 +1,23 @@
 SELECT 
-*
+
 --CONCAT('dgv_mano_de_obra.Columns["_',COLUMN_NAME,'"].Visible = false;')
 --CONCAT(',',COLUMN_NAME)
 --CONCAT('public string _',COLUMN_NAME,'{get; set;}') 
 --concat(',@p_',COLUMN_NAME,' ',DATA_TYPE)
 --concat(COLUMN_NAME,' ',DATA_TYPE,',')
 --concat(',@p_',COLUMN_NAME)
---CONCAT('_et_m40._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
+CONCAT('_et_r30._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
 FROM INFORMATION_SCHEMA.COLUMNS
 
-WHERE TABLE_NAME = 'T_m41'
+WHERE TABLE_NAME = 'T_r30'
 
 -- CREAMOS UN CODIGO PARA LA COTIZACION 
 
 
 select * from T_r30
+
+
+select * from T_M40
 
 
 
@@ -54,3 +57,20 @@ insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
 values('P4','Alimentación',1)
 insert into dbo.T_M40 (TM40_ID,TM40_DESCRIP,TM40_ST)
 values('P5','Bonif.Afecta',1)
+
+
+
+
+
+
+
+select * from T_R30
+
+
+-- cot 109
+
+select * from T_R29
+
+where
+
+TR29_TR28_ID = 130

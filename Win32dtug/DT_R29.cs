@@ -15,6 +15,7 @@ namespace Win32dtug
 
         ET_globales _global = new ET_globales();
         DT_CNX _cnx = new DT_CNX();
+        DT_R30 dtr_30 = new DT_R30();
         ET_entidad _Entidad = new ET_entidad();
         ET_R29 _etr29 = new ET_R29();
         List<ET_R29> _lista_r29 = new List<ET_R29>();
@@ -62,6 +63,10 @@ namespace Win32dtug
                             res = fila["TR29_REMUNERACION"].ToString();
                         _etr29._TR29_REMUNERACION = Convert.ToDecimal(res);
                         //_etr29._TR29_TM2_ID = fila["TR29_TM2_ID"].ToString();
+
+
+                        //get_001 dt_r30
+                        _etr29._lista_et_r30 = dtr_30.get_001(_etr29._TR29_ID);
 
                         _lista_r29.Add(_etr29);
                     }

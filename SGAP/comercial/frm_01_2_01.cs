@@ -202,13 +202,16 @@ namespace SGAP.comercial
 
         private void btn_continuar_Click(object sender, EventArgs e)
         {
-            _et_entidad = new ET_entidad();
-            _et_entidad._entity_r28._TR28_ID = id_Servicio_hijo;
-            _et_entidad._lista_et_r29 = _lista_et_r29;
-            _nt_r29.set_001(_et_entidad);
-            // guardamos los cambios
-            //Analizar_informacion_ingresada();
-            this.DialogResult = DialogResult.OK;
+            if (_continuar)
+            {
+                _et_entidad = new ET_entidad();
+                _et_entidad._entity_r28._TR28_ID = id_Servicio_hijo;
+                _et_entidad._lista_et_r29 = _lista_et_r29;
+                _nt_r29.set_001(_et_entidad);
+                // guardamos los cambios
+                //Analizar_informacion_ingresada();
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -357,7 +360,7 @@ namespace SGAP.comercial
             {
                 btn_cancelar_Click(null, null);
             }
-            if (e.Control && e.KeyCode == Keys.A)
+            if (e.Alt && e.KeyCode == Keys.C)
             {
                 Procesar_conceptos_por_Cargo();
             }
@@ -389,7 +392,6 @@ namespace SGAP.comercial
 
             groupBox2.BackColor = DefaultBackColor;
 
-
             ET_R29 et_r29_ = _lista_et_r29.FirstOrDefault(x => x._Fila == Indice_grid_entrada_datos_mano_obra);
 
             _lista_et_m40_back = new List<ET_M40>();
@@ -397,7 +399,11 @@ namespace SGAP.comercial
 
             et_r29_._lista_et_m40 = _lista_et_m40_back;
 
-
+            Analizar_registros_repetido();
+        }
+        bool _continuar = false;
+        void Analizar_registros_repetido()
+        {
             // analizamos lo ingresado
             int[] respuesta = _nt_r29.Metodo_Analizar_filas_repetidas(_lista_et_r29);
             // 0 -> indice repetido
@@ -409,6 +415,8 @@ namespace SGAP.comercial
                 // resaltar las lineas repetidas
                 dgv_entrada_datos_mano_de_obra.Rows[respuesta[0]].DefaultCellStyle.BackColor = Color.Salmon;
                 groupBox2.BackColor = Color.Salmon;
+
+                _continuar = false;
             }
             else
             {
@@ -421,8 +429,8 @@ namespace SGAP.comercial
                 dgv_conceptos_remunerativos.Update();
                 dgv_conceptos_remunerativos.Refresh();
 
+                _continuar = true;
             }
-
         }
         //Cuando hacemos click en el boton de agregar conceptos
         private void dgv_entrada_datos_mano_de_obra_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -495,6 +503,18 @@ namespace SGAP.comercial
         private void button1_Click(object sender, EventArgs e)
         {
             Procesar_conceptos_por_Cargo();
+        }
+
+        private void dgv_entrada_datos_mano_de_obra_Leave(object sender, EventArgs e)
+        {
+        }
+
+        private void dgv_entrada_datos_mano_de_obra_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void dgv_entrada_datos_mano_de_obra_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
 }
