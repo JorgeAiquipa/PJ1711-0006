@@ -82,9 +82,6 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -102,8 +99,6 @@
             this.panel6.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tree_view_servicios
@@ -166,7 +161,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.tableLayoutPanel1);
+            this.panel2.Controls.Add(this.dgv_mano_de_obra);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
@@ -177,8 +172,7 @@
             // dgv_mano_de_obra
             // 
             this.dgv_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_mano_de_obra.Location = new System.Drawing.Point(3, 3);
+            this.dgv_mano_de_obra.Location = new System.Drawing.Point(4, 25);
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
             this.dgv_mano_de_obra.Size = new System.Drawing.Size(532, 431);
             this.dgv_mano_de_obra.TabIndex = 7;
@@ -201,7 +195,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(793, 375);
+            this.tabPage2.Size = new System.Drawing.Size(948, 468);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -213,7 +207,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(787, 369);
+            this.panel3.Size = new System.Drawing.Size(942, 462);
             this.panel3.TabIndex = 4;
             // 
             // dgv_entrada_datos_mq_eq
@@ -236,7 +230,7 @@
             this.dgv_entrada_datos_mq_eq.GridColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_entrada_datos_mq_eq.Location = new System.Drawing.Point(3, 25);
             this.dgv_entrada_datos_mq_eq.Name = "dgv_entrada_datos_mq_eq";
-            this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(780, 341);
+            this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(935, 434);
             this.dgv_entrada_datos_mq_eq.TabIndex = 10;
             this.dgv_entrada_datos_mq_eq.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_entrada_datos_mq_eq_CellBeginEdit);
             this.dgv_entrada_datos_mq_eq.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellEndEdit);
@@ -318,7 +312,7 @@
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(0, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(787, 22);
+            this.label11.Size = new System.Drawing.Size(942, 22);
             this.label11.TabIndex = 7;
             this.label11.Text = "Page 2";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -329,7 +323,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(793, 375);
+            this.tabPage3.Size = new System.Drawing.Size(948, 468);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -360,7 +354,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(793, 375);
+            this.tabPage4.Size = new System.Drawing.Size(948, 468);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -391,7 +385,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(793, 375);
+            this.tabPage5.Size = new System.Drawing.Size(948, 468);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -422,7 +416,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(793, 375);
+            this.tabPage6.Size = new System.Drawing.Size(948, 468);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -594,38 +588,6 @@
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 82;
             // 
-            // numericUpDownColumn1
-            // 
-            this.numericUpDownColumn1.HeaderText = "DxS";
-            this.numericUpDownColumn1.Name = "numericUpDownColumn1";
-            this.numericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.numericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 400F));
-            this.tableLayoutPanel1.Controls.Add(this.dgv_mano_de_obra, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 22);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(942, 440);
-            this.tableLayoutPanel1.TabIndex = 7;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(541, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(394, 431);
-            this.dataGridView1.TabIndex = 8;
-            // 
             // frm_01_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -653,8 +615,6 @@
             this.panel6.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
             }
@@ -684,7 +644,7 @@
             private System.Windows.Forms.Label label4;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
             private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-            private UserControls.NumericUpDownColumn numericUpDownColumn1;
+            //private UserControls.NumericUpDownColumn numericUpDownColumn1;
         private System.Windows.Forms.DataGridView dgv_entrada_datos_mq_eq;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
@@ -714,7 +674,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
     }

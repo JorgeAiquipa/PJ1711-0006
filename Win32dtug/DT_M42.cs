@@ -8,18 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Win28etug;
+
 namespace Win32dtug
 {
-    public class DT_M41
+    public class DT_M42
     {
+
         ET_globales _global = new ET_globales();
         ET_entidad _Entidad = new ET_entidad();
-        List<ET_M41> _lista_mtm41 = new List<ET_M41>();
-        ET_R19 _et_r19 = new ET_R19();
-        List<ET_R19> _LISTA_ET_R19 = new List<ET_R19>();
+        ET_M42 _et_m42;
+        List<ET_M42> _lista_mtm42 = new List<ET_M42>();
 
-        //OBTENER LISTA DE SERVICIOS POR TIPO
-        public ET_entidad get_001(ET_M41 objEntity)
+        //OBTENER LISTA DE TIPOS DE SERVICIOS
+        public ET_entidad get_001()
         {
             string Mensaje_error = "";
 
@@ -28,34 +29,25 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_sel101", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tm42_get_001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    cmd.Parameters.Add("@p_TR19_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
-                    cmd.Parameters.Add("@p_TR19_TM42_ID", SqlDbType.VarChar, 10).Value = objEntity._TM41_TM42_ID;
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);
-                    _LISTA_ET_R19.Clear();
+
                     foreach (DataRow fila in dt.Rows)
                     {
-                        _et_r19 = new ET_R19();
+                        _et_m42 = new ET_M42();
 
-                        _et_r19._T_R19_TM2_ID = fila["T_R19_TM2_ID"].ToString();
-                        _et_r19._TR19_TM41_ID = Convert.ToInt32(fila["TR19_TM41_ID"].ToString());
-                        _et_r19._TR19_TM42_ID = Convert.ToInt32(fila["TR19_TM42_ID"].ToString());
-                        _et_r19._TR19_TM41_DESCRIP = fila["TR19_TM41_DESCRIP"].ToString();
-                        //_et_r19._TR19_VALOR = Convert.ToInt32(fila["TR19_VALOR"].ToString());
-                        _et_r19._TR19_UCREA = fila["TR19_UCREA"].ToString();
-                        _et_r19._TR19_FCREA = Convert.ToDateTime(fila["TR19_FCREA"].ToString());
-                        _et_r19._TR19_UACTUALIZA = fila["TR19_UACTUALIZA"].ToString();
-                        _et_r19._TR19_FACTUALIZA = Convert.ToDateTime(fila["TR19_FACTUALIZA"].ToString());
-
-                        _LISTA_ET_R19.Add(_et_r19);
+                        _et_m42._TM42_ID = Convert.ToInt32(fila["TM42_ID"].ToString());
+                        _et_m42._TM42_DESCRIP = fila["TM42_DESCRIP"].ToString();
+                        
+                        _lista_mtm42.Add(_et_m42);
                     }
 
-                    _Entidad._lista_et_r19 = _LISTA_ET_R19;
+                    _Entidad._lista_et_m42 = _lista_mtm42;
                     _Entidad._hubo_error = false;
                 }
                 catch (SqlException exsql)
@@ -87,6 +79,7 @@ namespace Win32dtug
                 return _Entidad;
             }
         }
+
 
 
     }

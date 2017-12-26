@@ -52,6 +52,7 @@
     <Compile Include="DT_M39.cs" />
     <Compile Include="DT_M40.cs" />
     <Compile Include="DT_M41.cs" />
+    <Compile Include="DT_M42.cs" />
     <Compile Include="DT_R27.cs" />
     <Compile Include="DT_R28.cs" />
     <Compile Include="DT_R29.cs" />
