@@ -18,6 +18,7 @@ namespace SGAP.comercial
         #region Variables
 
         ET_entidad _entidad = new ET_entidad();
+        NT_helper _helper = new NT_helper();
         ET_M41 _et_m41 = new ET_M41();
         NT_M38 _nt_m38 = new NT_M38();
         NT_M41 _nt_m41 = new NT_M41();
@@ -28,6 +29,7 @@ namespace SGAP.comercial
         ET_M31 _et_m31 = new ET_M31();
         List<ET_M31> _lista_m31 = new List<ET_M31>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
+        List<ET_R29> _lista_et_r29 = new List<ET_R29>();
 
         public string nom = "";
         public string cod = "";
@@ -49,6 +51,23 @@ namespace SGAP.comercial
         {
             InitializeComponent();
             Agregar_menu_contextual();
+
+            //style
+
+            this.BackColor = Color.FromArgb(221, 221, 221);
+
+            label10.BackColor = Color.FromArgb(0, 134, 65);
+            label10.ForeColor = Color.White;
+            label11.BackColor = Color.FromArgb(0, 134, 65);
+            label11.ForeColor = Color.White;
+            label12.BackColor = Color.FromArgb(0, 134, 65);
+            label12.ForeColor = Color.White;
+            label13.BackColor = Color.FromArgb(0, 134, 65);
+            label13.ForeColor = Color.White;
+            label3.BackColor = Color.FromArgb(0, 134, 65);
+            label3.ForeColor = Color.White;
+
+            //end style
             this.BringToFront();
 
             _entidad = _entity;
@@ -337,9 +356,11 @@ namespace SGAP.comercial
         {
             ET_R29 _et = new ET_R29();
             _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
-            dgv_mano_de_obra.DataSource = _nt_r29.get_001(_et)._lista_et_r29;
+            _lista_et_r29 = _nt_r29.get_001(_et)._lista_et_r29;
             Contruir_DataGrid_Mano_Obra();
         }
+
+
 
 
         #endregion
@@ -542,69 +563,127 @@ namespace SGAP.comercial
 
         void Contruir_DataGrid_Mano_Obra()
         {
+            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
 
             dgv_mano_de_obra.AutoGenerateColumns = false;
+            dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            //dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            #region COLUMNAS
+            //DataGridViewColumn _COL_FILA = new DataGridViewTextBoxColumn();
+            //_COL_FILA.DataPropertyName = "_COL_FILA";
+            //_COL_FILA.HeaderText = "Cargo";
+            //_COL_FILA.Name = "_COL_FILA";
+            //_COL_FILA.Visible = false;
 
-            dgv_mano_de_obra.Columns["_Fila"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_ID"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_TR28_ID"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_TM38_ID"].Visible = false;
+            //DataGridViewColumn _COL_DESCRIPCION = new DataGridViewTextBoxColumn();
+            //_COL_DESCRIPCION.DataPropertyName = "_COL_DESCRIPCION";
+            //_COL_DESCRIPCION.HeaderText = "Cargo";
+            //_COL_DESCRIPCION.Name = "_COL_DESCRIPCION";
+            //_COL_DESCRIPCION.Width = 140;
+            ////_COL_DESCRIPCION.MinimumWidth = 140;
+            ////_COL_DESCRIPCION.FillWeight = 140;
 
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].HeaderText = "Cargo";
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].DisplayIndex = 0;
-            dgv_mano_de_obra.Columns["_TR29_DESCRIP"].Width = 200;
+            //DataGridViewColumn _COL_HORA_ENTRADA = new DataGridViewTextBoxColumn();
+            //_COL_HORA_ENTRADA.Name = "_COL_HORA_ENTRADA";
+            //_COL_HORA_ENTRADA.HeaderText = "Hora Entrada";
+            //_COL_HORA_ENTRADA.Width = 80;
+            //_COL_HORA_ENTRADA.DefaultCellStyle.Format = "T";
+            ////_COL_HORA_ENTRADA.MinimumWidth = 70;
+            ////_COL_HORA_ENTRADA.FillWeight = 70;
+
+            //DataGridViewColumn _COL_HORA_SALIDA = new DataGridViewTextBoxColumn();
+            //_COL_HORA_SALIDA.Name = "_COL_HORA_SALIDA";
+            //_COL_HORA_SALIDA.HeaderText = "Hora Salida";
+            //_COL_HORA_SALIDA.Width = 70;
+            //_COL_HORA_SALIDA.DefaultCellStyle.Format = "T";
+            ////_COL_HORA_SALIDA.MinimumWidth = 65;
+            ////_COL_HORA_SALIDA.FillWeight = 65;
+
+            //DataGridViewColumn _COL_DIAS_POR_SEMANA = new DataGridViewTextBoxColumn();
+            //_COL_DIAS_POR_SEMANA.HeaderText = "Dias por Sem.";
+            //_COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
+            //_COL_DIAS_POR_SEMANA.Width = 70;
+            ////_COL_DIAS_POR_SEMANA.MinimumWidth = 70;
+            ////_COL_DIAS_POR_SEMANA.FillWeight = 70;
+
+            //DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
+            //_COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
+            //_COL_REMUNERACION.HeaderText = "Remuneración Básica";
+            //_COL_REMUNERACION.Name = "_COL_REMUNERACION";
+            //_COL_REMUNERACION.DefaultCellStyle.Format = "C";
+            //_COL_REMUNERACION.DefaultCellStyle.NullValue = "850.00";
+            #endregion
+
+            DataGridViewColumn MANO_OBRA_COL_DESCRIPCION = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
+            MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
+            MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
+            MANO_OBRA_COL_DESCRIPCION.Width = 200;
+            //_COL_DESCRIPCION.MinimumWidth = 140;
+            //_COL_DESCRIPCION.FillWeight = 140
+
+            // OBJETIVO  -> COLUMNA 0 : Operario 8 Horas (Lunes a Sábado )
+
+            dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
+                MANO_OBRA_COL_DESCRIPCION
+                   //_COL_FILA,
+                   //_COL_DESCRIPCION,
+                   //_COL_HORA_ENTRADA,
+                   //_COL_HORA_SALIDA,
+                   //_COL_DIAS_POR_SEMANA,
+                   //_COL_REMUNERACION
+            });
+
+            //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
+
+            if (_entidad._lista_et_m27 != null)
+            {
+                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _entidad._lista_et_m27.Count);
+                dgv_mano_de_obra.ColumnCount = cantidad_final_de_indices;
+
+                int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_m27.Count;
+
+                _entidad._lista_et_m27.ForEach(x =>
+                {
+                    //dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Visible =true;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Width =200;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TM27_NOMBRE;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = x._TM27_NOMBRE;
+                    indice_de_inicio++;
+                });
+
+            }
+
+            //ingresamos los datos evitando enlazarlo a una fuente de datos
+
+            //_lista_et_r29
+
+            _lista_et_r29.ForEach(fila_=> {
+
+                string[] ceros_ = new string[_entidad._lista_et_m27.Count];
+                for (int a = 0; a < _entidad._lista_et_m27.Count; a++)
+                    ceros_[a] = "0";
+
+                dgv_mano_de_obra.Rows.Add(
+                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP,fila_._TR29_DIAS_SEMANA,fila_._TR29_HORA_ENTRADA,fila_._TR29_HORA_SALIDA)
+                    //fila_._Fila,
+                    //fila_._TR29_DESCRIP,
+                    //fila_._TR29_HORA_ENTRADA,
+                    //fila_._TR29_HORA_SALIDA,
+                    //fila_._TR29_DIAS_SEMANA,
+                    //fila_._TR29_REMUNERACION,
+                    //ceros_
+                    );
+            });
+
+        }
+
+        string Obtener_descripcion_mano_obra(string descripcion,int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida)
+        {
 
 
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].HeaderText = "Hora Entrada";
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DefaultCellStyle.Format = "hh:mm tt";
-            dgv_mano_de_obra.Columns["_TR29_HORA_ENTRADA"].DisplayIndex = 1;
-
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].HeaderText = "Hora Salida";
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DefaultCellStyle.Format = "hh:mm tt";
-            dgv_mano_de_obra.Columns["_TR29_HORA_SALIDA"].DisplayIndex = 2;
-
-            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].HeaderText = "Dias por semana";
-            dgv_mano_de_obra.Columns["_TR29_DIAS_SEMANA"].DisplayIndex = 3;
-
-            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].Visible = true;
-            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].HeaderText = "Remuneración";
-            dgv_mano_de_obra.Columns["_TR29_REMUNERACION"].DisplayIndex = 4;
-
-            dgv_mano_de_obra.Columns["_TR29_ST"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_FLG_ELIMINADO"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_UCREA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_FCREA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_UACTUALIZA"].Visible = false;
-            dgv_mano_de_obra.Columns["_TR29_FACTUALIZA"].Visible = false;
-
-
-
-
-            dgv_mano_de_obra.Columns["_TR29_TM2_ID"].Visible = false;
-
-
-
-            //// CARGAR COLUMNAS DE MANERA DINAMICA
-            //if (_lista_et_m40.Count > 0)
-            //{
-            //    int cantidad_final_de_indices = (dgv_entrada_datos_mano_de_obra.ColumnCount + _lista_et_m40.Count);
-            //    dgv_entrada_datos_mano_de_obra.ColumnCount = cantidad_final_de_indices;
-
-            //    int indice_de_inicio = cantidad_final_de_indices - _lista_et_m40.Count;
-
-            //    _lista_et_m40.ForEach(x =>
-            //    {
-            //        //dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].
-            //        //dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].Name = x._TM40_ID;
-            //        dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
-            //        indice_de_inicio++;
-            //    });
-            //}
-
+            return "";
         }
 
     }

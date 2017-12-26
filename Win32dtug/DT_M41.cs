@@ -32,6 +32,8 @@ namespace Win32dtug
                 try
                 {
                     cmd.Parameters.Add("@p_TM41_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
+                    cmd.Parameters.Add("@p_TM41_TIPO", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
+
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);

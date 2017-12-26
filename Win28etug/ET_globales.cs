@@ -13,6 +13,5 @@ namespace Win28etug
         public string _U_CREA = "CESAR1";
         //public string _U_CREA = "DGOMEZ";
 
-
     }
 }
