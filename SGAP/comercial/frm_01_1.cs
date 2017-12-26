@@ -29,6 +29,7 @@ namespace SGAP.comercial
 
         List<ET_M27> _lista_m27 = new List<ET_M27>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
+        List<ET_R19> _lista_R19 = new List<ET_R19>();
 
         #region Variables
         string _id_tm19;
@@ -78,13 +79,13 @@ namespace SGAP.comercial
 
             if (!entidad._hubo_error)
             {
-                if (entidad._lista_et_m41 != null)
+                if (entidad._lista_et_r19 != null)
                 {
 
-                    _lista_m41 = entidad._lista_et_m41.ToList();
-                    foreach (ET_M41 row in entidad._lista_et_m41)
+                    _lista_R19 = entidad._lista_et_r19.ToList();
+                    foreach (ET_R19 row in entidad._lista_et_r19)
                     {
-                        this.cbx_tipo_servicio.Items.Add(row._TM41_DESCRIP);
+                        this.cbx_tipo_servicio.Items.Add(row._TR19_TM41_DESCRIP);
                     }
 
                     this.cbx_tipo_servicio.SelectedIndex = 0;

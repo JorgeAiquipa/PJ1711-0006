@@ -40,8 +40,15 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -64,13 +71,6 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,7 +82,6 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.numericUpDownColumn1 = new SGAP.UserControls.NumericUpDownColumn();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -108,7 +107,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tree_view_servicios.Location = new System.Drawing.Point(5, 5);
             this.tree_view_servicios.Name = "tree_view_servicios";
-            this.tree_view_servicios.Size = new System.Drawing.Size(260, 405);
+            this.tree_view_servicios.Size = new System.Drawing.Size(260, 498);
             this.tree_view_servicios.TabIndex = 0;
             this.tree_view_servicios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_view_servicios_AfterSelect);
             this.tree_view_servicios.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tree_view_servicios_MouseUp);
@@ -122,7 +121,7 @@
             this.panel1.Controls.Add(this.panPages);
             this.panel1.Location = new System.Drawing.Point(271, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(805, 405);
+            this.panel1.Size = new System.Drawing.Size(960, 498);
             this.panel1.TabIndex = 2;
             // 
             // panPages
@@ -131,7 +130,7 @@
             this.panPages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panPages.Location = new System.Drawing.Point(0, 0);
             this.panPages.Name = "panPages";
-            this.panPages.Size = new System.Drawing.Size(801, 401);
+            this.panPages.Size = new System.Drawing.Size(956, 494);
             this.panPages.TabIndex = 2;
             // 
             // tabControl1
@@ -146,7 +145,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(801, 401);
+            this.tabControl1.Size = new System.Drawing.Size(956, 494);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -155,7 +154,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(793, 375);
+            this.tabPage1.Size = new System.Drawing.Size(948, 468);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -167,16 +166,15 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(787, 369);
+            this.panel2.Size = new System.Drawing.Size(942, 462);
             this.panel2.TabIndex = 6;
             // 
             // dgv_mano_de_obra
             // 
             this.dgv_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 22);
+            this.dgv_mano_de_obra.Location = new System.Drawing.Point(4, 25);
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
-            this.dgv_mano_de_obra.Size = new System.Drawing.Size(787, 347);
+            this.dgv_mano_de_obra.Size = new System.Drawing.Size(532, 431);
             this.dgv_mano_de_obra.TabIndex = 7;
             // 
             // label10
@@ -186,7 +184,7 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(0, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(787, 22);
+            this.label10.Size = new System.Drawing.Size(942, 22);
             this.label10.TabIndex = 6;
             this.label10.Text = "Mano de Obra";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -197,7 +195,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(793, 375);
+            this.tabPage2.Size = new System.Drawing.Size(948, 468);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -209,7 +207,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(787, 369);
+            this.panel3.Size = new System.Drawing.Size(942, 462);
             this.panel3.TabIndex = 4;
             // 
             // dgv_entrada_datos_mq_eq
@@ -232,13 +230,41 @@
             this.dgv_entrada_datos_mq_eq.GridColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgv_entrada_datos_mq_eq.Location = new System.Drawing.Point(3, 25);
             this.dgv_entrada_datos_mq_eq.Name = "dgv_entrada_datos_mq_eq";
-            this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(780, 341);
+            this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(935, 434);
             this.dgv_entrada_datos_mq_eq.TabIndex = 10;
             this.dgv_entrada_datos_mq_eq.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_entrada_datos_mq_eq_CellBeginEdit);
             this.dgv_entrada_datos_mq_eq.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellEndEdit);
             this.dgv_entrada_datos_mq_eq.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellLeave);
             this.dgv_entrada_datos_mq_eq.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mq_eq_CellValidating);
             this.dgv_entrada_datos_mq_eq.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dvg_entrada_datos_mq_eq_EditingControlShowing_1);
+            // 
+            // nombre
+            // 
+            this.nombre.Frozen = true;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 200;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.ReadOnly = true;
+            this.Codigo.Width = 82;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            this.marca.Width = 82;
+            // 
+            // und
+            // 
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            this.und.ReadOnly = true;
+            this.und.Width = 50;
             // 
             // maquinaria
             // 
@@ -258,6 +284,27 @@
             this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.equipos.Width = 55;
             // 
+            // cantotal
+            // 
+            this.cantotal.HeaderText = "Cant. Total";
+            this.cantotal.Name = "cantotal";
+            this.cantotal.ReadOnly = true;
+            this.cantotal.Width = 82;
+            // 
+            // costounitario
+            // 
+            this.costounitario.HeaderText = "Costo Unitario";
+            this.costounitario.Name = "costounitario";
+            this.costounitario.ReadOnly = true;
+            this.costounitario.Width = 82;
+            // 
+            // costototal
+            // 
+            this.costototal.HeaderText = "Costo Total";
+            this.costototal.Name = "costototal";
+            this.costototal.ReadOnly = true;
+            this.costototal.Width = 82;
+            // 
             // label11
             // 
             this.label11.BackColor = System.Drawing.Color.LightGreen;
@@ -265,7 +312,7 @@
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(0, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(787, 22);
+            this.label11.Size = new System.Drawing.Size(942, 22);
             this.label11.TabIndex = 7;
             this.label11.Text = "Page 2";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -276,7 +323,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(793, 375);
+            this.tabPage3.Size = new System.Drawing.Size(948, 468);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -307,7 +354,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(793, 375);
+            this.tabPage4.Size = new System.Drawing.Size(948, 468);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -338,7 +385,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(793, 375);
+            this.tabPage5.Size = new System.Drawing.Size(948, 468);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -369,7 +416,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(793, 375);
+            this.tabPage6.Size = new System.Drawing.Size(948, 468);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -465,55 +512,6 @@
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 82;
             // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.Width = 200;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "Codigo";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.ReadOnly = true;
-            this.Codigo.Width = 82;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            this.marca.Width = 82;
-            // 
-            // und
-            // 
-            this.und.HeaderText = "Und.";
-            this.und.Name = "und";
-            this.und.ReadOnly = true;
-            this.und.Width = 50;
-            // 
-            // cantotal
-            // 
-            this.cantotal.HeaderText = "Cant. Total";
-            this.cantotal.Name = "cantotal";
-            this.cantotal.ReadOnly = true;
-            this.cantotal.Width = 82;
-            // 
-            // costounitario
-            // 
-            this.costounitario.HeaderText = "Costo Unitario";
-            this.costounitario.Name = "costounitario";
-            this.costounitario.ReadOnly = true;
-            this.costounitario.Width = 82;
-            // 
-            // costototal
-            // 
-            this.costototal.HeaderText = "Costo Total";
-            this.costototal.Name = "costototal";
-            this.costototal.ReadOnly = true;
-            this.costototal.Width = 82;
-            // 
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.HeaderText = "Costo Unitario";
@@ -590,18 +588,11 @@
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 82;
             // 
-            //// numericUpDownColumn1
-            //// 
-            //this.numericUpDownColumn1.HeaderText = "DxS";
-            //this.numericUpDownColumn1.Name = "numericUpDownColumn1";
-            //this.numericUpDownColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            //this.numericUpDownColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            //// 
-            //// frm_01_2
+            // frm_01_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1082, 413);
+            this.ClientSize = new System.Drawing.Size(1237, 506);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tree_view_servicios);
             this.Name = "frm_01_2";
