@@ -39,8 +39,6 @@ namespace Win28ntug
                 nodo_principal.Name = name_nodo;
                 nodo_principal.Text = name_nodo;
 
-                int z_index = 1000;
-
                 result._lista_et_r28.ForEach(x => 
                 {
                     //Id_servicio_hijo = x._TR28_ID;
@@ -67,7 +65,6 @@ namespace Win28ntug
                     node.Text = x._TR28_DESCRIP;
                     node.Tag = 1000;
                     node.Name = x._TR28_ID.ToString();
-                    z_index++;
 
                     nodo_principal.Nodes.Add(node);
                 });

@@ -107,7 +107,6 @@ namespace SGAP.comercial
                 tipo_de_Servicio = 4;//diego
                 //tipo_de_Servicio = rb_tipo2.Text.ToString();//diego
             }//diego
-
             nombre_cliente = txt_nombre_cliente.Text;
             ruc_cliente = txt_ruc_cliente.Text;
             tipo_servicio = cbx_tipo_servicio.Text;
@@ -289,13 +288,9 @@ namespace SGAP.comercial
 
             nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
 
-            var result = _lista_m41.Where(p => p._TM41_DESCRIP == nombre_de_Servicio);
+            var result = _lista_R19.FirstOrDefault(p => p._TR19_TM41_DESCRIP == nombre_de_Servicio);
 
-            foreach (ET_M41 row in result)
-            {
-                _id_tm41 = row._TM41_ID;
-                break;
-            }
+            _id_tm41 = result._TR19_TM41_ID;
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
