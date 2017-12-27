@@ -36,6 +36,9 @@ namespace SGAP.comercial
         {
             InitializeComponent();
 
+            //Resta 1 mes al filtro de la fecha de inicio
+            dtp_fecha_inicio.Value = dtp_fecha_fin.Value.AddMonths(-1);
+
             //style
             pnl_filter_wraper.BackColor = Color.FromArgb(65,48,124);
             pnl_cd_close.BackColor = Color.FromArgb(55,41,106);
@@ -58,6 +61,7 @@ namespace SGAP.comercial
 
             listView_Cotizaciones.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
 
+            
         }
 
         #region Métodos
@@ -133,6 +137,12 @@ namespace SGAP.comercial
             frm_01_2 F2 = new frm_01_2(_entidad, true);
             cargar_cotizaciones();
             F2.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cargar_cotizaciones();
+            
         }
     }
         #endregion

@@ -132,41 +132,52 @@ namespace SGAP.comercial
         }
         private void btn_continuar_Click(object sender, EventArgs e)
         {
+
             Metodo_obtener_informacion_ingresada();
 
             //DIEGO
             //informacion de locales seleccionados por el usuario
             _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
-            
-            //seteamos informacion del cliente
-            _et_m19._TM19_DESCRIP1 = ruc_cliente;
-            _et_m19._TM19_DESCRIP2 = nombre_cliente;
-            _et_m19._TM19_ID = _id_tm19;
-            _entity._entity_m19 = _et_m19;
+            int cantidad = _entity._lista_et_m27.Count;
 
-            //seteamos info del servicio seleccionado
+            if (cantidad > 1)
+            {
 
-            _et_m41._TM41_TM42_ID = tipo_de_Servicio;//diego
+                //seteamos informacion del cliente
+                _et_m19._TM19_DESCRIP1 = ruc_cliente;
+                _et_m19._TM19_DESCRIP2 = nombre_cliente;
+                _et_m19._TM19_ID = _id_tm19;
+                _entity._entity_m19 = _et_m19;
 
-            _et_m41._TM41_DESCRIP = nombre_de_Servicio;
-            _et_m41._TM41_ID = _id_tm41;
-            _entity._entity_m41 = _et_m41;
+                //seteamos info del servicio seleccionado
 
-            //informacion de la cotizacion a registrar
-            _et_m39._TM39_DESCRIP = string.Format("{0} Para {1}", nombre_de_Servicio,nombre_cliente);//nombre de la cotizacion
-            _et_m39._TM39_TM19_ID = _id_tm19;
+                _et_m41._TM41_TM42_ID = tipo_de_Servicio;//diego
 
-            _entity._entity_m39 = _et_m39;
-            _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
+                _et_m41._TM41_DESCRIP = nombre_de_Servicio;
+                _et_m41._TM41_ID = _id_tm41;
+                _entity._entity_m41 = _et_m41;
+
+                //informacion de la cotizacion a registrar
+                _et_m39._TM39_DESCRIP = string.Format("{0} Para {1}", nombre_de_Servicio, nombre_cliente);//nombre de la cotizacion
+                _et_m39._TM39_TM19_ID = _id_tm19;
+
+                _entity._entity_m39 = _et_m39;
+                _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
 
 
-            var result  = _nt_m39.set_001(_entity);
+                var result = _nt_m39.set_001(_entity);
 
-            _entity._entity_m39._TM39_ID = result;
-            _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
-            _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
+                _entity._entity_m39._TM39_ID = result;
+                _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
+                _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
 
-            this.Hide();
+                this.Hide();
+            }else
+            {
+                DialogResult decision_msg = MessageBox.Show("Tiene que seleccionar por lo menos un local", "Alerta!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (decision_msg == DialogResult.OK) ;
+            }
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -315,6 +326,24 @@ namespace SGAP.comercial
             }
         }
 
+        private void txt_nombre_cliente_Click(object sender, EventArgs e)
+        {
+           
+        }
 
+        private void txt_nombre_cliente_TextChanged(object sender, EventArgs e)
+        {
+            _lista_m27.Clear();
+            dgv_informacion_locales.DataSource = _lista_m27.ToList();
+            dgv_informacion_locales.Refresh();
+        }
+
+        private void txt_nombre_cliente_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyData == Keys.Tab)
+            {
+                obtener_cliente_info();
+            }
+        }
     }
 }

@@ -33,6 +33,7 @@ namespace SGAP.comercial
         public string Nombre_Servicio_seleccionado;
         public int Periodo_servicio;
         string nombre_tipo_servicio;
+        int TIPO;
 
         int Id_Servicio_hijo;
         public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id)
@@ -54,8 +55,13 @@ namespace SGAP.comercial
             if (resultado_ != null)
             {
                 _lista_m42 = resultado_._lista_et_m42;
+
                 _lista_m42.ForEach(x=> {
-                    cb_tipo.Items.Add(x._TM42_DESCRIP);
+                    if (x._TM42_ID != 1 )
+                    {
+                        cb_tipo.Items.Add(x._TM42_DESCRIP);
+                    }
+                    
                 });
 
                 cb_tipo.SelectedIndex = 0;
@@ -104,7 +110,7 @@ namespace SGAP.comercial
         {
             Nombre_Servicio_seleccionado = cbx_servicio.Text;
 
-            ET_R19 servicio = _lista_R19.FirstOrDefault(gg => gg._TR19_TM41_DESCRIP == Nombre_Servicio_seleccionado);
+            ET_R19 servicio = _lista_R19.FirstOrDefault(gg => gg._TR19_TM41_DESCRIP == Nombre_Servicio_seleccionado);            
 
             //agregar servicio nuevo
             _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.pnl_left = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,6 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.listView_Cotizaciones = new System.Windows.Forms.ListView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,7 +59,6 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listView_Cotizaciones = new System.Windows.Forms.ListView();
             this.pnl_left.SuspendLayout();
             this.pnl_filter_wraper.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -69,6 +70,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pnl_left.BackColor = System.Drawing.Color.White;
             this.pnl_left.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_left.Controls.Add(this.button1);
             this.pnl_left.Controls.Add(this.btn_filtrar);
             this.pnl_left.Controls.Add(this.pnl_filter_wraper);
             this.pnl_left.Controls.Add(this.label2);
@@ -86,6 +88,16 @@
             this.pnl_left.Name = "pnl_left";
             this.pnl_left.Size = new System.Drawing.Size(261, 640);
             this.pnl_left.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(110, 366);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(82, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Quitar Filtro";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_filtrar
             // 
@@ -287,6 +299,18 @@
             this.panel2.Size = new System.Drawing.Size(683, 50);
             this.panel2.TabIndex = 14;
             // 
+            // listView_Cotizaciones
+            // 
+            this.listView_Cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView_Cotizaciones.Location = new System.Drawing.Point(261, 50);
+            this.listView_Cotizaciones.Name = "listView_Cotizaciones";
+            this.listView_Cotizaciones.Size = new System.Drawing.Size(683, 590);
+            this.listView_Cotizaciones.TabIndex = 15;
+            this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
+            this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "TM39_ID";
@@ -364,18 +388,6 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Width = 120;
             // 
-            // listView_Cotizaciones
-            // 
-            this.listView_Cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView_Cotizaciones.Location = new System.Drawing.Point(261, 50);
-            this.listView_Cotizaciones.Name = "listView_Cotizaciones";
-            this.listView_Cotizaciones.Size = new System.Drawing.Size(683, 590);
-            this.listView_Cotizaciones.TabIndex = 15;
-            this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
-            this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
-            // 
             // frm_01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -387,7 +399,7 @@
             this.MinimumSize = new System.Drawing.Size(960, 600);
             this.Name = "frm_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Lista de Cotizaciones";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnl_left.ResumeLayout(false);
             this.pnl_left.PerformLayout();
@@ -429,6 +441,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private UserControls.GridTimeControl gridTimeControl1;
         private System.Windows.Forms.ListView listView_Cotizaciones;
+        private System.Windows.Forms.Button button1;
     }
 }
 

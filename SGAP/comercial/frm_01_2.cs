@@ -156,7 +156,7 @@ namespace SGAP.comercial
 
             Add_service.Name = "Add_service";
             Add_service.Size = new System.Drawing.Size(132, 22);
-            Add_service.Text = "Agregar Servicio ->";
+            Add_service.Text = "Agregar Servicio...";
 
             //diego
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {

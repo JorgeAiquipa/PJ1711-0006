@@ -89,7 +89,7 @@
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(117, 23);
             this.btn_continuar.TabIndex = 3;
-            this.btn_continuar.Text = "Continuar <ctr + G>";
+            this.btn_continuar.Text = "Aceptar";
             this.btn_continuar.UseVisualStyleBackColor = true;
             this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
             // 
@@ -128,7 +128,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frm_01_2_02";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frm_01_02";
+            this.Text = "Agregar Servicio";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_01_2_02_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

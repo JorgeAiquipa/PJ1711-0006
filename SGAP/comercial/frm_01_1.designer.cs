@@ -39,20 +39,6 @@
             this.nupd_periodo_de_servicio = new System.Windows.Forms.NumericUpDown();
             this.dgv_informacion_locales = new System.Windows.Forms.DataGridView();
             this._seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this._TM27_NOMBRE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_DIRECCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_TM19_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_TM2_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_TM9_DIST_CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_TM28_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_ST = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_FLG_ELIMINADO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_CODGREEM = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_UCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_FCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_UACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._TM27_FACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.header_btn_delete_row_dgv_Informacion_locales = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cbx_tipo_servicio = new System.Windows.Forms.ComboBox();
             this.btn_cancelar = new System.Windows.Forms.Button();
@@ -74,6 +60,20 @@
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_NOMBRE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_DIRECCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_TM19_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_TM2_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_TM9_DIST_CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_TM28_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_ST = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_FLG_ELIMINADO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_CODGREEM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_UCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_FCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_UACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._TM27_FACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).BeginInit();
             this.SuspendLayout();
@@ -95,8 +95,11 @@
             this.txt_nombre_cliente.Location = new System.Drawing.Point(136, 36);
             this.txt_nombre_cliente.Name = "txt_nombre_cliente";
             this.txt_nombre_cliente.Size = new System.Drawing.Size(338, 20);
-            this.txt_nombre_cliente.TabIndex = 3;
+            this.txt_nombre_cliente.TabIndex = 1;
+            this.txt_nombre_cliente.Click += new System.EventHandler(this.txt_nombre_cliente_Click);
+            this.txt_nombre_cliente.TextChanged += new System.EventHandler(this.txt_nombre_cliente_TextChanged);
             this.txt_nombre_cliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_nombre_cliente_KeyDown);
+            this.txt_nombre_cliente.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txt_nombre_cliente_PreviewKeyDown);
             // 
             // label2
             // 
@@ -125,13 +128,13 @@
             this.txt_ruc_cliente.Name = "txt_ruc_cliente";
             this.txt_ruc_cliente.ReadOnly = true;
             this.txt_ruc_cliente.Size = new System.Drawing.Size(338, 20);
-            this.txt_ruc_cliente.TabIndex = 5;
+            this.txt_ruc_cliente.TabIndex = 2;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(21, 111);
+            this.label5.Location = new System.Drawing.Point(21, 138);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 10;
@@ -141,7 +144,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(21, 152);
+            this.label7.Location = new System.Drawing.Point(21, 174);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 13);
             this.label7.TabIndex = 13;
@@ -151,7 +154,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.Location = new System.Drawing.Point(190, 152);
+            this.label8.Location = new System.Drawing.Point(190, 174);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 13);
             this.label8.TabIndex = 14;
@@ -160,7 +163,7 @@
             // nupd_periodo_de_servicio
             // 
             this.nupd_periodo_de_servicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.nupd_periodo_de_servicio.Location = new System.Drawing.Point(136, 150);
+            this.nupd_periodo_de_servicio.Location = new System.Drawing.Point(136, 172);
             this.nupd_periodo_de_servicio.Minimum = new decimal(new int[] {
             1,
             0,
@@ -168,7 +171,7 @@
             0});
             this.nupd_periodo_de_servicio.Name = "nupd_periodo_de_servicio";
             this.nupd_periodo_de_servicio.Size = new System.Drawing.Size(48, 20);
-            this.nupd_periodo_de_servicio.TabIndex = 15;
+            this.nupd_periodo_de_servicio.TabIndex = 6;
             this.nupd_periodo_de_servicio.Value = new decimal(new int[] {
             12,
             0,
@@ -197,10 +200,10 @@
             this._TM27_UACTUALIZA,
             this._TM27_FACTUALIZA,
             this.header_btn_delete_row_dgv_Informacion_locales});
-            this.dgv_informacion_locales.Location = new System.Drawing.Point(12, 185);
+            this.dgv_informacion_locales.Location = new System.Drawing.Point(12, 210);
             this.dgv_informacion_locales.Name = "dgv_informacion_locales";
-            this.dgv_informacion_locales.Size = new System.Drawing.Size(654, 355);
-            this.dgv_informacion_locales.TabIndex = 16;
+            this.dgv_informacion_locales.Size = new System.Drawing.Size(654, 330);
+            this.dgv_informacion_locales.TabIndex = 7;
             this.dgv_informacion_locales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellContentClick);
             this.dgv_informacion_locales.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellEndEdit);
             this.dgv_informacion_locales.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_informacion_locales_CellValidating);
@@ -215,105 +218,6 @@
             this._seleccionado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this._seleccionado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // _TM27_NOMBRE
-            // 
-            this._TM27_NOMBRE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this._TM27_NOMBRE.DataPropertyName = "_TM27_NOMBRE";
-            this._TM27_NOMBRE.FillWeight = 172.1251F;
-            this._TM27_NOMBRE.HeaderText = "Nombre Local";
-            this._TM27_NOMBRE.Name = "_TM27_NOMBRE";
-            // 
-            // _TM27_DIRECCION
-            // 
-            this._TM27_DIRECCION.DataPropertyName = "_TM27_DIRECCION";
-            this._TM27_DIRECCION.FillWeight = 101.1997F;
-            this._TM27_DIRECCION.HeaderText = "Dirección";
-            this._TM27_DIRECCION.Name = "_TM27_DIRECCION";
-            // 
-            // _TM27_ID
-            // 
-            this._TM27_ID.DataPropertyName = "_TM27_ID";
-            this._TM27_ID.HeaderText = "_TM27_ID";
-            this._TM27_ID.Name = "_TM27_ID";
-            this._TM27_ID.Visible = false;
-            // 
-            // _TM27_TM19_ID
-            // 
-            this._TM27_TM19_ID.DataPropertyName = "_TM27_TM19_ID";
-            this._TM27_TM19_ID.HeaderText = "_TM27_TM19_ID";
-            this._TM27_TM19_ID.Name = "_TM27_TM19_ID";
-            this._TM27_TM19_ID.Visible = false;
-            // 
-            // _TM27_TM2_ID
-            // 
-            this._TM27_TM2_ID.DataPropertyName = "_TM27_TM2_ID";
-            this._TM27_TM2_ID.HeaderText = "_TM27_TM2_ID";
-            this._TM27_TM2_ID.Name = "_TM27_TM2_ID";
-            this._TM27_TM2_ID.Visible = false;
-            // 
-            // _TM27_TM9_DIST_CODIGO
-            // 
-            this._TM27_TM9_DIST_CODIGO.DataPropertyName = "_TM27_TM9_DIST_CODIGO";
-            this._TM27_TM9_DIST_CODIGO.HeaderText = "_TM27_TM9_DIST_CODIGO";
-            this._TM27_TM9_DIST_CODIGO.Name = "_TM27_TM9_DIST_CODIGO";
-            this._TM27_TM9_DIST_CODIGO.Visible = false;
-            // 
-            // _TM27_TM28_ID
-            // 
-            this._TM27_TM28_ID.DataPropertyName = "_TM27_TM28_ID";
-            this._TM27_TM28_ID.HeaderText = "_TM27_TM28_ID";
-            this._TM27_TM28_ID.Name = "_TM27_TM28_ID";
-            this._TM27_TM28_ID.Visible = false;
-            // 
-            // _TM27_ST
-            // 
-            this._TM27_ST.DataPropertyName = "_TM27_ST";
-            this._TM27_ST.HeaderText = "_TM27_ST";
-            this._TM27_ST.Name = "_TM27_ST";
-            this._TM27_ST.Visible = false;
-            // 
-            // _TM27_FLG_ELIMINADO
-            // 
-            this._TM27_FLG_ELIMINADO.DataPropertyName = "_TM27_FLG_ELIMINADO";
-            this._TM27_FLG_ELIMINADO.HeaderText = "_TM27_FLG_ELIMINADO";
-            this._TM27_FLG_ELIMINADO.Name = "_TM27_FLG_ELIMINADO";
-            this._TM27_FLG_ELIMINADO.Visible = false;
-            // 
-            // _TM27_CODGREEM
-            // 
-            this._TM27_CODGREEM.DataPropertyName = "_TM27_CODGREEM";
-            this._TM27_CODGREEM.HeaderText = "_TM27_CODGREEM";
-            this._TM27_CODGREEM.Name = "_TM27_CODGREEM";
-            this._TM27_CODGREEM.Visible = false;
-            // 
-            // _TM27_UCREA
-            // 
-            this._TM27_UCREA.DataPropertyName = "_TM27_UCREA";
-            this._TM27_UCREA.HeaderText = "_TM27_UCREA";
-            this._TM27_UCREA.Name = "_TM27_UCREA";
-            this._TM27_UCREA.Visible = false;
-            // 
-            // _TM27_FCREA
-            // 
-            this._TM27_FCREA.DataPropertyName = "_TM27_FCREA";
-            this._TM27_FCREA.HeaderText = "_TM27_FCREA";
-            this._TM27_FCREA.Name = "_TM27_FCREA";
-            this._TM27_FCREA.Visible = false;
-            // 
-            // _TM27_UACTUALIZA
-            // 
-            this._TM27_UACTUALIZA.DataPropertyName = "_TM27_UACTUALIZA";
-            this._TM27_UACTUALIZA.HeaderText = "_TM27_UACTUALIZA";
-            this._TM27_UACTUALIZA.Name = "_TM27_UACTUALIZA";
-            this._TM27_UACTUALIZA.Visible = false;
-            // 
-            // _TM27_FACTUALIZA
-            // 
-            this._TM27_FACTUALIZA.DataPropertyName = "_TM27_FACTUALIZA";
-            this._TM27_FACTUALIZA.HeaderText = "_TM27_FACTUALIZA";
-            this._TM27_FACTUALIZA.Name = "_TM27_FACTUALIZA";
-            this._TM27_FACTUALIZA.Visible = false;
-            // 
             // header_btn_delete_row_dgv_Informacion_locales
             // 
             this.header_btn_delete_row_dgv_Informacion_locales.FillWeight = 65.76151F;
@@ -325,10 +229,10 @@
             // 
             this.cbx_tipo_servicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cbx_tipo_servicio.FormattingEnabled = true;
-            this.cbx_tipo_servicio.Location = new System.Drawing.Point(136, 108);
+            this.cbx_tipo_servicio.Location = new System.Drawing.Point(136, 135);
             this.cbx_tipo_servicio.Name = "cbx_tipo_servicio";
             this.cbx_tipo_servicio.Size = new System.Drawing.Size(338, 21);
-            this.cbx_tipo_servicio.TabIndex = 9;
+            this.cbx_tipo_servicio.TabIndex = 5;
             this.cbx_tipo_servicio.SelectedIndexChanged += new System.EventHandler(this.cbx_tipo_servicio_SelectedIndexChanged);
             // 
             // btn_cancelar
@@ -337,7 +241,7 @@
             this.btn_cancelar.Location = new System.Drawing.Point(541, 546);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(125, 23);
-            this.btn_cancelar.TabIndex = 17;
+            this.btn_cancelar.TabIndex = 19;
             this.btn_cancelar.Text = "Cancelar <esc>";
             this.btn_cancelar.UseVisualStyleBackColor = true;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
@@ -356,7 +260,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(507, 39);
+            this.label4.Location = new System.Drawing.Point(21, 106);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 19;
@@ -366,10 +270,10 @@
             // 
             this.rb_tipo1.AutoSize = true;
             this.rb_tipo1.Checked = true;
-            this.rb_tipo1.Location = new System.Drawing.Point(557, 37);
+            this.rb_tipo1.Location = new System.Drawing.Point(136, 106);
             this.rb_tipo1.Name = "rb_tipo1";
             this.rb_tipo1.Size = new System.Drawing.Size(62, 17);
-            this.rb_tipo1.TabIndex = 20;
+            this.rb_tipo1.TabIndex = 3;
             this.rb_tipo1.TabStop = true;
             this.rb_tipo1.Text = "General";
             this.rb_tipo1.UseVisualStyleBackColor = true;
@@ -378,10 +282,10 @@
             // rb_tipo2
             // 
             this.rb_tipo2.AutoSize = true;
-            this.rb_tipo2.Location = new System.Drawing.Point(557, 60);
+            this.rb_tipo2.Location = new System.Drawing.Point(229, 106);
             this.rb_tipo2.Name = "rb_tipo2";
             this.rb_tipo2.Size = new System.Drawing.Size(65, 17);
-            this.rb_tipo2.TabIndex = 21;
+            this.rb_tipo2.TabIndex = 4;
             this.rb_tipo2.Text = "Especial";
             this.rb_tipo2.UseVisualStyleBackColor = true;
             this.rb_tipo2.CheckedChanged += new System.EventHandler(this.rb_tipo2_CheckedChanged);
@@ -486,6 +390,105 @@
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.Visible = false;
             // 
+            // _TM27_NOMBRE
+            // 
+            this._TM27_NOMBRE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this._TM27_NOMBRE.DataPropertyName = "_TM27_NOMBRE";
+            this._TM27_NOMBRE.FillWeight = 172.1251F;
+            this._TM27_NOMBRE.HeaderText = "Nombre Local";
+            this._TM27_NOMBRE.Name = "_TM27_NOMBRE";
+            // 
+            // _TM27_DIRECCION
+            // 
+            this._TM27_DIRECCION.DataPropertyName = "_TM27_DIRECCION";
+            this._TM27_DIRECCION.FillWeight = 101.1997F;
+            this._TM27_DIRECCION.HeaderText = "Dirección";
+            this._TM27_DIRECCION.Name = "_TM27_DIRECCION";
+            // 
+            // _TM27_ID
+            // 
+            this._TM27_ID.DataPropertyName = "_TM27_ID";
+            this._TM27_ID.HeaderText = "_TM27_ID";
+            this._TM27_ID.Name = "_TM27_ID";
+            this._TM27_ID.Visible = false;
+            // 
+            // _TM27_TM19_ID
+            // 
+            this._TM27_TM19_ID.DataPropertyName = "_TM27_TM19_ID";
+            this._TM27_TM19_ID.HeaderText = "_TM27_TM19_ID";
+            this._TM27_TM19_ID.Name = "_TM27_TM19_ID";
+            this._TM27_TM19_ID.Visible = false;
+            // 
+            // _TM27_TM2_ID
+            // 
+            this._TM27_TM2_ID.DataPropertyName = "_TM27_TM2_ID";
+            this._TM27_TM2_ID.HeaderText = "_TM27_TM2_ID";
+            this._TM27_TM2_ID.Name = "_TM27_TM2_ID";
+            this._TM27_TM2_ID.Visible = false;
+            // 
+            // _TM27_TM9_DIST_CODIGO
+            // 
+            this._TM27_TM9_DIST_CODIGO.DataPropertyName = "_TM27_TM9_DIST_CODIGO";
+            this._TM27_TM9_DIST_CODIGO.HeaderText = "_TM27_TM9_DIST_CODIGO";
+            this._TM27_TM9_DIST_CODIGO.Name = "_TM27_TM9_DIST_CODIGO";
+            this._TM27_TM9_DIST_CODIGO.Visible = false;
+            // 
+            // _TM27_TM28_ID
+            // 
+            this._TM27_TM28_ID.DataPropertyName = "_TM27_TM28_ID";
+            this._TM27_TM28_ID.HeaderText = "_TM27_TM28_ID";
+            this._TM27_TM28_ID.Name = "_TM27_TM28_ID";
+            this._TM27_TM28_ID.Visible = false;
+            // 
+            // _TM27_ST
+            // 
+            this._TM27_ST.DataPropertyName = "_TM27_ST";
+            this._TM27_ST.HeaderText = "_TM27_ST";
+            this._TM27_ST.Name = "_TM27_ST";
+            this._TM27_ST.Visible = false;
+            // 
+            // _TM27_FLG_ELIMINADO
+            // 
+            this._TM27_FLG_ELIMINADO.DataPropertyName = "_TM27_FLG_ELIMINADO";
+            this._TM27_FLG_ELIMINADO.HeaderText = "_TM27_FLG_ELIMINADO";
+            this._TM27_FLG_ELIMINADO.Name = "_TM27_FLG_ELIMINADO";
+            this._TM27_FLG_ELIMINADO.Visible = false;
+            // 
+            // _TM27_CODGREEM
+            // 
+            this._TM27_CODGREEM.DataPropertyName = "_TM27_CODGREEM";
+            this._TM27_CODGREEM.HeaderText = "_TM27_CODGREEM";
+            this._TM27_CODGREEM.Name = "_TM27_CODGREEM";
+            this._TM27_CODGREEM.Visible = false;
+            // 
+            // _TM27_UCREA
+            // 
+            this._TM27_UCREA.DataPropertyName = "_TM27_UCREA";
+            this._TM27_UCREA.HeaderText = "_TM27_UCREA";
+            this._TM27_UCREA.Name = "_TM27_UCREA";
+            this._TM27_UCREA.Visible = false;
+            // 
+            // _TM27_FCREA
+            // 
+            this._TM27_FCREA.DataPropertyName = "_TM27_FCREA";
+            this._TM27_FCREA.HeaderText = "_TM27_FCREA";
+            this._TM27_FCREA.Name = "_TM27_FCREA";
+            this._TM27_FCREA.Visible = false;
+            // 
+            // _TM27_UACTUALIZA
+            // 
+            this._TM27_UACTUALIZA.DataPropertyName = "_TM27_UACTUALIZA";
+            this._TM27_UACTUALIZA.HeaderText = "_TM27_UACTUALIZA";
+            this._TM27_UACTUALIZA.Name = "_TM27_UACTUALIZA";
+            this._TM27_UACTUALIZA.Visible = false;
+            // 
+            // _TM27_FACTUALIZA
+            // 
+            this._TM27_FACTUALIZA.DataPropertyName = "_TM27_FACTUALIZA";
+            this._TM27_FACTUALIZA.HeaderText = "_TM27_FACTUALIZA";
+            this._TM27_FACTUALIZA.Name = "_TM27_FACTUALIZA";
+            this._TM27_FACTUALIZA.Visible = false;
+            // 
             // frm_01_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,7 +513,7 @@
             this.Name = "frm_01_1";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FRM_Informacion_general";
+            this.Text = "Nueva Cotización";
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).EndInit();
             this.ResumeLayout(false);

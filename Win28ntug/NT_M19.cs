@@ -71,7 +71,7 @@ namespace Win28ntug
             {
                 _entidad._hubo_error = true;
                 _entidad._titulo_mensaje = "Alert!";
-                string msg = string.Format("Porfavor seleccione un cliente especifico.\nEl cliente {0} no existe.", cliente);
+                string msg = string.Format("Por favor seleccione un cliente especifico.\nEl cliente {0} no existe.", cliente);
                 _entidad._contenido_mensaje = msg;
                 Mensaje(_entidad);
             }
