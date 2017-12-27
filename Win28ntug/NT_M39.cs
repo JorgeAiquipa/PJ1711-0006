@@ -24,7 +24,7 @@ namespace Win28ntug
 
         List<ET_M39> _lista_mt39 = new List<ET_M39>();
 
-        public string set_001(ET_entidad _obj)
+        public ET_entidad set_001(ET_entidad _obj)
         {
             var result = _dt_m39.set_001(_obj._entity_m39);
             if (!result._hubo_error)
@@ -55,14 +55,16 @@ namespace Win28ntug
                     _et_r28._TR28_DESCRIP = _obj._entity_m41._TM41_DESCRIP;
 
                     _entity = _dt_r28.set_001(_et_r28);
+                    _entity._entity_m39._TM39_ID = result._entity_m39._TM39_ID;
+                    return _entity;
 
                 }
                 catch (Exception ex)
-                { }
-
-                return codigo_cotizacion;
+                {
+                }
             }
-            return "";
+            return null;
+
         }
 
         public void get_001(ListView list_view)

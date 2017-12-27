@@ -13,7 +13,7 @@ CREATE PROCEDURE pa_set53
  @p_TR30_TR29_ID int -- tr_29 id cargo registrado
 ,@p_TR30_TM40_ID varchar(10) -- tm_40 id concepto remunerativo
 --,@p_TR30_IMPORTE decimal(10,2) 
---,@p_TR30_DESCRIP varchar(3000) --
+,@p_TR30_DESCRIP varchar(3000) --
 ,@p_TR30_TM2_ID varchar(10) --pis
 --,@p_TR30_ST smallint
 --,@p_TR30_FLG_ELIMINADO smallint
@@ -38,7 +38,7 @@ SET NOCOUNT ON;
 			,TR30_TR29_ID
 			,TR30_TM40_ID
 			--,TR30_IMPORTE
-			--,TR30_DESCRIP
+			,TR30_DESCRIP
 			,TR30_TM2_ID
 			,TR30_ST
 			,TR30_FLG_ELIMINADO
@@ -55,7 +55,7 @@ SET NOCOUNT ON;
 			,@p_TR30_TR29_ID
 			,@p_TR30_TM40_ID
 			--,@p_TR30_IMPORTE
-			--,@p_TR30_DESCRIP
+			,@p_TR30_DESCRIP
 			,@p_TR30_TM2_ID
 			,1
 			,0

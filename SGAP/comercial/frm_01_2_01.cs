@@ -34,10 +34,6 @@ namespace SGAP.comercial
         private UserControls.GridTimeControl _COL_HORA_SALIDA;
         private UserControls.NumericUpDownColumn _COL_DIAS_POR_SEMANA;
 
-        //Dictionary<int, List<ET_M40>> Mi_Grupo = new Dictionary<int, List<ET_M40>>();
-        //_lista_et_m40 = _nt_m40.get_001()._lista_et_m40;
-        //Dictionary<List<ET_R29>, List<ET_M40>> grupo = new Dictionary<List<ET_R29>, List<ET_M40>>();
-
         public frm_01_2_01(int __id_Servicio_hijo)
         {
             InitializeComponent();
@@ -54,6 +50,8 @@ namespace SGAP.comercial
 
             Crear_GridView_ManoDeObra();
             Crear_GridView_ConceptoRemunerativo();
+
+
         }
 
         void Crear_GridView_ManoDeObra()
@@ -68,9 +66,9 @@ namespace SGAP.comercial
             _COL_CARGO.DataPropertyName = "_CARGO";
             _COL_CARGO.HeaderText = "Cargo";
             _COL_CARGO.Name = "_COL_CARGO";
-            _COL_CARGO.Width = 140;
-            _COL_CARGO.MinimumWidth = 140;
-            _COL_CARGO.FillWeight = 140;
+            _COL_CARGO.Width = 250;
+            _COL_CARGO.MinimumWidth = 250;
+            _COL_CARGO.FillWeight = 250;
 
 
             _COL_HORA_ENTRADA = new UserControls.GridTimeControl();
@@ -90,9 +88,6 @@ namespace SGAP.comercial
             _COL_DIAS_POR_SEMANA = new UserControls.NumericUpDownColumn();
             _COL_DIAS_POR_SEMANA.HeaderText = "Dias por Sem.";
             _COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
-            _COL_DIAS_POR_SEMANA.Width = 70;
-            _COL_DIAS_POR_SEMANA.MinimumWidth = 70;
-            _COL_DIAS_POR_SEMANA.FillWeight = 70;
 
             DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
             _COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
@@ -100,20 +95,15 @@ namespace SGAP.comercial
             _COL_REMUNERACION.Name = "_COL_REMUNERACION";
             _COL_REMUNERACION.DefaultCellStyle.NullValue = "850.00";
 
-            DataGridViewButtonColumn _COL_BTN_ADD_CONCEPTO_REMUNERATIVO = new DataGridViewButtonColumn();
-            _COL_BTN_ADD_CONCEPTO_REMUNERATIVO.HeaderText = "....";
-            _COL_BTN_ADD_CONCEPTO_REMUNERATIVO.Name = "_COL_BTN_ADD_CONCEPTO_REMUNERATIVO";
-            _COL_BTN_ADD_CONCEPTO_REMUNERATIVO.Text = "Asignar Conceptos";
-            _COL_BTN_ADD_CONCEPTO_REMUNERATIVO.UseColumnTextForButtonValue = true;
-
             dgv_entrada_datos_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
                    _COL_CARGO,
                    _COL_HORA_ENTRADA,
                    _COL_HORA_SALIDA,
                    _COL_DIAS_POR_SEMANA,
-                   _COL_REMUNERACION,
-                   _COL_BTN_ADD_CONCEPTO_REMUNERATIVO
+                   _COL_REMUNERACION
             });
+
+
 
         }
         void Crear_GridView_ConceptoRemunerativo()
@@ -225,6 +215,7 @@ namespace SGAP.comercial
         // Este evento valida lo que se ingresa en cada celda
         private void dgv_entrada_datos_mano_de_obra_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
+            #region entrada_datos
             if (!dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].IsNewRow)
             {
                 Indice_grid_entrada_datos_mano_obra = e.RowIndex;
@@ -328,6 +319,9 @@ namespace SGAP.comercial
                     }
                 }
             }
+            #endregion
+            Analizar_registros_repetido();
+
         }
 
         private void dgv_entrada_datos_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -366,13 +360,6 @@ namespace SGAP.comercial
             }
         }
 
-
-        private void dgv_entrada_datos_mano_de_obra_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            //DataGridView grid = (DataGridView)sender;
-            //_helper.Set_border_toCell_selecction(grid, e);
-        }
-
         private void dgv_conceptos_remunerativos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             //DataGridView grid = (DataGridView)sender;
@@ -390,7 +377,7 @@ namespace SGAP.comercial
             for (int a = 0; a < dgv_entrada_datos_mano_de_obra.Rows.Count; a++)
                 dgv_entrada_datos_mano_de_obra.Rows[a].DefaultCellStyle.BackColor = Color.White;
 
-            groupBox2.BackColor = DefaultBackColor;
+            panel_conceptos_remuneratios.BackColor = DefaultBackColor;
 
             ET_R29 et_r29_ = _lista_et_r29.FirstOrDefault(x => x._Fila == Indice_grid_entrada_datos_mano_obra);
 
@@ -399,8 +386,9 @@ namespace SGAP.comercial
 
             et_r29_._lista_et_m40 = _lista_et_m40_back;
 
-            Analizar_registros_repetido();
+            //Analizar_registros_repetido();
         }
+
         bool _continuar = false;
         void Analizar_registros_repetido()
         {
@@ -411,17 +399,17 @@ namespace SGAP.comercial
             if (Convert.ToBoolean(respuesta[1]))
             {
                 //posicionanos en la fila
-                dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[1, Indice_grid_entrada_datos_mano_obra];
+                //dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[1, Indice_grid_entrada_datos_mano_obra];
                 // resaltar las lineas repetidas
                 dgv_entrada_datos_mano_de_obra.Rows[respuesta[0]].DefaultCellStyle.BackColor = Color.Salmon;
-                groupBox2.BackColor = Color.Salmon;
+                panel_conceptos_remuneratios.BackColor = Color.Salmon;
 
                 _continuar = false;
             }
             else
             {
                 //devolver el color
-                groupBox2.BackColor = DefaultBackColor;
+                panel_conceptos_remuneratios.BackColor = DefaultBackColor;
 
                 _lista_et_m40.Clear();
 
@@ -456,7 +444,7 @@ namespace SGAP.comercial
                         else
                             _lista_et_m40 = _nt_m40.get_001()._lista_et_m40;
 
-                        groupBox2.BackColor = Color.LightSkyBlue;
+                        panel_conceptos_remuneratios.BackColor = Color.LightSkyBlue;
 
                         dgv_conceptos_remunerativos.Focus();
                         dgv_conceptos_remunerativos.DataSource = null;
@@ -469,7 +457,6 @@ namespace SGAP.comercial
             }
 
         }
-
 
         private void dgv_conceptos_remunerativos_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
@@ -511,10 +498,14 @@ namespace SGAP.comercial
 
         private void dgv_entrada_datos_mano_de_obra_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
+            //ocuere cuando la celda pierde el foco pero no valida --descartado
+
         }
 
         private void dgv_entrada_datos_mano_de_obra_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
+            //dgv_entrada_datos_mano_de_obra.CellValidating += new DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
+            //ocurre cuando la fila pierde el foco
         }
     }
 }

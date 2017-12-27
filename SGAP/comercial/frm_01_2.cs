@@ -123,9 +123,9 @@ namespace SGAP.comercial
         }
         public void Cargar_servicios()
         {
-            var result_array_int = _nt_r28.get_001(_entidad, tree_view_servicios);
-            Id_Servicio_Padre = result_array_int[0];
-            Periodo_servicio = result_array_int[1];
+            var result_int = _nt_r28.get_001(_entidad, tree_view_servicios);
+            Id_Servicio_Padre = result_int[0];//_entidad._entity_r28._TR28_PADRE;
+            Periodo_servicio = result_int[1];//_entidad._entity_r28._TR28_PERIODO;
         }
 
         void Agregar_menu_contextual()
@@ -189,7 +189,7 @@ namespace SGAP.comercial
         {
             // si el indice esta furea del intervalo veremos los resumenes general
 
-            if (index <= 5)
+            if (index <= 6)
             {
                 if (Panels.Count < 1) return;
 
@@ -586,13 +586,6 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.Width = 260;
             MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
 
-            DataGridViewColumn MANO_OBRA_COL_HORARIO = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_HORARIO.DataPropertyName = "MANO_OBRA_COL_HORARIO";
-            MANO_OBRA_COL_HORARIO.HeaderText = "Horario";
-            MANO_OBRA_COL_HORARIO.Name = "MANO_OBRA_COL_HORARIO";
-            MANO_OBRA_COL_HORARIO.Width = 170;
-            MANO_OBRA_COL_HORARIO.ReadOnly = true;
-
             //_COL_DESCRIPCION.MinimumWidth = 140;
             //_COL_DESCRIPCION.FillWeight = 140
 
@@ -600,10 +593,8 @@ namespace SGAP.comercial
 
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_DESCRIPCION,
-                MANO_OBRA_COL_HORARIO,
             });
             MANO_OBRA_COL_DESCRIPCION.Frozen = true;
-            MANO_OBRA_COL_HORARIO.Frozen = true;
 
             //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
 
@@ -708,8 +699,7 @@ namespace SGAP.comercial
                     ceros_[a] = "0";
 
                 dgv_mano_de_obra.Rows.Add(
-                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA),
-                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA, true)
+                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA)
                     );
 
                 dgv_mano_de_obra_right.Rows.Add(
@@ -720,34 +710,33 @@ namespace SGAP.comercial
 
 
         }
-        string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida, bool c2 = false)
+        string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida)
         {
-            string semana_laborar = "";
+            //string semana_laborar = "";
             int horas = 0;
             string horario = "";
 
             switch (dias_por_Semana)
             {
                 case 5:
-                    semana_laborar = "(Lunes a Viernes)";
+                    //semana_laborar = "(Lunes a Viernes)";
                     horario = "L-V:";
                     break;
                 case 6:
-                    semana_laborar = "(Lunes a Sábado)";
+                    //semana_laborar = "(Lunes a Sábado)";
                     horario = "L-S:";
                     break;
                 case 7:
-                    semana_laborar = "(Lunes a Domingo)";
+                    //semana_laborar = "(Lunes a Domingo)";
                     horario = "L-D:";
                     break;
             }
 
             horas = (hora_salida - hora_entrada).Hours;
 
-            if (c2)
-                return horario = horario + hora_entrada.ToString("T") + " - " + hora_salida.ToString("T");
+            horario = horario + hora_entrada.ToString("T") + " - " + hora_salida.ToString("T");
 
-            return descripcion + " " + horas.ToString() + " Horas " + semana_laborar;
+            return descripcion + " " + horas.ToString() + " Horas " + horario;
 
         }
 
