@@ -140,7 +140,7 @@ namespace SGAP.comercial
             _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
             int cantidad = _entity._lista_et_m27.Count;
 
-            if (cantidad > 1)
+            if (cantidad > 0)
             {
 
                 //seteamos informacion del cliente
