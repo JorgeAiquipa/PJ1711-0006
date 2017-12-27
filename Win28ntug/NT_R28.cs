@@ -49,7 +49,7 @@ namespace Win28ntug
                 
                 foreach (List<ET_R28> list in lista_resultadito)
                 {
-                    string id_tipo_Servicio = "";
+                    int id_tipo_Servicio = 0;
                     string nombre_servicio = "";
 
                     TreeNode servicios = new TreeNode();
@@ -89,7 +89,7 @@ namespace Win28ntug
 
                         servicios.Nodes.Add(node_hijo);
                         servicios.Text = row_u._TR28_TM42_DESCRIP;
-                        servicios.Name = id_tipo_Servicio;
+                        servicios.Name = Convert.ToString(id_tipo_Servicio);
                         servicios.Tag = 2000;
                     }
 

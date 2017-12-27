@@ -163,7 +163,7 @@ namespace SGAP.comercial
 
                 _entity._entity_m39 = _et_m39;
                 _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
-
+                //_entity._entity_r28._TR28_FRECUENCIA = null;
 
                 var result = _nt_m39.set_001(_entity);
 
@@ -285,11 +285,6 @@ namespace SGAP.comercial
         private void txt_nombre_cliente_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                obtener_cliente_info();
-            }
-
-            if (e.KeyCode == Keys.Tab)
             {
                 obtener_cliente_info();
             }

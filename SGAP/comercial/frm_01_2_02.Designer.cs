@@ -35,7 +35,10 @@
             this.cbx_servicio = new System.Windows.Forms.ComboBox();
             this.btn_continuar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
-            this.cbx_frecuencia = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.num_frecuencia = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.num_frecuencia)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -104,20 +107,44 @@
             this.btn_cancelar.UseVisualStyleBackColor = true;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
-            // cbx_frecuencia
+            // label4
             // 
-            this.cbx_frecuencia.FormattingEnabled = true;
-            this.cbx_frecuencia.Location = new System.Drawing.Point(93, 72);
-            this.cbx_frecuencia.Name = "cbx_frecuencia";
-            this.cbx_frecuencia.Size = new System.Drawing.Size(131, 21);
-            this.cbx_frecuencia.TabIndex = 2;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(90, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Cada";
+            // 
+            // num_frecuencia
+            // 
+            this.num_frecuencia.Location = new System.Drawing.Point(128, 73);
+            this.num_frecuencia.Name = "num_frecuencia";
+            this.num_frecuencia.Size = new System.Drawing.Size(55, 20);
+            this.num_frecuencia.TabIndex = 2;
+            this.num_frecuencia.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(190, 75);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "meses.";
             // 
             // frm_01_2_02
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(271, 163);
-            this.Controls.Add(this.cbx_frecuencia);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.num_frecuencia);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btn_continuar);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.cbx_servicio);
@@ -129,7 +156,7 @@
             this.Name = "frm_01_2_02";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Servicio";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frm_01_2_02_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.num_frecuencia)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,6 +170,8 @@
         private System.Windows.Forms.ComboBox cbx_servicio;
         private System.Windows.Forms.Button btn_continuar;
         private System.Windows.Forms.Button btn_cancelar;
-        private System.Windows.Forms.ComboBox cbx_frecuencia;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown num_frecuencia;
+        private System.Windows.Forms.Label label5;
     }
 }

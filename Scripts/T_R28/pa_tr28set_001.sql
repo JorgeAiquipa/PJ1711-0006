@@ -14,6 +14,7 @@ CREATE PROCEDURE pa_tr28set_001
 		,@p_TR28_TM39_ID varchar(20) -- ID COTIZACION
 		,@p_TR28_TM41_ID int -- ID SERVICIO
 		,@p_TR28_PERIODO int 
+		,@p_TR28_FRECUENCIA int 
 		,@p_TR28_DESCRIP varchar(3000)
 		--,@p_TR28_ST smallint  -- 1
 		--,@p_TR28_FLG_ELIMINADO smallint -- 0
@@ -39,6 +40,7 @@ SET NOCOUNT ON;
 			,TR28_TM39_ID
 			,TR28_TM41_ID
 			,TR28_PERIODO
+			,TR28_FRECUENCIA
 			,TR28_DESCRIP
 			,TR28_ST
 			,TR28_FLG_ELIMINADO
@@ -57,6 +59,7 @@ SET NOCOUNT ON;
 			,@p_TR28_TM39_ID
 			,@p_TR28_TM41_ID
 			,@p_TR28_PERIODO
+			,@p_TR28_FRECUENCIA
 			,@p_TR28_DESCRIP
 			,1
 			,0
@@ -73,6 +76,7 @@ SET NOCOUNT ON;
 
 		IF @@ROWCOUNT <= 0  
 			SET @P_MENSAJE_RESPUESTA = 'ERROR'
+
 END TRY
 BEGIN CATCH
 	ROLLBACK TRAN
@@ -83,3 +87,5 @@ GO
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
 select * from T_R28
+
+

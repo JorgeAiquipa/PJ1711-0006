@@ -65,7 +65,7 @@ namespace SGAP.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap cd_icon_filter {
             get {
-                object obj = ResourceManager.GetObject("cd-icon-filter", resourceCulture);
+                object obj = ResourceManager.GetObject("cd_icon_filter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
