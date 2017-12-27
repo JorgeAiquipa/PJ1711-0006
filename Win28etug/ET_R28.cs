@@ -24,9 +24,9 @@ namespace Win28etug
         public string _TR28_TM2_ID { get; set; }
 
         public string _TR28_TM42_DESCRIP { get; set; }//diego
-        public string _TR28_TM42_ID { get; set; }//diego
+        public int _TR28_TM42_ID { get; set; }//diego
 
-       
+        public int _TR28_FRECUENCIA { get; set; }//diego
 
 
     }

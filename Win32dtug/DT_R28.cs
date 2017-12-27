@@ -41,6 +41,9 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR28_TM41_ID", SqlDbType.VarChar, 300).Value = objEntity._TR28_TM41_ID;
                     cmd.Parameters.Add("@p_TR28_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR28_DESCRIP;
                     cmd.Parameters.Add("@p_TR28_PERIODO", SqlDbType.VarChar, 300).Value = objEntity._TR28_PERIODO;
+
+                    cmd.Parameters.Add("@p_TR28_FRECUENCIA", SqlDbType.VarChar, 300).Value = objEntity._TR28_FRECUENCIA; //DIEGO
+
                     cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 300).Value = _globales._U_CREA;
                     cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 20).Value = _globales._TM2_ID;
                     cmd.ExecuteNonQuery();
@@ -98,6 +101,9 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR28_TM41_ID", SqlDbType.Int).Value = objEntity._TR28_TM41_ID;//servicio
                     cmd.Parameters.Add("@p_TR28_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR28_DESCRIP;
                     cmd.Parameters.Add("@p_TR28_PERIODO", SqlDbType.Int).Value = objEntity._TR28_PERIODO;
+
+                    cmd.Parameters.Add("@p_TR28_FRECUENCIA", SqlDbType.VarChar, 300).Value = objEntity._TR28_FRECUENCIA; //DIEGO
+
                     cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_CREA;
                     cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 50).Value = _globales._TM2_ID;
                     cmd.ExecuteNonQuery();
@@ -161,6 +167,9 @@ namespace Win32dtug
                         _et_r28._TR28_TM39_ID = fila["TR28_TM39_ID"].ToString();
                         _et_r28._TR28_TM41_ID = Convert.ToInt32(fila["TR28_TM41_ID"].ToString());//servicio
                         _et_r28._TR28_PERIODO = Convert.ToInt32(fila["TR28_PERIODO"].ToString());
+
+                        _et_r28._TR28_FRECUENCIA = Convert.ToInt32(fila["TR28_FRECUENCIA"].ToString()); //DIEGO
+
                         _et_r28._TR28_DESCRIP = fila["TR28_DESCRIP"].ToString();
                         _et_r28._TR28_ST = Convert.ToInt32(fila["TR28_ST"].ToString());
                         _et_r28._TR28_FLG_ELIMINADO = Convert.ToInt32(fila["TR28_FLG_ELIMINADO"].ToString());
@@ -171,7 +180,7 @@ namespace Win32dtug
                         _et_r28._TR28_TM2_ID = fila["TR28_TM2_ID"].ToString();
 
                         _et_r28._TR28_TM42_DESCRIP = fila["TR28_TM42_DESCRIP"].ToString();//diego
-                        _et_r28._TR28_TM42_ID = fila["TR28_TM42_ID"].ToString();//diego
+                        _et_r28._TR28_TM42_ID = Convert.ToInt32(fila["TR28_TM42_ID"].ToString());//diego
 
 
 

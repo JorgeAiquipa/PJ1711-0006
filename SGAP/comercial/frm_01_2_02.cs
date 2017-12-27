@@ -46,7 +46,7 @@ namespace SGAP.comercial
 
             Metodo_obtener_tipo_servicio();
 
-            Metodo_cargar_frecuencias();
+            //Metodo_cargar_frecuencias();
         }
 
         void Metodo_obtener_tipo_servicio()
@@ -78,7 +78,7 @@ namespace SGAP.comercial
                 if (_lista_R19.Count > 0)
                 {
                     cbx_servicio.Enabled = true;
-                    cbx_frecuencia.Enabled = true;
+                    num_frecuencia.Enabled = true;
 
                     _lista_R19.ForEach(x =>
                     {
@@ -91,24 +91,26 @@ namespace SGAP.comercial
                 {
                     cbx_servicio.Text = string.Empty;
                     cbx_servicio.Enabled = false;
-                    cbx_frecuencia.Enabled = false;
+                    num_frecuencia.Enabled = false;
                 }
             }
 
         }
-        void Metodo_cargar_frecuencias()
-        {
-            for(int a = 0; a<globales.Fecuencia_.Count; a++)
-            {
-                cbx_frecuencia.Items.Add(globales.Fecuencia_[a]);
-            }
 
-            cbx_frecuencia.SelectedIndex = 0;
-        }
+        //void Metodo_cargar_frecuencias()
+        //{
+        //    for(int a = 0; a<globales.Fecuencia_.Count; a++)
+        //    {
+        //        cbx_frecuencia.Items.Add(globales.Fecuencia_[a]);
+        //    }
+
+        //    cbx_frecuencia.SelectedIndex = 0;
+        //}
 
         private void btn_continuar_Click(object sender, EventArgs e)
         {
             Nombre_Servicio_seleccionado = cbx_servicio.Text;
+            string frecuencia = num_frecuencia.Text;
 
             ET_R19 servicio = _lista_R19.FirstOrDefault(gg => gg._TR19_TM41_DESCRIP == Nombre_Servicio_seleccionado);            
 
@@ -118,6 +120,8 @@ namespace SGAP.comercial
             _entidad._entity_r28._TR28_TM41_ID = servicio._TR19_TM41_ID;
             _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
             _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+
+            _entidad._entity_r28._TR28_FRECUENCIA = Convert.ToInt32(frecuencia);
             //tipo
             //frecuencia
 
@@ -141,14 +145,6 @@ namespace SGAP.comercial
             //Listar los servicios de acuerdo al tipo seleccionado
             Metodo_obtener_servicios_por_tipo(entidad_m41);
         }
-
-        private void frm_01_2_02_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.G)
-            {
-                // guardar
-                btn_continuar_Click(null,null);
-            }
-        }
+        
     }
 }

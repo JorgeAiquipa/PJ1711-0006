@@ -52,6 +52,8 @@ namespace SGAP.comercial
         {
             InitializeComponent();
             Agregar_menu_contextual();
+            
+            btn_colapse.BringToFront();
 
             //style
 
@@ -777,5 +779,36 @@ namespace SGAP.comercial
                 _lista_et_r29 = _lista_et_r29;
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (splitContainer1.Panel1Collapsed == false)
+            {                
+                splitContainer1.Panel1Collapsed = true;
+                btn_colapse.Text = "-->";
+
+            }
+            else if (splitContainer1.Panel1Collapsed == true)
+            {
+                splitContainer1.Panel1Collapsed = false;
+                btn_colapse.Text = "<--";
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (splitContainer1.Panel1Collapsed == false)
+            {
+                splitContainer1.Panel1Collapsed = true;
+                btn_colapse2.Text = "-->";
+
+            }
+            else if (splitContainer1.Panel1Collapsed == true)
+            {
+                splitContainer1.Panel1Collapsed = false;
+                btn_colapse2.Text = "<--";
+            }
+        }
+    
     }
 }
