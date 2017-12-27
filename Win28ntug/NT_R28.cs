@@ -26,8 +26,9 @@ namespace Win28ntug
         public int[] get_001(ET_entidad entity, TreeView treview) 
         {
             treview.Nodes.Clear();
-            int Id_servicio_Padre = 0;
-            int Periodo_Servicio = 0;
+            int Id_servicio_Padre = entity._entity_r28._TR28_PADRE;
+            int Periodo_Servicio = entity._entity_r28._TR28_PERIODO;
+
             entity._entity_r28._TR28_TM39_ID = entity._entity_m39._TM39_ID;
             var result = _dt_r28.get_001(entity._entity_r28);
 
@@ -58,9 +59,9 @@ namespace Win28ntug
                         // 
                         id_tipo_Servicio = row_u._TR28_TM42_ID;
                         nombre_servicio = row_u._TR28_TM42_DESCRIP;
-                        //Id_servicio_hijo = x._TR28_ID;
-                        //Id_servicio_Padre = row_u._TR28_PADRE;
-                        //Periodo_Servicio = row_u._TR28_PERIODO;
+
+                        Id_servicio_Padre = row_u._TR28_PADRE;
+                        Periodo_Servicio = row_u._TR28_PERIODO;
 
                         TreeNode mano_obra = new TreeNode("Mano de Obra");
                         mano_obra.Name = "Mano de Obra";
@@ -75,10 +76,12 @@ namespace Win28ntug
                         suministros.Tag = 4;
                         TreeNode indumentaria = new TreeNode("Indumentaria");
                         indumentaria.Tag = 5;
+                        TreeNode Epp = new TreeNode("Indumentaria");
+                        Epp.Tag = 6;
 
 
                         TreeNode node_hijo = new TreeNode(row_u._TR28_DESCRIP, new TreeNode[] {
-                                mano_obra,maquinaria,materiales,implementos,suministros,indumentaria
+                                mano_obra,maquinaria,materiales,implementos,suministros,indumentaria,Epp
                                         });
                         node_hijo.Text = row_u._TR28_DESCRIP;
                         node_hijo.Tag = 1000;

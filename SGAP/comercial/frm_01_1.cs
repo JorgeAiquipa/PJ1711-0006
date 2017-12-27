@@ -167,9 +167,10 @@ namespace SGAP.comercial
 
                 var result = _nt_m39.set_001(_entity);
 
-                _entity._entity_m39._TM39_ID = result;
-                _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
-                _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
+            _entity._entity_r28._TR28_PADRE = result._entity_r28._TR28_PADRE;
+            _entity._entity_m39._TM39_ID = result._entity_m39._TM39_ID;
+            _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
+            _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
 
                 this.Hide();
             }else
