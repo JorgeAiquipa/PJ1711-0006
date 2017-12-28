@@ -33,7 +33,6 @@
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.pnl_cd_close = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,6 +48,10 @@
             this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.listView_Cotizaciones = new System.Windows.Forms.ListView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,12 +65,15 @@
             this.pnl_left.SuspendLayout();
             this.pnl_filter_wraper.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_left
             // 
-            this.pnl_left.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.pnl_left.BackColor = System.Drawing.Color.White;
             this.pnl_left.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnl_left.Controls.Add(this.button1);
@@ -84,18 +90,19 @@
             this.pnl_left.Controls.Add(this.dtp_fecha_fin);
             this.pnl_left.Controls.Add(this.dtp_fecha_inicio);
             this.pnl_left.Controls.Add(this.label3);
+            this.pnl_left.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_left.Location = new System.Drawing.Point(0, 0);
             this.pnl_left.Name = "pnl_left";
-            this.pnl_left.Size = new System.Drawing.Size(261, 640);
+            this.pnl_left.Size = new System.Drawing.Size(256, 640);
             this.pnl_left.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(110, 366);
+            this.button1.Location = new System.Drawing.Point(107, 366);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 23);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 19;
-            this.button1.Text = "Quitar Filtro";
+            this.button1.Text = "Quitar filtro";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -120,7 +127,7 @@
             this.pnl_filter_wraper.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_filter_wraper.Location = new System.Drawing.Point(0, 0);
             this.pnl_filter_wraper.Name = "pnl_filter_wraper";
-            this.pnl_filter_wraper.Size = new System.Drawing.Size(259, 50);
+            this.pnl_filter_wraper.Size = new System.Drawing.Size(254, 50);
             this.pnl_filter_wraper.TabIndex = 16;
             // 
             // label4
@@ -135,22 +142,14 @@
             this.label4.TabIndex = 17;
             this.label4.Text = "FILTROS";
             // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.cd_icon_filter;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Location = new System.Drawing.Point(30, 17);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(16, 16);
-            this.panel1.TabIndex = 14;
-            // 
             // pnl_cd_close
             // 
             this.pnl_cd_close.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnl_cd_close.Location = new System.Drawing.Point(199, 0);
+            this.pnl_cd_close.Location = new System.Drawing.Point(194, 0);
             this.pnl_cd_close.Name = "pnl_cd_close";
             this.pnl_cd_close.Size = new System.Drawing.Size(60, 50);
             this.pnl_cd_close.TabIndex = 0;
+            this.pnl_cd_close.Click += new System.EventHandler(this.pnl_cd_close_Click);
             // 
             // label2
             // 
@@ -159,9 +158,9 @@
             this.label2.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label2.Location = new System.Drawing.Point(21, 238);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 16);
+            this.label2.Size = new System.Drawing.Size(105, 16);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Filtro por Estado";
+            this.label2.Text = "Filtro por estado";
             this.label2.Visible = false;
             // 
             // label7
@@ -272,9 +271,9 @@
             this.label3.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label3.Location = new System.Drawing.Point(21, 132);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 16);
+            this.label3.Size = new System.Drawing.Size(96, 16);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Filtro por Fecha";
+            this.label3.Text = "Filtro por fecha";
             // 
             // btnNuevoCotizacion
             // 
@@ -283,20 +282,19 @@
             this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
             this.btnNuevoCotizacion.Size = new System.Drawing.Size(149, 26);
             this.btnNuevoCotizacion.TabIndex = 1;
-            this.btnNuevoCotizacion.Text = "Nueva Cotización";
+            this.btnNuevoCotizacion.Text = "Nueva cotización";
             this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
             this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnNuevoCotizacion);
-            this.panel2.Location = new System.Drawing.Point(261, 0);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(683, 50);
+            this.panel2.Size = new System.Drawing.Size(684, 50);
             this.panel2.TabIndex = 14;
             // 
             // listView_Cotizaciones
@@ -304,12 +302,60 @@
             this.listView_Cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView_Cotizaciones.Location = new System.Drawing.Point(261, 50);
+            this.listView_Cotizaciones.Location = new System.Drawing.Point(0, 50);
             this.listView_Cotizaciones.Name = "listView_Cotizaciones";
-            this.listView_Cotizaciones.Size = new System.Drawing.Size(683, 590);
+            this.listView_Cotizaciones.Size = new System.Drawing.Size(684, 563);
             this.listView_Cotizaciones.TabIndex = 15;
             this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
             this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.pnl_left);
+            this.splitContainer1.Panel1MinSize = 20;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
+            this.splitContainer1.Panel2.Controls.Add(this.panel2);
+            this.splitContainer1.Panel2.Controls.Add(this.listView_Cotizaciones);
+            this.splitContainer1.Panel2MinSize = 20;
+            this.splitContainer1.Size = new System.Drawing.Size(944, 640);
+            this.splitContainer1.SplitterDistance = 256;
+            this.splitContainer1.TabIndex = 16;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 618);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(684, 22);
+            this.statusStrip1.TabIndex = 16;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripStatusLabel1.Enabled = false;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(87, 17);
+            this.toolStripStatusLabel1.Text = "20 cotizaciones";
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.cd_icon_filter;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Location = new System.Drawing.Point(30, 17);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(16, 16);
+            this.panel1.TabIndex = 14;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -393,19 +439,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 640);
-            this.Controls.Add(this.listView_Cotizaciones);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.pnl_left);
+            this.Controls.Add(this.splitContainer1);
             this.MinimumSize = new System.Drawing.Size(960, 600);
             this.Name = "frm_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lista de Cotizaciones";
+            this.Text = "Lista de cotizaciones";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnl_left.ResumeLayout(false);
             this.pnl_left.PerformLayout();
             this.pnl_filter_wraper.ResumeLayout(false);
             this.pnl_filter_wraper.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -442,6 +493,9 @@
         private UserControls.GridTimeControl gridTimeControl1;
         private System.Windows.Forms.ListView listView_Cotizaciones;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 

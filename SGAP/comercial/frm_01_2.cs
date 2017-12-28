@@ -45,15 +45,16 @@ namespace SGAP.comercial
         int Id_Servicio_Padre;
         public int Id_servicio_hijo;
         int Periodo_servicio;
+        string nodos;
         #endregion
 
         #region Metodos
         public frm_01_2(ET_entidad _entity, bool editar = false)
-        {
-            InitializeComponent();
-            Agregar_menu_contextual();
+        {         
             
-            btn_colapse.BringToFront();
+            InitializeComponent();
+
+            Agregar_menu_contextual();         
 
             //style
 
@@ -128,6 +129,7 @@ namespace SGAP.comercial
             var result_int = _nt_r28.get_001(_entidad, tree_view_servicios);
             Id_Servicio_Padre = result_int[0];//_entidad._entity_r28._TR28_PADRE;
             Periodo_servicio = result_int[1];//_entidad._entity_r28._TR28_PERIODO;
+
         }
 
         void Agregar_menu_contextual()
@@ -140,7 +142,7 @@ namespace SGAP.comercial
 
             View_Properties.Name = "View_Properties";
             View_Properties.Size = new System.Drawing.Size(132, 22);
-            View_Properties.Text = "Ver Propiedades";
+            View_Properties.Text = "Configuración de cargos";
 
             MenuStrip_ViewProperties_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         View_Properties
@@ -225,6 +227,7 @@ namespace SGAP.comercial
                     {
                         case "10100": // ver menu nuevo servicio
                             MenuStrip_AddService.Show(tree_view_servicios, p);
+                            nodos = Convert.ToString(tree_view_servicios.SelectedNode.FirstNode.Name);
                             break;
                         case "0": // ver menu para mano de obra
                             Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
@@ -271,7 +274,7 @@ namespace SGAP.comercial
             else
                 tm39_id = _entidad._entity_r27._TR27_TM39_ID;
 
-            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id);
+            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id, nodos);
             form_2_2.ShowDialog();
 
             if (form_2_2.DialogResult == DialogResult.OK)
@@ -779,36 +782,39 @@ namespace SGAP.comercial
                 _lista_et_r29 = _lista_et_r29;
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (splitContainer1.Panel1Collapsed == false)
-            {                
-                splitContainer1.Panel1Collapsed = true;
-                btn_colapse.Text = "-->";
-
-            }
-            else if (splitContainer1.Panel1Collapsed == true)
-            {
-                splitContainer1.Panel1Collapsed = false;
-                btn_colapse.Text = "<--";
-            }
-        }
+       
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (splitContainer1.Panel1Collapsed == false)
             {
                 splitContainer1.Panel1Collapsed = true;
-                btn_colapse2.Text = "-->";
+                btn_colapse.Text = "";
+                btn_colapse.BackgroundImage = Image.FromFile(@"E:\Proyectos\En_Desarrollo\SGAP\Resources\rigth_arrow.png");
+                
+                btn_colapse.Location = new Point(0, 0);
 
             }
             else if (splitContainer1.Panel1Collapsed == true)
-            {
+            {              
                 splitContainer1.Panel1Collapsed = false;
-                btn_colapse2.Text = "<--";
+                btn_colapse.Text = "";
+                btn_colapse.BackgroundImage = Image.FromFile(@"E:\Proyectos\En_Desarrollo\SGAP\Resources\left_arrow.png");
+                int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+                btn_colapse.Location = new Point(coll, 0);
             }
         }
-    
+
+        private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
+        {
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            btn_colapse.Location = new Point(coll, 0);
+        }
+
+        private void frm_01_2_Load(object sender, EventArgs e)
+        {
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            btn_colapse.Location = new Point(coll, 0);
+        }
     }
 }

@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel_conceptos_remuneratios = new System.Windows.Forms.Panel();
             this.dgv_conceptos_remunerativos = new System.Windows.Forms.DataGridView();
+            this.panel_cargos = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mano_de_obra = new System.Windows.Forms.DataGridView();
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.btn_continuar = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.panel_cargos = new System.Windows.Forms.Panel();
-            this.panel_conceptos_remuneratios = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridTimeControl1 = new SGAP.UserControls.GridTimeControl();
             this.gridTimeControl2 = new SGAP.UserControls.GridTimeControl();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_conceptos_remunerativos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).BeginInit();
-            this.panel_cargos.SuspendLayout();
             this.panel_conceptos_remuneratios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_conceptos_remunerativos)).BeginInit();
+            this.panel_cargos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -60,6 +60,18 @@
             this.panel2.Size = new System.Drawing.Size(614, 507);
             this.panel2.TabIndex = 7;
             // 
+            // panel_conceptos_remuneratios
+            // 
+            this.panel_conceptos_remuneratios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_conceptos_remuneratios.Controls.Add(this.dgv_conceptos_remunerativos);
+            this.panel_conceptos_remuneratios.Location = new System.Drawing.Point(4, 318);
+            this.panel_conceptos_remuneratios.Name = "panel_conceptos_remuneratios";
+            this.panel_conceptos_remuneratios.Padding = new System.Windows.Forms.Padding(7);
+            this.panel_conceptos_remuneratios.Size = new System.Drawing.Size(607, 151);
+            this.panel_conceptos_remuneratios.TabIndex = 10;
+            // 
             // dgv_conceptos_remunerativos
             // 
             this.dgv_conceptos_remunerativos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -73,6 +85,18 @@
             this.dgv_conceptos_remunerativos.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_conceptos_remunerativos_CellValidating);
             this.dgv_conceptos_remunerativos.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_conceptos_remunerativos_CellValueChanged);
             this.dgv_conceptos_remunerativos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_conceptos_remunerativos_KeyDown);
+            // 
+            // panel_cargos
+            // 
+            this.panel_cargos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_cargos.Controls.Add(this.dgv_entrada_datos_mano_de_obra);
+            this.panel_cargos.Location = new System.Drawing.Point(4, 25);
+            this.panel_cargos.Name = "panel_cargos";
+            this.panel_cargos.Padding = new System.Windows.Forms.Padding(7);
+            this.panel_cargos.Size = new System.Drawing.Size(607, 287);
+            this.panel_cargos.TabIndex = 9;
             // 
             // dgv_entrada_datos_mano_de_obra
             // 
@@ -129,30 +153,6 @@
             this.label10.Text = "Entrada de Datos";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel_cargos
-            // 
-            this.panel_cargos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_cargos.Controls.Add(this.dgv_entrada_datos_mano_de_obra);
-            this.panel_cargos.Location = new System.Drawing.Point(4, 25);
-            this.panel_cargos.Name = "panel_cargos";
-            this.panel_cargos.Padding = new System.Windows.Forms.Padding(7);
-            this.panel_cargos.Size = new System.Drawing.Size(607, 287);
-            this.panel_cargos.TabIndex = 9;
-            // 
-            // panel_conceptos_remuneratios
-            // 
-            this.panel_conceptos_remuneratios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_conceptos_remuneratios.Controls.Add(this.dgv_conceptos_remunerativos);
-            this.panel_conceptos_remuneratios.Location = new System.Drawing.Point(4, 318);
-            this.panel_conceptos_remuneratios.Name = "panel_conceptos_remuneratios";
-            this.panel_conceptos_remuneratios.Padding = new System.Windows.Forms.Padding(7);
-            this.panel_conceptos_remuneratios.Size = new System.Drawing.Size(607, 151);
-            this.panel_conceptos_remuneratios.TabIndex = 10;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Cargo";
@@ -194,12 +194,12 @@
             this.MinimumSize = new System.Drawing.Size(630, 546);
             this.Name = "frm_01_2_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Entrada de Datos";
+            this.Text = "Configuración de cargos";
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_conceptos_remunerativos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).EndInit();
-            this.panel_cargos.ResumeLayout(false);
             this.panel_conceptos_remuneratios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_conceptos_remunerativos)).EndInit();
+            this.panel_cargos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mano_de_obra)).EndInit();
             this.ResumeLayout(false);
 
         }

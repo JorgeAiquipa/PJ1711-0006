@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -134,7 +135,13 @@
     <None Include="Resources\cd-icon-filter.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\if_4_-_Left_1815571.png" />
+    <None Include="Resources\business_office2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rigth_arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

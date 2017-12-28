@@ -44,6 +44,7 @@ namespace SGAP.comercial
             pnl_cd_close.BackColor = Color.FromArgb(55,41,106);
 
             cargar_cotizaciones();
+            filter_cotizaciones();
 
             //Columnas
             listView_Cotizaciones.Columns.Add("Codigo Cotización",210);
@@ -61,7 +62,10 @@ namespace SGAP.comercial
 
             listView_Cotizaciones.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
 
-            
+
+            splitContainer1.SplitterDistance = 180;
+
+
         }
 
         #region Métodos
@@ -92,6 +96,8 @@ namespace SGAP.comercial
         public void cargar_cotizaciones()
         {
             _nt_m39.get_001(listView_Cotizaciones);
+            cantidad();
+            //filter_cotizaciones();
         }
         void filter_cotizaciones()
         {
@@ -103,6 +109,8 @@ namespace SGAP.comercial
             _nt_m39._et_m39._fecha_Inicio = fecha_inicio;
             _nt_m39._et_m39._fecha_Fin = fecha_fin;
             _nt_m39.get_002(listView_Cotizaciones);
+
+            cantidad();
         }
 
         #endregion
@@ -136,16 +144,48 @@ namespace SGAP.comercial
 
             frm_01_2 F2 = new frm_01_2(_entidad, true);
             cargar_cotizaciones();
+            filter_cotizaciones();
             F2.ShowDialog();
         }
 
+        //Quitar filtro
         private void button1_Click(object sender, EventArgs e)
         {
+            txt_cliente_or_ruc.Text = "";
+            dtp_fecha_fin.Text =Convert.ToString(DateTime.Today);
+
+            //Resta 1 mes al filtro de la fecha de inicio
+            dtp_fecha_inicio.Value = dtp_fecha_fin.Value.AddMonths(-1);
+
+            txt_cliente_or_ruc.Focus();
+
             cargar_cotizaciones();
-            
+            filter_cotizaciones();
         }
-    }
+
+
+        private void cantidad()
+        {
+            string cant = Convert.ToString(listView_Cotizaciones.Items.Count);
+            toolStripStatusLabel1.Text = cant + " cotizaciones";
+        }
+
+
+
+
         #endregion
 
+        private void pnl_cd_close_Click(object sender, EventArgs e)
+        {
+            if(splitContainer1.SplitterDistance > 25)
+            {
+                splitContainer1.SplitterDistance = 24;
+            }
+            else
+            {
+                splitContainer1.SplitterDistance = 257;
+            }
+        }
+    }
 
 }
