@@ -41,7 +41,7 @@ namespace SGAP.comercial
         int tipo_de_Servicio=1;//diego
         int cantidad_meses = 0;
 
-        string selecione = "Seleccione un servicio...";
+        string selecione = "[Seleccione un servicio]";
         
         AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
 
@@ -320,6 +320,7 @@ namespace SGAP.comercial
         {
             if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != selecione)
             {
+                cbx_tipo_servicio.Items.Remove(selecione);
                 panel_servicio.BackColor = Color.Transparent;
                 nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
 
