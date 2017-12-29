@@ -167,6 +167,61 @@ namespace Win32dtug
 
         ////
 
+
+        //actualizar los registros 
+
+        public bool set_002(ET_R29 objEntity)
+        {
+            string Msg_respuesta;
+
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
+            {
+                cn.Open();
+                SqlTransaction sqlTran = cn.BeginTransaction();
+                SqlCommand cmd = new SqlCommand("pa_set55", cn, sqlTran);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+
+                    cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
+
+                    cmd.Parameters.Add("@p_TR29_TR28_ID", SqlDbType.Int).Value = objEntity._TR29_TR28_ID;
+                    cmd.Parameters.Add("@p_TR29_TM38_ID", SqlDbType.VarChar, 300).Value = objEntity._TR29_TM38_ID;
+                    cmd.Parameters.Add("@p_TR29_TM2_ID", SqlDbType.VarChar, 20).Value = _global._TM2_ID;
+                    cmd.Parameters.Add("@p_TR29_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR29_DESCRIP;
+                    cmd.Parameters.Add("@p_TR29_HORA_ENTRADA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_ENTRADA;
+                    cmd.Parameters.Add("@p_TR29_HORA_SALIDA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_SALIDA;
+                    cmd.Parameters.Add("@p_TR29_DIAS_SEMANA", SqlDbType.Int).Value = objEntity._TR29_DIAS_SEMANA;
+                    cmd.Parameters.Add("@p_TR29_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TR29_REMUNERACION", SqlDbType.Decimal).Value = objEntity._TR29_REMUNERACION;
+                    cmd.Parameters.Add("@p_TR29_FLG_ELIMINADO", SqlDbType.SmallInt).Value = objEntity._TR29_FLG_ELIMINADO;
+                    cmd.ExecuteNonQuery();
+                    sqlTran.Commit();
+
+                    Msg_respuesta = cmd.Parameters["@P_MENSAJE_RESPUESTA"].Value.ToString();
+                }
+                catch (SqlException exsql)
+                {
+                    Msg_respuesta = exsql.Message;
+                    try
+                    {
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                        Msg_respuesta = exRollback.Message;
+                    }
+
+                    return false;
+
+                }
+                finally
+                {
+                    cn.Close();
+                }
+            }
+            return true;
+        }
     }
 }
 

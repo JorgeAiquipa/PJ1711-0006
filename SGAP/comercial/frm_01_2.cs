@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -45,6 +46,7 @@ namespace SGAP.comercial
         int Id_Servicio_Padre;
         public int Id_servicio_hijo;
         int Periodo_servicio;
+
         #endregion
 
         #region Metodos
@@ -52,9 +54,6 @@ namespace SGAP.comercial
         {
             InitializeComponent();
             Agregar_menu_contextual();
-            
-            btn_colapse.BringToFront();
-
             //style
 
             this.BackColor = Color.FromArgb(221, 221, 221);
@@ -69,15 +68,17 @@ namespace SGAP.comercial
             label13.ForeColor = Color.White;
             label3.BackColor = Color.FromArgb(0, 134, 65);
             label3.ForeColor = Color.White;
+            this.BringToFront();
 
             //end style
-            this.BringToFront();
 
             _entidad = _entity;
 
             // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.
             Cargar_servicios();
             Id_servicio_hijo = Id_Servicio_Padre;
+
+            _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
 
             if (editar)
             {
@@ -90,7 +91,6 @@ namespace SGAP.comercial
                 Metodo_cargar_informacion_mano_de_obra();
             }
 
-            _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
 
             tabControl1.Visible = false;
 
@@ -224,6 +224,7 @@ namespace SGAP.comercial
                     switch (Convert.ToString(node.Tag))
                     {
                         case "10100": // ver menu nuevo servicio
+
                             MenuStrip_AddService.Show(tree_view_servicios, p);
                             break;
                         case "0": // ver menu para mano de obra
@@ -292,7 +293,8 @@ namespace SGAP.comercial
 
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
-            frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo);
+
+            frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _lista_et_m40);
             form_2_1.ShowDialog();
             if (form_2_1.DialogResult != DialogResult.Cancel)
             {
@@ -307,6 +309,7 @@ namespace SGAP.comercial
         {
             ET_R29 _et = new ET_R29();
             _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
+            _et._lista_et_m40 = _lista_et_m40;
             _lista_et_r29 = _nt_r29.get_001(_et)._lista_et_r29;
 
             Contruir_DataGrid_Mano_Obra(); // Construimos la grilla
@@ -517,6 +520,8 @@ namespace SGAP.comercial
 
         void Contruir_DataGrid_Mano_Obra()
         {
+            dgv_mano_de_obra.AllowUserToAddRows = false;
+
             dgv_mano_de_obra.Rows.Clear();
             dgv_mano_de_obra.Columns.Clear();
             dgv_mano_de_obra.DataSource = null;
@@ -591,8 +596,6 @@ namespace SGAP.comercial
             //_COL_DESCRIPCION.MinimumWidth = 140;
             //_COL_DESCRIPCION.FillWeight = 140
 
-            // OBJETIVO  -> COLUMNA 0 : Operario 8 Horas (Lunes a Sábado )
-
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_DESCRIPCION,
             });
@@ -609,7 +612,6 @@ namespace SGAP.comercial
 
                 _entidad._lista_et_m27.ForEach(x =>
                 {
-                    //dgv_entrada_datos_mano_de_obra.Columns[indice_de_inicio].
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
                     dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TM27_NOMBRE;
@@ -621,11 +623,12 @@ namespace SGAP.comercial
             //dgv_mano_de_obra.
 
             // for datgrid mano de obra right
+            dgv_mano_de_obra_right.AllowUserToAddRows = false;
             dgv_mano_de_obra_right.AutoGenerateColumns = false;
             dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgv_mano_de_obra_right.DefaultCellStyle.SelectionBackColor = Color.White;
             dgv_mano_de_obra_right.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgv_mano_de_obra_right.ReadOnly = true;
+            //dgv_mano_de_obra_right.ReadOnly = true;
 
             // columnas de remuneraciones 
 
@@ -636,54 +639,67 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "SueldoBásico";
             MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
             MANO_OBRA_COL_SUELDO_BASICO.Width = 90;
+            MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL_PERSONAL.DataPropertyName = "MANO_OBRA_COL_TOTAL_PERSONAL";
             MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.Personal";
             MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
             MANO_OBRA_COL_TOTAL_PERSONAL.Width = 120;
+            MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
             MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo Mensual";
             MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
             MANO_OBRA_COL_SUELDO_MENSUAL.Width = 120;
+            MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL.DataPropertyName = "MANO_OBRA_COL_TOTAL";
             MANO_OBRA_COL_TOTAL.HeaderText = "Total";
             MANO_OBRA_COL_TOTAL.Name = "MANO_OBRA_COL_TOTAL";
             MANO_OBRA_COL_TOTAL.Width = 120;
+            MANO_OBRA_COL_TOTAL.ReadOnly = true;
+
+            DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total Conceptos";
+            MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 120;
+            MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
 
             dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_TOTAL_PERSONAL,
                 MANO_OBRA_COL_SUELDO_BASICO,
+                MANO_OBRA_COL_SUM_CONCEPTOS,
                 MANO_OBRA_COL_SUELDO_MENSUAL,
                 MANO_OBRA_COL_TOTAL
             });
-            MANO_OBRA_COL_TOTAL_PERSONAL.DisplayIndex = 0;
-            MANO_OBRA_COL_SUELDO_BASICO.DisplayIndex = 1;
+            //MANO_OBRA_COL_TOTAL_PERSONAL.DisplayIndex = 0;
+            //MANO_OBRA_COL_SUELDO_BASICO.DisplayIndex = 1;
 
-            //// CARGAR COLUMNAS DE MANERA DINAMICA -> CONCEPTOS REMUNERATIVOS
+            ////// CARGAR COLUMNAS DE MANERA DINAMICA -> CONCEPTOS REMUNERATIVOS
 
-            if (_lista_et_m40 != null)
-            {
-                int indice_de_inicio = dgv_mano_de_obra_right.ColumnCount;
+            //if (_lista_et_m40 != null)
+            //{
+            //    int indice_de_inicio = dgv_mano_de_obra_right.ColumnCount;
 
-                dgv_mano_de_obra_right.ColumnCount = _lista_et_m40.Count + dgv_mano_de_obra_right.ColumnCount;
+            //    dgv_mano_de_obra_right.ColumnCount = _lista_et_m40.Count + dgv_mano_de_obra_right.ColumnCount;
 
-                _lista_et_m40.ForEach(x => {
+            //    //_lista_et_m40.ForEach(x =>
+            //    //{
 
-                    dgv_mano_de_obra_right.Columns[indice_de_inicio].Visible = true;
-                    dgv_mano_de_obra_right.Columns[indice_de_inicio].Width = 200;
-                    dgv_mano_de_obra_right.Columns[indice_de_inicio].Name = x._TM40_DESCRIP;
-                    dgv_mano_de_obra_right.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
-                    indice_de_inicio++;
-                });
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Visible = true;
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Width = 200;
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Name = x._TM40_DESCRIP;
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
+            //    //    indice_de_inicio++;
+            //    //});
 
-                MANO_OBRA_COL_SUELDO_MENSUAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
-                MANO_OBRA_COL_TOTAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
-            }
+            //    //MANO_OBRA_COL_SUELDO_MENSUAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
+            //    //MANO_OBRA_COL_TOTAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
+            //}
 
 
         }
@@ -705,8 +721,9 @@ namespace SGAP.comercial
                     );
 
                 dgv_mano_de_obra_right.Rows.Add(
-                       0,
-                       fila_._TR29_REMUNERACION
+                       0, // total personal
+                       fila_._TR29_REMUNERACION, // sueldo basico
+                       "suma de conceptos remunerativos"
                     );
             });
 
@@ -720,25 +737,35 @@ namespace SGAP.comercial
 
             switch (dias_por_Semana)
             {
+                case 1:
+                    horario = "Jornal:";
+                    break;
+
+                case 2:
+                    horario = "L-Ma:";
+                    break;
+                case 3:
+                    horario = "L-Mi:";
+                    break;
+                case 4:
+                    horario = "L-J:";
+                    break;
                 case 5:
-                    //semana_laborar = "(Lunes a Viernes)";
                     horario = "L-V:";
                     break;
                 case 6:
-                    //semana_laborar = "(Lunes a Sábado)";
                     horario = "L-S:";
                     break;
                 case 7:
-                    //semana_laborar = "(Lunes a Domingo)";
                     horario = "L-D:";
                     break;
             }
 
             horas = (hora_salida - hora_entrada).Hours;
 
-            horario = horario + hora_entrada.ToString("T") + " - " + hora_salida.ToString("T");
+            horario = horario + hora_entrada.ToString("H:mm") + " - " + hora_salida.ToString("H:mm");
 
-            return descripcion + " " + horas.ToString() + " Horas " + horario;
+            return descripcion + " " + horas.ToString() + " h " + horario;
 
         }
 
@@ -809,6 +836,55 @@ namespace SGAP.comercial
                 btn_colapse2.Text = "<--";
             }
         }
-    
+
+        private void dgv_mano_de_obra_right_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //if (this.dgv_mano_de_obra_right.CurrentCell.ColumnIndex == this.dgv_mano_de_obra_right.Columns["_COL_CARGO"].Index)
+            //{
+            //    TextBox auto_text_cargo = e.Control as TextBox;
+
+            //    if (string.IsNullOrEmpty(auto_text_cargo.Text))
+            //        auto_text_cargo.Text = string.Empty;
+            //    //if (auto_text_cargo != null)
+            //    //{
+            //    auto_text_cargo.Width = 300;
+            //    auto_text_cargo.AutoCompleteMode = AutoCompleteMode.Suggest;
+            //    auto_text_cargo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //    _nt_m38.TexBox_Cargo(auto_text_cargo);
+            //    //}
+            //}
+        }
+
+        private void dgv_mano_de_obra_right_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+
+        }
+        UserControls.frm_tooltip tool = new UserControls.frm_tooltip();
+
+        void tar()
+        {
+        }
+        private void dgv_mano_de_obra_right_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                tool.Show();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void dgv_mano_de_obra_right_MouseHover(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgv_mano_de_obra_right_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                tool.Close();
+            }
+            catch (Exception ex) { }
+        }
     }
 }

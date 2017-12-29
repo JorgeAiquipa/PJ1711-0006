@@ -5,6 +5,7 @@ GO
 -- =============================================
 -- Author:		cesar.freitas
 -- Create date: 2017.12.21
+-- Update: 2017.12.28 -- listar los que no tienen el flag eliminado en 1
 -- Descripcion : Obtiene una lista de los cargos asociados a un servicio que pertenece a una cotizacion.
 -- =============================================
 CREATE PROCEDURE pa_sel100
@@ -44,6 +45,8 @@ BEGIN TRY
 			TR29_TM2_ID = @p_TR29_TM2_ID
 			AND
 			TR29_TR28_ID = @p_TR29_TR28_ID
+			AND
+			TR29_FLG_ELIMINADO = 0
 
 END TRY
 BEGIN CATCH

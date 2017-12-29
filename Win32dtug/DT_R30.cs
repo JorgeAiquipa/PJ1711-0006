@@ -107,6 +107,7 @@ namespace Win32dtug
                         _etr30._TR30_TM40_ID = fila["TR30_TM40_ID"].ToString();
                         //_etr30._TR30_IMPORTE = Convert.ToDecimal(fila["TR30_IMPORTE"].ToString());
                         _etr30._TR30_DESCRIP = fila["TM40_DESCRIP"].ToString();
+                        _etr30._Seleccionado = true;
 
                         _lista_r30.Add(_etr30);
                     }

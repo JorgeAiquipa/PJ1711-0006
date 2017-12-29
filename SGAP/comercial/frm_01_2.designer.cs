@@ -35,12 +35,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btn_colapse = new System.Windows.Forms.Button();
             this.dgv_mano_de_obra_right = new System.Windows.Forms.DataGridView();
             this.dgv_mano_de_obra = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_colapse2 = new System.Windows.Forms.Button();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
             this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -60,10 +60,10 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.btn_colapse = new System.Windows.Forms.Button();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btn_colapse2 = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -173,7 +173,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btn_colapse);
             this.panel2.Controls.Add(this.dgv_mano_de_obra_right);
             this.panel2.Controls.Add(this.dgv_mano_de_obra);
             this.panel2.Controls.Add(this.label10);
@@ -182,18 +181,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(966, 470);
             this.panel2.TabIndex = 6;
-            // 
-            // btn_colapse
-            // 
-            this.btn_colapse.BackColor = System.Drawing.Color.White;
-            this.btn_colapse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_colapse.Location = new System.Drawing.Point(-3, -3);
-            this.btn_colapse.Name = "btn_colapse";
-            this.btn_colapse.Size = new System.Drawing.Size(29, 25);
-            this.btn_colapse.TabIndex = 9;
-            this.btn_colapse.Text = "<--";
-            this.btn_colapse.UseVisualStyleBackColor = false;
-            this.btn_colapse.Click += new System.EventHandler(this.button1_Click);
             // 
             // dgv_mano_de_obra_right
             // 
@@ -204,7 +191,12 @@
             this.dgv_mano_de_obra_right.Name = "dgv_mano_de_obra_right";
             this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(400, 448);
             this.dgv_mano_de_obra_right.TabIndex = 8;
+            this.dgv_mano_de_obra_right.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_CellClick);
+            this.dgv_mano_de_obra_right.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_CellMouseEnter);
+            this.dgv_mano_de_obra_right.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_CellMouseLeave);
+            this.dgv_mano_de_obra_right.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_mano_de_obra_right_CellPainting);
             this.dgv_mano_de_obra_right.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_right_Scroll);
+            this.dgv_mano_de_obra_right.MouseHover += new System.EventHandler(this.dgv_mano_de_obra_right_MouseHover);
             // 
             // dgv_mano_de_obra
             // 
@@ -253,6 +245,18 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(966, 470);
             this.panel3.TabIndex = 4;
+            // 
+            // btn_colapse2
+            // 
+            this.btn_colapse2.BackColor = System.Drawing.Color.White;
+            this.btn_colapse2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_colapse2.Location = new System.Drawing.Point(-3, -3);
+            this.btn_colapse2.Name = "btn_colapse2";
+            this.btn_colapse2.Size = new System.Drawing.Size(29, 25);
+            this.btn_colapse2.TabIndex = 11;
+            this.btn_colapse2.Text = "<--";
+            this.btn_colapse2.UseVisualStyleBackColor = false;
+            this.btn_colapse2.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // dgv_entrada_datos_mq_eq
             // 
@@ -465,6 +469,18 @@
             this.label2.Text = "epp";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btn_colapse
+            // 
+            this.btn_colapse.BackColor = System.Drawing.Color.White;
+            this.btn_colapse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_colapse.Location = new System.Drawing.Point(10, 10);
+            this.btn_colapse.Name = "btn_colapse";
+            this.btn_colapse.Size = new System.Drawing.Size(29, 25);
+            this.btn_colapse.TabIndex = 9;
+            this.btn_colapse.Text = "<--";
+            this.btn_colapse.UseVisualStyleBackColor = false;
+            this.btn_colapse.Click += new System.EventHandler(this.button1_Click);
+            // 
             // dataGridViewCheckBoxColumn1
             // 
             this.dataGridViewCheckBoxColumn1.HeaderText = "Maquinaria";
@@ -497,18 +513,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1237, 506);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 3;
-            // 
-            // btn_colapse2
-            // 
-            this.btn_colapse2.BackColor = System.Drawing.Color.White;
-            this.btn_colapse2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_colapse2.Location = new System.Drawing.Point(-3, -3);
-            this.btn_colapse2.Name = "btn_colapse2";
-            this.btn_colapse2.Size = new System.Drawing.Size(29, 25);
-            this.btn_colapse2.TabIndex = 11;
-            this.btn_colapse2.Text = "<--";
-            this.btn_colapse2.UseVisualStyleBackColor = false;
-            this.btn_colapse2.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -695,6 +699,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1237, 506);
+            this.Controls.Add(this.btn_colapse);
             this.Controls.Add(this.splitContainer1);
             this.MinimumSize = new System.Drawing.Size(1253, 545);
             this.Name = "frm_01_2";

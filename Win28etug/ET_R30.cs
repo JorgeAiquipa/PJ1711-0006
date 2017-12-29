@@ -8,7 +8,7 @@ namespace Win28etug
 {
     public class ET_R30
     {
-
+        public bool _Seleccionado { get; set; }
         public int _TR30_ID { get; set; }
         public int _TR30_TR29_ID { get; set; }
         public string _TR30_TM40_ID { get; set; }
@@ -21,6 +21,8 @@ namespace Win28etug
         public DateTime _TR30_FCREA { get; set; }
         public string _TR30_UACTUALIZA { get; set; }
         public DateTime _TR30_FACTUALIZA { get; set; }
+
+
 
     }
 }

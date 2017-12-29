@@ -83,9 +83,9 @@ namespace SGAP.UserControls
         {
             get
             {
-                DateTime hora = new DateTime(1900, 1, 1, hour: 0, minute: 0, second: 0, millisecond: 0);
+                DateTime hora = new DateTime(1900, 1, 1, hour: 0, minute: 0, second: 0);
                 //return DateTime.Now.ToShortTimeString();
-                return hora;
+                return hora.ToString("H:mm");
 
             }
         }
@@ -143,7 +143,11 @@ namespace SGAP.UserControls
         }
         public bool EditingControlWantsInputKey(Keys key, bool dataGridViewWantsInputKey)
         {
-            if (Keys.KeyCode == Keys.Left || Keys.KeyCode == Keys.Up || Keys.KeyCode == Keys.Down || Keys.KeyCode == Keys.Right || Keys.KeyCode == Keys.Home || Keys.KeyCode == Keys.End || Keys.KeyCode == Keys.PageDown || Keys.KeyCode == Keys.PageUp)
+            //if (Keys.KeyCode == Keys.Left || Keys.KeyCode == Keys.Up || Keys.KeyCode == Keys.Down || Keys.KeyCode == Keys.Right || Keys.KeyCode == Keys.Home || Keys.KeyCode == Keys.End || Keys.KeyCode == Keys.PageDown || Keys.KeyCode == Keys.PageUp)
+            //{
+            //    return true;
+            //}
+            if ( Keys.KeyCode == Keys.Home || Keys.KeyCode == Keys.End || Keys.KeyCode == Keys.PageDown || Keys.KeyCode == Keys.PageUp)
             {
                 return true;
             }

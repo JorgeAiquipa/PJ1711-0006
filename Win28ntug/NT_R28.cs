@@ -76,7 +76,7 @@ namespace Win28ntug
                         suministros.Tag = 4;
                         TreeNode indumentaria = new TreeNode("Indumentaria");
                         indumentaria.Tag = 5;
-                        TreeNode Epp = new TreeNode("Indumentaria");
+                        TreeNode Epp = new TreeNode("Epp");
                         Epp.Tag = 6;
 
 
