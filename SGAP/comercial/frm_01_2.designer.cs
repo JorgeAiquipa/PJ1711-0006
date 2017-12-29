@@ -208,6 +208,10 @@
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
             this.dgv_mano_de_obra.Size = new System.Drawing.Size(572, 448);
             this.dgv_mano_de_obra.TabIndex = 7;
+            this.dgv_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellEndEdit);
+            this.dgv_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_mano_de_obra_DefaultValuesNeeded);
+            this.dgv_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_mano_de_obra_EditingControlShowing);
+            this.dgv_mano_de_obra.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_RowEnter);
             this.dgv_mano_de_obra.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_Scroll);
             this.dgv_mano_de_obra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_mano_de_obra_KeyDown);
             // 
@@ -244,7 +248,6 @@
             this.panel3.Size = new System.Drawing.Size(973, 470);
             this.panel3.TabIndex = 4;
             // 
-  
             // dgv_entrada_datos_mq_eq
             // 
             this.dgv_entrada_datos_mq_eq.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
@@ -460,7 +463,6 @@
             // btn_colapse
             // 
             this.btn_colapse.BackColor = System.Drawing.Color.White;
-            this.btn_colapse.BackgroundImage = global::SGAP.Properties.Resources.left_arrow;
             this.btn_colapse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_colapse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_colapse.Location = new System.Drawing.Point(241, 0);

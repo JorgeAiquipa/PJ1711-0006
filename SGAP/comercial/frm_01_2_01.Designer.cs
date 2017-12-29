@@ -108,6 +108,8 @@
             this.dgv_entrada_datos_mano_de_obra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellClick);
             this.dgv_entrada_datos_mano_de_obra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellContentClick);
             this.dgv_entrada_datos_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEndEdit);
+            this.dgv_entrada_datos_mano_de_obra.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEnter);
+            this.dgv_entrada_datos_mano_de_obra.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellLeave);
             this.dgv_entrada_datos_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
             this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
             this.dgv_entrada_datos_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded);
@@ -120,9 +122,9 @@
             // btn_cancelar
             // 
             this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_cancelar.Location = new System.Drawing.Point(500, 475);
+            this.btn_cancelar.Location = new System.Drawing.Point(504, 475);
             this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(104, 23);
+            this.btn_cancelar.Size = new System.Drawing.Size(100, 23);
             this.btn_cancelar.TabIndex = 3;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = true;
@@ -131,11 +133,11 @@
             // btn_continuar
             // 
             this.btn_continuar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_continuar.Location = new System.Drawing.Point(390, 475);
+            this.btn_continuar.Location = new System.Drawing.Point(394, 475);
             this.btn_continuar.Name = "btn_continuar";
-            this.btn_continuar.Size = new System.Drawing.Size(104, 23);
+            this.btn_continuar.Size = new System.Drawing.Size(100, 23);
             this.btn_continuar.TabIndex = 2;
-            this.btn_continuar.Text = "Guardar";
+            this.btn_continuar.Text = "Aceptar";
             this.btn_continuar.UseVisualStyleBackColor = true;
             this.btn_continuar.Click += new System.EventHandler(this.btn_continuar_Click);
             // 
@@ -148,7 +150,6 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(614, 22);
             this.label10.TabIndex = 6;
-            this.label10.Text = "Entrada de Datos";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridViewTextBoxColumn1
@@ -192,7 +193,7 @@
             this.MinimumSize = new System.Drawing.Size(630, 546);
             this.Name = "frm_01_2_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Entrada de Datos";
+            this.Text = "Configuración de cargos";
             this.panel2.ResumeLayout(false);
             this.panel_conceptos_remuneratios.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_conceptos_remunerativos)).EndInit();

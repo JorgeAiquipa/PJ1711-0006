@@ -13,22 +13,21 @@ namespace Win28ntug
         ET_entidad _entidad = new ET_entidad();
         DT_M38 _dt_m38 = new DT_M38();
         ET_M38 _et_m38 = new ET_M38();
+        List<ET_M38> _lista_et_m38 = new List<ET_M38>(); //lista de cargos
+        
 
-
-
-        public ET_entidad TexBox_Cargo(TextBox _textbox)
+        public List<ET_M38> TexBox_Cargo(TextBox _textbox)
         {
-
             _et_m38 = new ET_M38();
-            _et_m38._filtro = _textbox.Text.ToString();
+            _et_m38._filtro = "";//_textbox.Text.ToString();
 
             var result = _dt_m38.filter_list(_et_m38);
 
             if (!result._hubo_error)
             {
                 _textbox.AutoCompleteCustomSource.Clear();
-                List<ET_M38> _lista_m38 = new List<ET_M38>();
-                _lista_m38 = result._lista_et_m38.ToList();
+                _lista_et_m38 = new List<ET_M38>();
+                _lista_et_m38 = result._lista_et_m38.ToList();
                 foreach (ET_M38 row in result._lista_et_m38.ToList())
                 {
                     _textbox.AutoCompleteCustomSource.Add(row._TM38_DESCRIP);
@@ -40,7 +39,9 @@ namespace Win28ntug
                 Mensaje(_entidad);
             }
 
-            return result;
+
+            return _lista_et_m38;
+
         }
 
 

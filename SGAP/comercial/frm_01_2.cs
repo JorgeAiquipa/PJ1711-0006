@@ -604,6 +604,7 @@ namespace SGAP.comercial
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_DESCRIPCION,
             });
+
             MANO_OBRA_COL_DESCRIPCION.Frozen = true;
 
             //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
@@ -615,13 +616,16 @@ namespace SGAP.comercial
 
                 int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_m27.Count;
 
+                int indice_nn = 1;
                 _entidad._lista_et_m27.ForEach(x =>
                 {
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
                     dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
                     dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TM27_NOMBRE;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = x._TM27_NOMBRE;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TM27_NOMBRE) ? string.Format("Local {0}",indice_nn): x._TM27_NOMBRE.Length > 26 ?  string.Format("{0}...", x._TM27_NOMBRE.Substring(0, 26)) : x._TM27_NOMBRE;
                     indice_de_inicio++;
+                    indice_nn++;
                 });
 
             }
@@ -641,38 +645,44 @@ namespace SGAP.comercial
             //
             DataGridViewColumn MANO_OBRA_COL_SUELDO_BASICO = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_BASICO.DataPropertyName = "MANO_OBRA_COL_SUELDO_BASICO";
-            MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "SueldoBásico";
+            MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "Sueldo básico";
             MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
-            MANO_OBRA_COL_SUELDO_BASICO.Width = 90;
+            MANO_OBRA_COL_SUELDO_BASICO.Width = 85;
             MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
+            MANO_OBRA_COL_SUELDO_BASICO.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL_PERSONAL.DataPropertyName = "MANO_OBRA_COL_TOTAL_PERSONAL";
-            MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.Personal";
+            MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.personal";
             MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
-            MANO_OBRA_COL_TOTAL_PERSONAL.Width = 120;
+            MANO_OBRA_COL_TOTAL_PERSONAL.Width = 80;
             MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
+            MANO_OBRA_COL_TOTAL_PERSONAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
-            MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo Mensual";
+            MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
             MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
-            MANO_OBRA_COL_SUELDO_MENSUAL.Width = 120;
+            MANO_OBRA_COL_SUELDO_MENSUAL.Width = 60;
             MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
+            MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL.DataPropertyName = "MANO_OBRA_COL_TOTAL";
             MANO_OBRA_COL_TOTAL.HeaderText = "Total";
             MANO_OBRA_COL_TOTAL.Name = "MANO_OBRA_COL_TOTAL";
-            MANO_OBRA_COL_TOTAL.Width = 120;
+            MANO_OBRA_COL_TOTAL.Width = 85;
             MANO_OBRA_COL_TOTAL.ReadOnly = true;
+            MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total Conceptos";
+            MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
             MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 120;
+            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 70;
             MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
+            MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
 
             dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_TOTAL_PERSONAL,
@@ -717,24 +727,30 @@ namespace SGAP.comercial
 
             _lista_et_r29.ForEach(fila_ => {
 
+               
                 string[] ceros_ = new string[dgv_mano_de_obra_right.ColumnCount];
                 for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
                     ceros_[a] = "0";
 
+               
+
                 dgv_mano_de_obra.Rows.Add(
-                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA)
+                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA,fila_._lista_et_r30)
+                   
                     );
 
                 dgv_mano_de_obra_right.Rows.Add(
                        0, // total personal
                        fila_._TR29_REMUNERACION, // sueldo basico
-                       "suma de conceptos remunerativos"
+                       100,
+                       fila_._TR29_REMUNERACION + 100,
+                       (fila_._TR29_REMUNERACION + 100)* 0
                     );
             });
 
 
         }
-        string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida)
+        string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida,List<ET_R30> conceptos_)
         {
             //string semana_laborar = "";
             int horas = 0;
@@ -768,9 +784,15 @@ namespace SGAP.comercial
 
             horas = (hora_salida - hora_entrada).Hours;
 
+            string conceptos_short = " ";
+            conceptos_.ForEach(row => {
+                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty: row._TR30_DESCRIP.Substring(0,3)) + "/";
+            });
+            conceptos_short = conceptos_short.Substring(0, conceptos_short.Length - 1);
+
             horario = horario + hora_entrada.ToString("H:mm") + " - " + hora_salida.ToString("H:mm");
 
-            return descripcion + " " + horas.ToString() + " h " + horario;
+            return descripcion + " " + horas.ToString() + " h " + horario + conceptos_short;
 
         }
 
@@ -808,7 +830,7 @@ namespace SGAP.comercial
             {
 
                 // manipular lo ingresado par poder registrarlo
-                _lista_et_r29 = _lista_et_r29;
+                //_lista_et_r29 = _lista_et_r29;
             }
         }
        
@@ -819,7 +841,7 @@ namespace SGAP.comercial
             {
                 splitContainer1.Panel1Collapsed = true;
                 btn_colapse.Text = "";
-                btn_colapse.BackgroundImage = Image.FromFile(@"E:\Proyectos\En_Desarrollo\SGAP\Resources\rigth_arrow.png");
+                btn_colapse.BackgroundImage = Properties.Resources.rigth_arrow;
                 
                 btn_colapse.Location = new Point(0, 0);
 
@@ -828,7 +850,7 @@ namespace SGAP.comercial
             {              
                 splitContainer1.Panel1Collapsed = false;
                 btn_colapse.Text = "";
-                btn_colapse.BackgroundImage = Image.FromFile(@"E:\Proyectos\En_Desarrollo\SGAP\Resources\left_arrow.png");
+                btn_colapse.BackgroundImage = Properties.Resources.left_arrow;
                 int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
                 btn_colapse.Location = new Point(coll, 0);
             }
@@ -862,32 +884,18 @@ namespace SGAP.comercial
         {
 
         }
-        UserControls.frm_tooltip tool = new UserControls.frm_tooltip();
 
-        void tar()
-        {
-        }
         private void dgv_mano_de_obra_right_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                tool.Show();
-            }
-            catch (Exception ex) { }
+     
         }
 
         private void dgv_mano_de_obra_right_MouseHover(object sender, EventArgs e)
         {
-
         }
 
         private void dgv_mano_de_obra_right_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                tool.Close();
-            }
-            catch (Exception ex) { }
         }
 
         private void frm_01_2_Load(object sender, EventArgs e)
@@ -896,5 +904,39 @@ namespace SGAP.comercial
             btn_colapse.Location = new Point(coll, 0);
         }
 
+        private void dgv_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int suma_total = 0;
+
+            for (int a = 1; a < dgv_mano_de_obra.ColumnCount; a++)
+            {
+                suma_total = suma_total + Convert.ToInt32(dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value);
+            }
+
+            dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[0].Value = suma_total;
+            dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[4].Value = suma_total * (Convert.ToDecimal(dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[3].Value));
+
+
+        }
+
+        private void dgv_mano_de_obra_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (this.dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
+            {
+                TextBox TEX_BOX_NUMBER = e.Control as TextBox;
+                TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
+                e.Control.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
+            }
+        }
+
+        private void dgv_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgv_mano_de_obra_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+
+        }
     }
 }
