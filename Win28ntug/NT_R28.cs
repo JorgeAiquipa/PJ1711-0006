@@ -100,6 +100,13 @@ namespace Win28ntug
 
 
                 //agregar nuevos nodos 7 y 8
+                TreeNode financieros = new TreeNode("Gastos financieros");
+                financieros.Tag = 7;
+                TreeNode indirectos = new TreeNode("Otros gastos indirectos");
+                indirectos.Tag = 8;
+
+                nodo_principal.Nodes.Add(financieros);
+                nodo_principal.Nodes.Add(indirectos);
 
 
                 nodo_principal.ExpandAll();

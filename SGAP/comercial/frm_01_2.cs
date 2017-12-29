@@ -193,7 +193,7 @@ namespace SGAP.comercial
         {
             // si el indice esta furea del intervalo veremos los resumenes general
 
-            if (index <= 6)
+            if (index <= 8)
             {
                 if (Panels.Count < 1) return;
 
@@ -815,6 +815,7 @@ namespace SGAP.comercial
         {
             int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
             btn_colapse.Location = new Point(coll, 0);
+            btn_colapse.BackgroundImage = Properties.Resources.left_arrow;
         }
     }
 }

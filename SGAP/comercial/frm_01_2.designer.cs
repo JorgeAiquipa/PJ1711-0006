@@ -41,6 +41,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
+            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -57,6 +59,12 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.btn_colapse = new System.Windows.Forms.Button();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -68,6 +76,13 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,15 +94,6 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -108,6 +114,10 @@
             this.panel7.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.panel8.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -152,6 +162,8 @@
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Controls.Add(this.tabPage8);
+            this.tabControl1.Controls.Add(this.tabPage9);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -241,7 +253,8 @@
             // 
             // dgv_entrada_datos_mq_eq
             // 
-            this.dgv_entrada_datos_mq_eq.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dgv_entrada_datos_mq_eq.BackgroundColor = System.Drawing.Color.White;
+            this.dgv_entrada_datos_mq_eq.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dgv_entrada_datos_mq_eq.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_entrada_datos_mq_eq.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nombre,
@@ -254,7 +267,7 @@
             this.costounitario,
             this.costototal});
             this.dgv_entrada_datos_mq_eq.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_entrada_datos_mq_eq.GridColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dgv_entrada_datos_mq_eq.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dgv_entrada_datos_mq_eq.Location = new System.Drawing.Point(0, 22);
             this.dgv_entrada_datos_mq_eq.Name = "dgv_entrada_datos_mq_eq";
             this.dgv_entrada_datos_mq_eq.RowHeadersVisible = false;
@@ -265,6 +278,24 @@
             this.dgv_entrada_datos_mq_eq.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellLeave);
             this.dgv_entrada_datos_mq_eq.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mq_eq_CellValidating);
             this.dgv_entrada_datos_mq_eq.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dvg_entrada_datos_mq_eq_EditingControlShowing_1);
+            // 
+            // maquinaria
+            // 
+            this.maquinaria.HeaderText = "Maquinaria";
+            this.maquinaria.Name = "maquinaria";
+            this.maquinaria.ReadOnly = true;
+            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.maquinaria.Width = 65;
+            // 
+            // equipos
+            // 
+            this.equipos.HeaderText = "Equipos";
+            this.equipos.Name = "equipos";
+            this.equipos.ReadOnly = true;
+            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.equipos.Width = 55;
             // 
             // label11
             // 
@@ -433,10 +464,72 @@
             this.label2.Text = "epp";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.panel9);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(979, 476);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "tabPage8";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.label1);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(3, 3);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(973, 470);
+            this.panel9.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.LightGreen;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(973, 22);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Costos financieros";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.panel10);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Size = new System.Drawing.Size(979, 476);
+            this.tabPage9.TabIndex = 0;
+            this.tabPage9.Text = "tabPage9";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.label5);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(979, 476);
+            this.panel10.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.LightGreen;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(979, 22);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Otros gastos indirectos";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btn_colapse
             // 
             this.btn_colapse.BackColor = System.Drawing.Color.White;
-            this.btn_colapse.BackgroundImage = global::SGAP.Properties.Resources.left_arrow;
             this.btn_colapse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_colapse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_colapse.Location = new System.Drawing.Point(241, 0);
@@ -536,6 +629,55 @@
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 82;
             // 
+            // nombre
+            // 
+            this.nombre.Frozen = true;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 200;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.ReadOnly = true;
+            this.Codigo.Width = 82;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            this.marca.Width = 82;
+            // 
+            // und
+            // 
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            this.und.ReadOnly = true;
+            this.und.Width = 50;
+            // 
+            // cantotal
+            // 
+            this.cantotal.HeaderText = "Cant. total";
+            this.cantotal.Name = "cantotal";
+            this.cantotal.ReadOnly = true;
+            this.cantotal.Width = 82;
+            // 
+            // costounitario
+            // 
+            this.costounitario.HeaderText = "Costo unitario";
+            this.costounitario.Name = "costounitario";
+            this.costounitario.ReadOnly = true;
+            this.costounitario.Width = 82;
+            // 
+            // costototal
+            // 
+            this.costototal.HeaderText = "Costo total";
+            this.costototal.Name = "costototal";
+            this.costototal.ReadOnly = true;
+            this.costototal.Width = 82;
+            // 
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.HeaderText = "Costo Unitario";
@@ -612,73 +754,6 @@
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 82;
             // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.Width = 200;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "Codigo";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.ReadOnly = true;
-            this.Codigo.Width = 82;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            this.marca.Width = 82;
-            // 
-            // und
-            // 
-            this.und.HeaderText = "Und.";
-            this.und.Name = "und";
-            this.und.ReadOnly = true;
-            this.und.Width = 50;
-            // 
-            // maquinaria
-            // 
-            this.maquinaria.HeaderText = "Maquinaria";
-            this.maquinaria.Name = "maquinaria";
-            this.maquinaria.ReadOnly = true;
-            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.maquinaria.Width = 65;
-            // 
-            // equipos
-            // 
-            this.equipos.HeaderText = "Equipos";
-            this.equipos.Name = "equipos";
-            this.equipos.ReadOnly = true;
-            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.equipos.Width = 55;
-            // 
-            // cantotal
-            // 
-            this.cantotal.HeaderText = "Cant. total";
-            this.cantotal.Name = "cantotal";
-            this.cantotal.ReadOnly = true;
-            this.cantotal.Width = 82;
-            // 
-            // costounitario
-            // 
-            this.costounitario.HeaderText = "Costo unitario";
-            this.costounitario.Name = "costounitario";
-            this.costounitario.ReadOnly = true;
-            this.costounitario.Width = 82;
-            // 
-            // costototal
-            // 
-            this.costototal.HeaderText = "Costo total";
-            this.costototal.Name = "costototal";
-            this.costototal.ReadOnly = true;
-            this.costototal.Width = 82;
-            // 
             // frm_01_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,6 +786,10 @@
             this.panel7.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -780,5 +859,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cantotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn costounitario;
         private System.Windows.Forms.DataGridViewTextBoxColumn costototal;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label5;
     }
     }

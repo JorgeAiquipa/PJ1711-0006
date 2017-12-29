@@ -167,7 +167,13 @@ namespace SGAP.comercial
         private void cantidad()
         {
             string cant = Convert.ToString(listView_Cotizaciones.Items.Count);
-            toolStripStatusLabel1.Text = cant + " cotizaciones";
+            if(Convert.ToInt32(cant) == 1)
+            {
+                toolStripStatusLabel1.Text = cant + " cotización encontrada";
+            }else
+            {
+                toolStripStatusLabel1.Text = cant + " cotizaciones encontradas";
+            }
         }
 
 
@@ -177,14 +183,14 @@ namespace SGAP.comercial
 
         private void pnl_cd_close_Click(object sender, EventArgs e)
         {
-            if(splitContainer1.SplitterDistance > 25)
-            {
-                splitContainer1.SplitterDistance = 24;
-            }
-            else
-            {
-                splitContainer1.SplitterDistance = 257;
-            }
+            //if(splitContainer1.SplitterDistance > 25)
+            //{
+            //    splitContainer1.SplitterDistance = 24;
+            //}
+            //else
+            //{
+            //    splitContainer1.SplitterDistance = 257;
+            //}
         }
 
         private void txt_cliente_or_ruc_KeyDown(object sender, KeyEventArgs e)
