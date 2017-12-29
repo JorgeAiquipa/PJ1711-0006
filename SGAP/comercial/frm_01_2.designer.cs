@@ -479,7 +479,7 @@
             this.btn_colapse.TabIndex = 9;
             this.btn_colapse.Text = "<--";
             this.btn_colapse.UseVisualStyleBackColor = false;
-            this.btn_colapse.Click += new System.EventHandler(this.button1_Click);
+            //this.btn_colapse.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridViewCheckBoxColumn1
             // 
