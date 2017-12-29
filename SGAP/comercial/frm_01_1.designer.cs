@@ -44,10 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.rb_tipo1 = new System.Windows.Forms.RadioButton();
             this.rb_tipo2 = new System.Windows.Forms.RadioButton();
-            this._seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.header_btn_delete_row_dgv_Informacion_locales = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.img = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +59,8 @@
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.img = new System.Windows.Forms.DataGridViewImageColumn();
             this._TM27_NOMBRE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._TM27_DIRECCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._TM27_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,6 +75,7 @@
             this._TM27_FCREA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._TM27_UACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._TM27_FACTUALIZA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.header_btn_delete_row_dgv_Informacion_locales = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).BeginInit();
             this.SuspendLayout();
@@ -87,9 +87,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label1.Location = new System.Drawing.Point(15, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 20);
+            this.label1.Size = new System.Drawing.Size(150, 20);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Información General";
+            this.label1.Text = "Información general";
             // 
             // txt_nombre_cliente
             // 
@@ -109,9 +109,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label2.Location = new System.Drawing.Point(21, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 13);
+            this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Nombre de Cliente";
+            this.label2.Text = "Nombre de cliente";
             // 
             // label3
             // 
@@ -119,9 +119,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label3.Location = new System.Drawing.Point(21, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "RUC Cliente";
+            this.label3.Text = "RUC cliente";
             // 
             // txt_ruc_cliente
             // 
@@ -148,9 +148,9 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label7.Location = new System.Drawing.Point(21, 174);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.Size = new System.Drawing.Size(99, 13);
             this.label7.TabIndex = 13;
-            this.label7.Text = "Periodo del Servicio";
+            this.label7.Text = "Periodo del servicio";
             // 
             // label8
             // 
@@ -279,25 +279,6 @@
             this.rb_tipo2.UseVisualStyleBackColor = true;
             this.rb_tipo2.CheckedChanged += new System.EventHandler(this.rb_tipo2_CheckedChanged);
             // 
-            // _seleccionado
-            // 
-            this._seleccionado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this._seleccionado.DataPropertyName = "_seleccionado";
-            this._seleccionado.FillWeight = 27.31259F;
-            this._seleccionado.HeaderText = "";
-            this._seleccionado.MinimumWidth = 25;
-            this._seleccionado.Name = "_seleccionado";
-            this._seleccionado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this._seleccionado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this._seleccionado.Width = 50;
-            // 
-            // header_btn_delete_row_dgv_Informacion_locales
-            // 
-            this.header_btn_delete_row_dgv_Informacion_locales.FillWeight = 65.76151F;
-            this.header_btn_delete_row_dgv_Informacion_locales.HeaderText = ".....";
-            this.header_btn_delete_row_dgv_Informacion_locales.Name = "header_btn_delete_row_dgv_Informacion_locales";
-            this.header_btn_delete_row_dgv_Informacion_locales.Visible = false;
-            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -308,17 +289,6 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 62;
-            // 
-            // img
-            // 
-            this.img.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.img.FillWeight = 14.0317F;
-            this.img.HeaderText = "";
-            this.img.Image = global::SGAP.Properties.Resources.business_office2;
-            this.img.MinimumWidth = 15;
-            this.img.Name = "img";
-            this.img.ReadOnly = true;
-            this.img.Width = 45;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -423,12 +393,35 @@
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.Visible = false;
             // 
+            // _seleccionado
+            // 
+            this._seleccionado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this._seleccionado.DataPropertyName = "_seleccionado";
+            this._seleccionado.FillWeight = 27.31259F;
+            this._seleccionado.HeaderText = "";
+            this._seleccionado.MinimumWidth = 25;
+            this._seleccionado.Name = "_seleccionado";
+            this._seleccionado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this._seleccionado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this._seleccionado.Width = 50;
+            // 
+            // img
+            // 
+            this.img.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.img.FillWeight = 14.0317F;
+            this.img.HeaderText = "";
+            this.img.Image = global::SGAP.Properties.Resources.business_office2;
+            this.img.MinimumWidth = 15;
+            this.img.Name = "img";
+            this.img.ReadOnly = true;
+            this.img.Width = 45;
+            // 
             // _TM27_NOMBRE
             // 
             this._TM27_NOMBRE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this._TM27_NOMBRE.DataPropertyName = "_TM27_NOMBRE";
             this._TM27_NOMBRE.FillWeight = 112.2111F;
-            this._TM27_NOMBRE.HeaderText = "Nombre Local";
+            this._TM27_NOMBRE.HeaderText = "Nombre local";
             this._TM27_NOMBRE.MinimumWidth = 100;
             this._TM27_NOMBRE.Name = "_TM27_NOMBRE";
             this._TM27_NOMBRE.ReadOnly = true;
@@ -524,6 +517,13 @@
             this._TM27_FACTUALIZA.HeaderText = "_TM27_FACTUALIZA";
             this._TM27_FACTUALIZA.Name = "_TM27_FACTUALIZA";
             this._TM27_FACTUALIZA.Visible = false;
+            // 
+            // header_btn_delete_row_dgv_Informacion_locales
+            // 
+            this.header_btn_delete_row_dgv_Informacion_locales.FillWeight = 65.76151F;
+            this.header_btn_delete_row_dgv_Informacion_locales.HeaderText = ".....";
+            this.header_btn_delete_row_dgv_Informacion_locales.Name = "header_btn_delete_row_dgv_Informacion_locales";
+            this.header_btn_delete_row_dgv_Informacion_locales.Visible = false;
             // 
             // frm_01_1
             // 

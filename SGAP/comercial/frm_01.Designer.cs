@@ -193,6 +193,7 @@
             this.txt_cliente_or_ruc.Size = new System.Drawing.Size(219, 20);
             this.txt_cliente_or_ruc.TabIndex = 4;
             this.txt_cliente_or_ruc.TextChanged += new System.EventHandler(this.txt_cliente_or_ruc_TextChanged);
+            this.txt_cliente_or_ruc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_cliente_or_ruc_KeyDown);
             // 
             // chkb_estado_pendiente
             // 

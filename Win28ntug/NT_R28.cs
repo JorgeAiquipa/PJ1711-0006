@@ -62,20 +62,20 @@ namespace Win28ntug
                         Id_servicio_Padre = row_u._TR28_PADRE;
                         Periodo_Servicio = row_u._TR28_PERIODO;
 
-                        TreeNode mano_obra = new TreeNode("Mano de Obra");
+                        TreeNode mano_obra = new TreeNode("Mano de obra");
                         mano_obra.Name = "Mano de Obra";
                         mano_obra.Tag = 0;
-                        TreeNode maquinaria = new TreeNode("Maquinaria y Equipo");
+                        TreeNode maquinaria = new TreeNode("Maquinaria y equipo");
                         maquinaria.Tag = 1;
-                        TreeNode materiales = new TreeNode("Materiales e Insumos");
+                        TreeNode materiales = new TreeNode("Materiales e insumos");
                         materiales.Tag = 2;
-                        TreeNode implementos = new TreeNode("Implementos de Limpieza");
+                        TreeNode implementos = new TreeNode("Implementos de limpieza");
                         implementos.Tag = 3;
                         TreeNode suministros = new TreeNode("Suministros");
                         suministros.Tag = 4;
                         TreeNode indumentaria = new TreeNode("Indumentaria");
                         indumentaria.Tag = 5;
-                        TreeNode Epp = new TreeNode("Indumentaria");
+                        TreeNode Epp = new TreeNode("Epp");
                         Epp.Tag = 6;
 
 
@@ -97,6 +97,10 @@ namespace Win28ntug
                     nodo_principal.Nodes.Add(servicios);
 
                 }
+
+
+                //agregar nuevos nodos 7 y 8
+
 
                 nodo_principal.ExpandAll();
 

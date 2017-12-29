@@ -150,7 +150,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(614, 22);
             this.label10.TabIndex = 6;
-            this.label10.Text = "Entrada de Datos";
+            this.label10.Text = "Entrada de datos";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridViewTextBoxColumn1

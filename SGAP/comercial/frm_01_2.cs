@@ -160,7 +160,7 @@ namespace SGAP.comercial
 
             Add_service.Name = "Add_service";
             Add_service.Size = new System.Drawing.Size(132, 22);
-            Add_service.Text = "Agregar Servicio...";
+            Add_service.Text = "Agregar servicio...";
 
             //diego
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -636,19 +636,19 @@ namespace SGAP.comercial
             //
             DataGridViewColumn MANO_OBRA_COL_SUELDO_BASICO = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_BASICO.DataPropertyName = "MANO_OBRA_COL_SUELDO_BASICO";
-            MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "SueldoBásico";
+            MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "Sueldo básico";
             MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
             MANO_OBRA_COL_SUELDO_BASICO.Width = 90;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL_PERSONAL.DataPropertyName = "MANO_OBRA_COL_TOTAL_PERSONAL";
-            MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.Personal";
+            MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot. personal";
             MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
             MANO_OBRA_COL_TOTAL_PERSONAL.Width = 120;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
-            MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo Mensual";
+            MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
             MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
             MANO_OBRA_COL_SUELDO_MENSUAL.Width = 120;
 
@@ -790,7 +790,7 @@ namespace SGAP.comercial
             {
                 splitContainer1.Panel1Collapsed = true;
                 btn_colapse.Text = "";
-                btn_colapse.BackgroundImage = Image.FromFile(@"E:\Proyectos\En_Desarrollo\SGAP\Resources\rigth_arrow.png");
+                btn_colapse.BackgroundImage = Properties.Resources.rigth_arrow;
                 
                 btn_colapse.Location = new Point(0, 0);
 
@@ -799,7 +799,7 @@ namespace SGAP.comercial
             {              
                 splitContainer1.Panel1Collapsed = false;
                 btn_colapse.Text = "";
-                btn_colapse.BackgroundImage = Image.FromFile(@"E:\Proyectos\En_Desarrollo\SGAP\Resources\left_arrow.png");
+                btn_colapse.BackgroundImage = Properties.Resources.left_arrow;
                 int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
                 btn_colapse.Location = new Point(coll, 0);
             }
