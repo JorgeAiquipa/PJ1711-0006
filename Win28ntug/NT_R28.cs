@@ -14,7 +14,6 @@ namespace Win28ntug
         ET_entidad _entidad = new ET_entidad();
         ET_R28 _et_r28 = new ET_R28();
         DT_R28 _dt_r28 = new DT_R28();
-            
 
         //Registramos el servicio seleccionado para una cotizacion
         public ET_entidad set_002(ET_entidad objEntity)
@@ -91,6 +90,8 @@ namespace Win28ntug
                         servicios.Text = row_u._TR28_TM42_DESCRIP;
                         servicios.Name = Convert.ToString(id_tipo_Servicio);
                         servicios.Tag = 2000;
+
+                      
                     }
 
                     nodo_principal.Nodes.Add(servicios);

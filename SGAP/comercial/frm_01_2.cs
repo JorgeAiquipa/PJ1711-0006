@@ -54,9 +54,8 @@ namespace SGAP.comercial
         {         
             
             InitializeComponent();
-            Agregar_menu_contextual();
-            
-            btn_colapse.BringToFront();
+
+            Agregar_menu_contextual();         
 
             //style
 
@@ -278,7 +277,7 @@ namespace SGAP.comercial
             else
                 tm39_id = _entidad._entity_r27._TR27_TM39_ID;
 
-            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id);
+            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id, nodos);
             form_2_2.ShowDialog();
 
             if (form_2_2.DialogResult == DialogResult.OK)
@@ -891,6 +890,11 @@ namespace SGAP.comercial
             catch (Exception ex) { }
         }
 
+        private void frm_01_2_Load(object sender, EventArgs e)
+        {
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            btn_colapse.Location = new Point(coll, 0);
+        }
 
     }
 }

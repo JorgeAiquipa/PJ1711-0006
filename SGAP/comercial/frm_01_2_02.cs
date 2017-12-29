@@ -33,16 +33,18 @@ namespace SGAP.comercial
         public string Nombre_Servicio_seleccionado;
         public int Periodo_servicio;
         string nombre_tipo_servicio;
-        int TIPO;
+
+        string nodo_tipo;
 
         int Id_Servicio_hijo;
-        public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id)
+        public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id, string nodos)
         {
             InitializeComponent();
             Id_Servicio_hijo = __id_Servicio_hijo;
             Id_Servicio_Padre = __id_Servicio_padre;
             Periodo_servicio = _periodo_servicio;
             tm39_id = _tm39_id;
+            nodo_tipo = nodos;
 
             Metodo_obtener_tipo_servicio();
 
@@ -51,19 +53,26 @@ namespace SGAP.comercial
 
         void Metodo_obtener_tipo_servicio()
         {
+
+
             var resultado_ = _nt_m42.get_001();
             if (resultado_ != null)
             {
                 _lista_m42 = resultado_._lista_et_m42;
 
                 _lista_m42.ForEach(x=> {
-                    if (x._TM42_ID != 1 )
+                    if (Convert.ToInt32(nodo_tipo) > 1)
                     {
                         cb_tipo.Items.Add(x._TM42_DESCRIP);
                     }
-                    
+                    else
+                    {
+                        if (x._TM42_ID != Convert.ToInt32(nodo_tipo))
+                        {
+                            cb_tipo.Items.Add(x._TM42_DESCRIP);
+                        }
+                    }           
                 });
-
                 cb_tipo.SelectedIndex = 0;
             }
         }
@@ -97,37 +106,46 @@ namespace SGAP.comercial
 
         }
 
-        //void Metodo_cargar_frecuencias()
-        //{
-        //    for(int a = 0; a<globales.Fecuencia_.Count; a++)
-        //    {
-        //        cbx_frecuencia.Items.Add(globales.Fecuencia_[a]);
-        //    }
-
-        //    cbx_frecuencia.SelectedIndex = 0;
-        //}
-
         private void btn_continuar_Click(object sender, EventArgs e)
         {
             Nombre_Servicio_seleccionado = cbx_servicio.Text;
             string frecuencia = num_frecuencia.Text;
 
-            ET_R19 servicio = _lista_R19.FirstOrDefault(gg => gg._TR19_TM41_DESCRIP == Nombre_Servicio_seleccionado);            
+            if (cb_tipo.Text != "")
+            {
+                if (Nombre_Servicio_seleccionado!= "")
+                {
 
-            //agregar servicio nuevo
-            _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
-            _entidad._entity_r28._TR28_TM39_ID = tm39_id;
-            _entidad._entity_r28._TR28_TM41_ID = servicio._TR19_TM41_ID;
-            _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
-            _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
+                        ET_R19 servicio = _lista_R19.FirstOrDefault(gg => gg._TR19_TM41_DESCRIP == Nombre_Servicio_seleccionado);
 
-            _entidad._entity_r28._TR28_FRECUENCIA = Convert.ToInt32(frecuencia);
-            //tipo
-            //frecuencia
+                        //agregar servicio nuevo
+                        _entidad._entity_r28._TR28_PADRE = Id_Servicio_Padre;
+                        _entidad._entity_r28._TR28_TM39_ID = tm39_id;
+                        _entidad._entity_r28._TR28_TM41_ID = servicio._TR19_TM41_ID;
+                        _entidad._entity_r28._TR28_DESCRIP = Nombre_Servicio_seleccionado;
+                        _entidad._entity_r28._TR28_PERIODO = Periodo_servicio;
 
-            _nt_r28.set_002(_entidad);
+                        _entidad._entity_r28._TR28_FRECUENCIA = Convert.ToInt32(frecuencia);
+                        //tipo
+                        //frecuencia
 
-            this.DialogResult = DialogResult.OK;
+                        _nt_r28.set_002(_entidad);
+
+                        this.DialogResult = DialogResult.OK;
+
+                    }
+                    else
+                    {
+                        DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (decision_msg == DialogResult.OK) { }
+                    }
+                }
+                else
+                {
+                    DialogResult decision_msg = MessageBox.Show("Seleccione un tipo de servicio.", "Alerta!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    if (decision_msg == DialogResult.OK) { }
+                }
+
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
