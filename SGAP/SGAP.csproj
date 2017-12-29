@@ -153,6 +153,15 @@
     <None Include="Resources\rigth_arrow.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Office.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\local.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\factory.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Delete-16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

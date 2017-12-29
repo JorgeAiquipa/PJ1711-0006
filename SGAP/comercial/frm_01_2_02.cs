@@ -136,13 +136,13 @@ namespace SGAP.comercial
                     }
                     else
                     {
-                        DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         if (decision_msg == DialogResult.OK) { }
                     }
                 }
                 else
                 {
-                    DialogResult decision_msg = MessageBox.Show("Seleccione un tipo de servicio.", "Alerta!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    DialogResult decision_msg = MessageBox.Show("Seleccione un tipo de servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (decision_msg == DialogResult.OK) { }
                 }
 

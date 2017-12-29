@@ -47,14 +47,14 @@ namespace SGAP.comercial
             filter_cotizaciones();
 
             //Columnas
-            listView_Cotizaciones.Columns.Add("Codigo Cotización",210);
+            listView_Cotizaciones.Columns.Add("Codigo cotización",210);
             listView_Cotizaciones.Columns.Add("Id cliente",0);
 
             listView_Cotizaciones.Columns.Add("Cliente",210);
             listView_Cotizaciones.Columns.Add("Ruc",160);
-            listView_Cotizaciones.Columns.Add("Cantidad Locales",100);
-            listView_Cotizaciones.Columns.Add("Creado Por",200);
-            listView_Cotizaciones.Columns.Add("Fecha Creación",200);
+            listView_Cotizaciones.Columns.Add("Cantidad locales",100);
+            listView_Cotizaciones.Columns.Add("Creado por",200);
+            listView_Cotizaciones.Columns.Add("Fecha creación",200);
             //listView_Cotizaciones.Columns.Add("Fecha actualización",200);
             //propiedades
             listView_Cotizaciones.View = View.Details;
@@ -167,7 +167,13 @@ namespace SGAP.comercial
         private void cantidad()
         {
             string cant = Convert.ToString(listView_Cotizaciones.Items.Count);
-            toolStripStatusLabel1.Text = cant + " cotizaciones";
+            if(Convert.ToInt32(cant) == 1)
+            {
+                toolStripStatusLabel1.Text = cant + " cotización encontrada";
+            }else
+            {
+                toolStripStatusLabel1.Text = cant + " cotizaciones encontradas";
+            }
         }
 
 
@@ -177,13 +183,21 @@ namespace SGAP.comercial
 
         private void pnl_cd_close_Click(object sender, EventArgs e)
         {
-            if(splitContainer1.SplitterDistance > 25)
+            //if(splitContainer1.SplitterDistance > 25)
+            //{
+            //    splitContainer1.SplitterDistance = 24;
+            //}
+            //else
+            //{
+            //    splitContainer1.SplitterDistance = 257;
+            //}
+        }
+
+        private void txt_cliente_or_ruc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                splitContainer1.SplitterDistance = 24;
-            }
-            else
-            {
-                splitContainer1.SplitterDistance = 257;
+                filter_cotizaciones();
             }
         }
     }

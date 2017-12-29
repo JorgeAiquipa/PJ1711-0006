@@ -162,7 +162,7 @@ namespace SGAP.comercial
 
             Add_service.Name = "Add_service";
             Add_service.Size = new System.Drawing.Size(132, 22);
-            Add_service.Text = "Agregar Servicio...";
+            Add_service.Text = "Agregar servicio...";
 
             //diego
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -195,7 +195,7 @@ namespace SGAP.comercial
         {
             // si el indice esta furea del intervalo veremos los resumenes general
 
-            if (index <= 6)
+            if (index <= 8)
             {
                 if (Panels.Count < 1) return;
 
@@ -902,6 +902,7 @@ namespace SGAP.comercial
         {
             int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
             btn_colapse.Location = new Point(coll, 0);
+            btn_colapse.BackgroundImage = Properties.Resources.left_arrow;
         }
 
         private void dgv_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)

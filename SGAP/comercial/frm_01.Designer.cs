@@ -33,6 +33,7 @@
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnl_cd_close = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -142,6 +142,15 @@
             this.label4.TabIndex = 17;
             this.label4.Text = "FILTROS";
             // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.cd_icon_filter;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Location = new System.Drawing.Point(30, 17);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(16, 16);
+            this.panel1.TabIndex = 14;
+            // 
             // pnl_cd_close
             // 
             this.pnl_cd_close.Dock = System.Windows.Forms.DockStyle.Right;
@@ -193,6 +202,7 @@
             this.txt_cliente_or_ruc.Size = new System.Drawing.Size(219, 20);
             this.txt_cliente_or_ruc.TabIndex = 4;
             this.txt_cliente_or_ruc.TextChanged += new System.EventHandler(this.txt_cliente_or_ruc_TextChanged);
+            this.txt_cliente_or_ruc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_cliente_or_ruc_KeyDown);
             // 
             // chkb_estado_pendiente
             // 
@@ -318,7 +328,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.pnl_left);
-            this.splitContainer1.Panel1MinSize = 20;
+            this.splitContainer1.Panel1MinSize = 0;
             // 
             // splitContainer1.Panel2
             // 
@@ -347,15 +357,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(87, 17);
             this.toolStripStatusLabel1.Text = "20 cotizaciones";
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.cd_icon_filter;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Location = new System.Drawing.Point(30, 17);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(16, 16);
-            this.panel1.TabIndex = 14;
             // 
             // dataGridViewTextBoxColumn1
             // 

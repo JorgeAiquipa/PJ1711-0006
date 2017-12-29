@@ -52,10 +52,9 @@ namespace Win28ntug
         {
             _et_m19 = new ET_M19();
 
-
             try
             {
-                var where_lista = _lista_m19.Where(p => p._TM19_DESCRIP2 == cliente).ToList();
+                var where_lista = _lista_m19.Where(p => String.Equals(p._TM19_DESCRIP2, cliente.Trim(), StringComparison.CurrentCultureIgnoreCase)).ToList();// p._TM19_DESCRIP2 == cliente).ToList();
                 foreach (ET_M19 unique_row in where_lista)
                 {
                     _et_m19._TM19_ID = unique_row._TM19_ID;
@@ -70,8 +69,8 @@ namespace Win28ntug
             if (string.IsNullOrEmpty(_et_m19._TM19_ID))
             {
                 _entidad._hubo_error = true;
-                _entidad._titulo_mensaje = "Alert!";
-                string msg = string.Format("Por favor seleccione un cliente especifico.\nEl cliente {0} no existe.", cliente);
+                _entidad._titulo_mensaje = "Alerta";
+                string msg = string.Format("El cliente ingresado no existe.");
                 _entidad._contenido_mensaje = msg;
                 Mensaje(_entidad);
             }

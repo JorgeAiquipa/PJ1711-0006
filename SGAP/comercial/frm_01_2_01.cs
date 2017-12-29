@@ -82,25 +82,25 @@ namespace SGAP.comercial
 
             _COL_HORA_ENTRADA = new UserControls.GridTimeControl();
             _COL_HORA_ENTRADA.Name = "_COL_HORA_ENTRADA";
-            _COL_HORA_ENTRADA.HeaderText = "Hora Entrada";
+            _COL_HORA_ENTRADA.HeaderText = "Hora entrada";
             _COL_HORA_ENTRADA.Width = 70;
             _COL_HORA_ENTRADA.MinimumWidth = 70;
             _COL_HORA_ENTRADA.FillWeight = 70;
 
             _COL_HORA_SALIDA = new UserControls.GridTimeControl();
             _COL_HORA_SALIDA.Name = "_COL_HORA_SALIDA";
-            _COL_HORA_SALIDA.HeaderText = "Hora Salida";
+            _COL_HORA_SALIDA.HeaderText = "Hora salida";
             _COL_HORA_SALIDA.Width = 65;
             _COL_HORA_SALIDA.MinimumWidth = 65;
             _COL_HORA_SALIDA.FillWeight = 65;
 
             _COL_DIAS_POR_SEMANA = new UserControls.NumericUpDownColumn();
-            _COL_DIAS_POR_SEMANA.HeaderText = "Dias por Sem.";
+            _COL_DIAS_POR_SEMANA.HeaderText = "Dias por sem.";
             _COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
 
             DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
             _COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
-            _COL_REMUNERACION.HeaderText = "Remuneración Básica";
+            _COL_REMUNERACION.HeaderText = "Remuneración básica";
             _COL_REMUNERACION.Name = "_COL_REMUNERACION";
             _COL_REMUNERACION.DefaultCellStyle.NullValue = "850.00";
 
@@ -168,7 +168,7 @@ namespace SGAP.comercial
 
             DataGridViewColumn _COL_CONCEPTO_REMUNERATIVO = new DataGridViewTextBoxColumn();
             _COL_CONCEPTO_REMUNERATIVO.DataPropertyName = "_TM40_DESCRIP";
-            _COL_CONCEPTO_REMUNERATIVO.HeaderText = "Concepto Remunerativo";
+            _COL_CONCEPTO_REMUNERATIVO.HeaderText = "Concepto remunerativo";
             _COL_CONCEPTO_REMUNERATIVO.Name = "_COL_CONCEPTO_REMUNERATIVO";
             _COL_CONCEPTO_REMUNERATIVO.DefaultCellStyle.SelectionBackColor = Color.White;
             _COL_CONCEPTO_REMUNERATIVO.ReadOnly = true;
