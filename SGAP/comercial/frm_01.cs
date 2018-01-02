@@ -200,6 +200,13 @@ namespace SGAP.comercial
         }
         #endregion
 
+        private void listView_Cotizaciones_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                listView_Cotizaciones_MouseDoubleClick(null, null);
+            }
+        }
     }
 
 }

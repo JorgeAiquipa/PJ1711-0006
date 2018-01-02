@@ -20,6 +20,10 @@ namespace Win28ntug
             return _dt_r28.set_002(objEntity._entity_r28); // aqui se registran los hijos de de un servicio padre asociado a una cotizacion
         }
 
+        //public ET_entidad set_003(ET_entidad objEntity)
+        //{
+        //    return _dt_r28.set_003(objEntity._entity_r28); // aqui se cambia el flg eliminado
+        //}
         #endregion
 
         #region Mensajes
@@ -61,6 +65,11 @@ namespace Win28ntug
             Cargar_explorador_De_Servicios_?.Invoke(this, e);
         }
         public event EventHandler<ET_entidad> Cargar_explorador_De_Servicios_;
+        protected virtual void Eliminar_Servicio_Explorador(ET_entidad e)
+        {
+            Eliminar_Servicio_Explorador_?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Eliminar_Servicio_Explorador_;
         #endregion
 
         #region BackgroundWorker
@@ -85,7 +94,12 @@ namespace Win28ntug
             switch (Tarea_)
             {
                 case "LISTAR":
+                    Resultado = new ET_entidad();
                     Resultado = _dt_r28.get_001(_et_r28._TR28_TM39_ID, Globales._TM2_ID);
+                    break;
+                case "ELIMINAR":
+                    Resultado = new ET_entidad();
+                    Resultado = _dt_r28.set_003(_et_r28._TR28_ID, _et_r28._TR28_TM39_ID, Globales._TM2_ID);
                     break;
             }
 
@@ -116,6 +130,9 @@ namespace Win28ntug
                     {
                         case "LISTAR":
                             Cargar_explorador_De_Servicios(Resultado);
+                            break;
+                        case "ELIMINAR"://diego
+                            Eliminar_Servicio_Explorador(Resultado);
                             break;
                     }
 

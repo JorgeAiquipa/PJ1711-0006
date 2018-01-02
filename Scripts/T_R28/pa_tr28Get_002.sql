@@ -69,4 +69,4 @@ GO
 
 select * from T_R28
 
-exec pa_tr28Get_002 'COT00006','pis'
+exec pa_tr28Get_002 'COT00093','pis'

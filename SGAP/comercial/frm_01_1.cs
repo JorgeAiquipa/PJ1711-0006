@@ -54,6 +54,8 @@ namespace SGAP.comercial
             InitializeComponent();
             BackColor = Color.FromArgb(221, 221, 221);
 
+            autoCompleteTextBox_t_m19.MaxLength = 250;
+
             _nt_m19.Mensaje_Alerta += Mensaje_alerta;
             _nt_m19.Cargar_busqueda_ += Cargar_Busqueda_T_M19;
             _nt_m19.Porcentaje_De_Craga += Porcentaje_De_Craga;
@@ -272,7 +274,7 @@ namespace SGAP.comercial
         private void Obtener_Informacion_t_m19()
         {
             _et_m19 = new ET_M19();
-            _et_m19 = _lista_m19.FirstOrDefault(item=> item._TM19_DESCRIP2.ToUpper() == autoCompleteTextBox_t_m19.Text.ToUpper());
+            _et_m19 = _lista_m19.FirstOrDefault(item=> item._TM19_DESCRIP2.ToUpper() == autoCompleteTextBox_t_m19.Text.ToUpper().Trim());
             if (_et_m19 != null)
             {
                 _id_tm19 = _et_m19._TM19_ID;

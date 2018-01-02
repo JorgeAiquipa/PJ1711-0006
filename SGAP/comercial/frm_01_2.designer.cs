@@ -167,6 +167,7 @@
             this.panPages.Name = "panPages";
             this.panPages.Size = new System.Drawing.Size(991, 510);
             this.panPages.TabIndex = 2;
+            this.panPages.TabStop = true;
             // 
             // tabControl1
             // 
@@ -634,6 +635,7 @@
             this.splitContainer1.Size = new System.Drawing.Size(1237, 510);
             this.splitContainer1.SplitterDistance = 242;
             this.splitContainer1.TabIndex = 3;
+            this.splitContainer1.TabStop = false;
             // 
             // panel12
             // 

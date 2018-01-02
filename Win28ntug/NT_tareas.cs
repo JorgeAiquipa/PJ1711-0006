@@ -22,5 +22,10 @@ namespace Win28ntug
             return "BUSCAR";
         }
 
+        public string ELIMINAR()
+        {
+            return "ELIMINAR";
+        }
+
     }
 }

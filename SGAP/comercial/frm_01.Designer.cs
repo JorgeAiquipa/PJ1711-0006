@@ -341,6 +341,7 @@
             this.listView_Cotizaciones.Size = new System.Drawing.Size(684, 560);
             this.listView_Cotizaciones.TabIndex = 0;
             this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
+            this.listView_Cotizaciones.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_Cotizaciones_KeyDown);
             this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
             // 
             // splitContainer1
@@ -367,6 +368,7 @@
             this.splitContainer1.Size = new System.Drawing.Size(944, 640);
             this.splitContainer1.SplitterDistance = 256;
             this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.TabStop = false;
             // 
             // panel_first_detail
             // 
@@ -396,6 +398,7 @@
             // txt_cliente
             // 
             this.txt_cliente.Location = new System.Drawing.Point(24, 97);
+            this.txt_cliente.MaxLength = 500;
             this.txt_cliente.Name = "txt_cliente";
             this.txt_cliente.PlaceHolderColor = System.Drawing.Color.DarkGray;
             this.txt_cliente.PlaceHolderIcon = global::SGAP.Properties.Resources.cliente;

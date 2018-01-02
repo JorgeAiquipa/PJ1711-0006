@@ -55,8 +55,6 @@ namespace SGAP.comercial
 
         void Metodo_obtener_tipo_servicio()
         {
-
-
             var resultado_ = _nt_m42.get_001();
             if (resultado_ != null)
             {
@@ -138,13 +136,13 @@ namespace SGAP.comercial
                     }
                     else
                     {
-                        DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (decision_msg == DialogResult.OK) { }
                     }
                 }
                 else
                 {
-                    DialogResult decision_msg = MessageBox.Show("Seleccione un tipo de servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DialogResult decision_msg = MessageBox.Show("Seleccione un tipo de servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (decision_msg == DialogResult.OK) { }
                 }
 

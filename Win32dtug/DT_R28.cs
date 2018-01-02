@@ -220,6 +220,54 @@ namespace Win32dtug
             }
         }
 
-        ////
+        //Eliminamos un servicio//
+        public ET_entidad set_003(int _TR28_ID, string _TR28_TM39_ID, string _TM2_ID)
+        {
+            _Entidad = new ET_entidad();
+            _Entidad._entity_r28 = new ET_R28();
+
+            string Msg_respuesta;
+
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            {
+                cn.Open();
+                SqlTransaction sqlTran = cn.BeginTransaction();
+                SqlCommand cmd = new SqlCommand("pa_tr28set_003", cn, sqlTran);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    
+                    cmd.Parameters.Add("@p_TR28_ID", SqlDbType.Int).Value = _TR28_ID;
+                    cmd.Parameters.Add("@p_TR28_TM39_ID", SqlDbType.VarChar, 20).Value = _TR28_TM39_ID;                   
+                    cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 50).Value = _TM2_ID;
+                    cmd.ExecuteNonQuery();
+                    sqlTran.Commit();
+
+                    _Entidad._hubo_error = false;
+                }
+                catch (SqlException exsql)
+                {
+                    Msg_respuesta = exsql.Message;
+                    try
+                    {
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                        Msg_respuesta = exRollback.Message;
+                    }
+
+                    _Entidad._hubo_error = true;
+                    _Entidad._contenido_mensaje = Msg_respuesta;
+
+                }
+                finally
+                {
+                    cn.Close();
+                }
+            }
+            return _Entidad;
+        }
+
     }
 }

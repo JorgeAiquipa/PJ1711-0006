@@ -33,6 +33,8 @@ namespace SGAP.comercial
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R29> _lista_et_r29 = new List<ET_R29>();
         List<ET_M40> _lista_et_m40 = new List<ET_M40>();
+        List<ET_R28> _lista_et_r28 = new List<ET_R28>();
+     
         public string nom = "";
         public string cod = "";
         public string marc = "";
@@ -43,12 +45,15 @@ namespace SGAP.comercial
         ImageList iconos_treeView = new ImageList();
 
         ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_DelService = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
 
         int Id_Servicio_Padre;
         public int Id_servicio_hijo;
         int Periodo_servicio;
         string nodos;
+        string Id_Cotizacion;
+        int Id_CotizacionServicio;
         #endregion
 
         #region Metodos
@@ -113,8 +118,8 @@ namespace SGAP.comercial
 
             _entidad = _entity;
 
-            // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.
             //Cargar_servicios();
+            // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.            
             Id_servicio_hijo = Id_Servicio_Padre;
 
             _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
@@ -153,8 +158,11 @@ namespace SGAP.comercial
 
             _helper.Set_Style_to_DatagridView(dgv_entrada_datos_mq_eq);
             _nt_r28.Cargar_explorador_De_Servicios_ += CargarExplorados_de_servicios;
+            _nt_r28.Eliminar_Servicio_Explorador_ += _nt_r28_Eliminar_Servicio_Explorador_;
             Obtener_Servicios_de_cotizacion();
         }
+
+
 
         public void Obtener_Servicios_de_cotizacion()
         {
@@ -183,7 +191,7 @@ namespace SGAP.comercial
             tree_view_servicios.ImageList = iconos_treeView;
             tree_view_servicios.ImageIndex = 0;
 
-            if (!e._hubo_error && e._lista_et_r28.Count > 0)
+            if (!e._hubo_error && _lista_et_r28 != null)
             {
                 string name_nodo = string.Format("{0} - {1}", _entidad._entity_m39._TM39_ID, _entidad._entity_m39._entity_et_m19._TM19_DESCRIP2);
                 Text = string.Format("Cotización: {0}", name_nodo);
@@ -194,20 +202,25 @@ namespace SGAP.comercial
 
                 var lista_resultadito = e._lista_et_r28
                     .GroupBy(u => u._TR28_TM42_ID)
+                    .OrderBy(o => o.Max(a => a._TR28_ID))
                     .Select(grp => grp.ToList())
                     .ToList();
 
-                foreach (List<ET_R28> list in lista_resultadito)
+                foreach (List<ET_R28> _lista_r28 in lista_resultadito)
                 {
                     int id_tipo_Servicio = 0;
                     string nombre_servicio = "";
 
-                    TreeNode servicios = new TreeNode();
+                    TreeNode servicios = new TreeNode();                    
 
-                    foreach (ET_R28 row_u in list)
+                    foreach (ET_R28 row_u in _lista_r28)
                     {
                         id_tipo_Servicio = row_u._TR28_TM42_ID;
                         nombre_servicio = row_u._TR28_TM42_DESCRIP;
+                        Id_Servicio_Padre = row_u._TR28_PADRE;
+
+                        Id_Cotizacion = row_u._TR28_TM39_ID;
+                        //Id_CotizacionServicio = row_u._TR28_ID;
 
                         TreeNode mano_obra = new TreeNode("Mano de obra");
                         mano_obra.Name = "Mano de Obra";
@@ -294,7 +307,12 @@ namespace SGAP.comercial
                 //}
             }
         }
+        private void _nt_r28_Eliminar_Servicio_Explorador_(object sender, ET_entidad e)
+        {
+            //throw new NotImplementedException();
+            Obtener_Servicios_de_cotizacion();
 
+        }
         private void panel_colapse_MouseHover(object sender, EventArgs e)
         {
             panel_colapse.BackColor = Color.White;
@@ -386,16 +404,37 @@ namespace SGAP.comercial
             Add_service.Size = new System.Drawing.Size(132, 22);
             Add_service.Text = "Agregar servicio...";
 
-            //diego
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         Add_service
                     });
 
             Add_service.Click += new System.EventHandler(this.Item_Add_Service_click);
-            //diego
 
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 Add_service
+            });
+
+            
+
+            //Eliminar Servicio
+            MenuStrip_DelService.Text = "Servicios";
+            MenuStrip_DelService.Name = "Menu_strip_for_TreeView";
+            MenuStrip_DelService.Size = new System.Drawing.Size(153, 48);
+
+            ToolStripMenuItem Del_service = new ToolStripMenuItem();
+
+            Del_service.Name = "Del_service";
+            Del_service.Size = new System.Drawing.Size(132, 22);
+            Del_service.Text = "Eliminar servicio";
+
+            MenuStrip_DelService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                        Del_service
+                    });
+
+            Del_service.Click += new System.EventHandler(this.Item_Del_Service_click);
+
+            MenuStrip_DelService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                Del_service
             });
         }
 
@@ -449,6 +488,8 @@ namespace SGAP.comercial
 
             TreeNode node = tree_view_servicios.GetNodeAt(p);
 
+
+
             if (e.Button == MouseButtons.Right)
             {
 
@@ -469,6 +510,11 @@ namespace SGAP.comercial
                             Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
                             Metodo_cargar_informacion_mano_de_obra();
                             MenuStrip_ViewProperties_.Show(tree_view_servicios, p);
+                            break;
+                        case "1000": // ver menu para mano de obra
+
+                            Id_CotizacionServicio = Convert.ToInt32(tree_view_servicios.SelectedNode.Name);
+                            MenuStrip_DelService.Show(tree_view_servicios, p);
                             break;
                     }
 
@@ -517,10 +563,34 @@ namespace SGAP.comercial
             {
                 //Item_servicio_click(object sender);
                 Metodo_cargar_informacion_servicio();
-
+                Obtener_Servicios_de_cotizacion();
                 //Cargar_servicios();
             }
 
+        }
+
+        private void Item_Del_Service_click(object sender, EventArgs e)
+        {
+            if (Id_CotizacionServicio == Id_Servicio_Padre)
+            {
+                DialogResult decision2_msg = MessageBox.Show("No puede eliminar el servicio principal.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (decision2_msg == DialogResult.OK) { }
+            }
+            else
+            {
+                DialogResult decision_msg = MessageBox.Show("Esta seguro de que desea eliminar este servicio.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (decision_msg == DialogResult.OK)
+            {
+                _entidad._entity_r28._TR28_ID = Id_CotizacionServicio;
+                _entidad._entity_r28._TR28_TM39_ID = Id_Cotizacion;
+
+
+                    _nt_r28.Et_r28(_entidad._entity_r28);
+                    _nt_r28.Iniciar(Tarea.ELIMINAR);
+            }
+
+        }            
+            
         }
 
         void Metodo_cargar_informacion_servicio()//diego
