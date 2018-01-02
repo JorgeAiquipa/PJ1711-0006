@@ -10,6 +10,7 @@ GO
 CREATE PROCEDURE pa_set55
  @p_TR29_TR28_ID int -- codigo servicio _al que pertenece
 ,@p_TR29_TM38_ID varchar(10) -- id cargo
+,@p_TR29_TM2_ID VARCHAR(10) -- PIS
 
 ,@p_TR29_HORA_ENTRADA datetime 
 ,@p_TR29_HORA_SALIDA datetime
@@ -34,6 +35,8 @@ BEGIN
 			,TR29_FACTUALIZA = GETDATE()
 			,TR29_REMUNERACION = @p_TR29_REMUNERACION
 		WHERE 
+			TR29_TM2_ID = @p_TR29_TM2_ID
+			AND
 			TR29_TR28_ID = @p_TR29_TR28_ID 
 			AND
 			TR29_TM38_ID = @p_TR29_TM38_ID

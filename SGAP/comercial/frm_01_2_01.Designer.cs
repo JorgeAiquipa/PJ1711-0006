@@ -57,7 +57,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(614, 507);
+            this.panel2.Size = new System.Drawing.Size(717, 511);
             this.panel2.TabIndex = 7;
             // 
             // panel_conceptos_remuneratios
@@ -66,10 +66,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_conceptos_remuneratios.Controls.Add(this.dgv_conceptos_remunerativos);
-            this.panel_conceptos_remuneratios.Location = new System.Drawing.Point(4, 318);
+            this.panel_conceptos_remuneratios.Location = new System.Drawing.Point(0, 318);
             this.panel_conceptos_remuneratios.Name = "panel_conceptos_remuneratios";
             this.panel_conceptos_remuneratios.Padding = new System.Windows.Forms.Padding(7);
-            this.panel_conceptos_remuneratios.Size = new System.Drawing.Size(607, 151);
+            this.panel_conceptos_remuneratios.Size = new System.Drawing.Size(717, 155);
             this.panel_conceptos_remuneratios.TabIndex = 1;
             // 
             // dgv_conceptos_remunerativos
@@ -80,7 +80,7 @@
             this.dgv_conceptos_remunerativos.Name = "dgv_conceptos_remunerativos";
             this.dgv_conceptos_remunerativos.RowHeadersWidth = 30;
             this.dgv_conceptos_remunerativos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(593, 137);
+            this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(703, 141);
             this.dgv_conceptos_remunerativos.TabIndex = 0;
             this.dgv_conceptos_remunerativos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_conceptos_remunerativos_KeyDown);
             // 
@@ -90,10 +90,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_cargos.Controls.Add(this.dgv_entrada_datos_mano_de_obra);
-            this.panel_cargos.Location = new System.Drawing.Point(4, 25);
+            this.panel_cargos.Location = new System.Drawing.Point(0, 21);
             this.panel_cargos.Name = "panel_cargos";
             this.panel_cargos.Padding = new System.Windows.Forms.Padding(7);
-            this.panel_cargos.Size = new System.Drawing.Size(607, 287);
+            this.panel_cargos.Size = new System.Drawing.Size(717, 291);
             this.panel_cargos.TabIndex = 0;
             // 
             // dgv_entrada_datos_mano_de_obra
@@ -103,7 +103,7 @@
             this.dgv_entrada_datos_mano_de_obra.Location = new System.Drawing.Point(7, 7);
             this.dgv_entrada_datos_mano_de_obra.Margin = new System.Windows.Forms.Padding(0);
             this.dgv_entrada_datos_mano_de_obra.Name = "dgv_entrada_datos_mano_de_obra";
-            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(593, 273);
+            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(703, 277);
             this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
             this.dgv_entrada_datos_mano_de_obra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellClick);
             this.dgv_entrada_datos_mano_de_obra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellContentClick);
@@ -122,7 +122,7 @@
             // btn_cancelar
             // 
             this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_cancelar.Location = new System.Drawing.Point(504, 475);
+            this.btn_cancelar.Location = new System.Drawing.Point(607, 479);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(100, 23);
             this.btn_cancelar.TabIndex = 3;
@@ -133,7 +133,7 @@
             // btn_continuar
             // 
             this.btn_continuar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_continuar.Location = new System.Drawing.Point(394, 475);
+            this.btn_continuar.Location = new System.Drawing.Point(497, 479);
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(100, 23);
             this.btn_continuar.TabIndex = 2;
@@ -148,7 +148,7 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(0, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(614, 22);
+            this.label10.Size = new System.Drawing.Size(717, 22);
             this.label10.TabIndex = 6;
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -185,12 +185,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 507);
+            this.ClientSize = new System.Drawing.Size(717, 511);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(630, 546);
-            this.MinimumSize = new System.Drawing.Size(630, 546);
+            this.MaximumSize = new System.Drawing.Size(733, 546);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(733, 546);
             this.Name = "frm_01_2_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configuración de cargos";

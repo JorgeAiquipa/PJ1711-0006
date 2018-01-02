@@ -11,6 +11,8 @@ namespace Win28etug
         // variables globales
         public string _TM2_ID = "PIS";
         public string _U_CREA = "cesar.freitas";
+        public int Servicio_general = 1;
+        public int Servicio_especial = 4;
         //public string _U_CREA = "DGOMEZ";
 
         //public List<string> Fecuencia_ = new List<string>();

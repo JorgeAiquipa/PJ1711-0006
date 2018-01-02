@@ -13,8 +13,8 @@ namespace Win28ntug
         public void textKeyPress(KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar)) { e.Handled = false; }
-            else if(char.IsControl(e.KeyChar)) { e.Handled = false; }
-            else if(char.IsSeparator(e.KeyChar)) { e.Handled = false; }
+            else if (char.IsControl(e.KeyChar)) { e.Handled = false; }
+            else if (char.IsSeparator(e.KeyChar)) { e.Handled = false; }
             else { e.Handled = true; }
         }
 
@@ -39,9 +39,12 @@ namespace Win28ntug
         {
             TextBox _textbox = (TextBox)sender;
 
-            if (char.IsDigit(e.KeyChar)) { e.Handled = false; }
-            else { e.Handled = true; }
-            if (char.IsLetter(e.KeyChar)) { e.Handled = true; }
+            //if (char.IsDigit(e.KeyChar)) { e.Handled = false; }
+            //if (char.IsLetter(e.KeyChar)) { e.Handled = true; }
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
         }
 
 
@@ -78,8 +81,10 @@ namespace Win28ntug
             //dgv_entrada_datos_mano_de_obra.ColumnHeadersDefaultCellStyle.Font = new Font("Calibri", 11, FontStyle.Regular);
 
             //dgv_entrada_datos_mano_de_obra.ColumnHeadersDefaultCellStyle.BackColor = Color.BurlyWood;
+            DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGridView.MultiSelect = false;
             DataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            DataGridView.ColumnHeadersHeight = 40;
+            DataGridView.ColumnHeadersHeight = 25;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             DataGridView.AllowUserToResizeColumns = false;
             DataGridView.AllowUserToResizeRows = false;
@@ -88,7 +93,7 @@ namespace Win28ntug
             DataGridView.BackgroundColor = Color.White;
             DataGridView.DefaultCellStyle.SelectionBackColor = Color.SkyBlue;
             DataGridView.DefaultCellStyle.SelectionForeColor = Color.Black;
-            
+
             //DataGridView.EnableHeadersVisualStyles = false;
             DataGridView.RowHeadersVisible = false;
         }
@@ -162,5 +167,9 @@ namespace Win28ntug
                 }
             }
         }
+
+
+
     }
+
 }

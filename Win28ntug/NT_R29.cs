@@ -87,7 +87,7 @@ namespace Win28ntug
                 DateTime _hora_s = row._TR29_HORA_SALIDA;
                 int _dias = row._TR29_DIAS_SEMANA;
                 decimal _remuneracion = row._TR29_REMUNERACION;
-                List<ET_R30> _lista_De_remuneraciones = row._lista_et_r30;
+                List<ET_M40> _lista_De_remuneraciones = row._lista_et_m40;
                 foreach (ET_R29 row_clon in clon_)
                 {
                     if (row_clon._Fila != _indice)
@@ -100,7 +100,7 @@ namespace Win28ntug
                                 row_clon._TR29_HORA_SALIDA == _hora_s &&
                                 row_clon._TR29_DIAS_SEMANA == _dias &&
                                 row_clon._TR29_REMUNERACION == _remuneracion &&
-                                Comparar_conceptos_remunerativos(row_clon._lista_et_r30, _lista_De_remuneraciones) == true
+                                Comparar_conceptos_remunerativos(row_clon._lista_et_m40, _lista_De_remuneraciones) == true
 
                             ) { indice_repetido = row_clon._Fila; existe = true; }
                     }
@@ -111,9 +111,9 @@ namespace Win28ntug
             respuesta[1] = Convert.ToInt32(existe);
             return respuesta;
         }
-        bool Comparar_conceptos_remunerativos(List<ET_R30> lista_A, List<ET_R30> lista_B)
+        bool Comparar_conceptos_remunerativos(List<ET_M40> lista_A, List<ET_M40> lista_B)
         {
-            // COMPRAR SI A ES IGUAL A B
+            // COMPARAR SI A ES IGUAL A B
             bool respuesta = false;
 
             if (lista_B.Count != lista_A.Count)
@@ -124,11 +124,11 @@ namespace Win28ntug
             {
                 int par_mitad = lista_B.Count;
                 int contador = 0;
-                foreach (ET_R30 row_b in lista_B)
+                foreach (ET_M40 row_b in lista_B)
                 {
-                    foreach (ET_R30 row_a in lista_A)
+                    foreach (ET_M40 row_a in lista_A)
                     {
-                        if (row_b._TR30_TM40_ID == row_a._TR30_TM40_ID) { contador++; }
+                        if (row_b._TM40_ID == row_a._TM40_ID && row_b._Seleccionado == true && row_a._Seleccionado == true) { contador++; }
                     }
                 }
 

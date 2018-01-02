@@ -38,41 +38,42 @@
             this.label4 = new System.Windows.Forms.Label();
             this.num_frecuencia = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_frecuencia)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 17);
+            this.label1.Location = new System.Drawing.Point(56, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 13);
+            this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Tipo";
+            this.label1.Text = "Tipo:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 46);
+            this.label2.Location = new System.Drawing.Point(39, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Servicio";
+            this.label2.Text = "Servicio:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 75);
+            this.label3.Location = new System.Drawing.Point(24, 116);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Frecuencia";
+            this.label3.Text = "Frecuencia:";
             // 
             // cb_tipo
             // 
             this.cb_tipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_tipo.FormattingEnabled = true;
-            this.cb_tipo.Location = new System.Drawing.Point(93, 14);
+            this.cb_tipo.Location = new System.Drawing.Point(93, 42);
             this.cb_tipo.Name = "cb_tipo";
             this.cb_tipo.Size = new System.Drawing.Size(164, 21);
             this.cb_tipo.TabIndex = 0;
@@ -82,7 +83,7 @@
             // 
             this.cbx_servicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx_servicio.FormattingEnabled = true;
-            this.cbx_servicio.Location = new System.Drawing.Point(93, 43);
+            this.cbx_servicio.Location = new System.Drawing.Point(93, 79);
             this.cbx_servicio.Name = "cbx_servicio";
             this.cbx_servicio.Size = new System.Drawing.Size(164, 21);
             this.cbx_servicio.TabIndex = 1;
@@ -90,9 +91,9 @@
             // btn_continuar
             // 
             this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_continuar.Location = new System.Drawing.Point(123, 123);
+            this.btn_continuar.Location = new System.Drawing.Point(93, 156);
             this.btn_continuar.Name = "btn_continuar";
-            this.btn_continuar.Size = new System.Drawing.Size(64, 23);
+            this.btn_continuar.Size = new System.Drawing.Size(78, 23);
             this.btn_continuar.TabIndex = 3;
             this.btn_continuar.Text = "Aceptar";
             this.btn_continuar.UseVisualStyleBackColor = true;
@@ -101,9 +102,9 @@
             // btn_cancelar
             // 
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_cancelar.Location = new System.Drawing.Point(193, 123);
+            this.btn_cancelar.Location = new System.Drawing.Point(179, 156);
             this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(64, 23);
+            this.btn_cancelar.Size = new System.Drawing.Size(78, 23);
             this.btn_cancelar.TabIndex = 4;
             this.btn_cancelar.Text = "Cancelar <esc>";
             this.btn_cancelar.UseVisualStyleBackColor = true;
@@ -112,7 +113,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 75);
+            this.label4.Location = new System.Drawing.Point(93, 116);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 5;
@@ -120,35 +121,48 @@
             // 
             // num_frecuencia
             // 
-            this.num_frecuencia.Location = new System.Drawing.Point(128, 73);
+            this.num_frecuencia.Location = new System.Drawing.Point(128, 114);
             this.num_frecuencia.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.num_frecuencia.Name = "num_frecuencia";
-            this.num_frecuencia.Size = new System.Drawing.Size(55, 20);
+            this.num_frecuencia.Size = new System.Drawing.Size(44, 20);
             this.num_frecuencia.TabIndex = 2;
             this.num_frecuencia.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
+            this.num_frecuencia.ValueChanged += new System.EventHandler(this.num_frecuencia_ValueChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(190, 75);
+            this.label5.Location = new System.Drawing.Point(178, 116);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "meses";
             // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.LightGreen;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(0, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(271, 22);
+            this.label10.TabIndex = 8;
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frm_01_2_02
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(271, 155);
+            this.ClientSize = new System.Drawing.Size(271, 191);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.num_frecuencia);
             this.Controls.Add(this.label4);
@@ -180,5 +194,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown num_frecuencia;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label10;
     }
 }

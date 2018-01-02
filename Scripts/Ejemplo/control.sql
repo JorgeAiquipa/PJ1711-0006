@@ -6,10 +6,11 @@ SELECT
 --concat(',@p_',COLUMN_NAME,' ',DATA_TYPE)
 --concat(COLUMN_NAME,' ',DATA_TYPE,',')
 --concat(',@p_',COLUMN_NAME)
-CONCAT('_et_r30._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
+--CONCAT('_et_r30._',COLUMN_NAME,'= fila["',COLUMN_NAME,'"].ToString();')
+CONCAT('e_._',COLUMN_NAME,'=row._',COLUMN_NAME,';')
 FROM INFORMATION_SCHEMA.COLUMNS
 
-WHERE TABLE_NAME = 'T_r30'
+WHERE TABLE_NAME = 'T_r29'
 
 -- CREAMOS UN CODIGO PARA LA COTIZACION 
 
@@ -62,14 +63,24 @@ values('P5','Bonif.Afecta',1)
 
 
 
+select 1
 
+select * from T_R29
 
-select * from T_R30
+where
+
+TR29_TR28_ID = 43
 
 
 -- cot 109
 
-select * from T_R29
+select * from T_R30
+
+where
+
+TR30_TR29_ID > 23 and TR30_TR29_ID < 27
+
+
 
 where
 

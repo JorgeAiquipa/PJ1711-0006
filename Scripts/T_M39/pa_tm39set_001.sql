@@ -36,7 +36,7 @@ BEGIN TRY
 		 TM39_ID
 		,TM39_DESCRIP
 		,TM39_ST
-		--,TM39_FLG_ELIMINADO
+		,TM39_FLG_ELIMINADO
 		,TM39_UCREA
 		,TM39_FCREA
 		,TM39_UACTUALIZA
@@ -48,7 +48,7 @@ BEGIN TRY
 		 @l_codigo_cotizacion
 		,@p_TM39_DESCRIP
 		, 1--@p_TM39_ST
-		--,@p_TM39_FLG_ELIMINADO
+		, 0
 		,@p_TM39_UCREA
 		,GETDATE()
 		,@p_TM39_UCREA
@@ -69,15 +69,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-
-
-select RIGHT('C0000001',7)
-
-
-select *  FROM T_M39;
-
-select * from T_R27
-
-select CONCAT('COT',RIGHT((concat('000000000',CAST(RIGHT(isnull(max(TM39_ID),0),5) AS int)+1)),5)) from dbo.T_M39
-

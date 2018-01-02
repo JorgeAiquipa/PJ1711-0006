@@ -42,25 +42,29 @@ BEGIN TRY
 			) as _TM39_tm27_count
 			FROM
 
-			DBO.T_M39 as _t_m39 join 
+			DBO.T_M39 as _t_m39 JOIN 
 			( 
-				select TM19_ID,TM19_DESCRIP1,TM19_DESCRIP2  from DBO.T_M19 as child_table 
+				SELECT TM19_ID,TM19_DESCRIP1,TM19_DESCRIP2  FROM DBO.T_M19 AS child_table 
 				where child_table.tm19_tm2_id = @p_TM39_TM2_ID
 			) AS _tm_19
-			on
+			ON
 			_t_m39.TM39_TM19_ID = _tm_19.TM19_ID
 
 			WHERE
 			TM39_TM2_ID = @p_TM39_TM2_ID
-			and 
+			AND
+			TM39_FLG_ELIMINADO = 0
+			AND 
 			(
-			_tm_19.TM19_DESCRIP1 like concat('%',@p_tm19_filtro,'%') or
-			_tm_19.TM19_DESCRIP2 like concat('%',@p_tm19_filtro,'%')
+			_tm_19.TM19_DESCRIP1 LIKE concat('%',@p_tm19_filtro,'%') OR
+			_tm_19.TM19_DESCRIP2 LIKE concat('%',@p_tm19_filtro,'%')
 			)
-			and
+			AND
 			(
-			_t_m39.TM39_FCREA between @p_Fecha_Inicio and @p_Fecha_Fin
+			_t_m39.TM39_FCREA BETWEEN @p_Fecha_Inicio AND @p_Fecha_Fin
 			)
+			ORDER BY
+				TM39_FCREA DESC
 
 END TRY
 BEGIN CATCH

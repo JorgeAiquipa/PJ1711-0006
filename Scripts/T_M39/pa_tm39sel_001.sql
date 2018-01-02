@@ -65,7 +65,3 @@ GO
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
 
-exec pa_tm39sel_001 'pis','COT00030','e134'
-
-
-SELECT * FROM T_M41

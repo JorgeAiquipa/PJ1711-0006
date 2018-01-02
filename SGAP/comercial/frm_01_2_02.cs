@@ -45,7 +45,9 @@ namespace SGAP.comercial
             Periodo_servicio = _periodo_servicio;
             tm39_id = _tm39_id;
             nodo_tipo = nodos;
-
+            label10.BackColor = Color.FromArgb(0, 137, 123);
+            label10.ForeColor = Color.White;
+            label10.Text = Text;
             Metodo_obtener_tipo_servicio();
 
             //Metodo_cargar_frecuencias();
@@ -163,6 +165,13 @@ namespace SGAP.comercial
             //Listar los servicios de acuerdo al tipo seleccionado
             Metodo_obtener_servicios_por_tipo(entidad_m41);
         }
-        
+
+        private void num_frecuencia_ValueChanged(object sender, EventArgs e)
+        {
+            if (num_frecuencia.Value == 1)
+                label5.Text = "mes";
+            else
+                label5.Text = "meses";
+        }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Win28etug;
@@ -16,6 +12,9 @@ namespace SGAP.comercial
     public partial class frm_01_1 : Form
     {
         public ET_entidad _entity = new ET_entidad();
+        ET_globales Globales = new ET_globales();
+        NT_helper _helper = new NT_helper();
+        NT_tareas Tarea = new NT_tareas();
         ET_M19 _et_m19 = new ET_M19();
         ET_M41 _et_m41 = new ET_M41();
         ET_M39 _et_m39 = new ET_M39();
@@ -27,6 +26,7 @@ namespace SGAP.comercial
         NT_M39 _nt_m39 = new NT_M39();
         NT_R28 _nt_r28 = new NT_R28();
 
+        List<ET_M19> _lista_m19 = new List<ET_M19>();
         List<ET_M27> _lista_m27 = new List<ET_M27>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R19> _lista_R19 = new List<ET_R19>();
@@ -38,89 +38,137 @@ namespace SGAP.comercial
         string ruc_cliente;
         string tipo_servicio;
         string nombre_de_Servicio;
-        int tipo_de_Servicio=1;//diego
-        int cantidad_meses = 0;
+        int Tipo_de_Servicio_=1;
 
-        string selecione = "[Seleccione un servicio]";
-        
-        AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+        int Periodo_ = 1;
+        string First_Item_Combobox = "[Seleccione un servicio]";
+        string[] Array_clientes_autocomplete;
 
+        DataGridViewCellStyle Estilo_de_columna_nombre_local = new DataGridViewCellStyle();
+        ImageList validation_image = new ImageList();
         #endregion
 
         #region Métodos
         public frm_01_1()
         {
-            Color background = Color.FromArgb(248, 248, 248);
-            //instancias
             InitializeComponent();
-
-            limpiar_datos();
+            BackColor = Color.FromArgb(221, 221, 221);
 
             _nt_m19.Mensaje_Alerta += Mensaje_alerta;
-            _nt_m41.Mensaje_Alerta += Mensaje_alerta;
+            _nt_m19.Cargar_busqueda_ += Cargar_Busqueda_T_M19;
+            _nt_m19.Porcentaje_De_Craga += Porcentaje_De_Craga;
 
+            _nt_m27.Cargar_busqueda_ += Cargar_Busqueda_T_M27;
+            _nt_m41.Cargar_busqueda_ += Cargar_Busqueda_T_M41;
+
+
+            validation_image.TransparentColor = Color.White;
+            validation_image.ColorDepth = ColorDepth.Depth32Bit;
+            validation_image.ImageSize = new Size(16, 16);
+            validation_image.Images.Add(Properties.Resources.atencion);
+            validation_image.Images.Add(Properties.Resources.ok);
+
+            panel4.BackgroundImage = validation_image.Images[1];
             ////apariencia
-            //this.BackColor = background;
-            //dgv_informacion_locales.BackgroundColor = background;
+            label10.BackColor = Color.FromArgb(0, 137, 123);
+            label10.ForeColor = Color.White;
+            panel3.BackColor = Color.White;
 
-            dgv_informacion_locales.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dgv_informacion_locales.AllowUserToResizeRows = false;
-
-            txt_nombre_cliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txt_nombre_cliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            _nt_m19.txt_autocomplete(txt_nombre_cliente);
+            Crear_Grid_Locales();
 
             Metodo_obtener_tipo_servicio();
-            
+        }
+        void Crear_Grid_Locales()
+        {
+            _helper.Set_Style_to_DatagridView(dgv_informacion_locales);
+            dgv_informacion_locales.AllowUserToAddRows = false;
+            dgv_informacion_locales.AutoGenerateColumns = false;
+            dgv_informacion_locales.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgv_informacion_locales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         void Metodo_obtener_tipo_servicio()
         {
-            this.cbx_tipo_servicio.Items.Clear();            
+            cbx_tipo_servicio.Items.Clear();
             ET_M41 _et_41 = new ET_M41();
-            _et_41._TM41_TM42_ID = tipo_de_Servicio;
-            var entidad = _nt_m41.get_001(_et_41);
-
-            if (!entidad._hubo_error)
-            {                
-                if (entidad._lista_et_r19 != null)
-                {
-                    _lista_R19 = entidad._lista_et_r19.ToList();
-
-                    this.cbx_tipo_servicio.Items.Add(selecione);
-                    foreach (ET_R19 row in entidad._lista_et_r19)
-                    {
-                        this.cbx_tipo_servicio.Items.Add(row._TR19_TM41_DESCRIP);
-                    }                                        
-                    this.cbx_tipo_servicio.SelectedIndex = 0;
-                }
-            }
+            _et_41._TM41_TM42_ID = Tipo_de_Servicio_;
+            _nt_m41.Agregar_Et_m41(_et_41);
+            _nt_m41.Iniciar(Tarea.BUSCAR);
         }
         void Metodo_obtener_informacion_ingresada()
         {
-            //diego
-            if (rb_tipo1.Checked == true)
-            {
-                tipo_de_Servicio = 1;//diego
-            }
-            else if (rb_tipo2.Checked == true)
-            {
-                tipo_de_Servicio = 4;//diego
-            }//diego
-            nombre_cliente = txt_nombre_cliente.Text;
+            nombre_cliente = autoCompleteTextBox_t_m19.Text;
             ruc_cliente = txt_ruc_cliente.Text;
             tipo_servicio = cbx_tipo_servicio.Text;
-            /* contaremos las columnas llenas del gridview 
-             * Solo aquellas que tengas los campos llenos
-             * Se validara por cada campo ingresado
-             */
-            int filas_encontradas = dgv_informacion_locales.RowCount;
-            cantidad_meses = Convert.ToInt16(nupd_periodo_de_servicio.Value);
+            Periodo_ = Convert.ToInt16(nupd_periodo_de_servicio.Value);
         }
+
         #endregion
 
         #region Eventos
+        void Porcentaje_De_Craga(object sender, int e)
+        {
+            if (e == 0)
+            {
+                Array_clientes_autocomplete = new string[1];
+                Array_clientes_autocomplete[0] = "Cargando...";
+                autoCompleteTextBox_t_m19.Values = Array_clientes_autocomplete;
+            }
+            else
+            {
+                autoCompleteTextBox_t_m19.Values = null;
+            }
+        }
+        private void Cargar_Busqueda_T_M19(object sender, ET_entidad e)
+        {
+            if (!e._hubo_error && e._lista_et_m19.Count > 0)
+            {
+                _lista_m19 = e._lista_et_m19;
+                int count = e._lista_et_m19.Count;
+                Array_clientes_autocomplete = new string[count];
 
-        static void Mensaje_alerta(object sender, ET_entidad e)
+                int A = 0;
+                e._lista_et_m19.ForEach(X=> {
+                    Array_clientes_autocomplete[A] = X._TM19_DESCRIP2;
+                    A++;
+                });
+                autoCompleteTextBox_t_m19.Values = Array_clientes_autocomplete;
+            }
+        }
+        private void Cargar_Busqueda_T_M27(object sender, ET_entidad e)
+        {
+            if (!e._hubo_error && e._lista_et_m27.Count > 0)
+            {
+                _lista_m27 = new List<ET_M27>();
+                _lista_m27 = e._lista_et_m27;
+
+                //_lista_m27.ForEach(fila_ =>
+                //{
+                //    dgv_informacion_locales.Rows.Add(
+                //            fila_._seleccionado,
+                //            fila_._TM27_NOMBRE,
+                //            fila_._TM27_DIRECCION
+                //        );
+                //});
+                dgv_informacion_locales.DataSource = _lista_m27;
+                panel1.BackgroundImage = validation_image.Images[1];
+                rb_tipo1.Focus();
+            }
+        }
+        private void Cargar_Busqueda_T_M41(object sender, ET_entidad e)
+        {
+            if (!e._hubo_error  && e._lista_et_r19 != null)
+            {
+                _lista_R19 = e._lista_et_r19.ToList();
+
+                cbx_tipo_servicio.Items.Add(First_Item_Combobox);
+                foreach (ET_R19 row in e._lista_et_r19)
+                {
+                    cbx_tipo_servicio.Items.Add(row._TR19_TM41_DESCRIP);
+                }
+                cbx_tipo_servicio.SelectedIndex = 0;
+            }
+        }
+        private void Mensaje_alerta(object sender, ET_entidad e)
         {
             MessageBox.Show
             (
@@ -129,13 +177,13 @@ namespace SGAP.comercial
                 MessageBoxIcon.Information
             );
         }
+
         private void btn_continuar_Click(object sender, EventArgs e)
         {
             Metodo_obtener_informacion_ingresada();
 
-            //DIEGO
-            //informacion de locales seleccionados por el usuario
             _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
+
             int cantidad = _entity._lista_et_m27.Count;
             int cant_tabla = _lista_m27.Count;
 
@@ -143,7 +191,7 @@ namespace SGAP.comercial
             {
                 if (cant_tabla != 0)
                 {
-                    if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != selecione)
+                    if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != First_Item_Combobox)
                     {
                         if (cantidad > 0)
                         {
@@ -154,7 +202,7 @@ namespace SGAP.comercial
                             _entity._entity_m19 = _et_m19;
 
                             //seteamos info del servicio seleccionado
-                            _et_m41._TM41_TM42_ID = tipo_de_Servicio;//diego
+                            _et_m41._TM41_TM42_ID = Tipo_de_Servicio_;//diego
                             _et_m41._TM41_DESCRIP = nombre_de_Servicio;
                             _et_m41._TM41_ID = _id_tm41;
                             _entity._entity_m41 = _et_m41;
@@ -173,8 +221,10 @@ namespace SGAP.comercial
                             _entity._entity_m39._entity_et_m19._TM19_ID = _id_tm19;
                             _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = nombre_cliente; //razon social
 
-                            this.Hide();
-                            
+                            this.DialogResult = DialogResult.OK;
+
+                            this.Close();
+
                         }
                         else
                         {
@@ -191,7 +241,7 @@ namespace SGAP.comercial
                         if (decision_msg == DialogResult.OK)
                         {
                             cbx_tipo_servicio.Focus();
-                            panel_servicio.BackColor = Color.Red;
+                            panel2.BackgroundImage = validation_image.Images[0];
                         }
                     }
                 }
@@ -200,7 +250,7 @@ namespace SGAP.comercial
                     DialogResult decision_msg = MessageBox.Show("El cliente seleccionado no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (decision_msg == DialogResult.OK)
                     {
-                        txt_nombre_cliente.Focus();
+                        autoCompleteTextBox_t_m19.Focus();
                     }
                 }
             }
@@ -209,198 +259,114 @@ namespace SGAP.comercial
                 DialogResult decision_msg = MessageBox.Show("Seleccione un cliente valido.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (decision_msg == DialogResult.OK)
                 {
-                    txt_nombre_cliente.Focus();
+                    autoCompleteTextBox_t_m19.Focus();
                 }
             }
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        // Este evento valida lo que se ingresa en cada celda
-        private void dgv_informacion_locales_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void Obtener_Informacion_t_m19()
         {
-            if (!dgv_informacion_locales.Rows[e.RowIndex].IsNewRow)
+            _et_m19 = new ET_M19();
+            _et_m19 = _lista_m19.FirstOrDefault(item=> item._TM19_DESCRIP2.ToUpper() == autoCompleteTextBox_t_m19.Text.ToUpper());
+            if (_et_m19 != null)
             {
-                String nombre_columna = dgv_informacion_locales.Columns[e.ColumnIndex].Name;
-                String cabecra_columna = dgv_informacion_locales.Columns[e.ColumnIndex].HeaderText;
-                // evitamos validad el boton de borrar local
-                if (nombre_columna.Equals("header_btn_delete_row_dgv_Informacion_locales")) return;
-
-                var msg = string.Format("El campo de nombre {0} esta vacio", cabecra_columna);
-
-                if (string.IsNullOrEmpty(e.FormattedValue.ToString()))
-                {
-                    dgv_informacion_locales.Rows[e.RowIndex].ErrorText = msg;
-                    dgv_informacion_locales.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.DarkSalmon;
-                    e.Cancel = true;
-                    //dgv_informacion_locales.Rows.Remove(dgv_informacion_locales.Rows[dgv_informacion_locales.Rows.Count - 1]);
-                }
+                _id_tm19 = _et_m19._TM19_ID;
+                txt_ruc_cliente.Text = _et_m19._TM19_DESCRIP1;
+                _nt_m27.Agregar_Et_m19(_et_m19);
+                _nt_m27.Iniciar(Tarea.BUSCAR);
             }
-
-        }
-        //Limpiamos el error luego de validar
-        private void dgv_informacion_locales_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            dgv_informacion_locales.Rows[e.RowIndex].ErrorText = string.Empty;
-            dgv_informacion_locales.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-
-
-        }
-
-        private void dgv_informacion_locales_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            DataGridViewRow fila_tabla = dgv_informacion_locales.CurrentRow;
-            if (fila_tabla.IsNewRow) return;
-
-            int columns_editables = dgv_informacion_locales.ColumnCount - 1;
-
-            for (int a = 0; a < columns_editables; a++)
+            else
             {
-                //if(fila_tabla.Cells.)
-            }
-
-        }
-
-        void obtener_cliente_info()
-        {
-            //una vez que deja el control estar en focus
-            // carga los locales del cliente
-            try
-            {
-                panel_servicio.BackColor = Color.Transparent;
-                var entidad_resultado = _nt_m19.sel_001(txt_nombre_cliente.Text);
-                txt_ruc_cliente.Text = entidad_resultado._TM19_DESCRIP1.ToString();
-                _id_tm19 = entidad_resultado._TM19_ID.ToString();
-
-                _lista_m27.Clear();
-
-                _lista_m27 = _nt_m27.obtener_locales_por_cliente(entidad_resultado)._lista_et_m27;
-
-                dgv_informacion_locales.DataSource = _lista_m27.ToList();
-
-                rb_tipo1.Focus();
-            }
-            catch (Exception ex)
-            {
-
-                try
-                {
-                    txt_ruc_cliente.Text = string.Empty;
-                    txt_nombre_cliente.Focus();
-                    dgv_informacion_locales.Rows.Clear();
-                }
-                catch (Exception ) { }
-
+                MessageBox.Show
+                (
+                    " La búsqueda no obtubo resultados. \n Intente de nuevo.", "Alerta!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                autoCompleteTextBox_t_m19.Focus();
+                panel1.BackgroundImage = validation_image.Images[0];
             }
         }
 
-        private void limpiar_datos()
+        private void Limpiar_Informacion_ingresada()
         {
+            txt_ruc_cliente.Text = string.Empty;
             _lista_m27.Clear();
-            dgv_informacion_locales.DataSource = _lista_m27.ToList();
+            dgv_informacion_locales.DataSource = null;
+            dgv_informacion_locales.Update();
             dgv_informacion_locales.Refresh();
-            txt_ruc_cliente.Text = "";
+            dgv_informacion_locales.DataSource = _lista_m27;
         }
 
-
-        #endregion
-
-        private void txt_nombre_cliente_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                obtener_cliente_info();
-            }
-        }
-        // cuando cambia el valor de seleccion del combo box
         private void cbx_tipo_servicio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != selecione)
+            if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != First_Item_Combobox)
             {
-                cbx_tipo_servicio.Items.Remove(selecione);
-                panel_servicio.BackColor = Color.Transparent;
+                panel2.BackgroundImage = validation_image.Images[1];
+                cbx_tipo_servicio.Items.Remove(First_Item_Combobox);
                 nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
-
                 var result = _lista_R19.FirstOrDefault(p => p._TR19_TM41_DESCRIP == nombre_de_Servicio);
-
                 _id_tm41 = result._TR19_TM41_ID;
             }
         }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void autoCompleteTextBox_t_m19_TextChanged(object sender, EventArgs e)
         {
-            //diego
-            if (rb_tipo1.Checked == true)
+            if (!string.IsNullOrEmpty(autoCompleteTextBox_t_m19.Text))
             {
-                tipo_de_Servicio = 1;//diego
-                //Listar();
-                Metodo_obtener_tipo_servicio();
+                string filtro = autoCompleteTextBox_t_m19.Text;
+                _nt_m19._Filtro(filtro);
+                _nt_m19.Iniciar(Tarea.BUSCAR);
             }
-          
+            Limpiar_Informacion_ingresada();
+        }
+        private void autoCompleteTextBox_t_m19_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
+            {
+                Obtener_Informacion_t_m19();
+            }
+        }
+        private void autoCompleteTextBox_t_m19_Enter(object sender, EventArgs e)
+        {
+            Limpiar_Informacion_ingresada();
         }
 
+        private void rb_tipo1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb_tipo1.Checked == true)
+            {
+                Tipo_de_Servicio_ = Globales.Servicio_general;
+                Metodo_obtener_tipo_servicio();
+                panel2.BackgroundImage = validation_image.Images[0];
+
+            }
+        }
         private void rb_tipo2_CheckedChanged(object sender, EventArgs e)
         {
             if (rb_tipo2.Checked == true)
             {
-                tipo_de_Servicio = 4;//diego
-                //Listar();
+                Tipo_de_Servicio_ = Globales.Servicio_especial;
                 Metodo_obtener_tipo_servicio();
-            }
-        }
-
-        private void txt_nombre_cliente_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void txt_nombre_cliente_TextChanged(object sender, EventArgs e)
-        {
-            limpiar_datos();
-        }
-
-        private void txt_nombre_cliente_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyData == Keys.Tab)
-            {
-                obtener_cliente_info();
-            }
-        }
-
-        private void txt_nombre_cliente_Leave(object sender, EventArgs e)
-        {
-            //obtener_cliente_info();
-            //una vez que deja el control estar en focus
-            // carga los locales del cliente
-            try
-            {
-                var entidad_resultado = _nt_m19.sel_001(txt_nombre_cliente.Text);
-                txt_ruc_cliente.Text = entidad_resultado._TM19_DESCRIP1.ToString();
-                _id_tm19 = entidad_resultado._TM19_ID.ToString();
-
-                _lista_m27.Clear();
-
-                _lista_m27 = _nt_m27.obtener_locales_por_cliente(entidad_resultado)._lista_et_m27;
-
-                dgv_informacion_locales.DataSource = _lista_m27.ToList();
-
-                txt_ruc_cliente.Focus();
-            }
-            catch (Exception ex)
-            {
-
-                try
-                {
-                    txt_ruc_cliente.Text = string.Empty;
-                    txt_nombre_cliente.Focus();
-                    dgv_informacion_locales.Rows.Clear();
-                }
-                catch (Exception) { }
+                panel2.BackgroundImage = validation_image.Images[0];
 
             }
         }
+
+        private void autoCompleteTextBox_t_m19_Leave(object sender, EventArgs e)
+        {
+            Obtener_Informacion_t_m19();
+        }
+        private void dgv_informacion_locales_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        #endregion
+
+
     }
 }

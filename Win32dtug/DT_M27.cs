@@ -86,7 +86,8 @@ namespace Win32dtug
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);
-
+                    _lista = new List<ET_M27>();
+                    _lista.Clear();
                     foreach (DataRow fila in dt.Rows)
                     {
                         _etm27 = new ET_M27();

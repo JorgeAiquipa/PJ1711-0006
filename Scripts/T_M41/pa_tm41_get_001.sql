@@ -33,7 +33,7 @@ BEGIN TRY
 			AND
 			TM41_TM42_ID LIKE @p_TM41_TM42_ID
 			AND
-			TM42_FLG_ELIMINADO = 0
+			TM41_FLG_ELIMINADO= 0
 		 
 
 END TRY
@@ -48,9 +48,3 @@ exec pa_tm41_get_001 'PIS', '4'
 
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-SELECT * FROM T_M41
-
-select * from t_m42
-
-select * from t_r19

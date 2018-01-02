@@ -56,6 +56,7 @@
     <Compile Include="NT_R29.cs" />
     <Compile Include="NT_R30.cs" />
     <Compile Include="NT_R31.cs" />
+    <Compile Include="NT_tareas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,9 +17,9 @@ namespace SGAP.comercial
     public partial class frm_01_2 : Form
     {
         #region Variables
-
         ET_entidad _entidad = new ET_entidad();
         NT_helper _helper = new NT_helper();
+        NT_tareas Tarea = new NT_tareas();
         ET_M41 _et_m41 = new ET_M41();
         NT_M38 _nt_m38 = new NT_M38();
         NT_M41 _nt_m41 = new NT_M41();
@@ -39,6 +39,8 @@ namespace SGAP.comercial
         public string undad = "";
         public double precio = 0;
         public string tipo = "";
+        bool primer_Selected_node = false;
+        ImageList iconos_treeView = new ImageList();
 
         ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
@@ -61,16 +63,50 @@ namespace SGAP.comercial
 
             this.BackColor = Color.FromArgb(221, 221, 221);
 
-            label10.BackColor = Color.FromArgb(0, 134, 65);
+            label10.BackColor = Color.FromArgb(0, 137,123);
             label10.ForeColor = Color.White;
-            label11.BackColor = Color.FromArgb(0, 134, 65);
+            label11.BackColor = Color.FromArgb(0, 137, 123);
             label11.ForeColor = Color.White;
-            label12.BackColor = Color.FromArgb(0, 134, 65);
+            label12.BackColor = Color.FromArgb(0, 137, 123);
             label12.ForeColor = Color.White;
-            label13.BackColor = Color.FromArgb(0, 134, 65);
+            label13.BackColor = Color.FromArgb(0, 137, 123);
             label13.ForeColor = Color.White;
-            label3.BackColor = Color.FromArgb(0, 134, 65);
+            label6.BackColor = Color.FromArgb(0, 137, 123);
+            label6.ForeColor = Color.White;
+            label5.BackColor = Color.FromArgb(0, 137, 123);
+            label5.ForeColor = Color.White;
+            label4.BackColor = Color.FromArgb(0, 137, 123);
+            label4.ForeColor = Color.White;
+            label3.BackColor = Color.FromArgb(0, 137, 123);
             label3.ForeColor = Color.White;
+            label2.BackColor = Color.FromArgb(0, 137, 123);
+            label2.ForeColor = Color.White;
+            label1.BackColor = Color.FromArgb(0, 137, 123);
+            label1.ForeColor = Color.White;
+            panel12.BackColor = Color.FromArgb(0, 137, 123);
+
+            panel_colapse.BackColor = Color.FromArgb(255, 238, 88);
+            panel_colapse.BackgroundImage = Properties.Resources.izquierda;
+            panel_colapse.BackgroundImageLayout = ImageLayout.Stretch;
+
+            panel_colapse_2.Enabled = false;
+            panel_colapse_2.Visible = false;
+            panel_colapse_2.BackColor = Color.FromArgb(255, 238, 88);
+            panel_colapse_2.BackgroundImage = Properties.Resources.derecha;
+            panel_colapse_2.BackgroundImageLayout = ImageLayout.Stretch;
+
+
+            iconos_treeView.TransparentColor = Color.White;
+            iconos_treeView.ColorDepth = ColorDepth.Depth32Bit;
+            iconos_treeView.ImageSize = new Size(16, 16);
+
+            iconos_treeView.Images.Add(Properties.Resources.reporte);
+            iconos_treeView.Images.Add(Properties.Resources.reporte_3);
+            iconos_treeView.Images.Add(Properties.Resources.reporte_2);
+            iconos_treeView.Images.Add(Properties.Resources.nota);
+
+            //tree_view_servicios.ImageList = iconos_treeView;
+
             this.BringToFront();
 
             //end style
@@ -78,7 +114,7 @@ namespace SGAP.comercial
             _entidad = _entity;
 
             // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.
-            Cargar_servicios();
+            //Cargar_servicios();
             Id_servicio_hijo = Id_Servicio_Padre;
 
             _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
@@ -91,7 +127,7 @@ namespace SGAP.comercial
                 var result = _nt_r27.get_001(_entidad);
                 _entidad._lista_et_m27 = result._lista_et_m27;
 
-                Metodo_cargar_informacion_mano_de_obra();
+                //Metodo_cargar_informacion_mano_de_obra();
             }
 
 
@@ -110,14 +146,25 @@ namespace SGAP.comercial
             DisplayPanel(0);
             CreateColumn();
 
-            _nt_m31.Mensaje_Alerta += Mensaje_alerta;
+            _nt_m31.Mensaje_Alerta += Mensaje_Informacion;
 
             dgv_mano_de_obra.Scroll += new ScrollEventHandler(dgv_mano_de_obra_right_Scroll);
             dgv_mano_de_obra_right.Scroll += new ScrollEventHandler(dgv_mano_de_obra_Scroll);
 
+            _helper.Set_Style_to_DatagridView(dgv_entrada_datos_mq_eq);
+            _nt_r28.Cargar_explorador_De_Servicios_ += CargarExplorados_de_servicios;
+            Obtener_Servicios_de_cotizacion();
         }
 
-        static void Mensaje_alerta(object sender, ET_entidad e)
+        public void Obtener_Servicios_de_cotizacion()
+        {
+            _entidad._entity_r28._TR28_TM39_ID = _entidad._entity_m39._TM39_ID;
+            _nt_r28.Et_r28(_entidad._entity_r28);
+            _nt_r28.Iniciar(Tarea.LISTAR);
+        }
+        #region Eventos
+         
+        public void Mensaje_Informacion(object sender, ET_entidad e)
         {
             MessageBox.Show
             (
@@ -126,13 +173,188 @@ namespace SGAP.comercial
                 MessageBoxIcon.Information
             );
         }
-        public void Cargar_servicios()
+        public void CargarExplorados_de_servicios(object sender, ET_entidad e)
         {
-            var result_int = _nt_r28.get_001(_entidad, tree_view_servicios);
-            Id_Servicio_Padre = result_int[0];//_entidad._entity_r28._TR28_PADRE;
-            Periodo_servicio = result_int[1];//_entidad._entity_r28._TR28_PERIODO;
+            Id_Servicio_Padre = _entidad._entity_r28._TR28_PADRE;
+            Periodo_servicio = _entidad._entity_r28._TR28_PERIODO;
+
+            tree_view_servicios.Nodes.Clear();
+
+            tree_view_servicios.ImageList = iconos_treeView;
+            tree_view_servicios.ImageIndex = 0;
+
+            if (!e._hubo_error && e._lista_et_r28.Count > 0)
+            {
+                string name_nodo = string.Format("{0} - {1}", _entidad._entity_m39._TM39_ID, _entidad._entity_m39._entity_et_m19._TM19_DESCRIP2);
+                Text = string.Format("Cotización: {0}", name_nodo);
+                TreeNode nodo_principal = new TreeNode();
+                nodo_principal.Tag = 10100;
+                nodo_principal.Name = name_nodo;
+                nodo_principal.Text = name_nodo;
+
+                var lista_resultadito = e._lista_et_r28
+                    .GroupBy(u => u._TR28_TM42_ID)
+                    .Select(grp => grp.ToList())
+                    .ToList();
+
+                foreach (List<ET_R28> list in lista_resultadito)
+                {
+                    int id_tipo_Servicio = 0;
+                    string nombre_servicio = "";
+
+                    TreeNode servicios = new TreeNode();
+
+                    foreach (ET_R28 row_u in list)
+                    {
+                        id_tipo_Servicio = row_u._TR28_TM42_ID;
+                        nombre_servicio = row_u._TR28_TM42_DESCRIP;
+
+                        TreeNode mano_obra = new TreeNode("Mano de obra");
+                        mano_obra.Name = "Mano de Obra";
+                        mano_obra.Tag = 0;
+                        mano_obra.ImageIndex = 3;
+                        mano_obra.SelectedImageIndex = 3;
+
+                        TreeNode maquinaria = new TreeNode("Maquinaria y equipo");
+                        maquinaria.Tag = 1;
+                        maquinaria.ImageIndex = 3;
+                        maquinaria.SelectedImageIndex = 3;
+
+                        TreeNode materiales = new TreeNode("Materiales e insumos");
+                        materiales.Tag = 2;
+                        materiales.ImageIndex = 3;
+                        materiales.SelectedImageIndex = 3;
+
+                        TreeNode implementos = new TreeNode("Implementos de limpieza");
+                        implementos.Tag = 3;
+                        implementos.ImageIndex = 3;
+                        implementos.SelectedImageIndex = 3;
+
+                        TreeNode suministros = new TreeNode("Suministros");
+                        suministros.Tag = 4;
+                        suministros.ImageIndex = 3;
+                        suministros.SelectedImageIndex = 3;
+
+                        TreeNode indumentaria = new TreeNode("Indumentaria");
+                        indumentaria.Tag = 5;
+                        indumentaria.ImageIndex = 3;
+                        indumentaria.SelectedImageIndex = 3;
+
+                        TreeNode Epp = new TreeNode("Epp");
+                        Epp.Tag = 6;
+                        Epp.ImageIndex = 3;
+                        Epp.SelectedImageIndex = 3;
+
+
+                        TreeNode node_hijo = new TreeNode(row_u._TR28_DESCRIP, new TreeNode[] {
+                                mano_obra,maquinaria,materiales,implementos,suministros,indumentaria,Epp
+                                        });
+                        node_hijo.Text = row_u._TR28_DESCRIP;
+                        node_hijo.Tag = 1000;
+                        node_hijo.Name = row_u._TR28_ID.ToString();
+                        node_hijo.ImageIndex = 2;
+                        node_hijo.SelectedImageIndex = 2;
+
+                        servicios.Nodes.Add(node_hijo);
+                        servicios.Text = row_u._TR28_TM42_DESCRIP;
+                        servicios.Name = Convert.ToString(id_tipo_Servicio);
+                        servicios.Tag = 2000;
+                        servicios.ImageIndex = 1;
+                        servicios.SelectedImageIndex = 1;
+                    }
+                    servicios.NodeFont = new Font(this.tree_view_servicios.Font, FontStyle.Bold);
+                    nodo_principal.Nodes.Add(servicios);
+
+                }
+                //agregar nuevos nodos 7 y 8
+                TreeNode financieros = new TreeNode("Gastos financieros");
+                financieros.Tag = 7;
+                financieros.ImageIndex = 1;
+                financieros.SelectedImageIndex = 1;
+                financieros.NodeFont = new Font(this.tree_view_servicios.Font, FontStyle.Bold);
+
+                TreeNode indirectos = new TreeNode("Otros gastos indirectos");
+                indirectos.Tag = 8;
+                indirectos.ImageIndex = 1;
+                indirectos.SelectedImageIndex = 1;
+                indirectos.NodeFont = new Font(this.tree_view_servicios.Font, FontStyle.Bold);
+
+                nodo_principal.Nodes.Add(financieros);
+                nodo_principal.Nodes.Add(indirectos);
+
+                nodo_principal.ExpandAll();
+                tree_view_servicios.Nodes.Add(nodo_principal);
+
+                tree_view_servicios.SelectedNode = tree_view_servicios.Nodes[0];
+                //if (!primer_Selected_node)
+                //{
+                //    primer_Selected_node = true;
+                //    tree_view_servicios.SelectedNode = tree_view_servicios.Nodes[0].Nodes[0].Nodes[0].Nodes[0];
+                //    Metodo_cargar_informacion_mano_de_obra();
+                //}
+            }
+        }
+
+        private void panel_colapse_MouseHover(object sender, EventArgs e)
+        {
+            panel_colapse.BackColor = Color.White;
+            panel_colapse.Cursor = Cursors.Hand;
+        }
+
+        private void panel_colapse_MouseLeave(object sender, EventArgs e)
+        {
+            panel_colapse.BackColor = Color.FromArgb(255, 238, 88);
+        }
+
+        private void panel_colapse_2_MouseHover(object sender, EventArgs e)
+        {
+            panel_colapse_2.BackColor = Color.White;
+            panel_colapse_2.Cursor = Cursors.Hand;
+        }
+
+        private void panel_colapse_2_MouseLeave(object sender, EventArgs e)
+        {
+            panel_colapse_2.BackColor = Color.FromArgb(255, 238, 88);
+        }
+
+        private void panel_colapse_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = true;
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            panel_colapse_2.Enabled = true;
+            panel_colapse_2.Visible = true;
+            panel_colapse_2.Location = new Point(4, 2);
+        }
+
+        private void panel_colapse_2_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = false;
+            panel_colapse_2.Enabled = false;
+            panel_colapse_2.Visible = false;
+        }
+
+        private void frm_01_2_Load(object sender, EventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
+
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.panel_colapse, "Ocultar estructura");
+            toolTip1.SetToolTip(this.panel_colapse_2, "Ver estructura");
+
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            panel_colapse_2.Location = new Point(coll + 6, 2);
 
         }
+
+        private void frm_01_2_Resize(object sender, EventArgs e)
+        {
+            panel_colapse_2.Location = new Point(4, 2);
+        }
+        #endregion
 
         void Agregar_menu_contextual()
         {
@@ -205,6 +427,17 @@ namespace SGAP.comercial
 
                 Panels[index].Visible = true;
                 VisiblePanel = Panels[index];
+            }
+            else if (index == 10100)
+            {
+                if (Panels.Count < 1) return;
+
+                if (VisiblePanel == Panels[9]) return;
+
+                if (VisiblePanel != null) VisiblePanel.Visible = false;
+
+                Panels[9].Visible = true;
+                VisiblePanel = Panels[9];
             }
         }
 
@@ -285,7 +518,7 @@ namespace SGAP.comercial
                 //Item_servicio_click(object sender);
                 Metodo_cargar_informacion_servicio();
 
-                Cargar_servicios();
+                //Cargar_servicios();
             }
 
         }
@@ -298,18 +531,18 @@ namespace SGAP.comercial
 
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
-
+            _entro = false;
             frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _lista_et_m40);
             form_2_1.ShowDialog();
-            if (form_2_1.DialogResult != DialogResult.Cancel)
+            if (form_2_1.DialogResult != DialogResult.OK)
             {
                 Metodo_cargar_informacion_mano_de_obra();
             }
-
         }
         #endregion
 
         #region Mano de obra
+        bool _entro = true;
         void Metodo_cargar_informacion_mano_de_obra()
         {
             ET_R29 _et = new ET_R29();
@@ -317,9 +550,17 @@ namespace SGAP.comercial
             _et._lista_et_m40 = _lista_et_m40;
             _lista_et_r29 = _nt_r29.get_001(_et)._lista_et_r29;
 
-            Contruir_DataGrid_Mano_Obra(); // Construimos la grilla
 
-            Desplegar_informacion();
+            if (_lista_et_r29 != null && _lista_et_r29.Count > 0)
+            {
+                Contruir_DataGrid_Mano_Obra(); // Construimos la grilla
+                Desplegar_informacion();
+            }
+            else
+            {
+                if(_entro)
+                    Item_mano_de_obra_click(null, null);
+            }
         }
 
 
@@ -493,6 +734,7 @@ namespace SGAP.comercial
 
             }
 
+
         }
 
         private void dgv_entrada_datos_mq_eq_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -635,8 +877,6 @@ namespace SGAP.comercial
             dgv_mano_de_obra_right.AllowUserToAddRows = false;
             dgv_mano_de_obra_right.AutoGenerateColumns = false;
             dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dgv_mano_de_obra_right.DefaultCellStyle.SelectionBackColor = Color.White;
-            dgv_mano_de_obra_right.DefaultCellStyle.SelectionForeColor = Color.Black;
             //dgv_mano_de_obra_right.ReadOnly = true;
 
             // columnas de remuneraciones 
@@ -648,7 +888,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "Sueldo básico";
             MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
             MANO_OBRA_COL_SUELDO_BASICO.Width = 85;
-            MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
+            //MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_BASICO.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
@@ -656,7 +896,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.personal";
             MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
             MANO_OBRA_COL_TOTAL_PERSONAL.Width = 80;
-            MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
+            //MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
             MANO_OBRA_COL_TOTAL_PERSONAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
@@ -664,7 +904,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
             MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
             MANO_OBRA_COL_SUELDO_MENSUAL.Width = 60;
-            MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
+            //MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
@@ -672,7 +912,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL.HeaderText = "Total";
             MANO_OBRA_COL_TOTAL.Name = "MANO_OBRA_COL_TOTAL";
             MANO_OBRA_COL_TOTAL.Width = 85;
-            MANO_OBRA_COL_TOTAL.ReadOnly = true;
+            //MANO_OBRA_COL_TOTAL.ReadOnly = true;
             MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
@@ -680,7 +920,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
             MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
             MANO_OBRA_COL_SUM_CONCEPTOS.Width = 70;
-            MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
+            //MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
             MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
 
@@ -732,20 +972,20 @@ namespace SGAP.comercial
                 for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
                     ceros_[a] = "0";
 
-               
+                dgv_mano_de_obra_right.Rows.Add(
+                    0, // total personal
+                    fila_._TR29_REMUNERACION, // sueldo basico
+                    100,
+                    fila_._TR29_REMUNERACION + 100,
+                    (fila_._TR29_REMUNERACION + 100) * 0
+                 );
 
                 dgv_mano_de_obra.Rows.Add(
                     Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA,fila_._lista_et_r30)
                    
                     );
 
-                dgv_mano_de_obra_right.Rows.Add(
-                       0, // total personal
-                       fila_._TR29_REMUNERACION, // sueldo basico
-                       100,
-                       fila_._TR29_REMUNERACION + 100,
-                       (fila_._TR29_REMUNERACION + 100)* 0
-                    );
+
             });
 
 
@@ -834,75 +1074,12 @@ namespace SGAP.comercial
             }
         }
        
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            if (splitContainer1.Panel1Collapsed == false)
-            {
-                splitContainer1.Panel1Collapsed = true;
-                btn_colapse.Text = "";
-                btn_colapse.BackgroundImage = Properties.Resources.rigth_arrow;
-                
-                btn_colapse.Location = new Point(0, 0);
-
-            }
-            else if (splitContainer1.Panel1Collapsed == true)
-            {              
-                splitContainer1.Panel1Collapsed = false;
-                btn_colapse.Text = "";
-                btn_colapse.BackgroundImage = Properties.Resources.left_arrow;
-                int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-                btn_colapse.Location = new Point(coll, 0);
-            }
-        }
-
         private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
         {
             int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-            btn_colapse.Location = new Point(coll, 0);
-        }
+            //btn_colapse.Location = new Point(coll, 0);
+            panel_colapse_2.Location = new Point(coll + 6, 2);
 
-        private void dgv_mano_de_obra_right_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (this.dgv_mano_de_obra_right.CurrentCell.ColumnIndex == this.dgv_mano_de_obra_right.Columns["_COL_CARGO"].Index)
-            //{
-            //    TextBox auto_text_cargo = e.Control as TextBox;
-
-            //    if (string.IsNullOrEmpty(auto_text_cargo.Text))
-            //        auto_text_cargo.Text = string.Empty;
-            //    //if (auto_text_cargo != null)
-            //    //{
-            //    auto_text_cargo.Width = 300;
-            //    auto_text_cargo.AutoCompleteMode = AutoCompleteMode.Suggest;
-            //    auto_text_cargo.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            //    _nt_m38.TexBox_Cargo(auto_text_cargo);
-            //    //}
-            //}
-        }
-
-        private void dgv_mano_de_obra_right_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-
-        }
-
-        private void dgv_mano_de_obra_right_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        {
-     
-        }
-
-        private void dgv_mano_de_obra_right_MouseHover(object sender, EventArgs e)
-        {
-        }
-
-        private void dgv_mano_de_obra_right_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void frm_01_2_Load(object sender, EventArgs e)
-        {
-            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-            btn_colapse.Location = new Point(coll, 0);
-            btn_colapse.BackgroundImage = Properties.Resources.left_arrow;
         }
 
         private void dgv_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -932,12 +1109,7 @@ namespace SGAP.comercial
 
         private void dgv_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-
-        }
-
-        private void dgv_mano_de_obra_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
-        {
-
+            dgv_mano_de_obra_right.Rows[e.RowIndex].Selected = true;
         }
     }
 }

@@ -5,8 +5,7 @@ GO
 -- =============================================
 -- Author:		cesar.freitas
 -- Create date: 2017.12.13
--- Descripcion : Obtiene una lista de los servicios registrados de acuerdo
--- a una condicion establecida.
+-- Descripcion : /OBTENER LISTA DE SERVICIOS POR TIPO.
 -- =============================================
 CREATE PROCEDURE pa_sel101
 	 @p_TR19_TM2_ID varchar(50) -- pis

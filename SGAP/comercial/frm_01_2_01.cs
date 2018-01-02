@@ -43,7 +43,7 @@ namespace SGAP.comercial
             // style
             this.BackColor = Color.FromArgb(221, 221, 221);
 
-            label10.BackColor = Color.FromArgb(0, 134, 65);
+            label10.BackColor = Color.FromArgb(0, 137, 123);
             label10.ForeColor = Color.White;
             label10.Text = this.Text;
 
@@ -75,28 +75,31 @@ namespace SGAP.comercial
             _COL_CARGO.DataPropertyName = "_CARGO";
             _COL_CARGO.HeaderText = "Cargo";
             _COL_CARGO.Name = "_COL_CARGO";
-            _COL_CARGO.Width = 250;
-            _COL_CARGO.MinimumWidth = 250;
-            _COL_CARGO.FillWeight = 250;
+            _COL_CARGO.Width = 200;
+            _COL_CARGO.MinimumWidth = 200;
+            _COL_CARGO.FillWeight = 200;
 
 
             _COL_HORA_ENTRADA = new UserControls.GridTimeControl();
             _COL_HORA_ENTRADA.Name = "_COL_HORA_ENTRADA";
             _COL_HORA_ENTRADA.HeaderText = "Hora entrada";
-            _COL_HORA_ENTRADA.Width = 70;
-            _COL_HORA_ENTRADA.MinimumWidth = 70;
-            _COL_HORA_ENTRADA.FillWeight = 70;
+            _COL_HORA_ENTRADA.Width = 75;
+            _COL_HORA_ENTRADA.MinimumWidth = 75;
+            _COL_HORA_ENTRADA.FillWeight = 75;
 
             _COL_HORA_SALIDA = new UserControls.GridTimeControl();
             _COL_HORA_SALIDA.Name = "_COL_HORA_SALIDA";
             _COL_HORA_SALIDA.HeaderText = "Hora salida";
-            _COL_HORA_SALIDA.Width = 65;
-            _COL_HORA_SALIDA.MinimumWidth = 65;
-            _COL_HORA_SALIDA.FillWeight = 65;
+            _COL_HORA_SALIDA.Width = 80;
+            _COL_HORA_SALIDA.MinimumWidth = 80;
+            _COL_HORA_SALIDA.FillWeight = 80;
 
             _COL_DIAS_POR_SEMANA = new UserControls.NumericUpDownColumn();
             _COL_DIAS_POR_SEMANA.HeaderText = "Dias por sem.";
             _COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
+            _COL_DIAS_POR_SEMANA.Width = 80;
+            _COL_DIAS_POR_SEMANA.MinimumWidth = 80;
+            _COL_DIAS_POR_SEMANA.FillWeight = 80;
 
             DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
             _COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
@@ -595,7 +598,7 @@ namespace SGAP.comercial
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                 DataGridViewButtonCell celBoton = dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Cells["_COL_DELETE_ROW"] as DataGridViewButtonCell;
-                Image delete_image = Properties.Resources.Delete_16;
+                Image delete_image = Properties.Resources.borrar;
 
                 e.Graphics.DrawImage(delete_image, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
 
@@ -681,8 +684,6 @@ namespace SGAP.comercial
             Indice_columna_grid_entrada_datos_mano_obra = e.ColumnIndex;
             dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[Indice_columna_grid_entrada_datos_mano_obra, e.RowIndex];
             dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Selected = true;
-            //SendKeys.Send("{TAB}");
-
         }
 
         private void dgv_entrada_datos_mano_de_obra_CellLeave(object sender, DataGridViewCellEventArgs e)

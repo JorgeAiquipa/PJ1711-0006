@@ -1,125 +1,131 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.ComponentModel;
 using Win28etug;
 using Win32dtug;
 
 namespace Win28ntug
 {
-    public class NT_R28
+    public class NT_R28 : NT_tareas
     {
+        ET_globales Globales = new ET_globales();
+        ET_entidad Resultado = new ET_entidad();
         ET_entidad _entidad = new ET_entidad();
         ET_R28 _et_r28 = new ET_R28();
         DT_R28 _dt_r28 = new DT_R28();
 
+        #region Métodos
         //Registramos el servicio seleccionado para una cotizacion
         public ET_entidad set_002(ET_entidad objEntity)
         {
             return _dt_r28.set_002(objEntity._entity_r28); // aqui se registran los hijos de de un servicio padre asociado a una cotizacion
         }
 
-        //obtenemos los servicios de una cotización
-        public int[] get_001(ET_entidad entity, TreeView treview) 
+        #endregion
+
+        #region Mensajes
+        protected virtual void Mensaje_Alerta_(ET_entidad e)
         {
-            treview.Nodes.Clear();
-            int Id_servicio_Padre = entity._entity_r28._TR28_PADRE;
-            int Periodo_Servicio = entity._entity_r28._TR28_PERIODO;
+            Mensaje_Alerta?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Alerta;
+        protected virtual void Mensaje_Info_(ET_entidad e)
+        {
+            Mensaje_Info?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Info;
+        protected virtual void Mensaje_Confir_(ET_entidad e)
+        {
+            Mensaje_Confir?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Confir;
+        protected virtual void Mensaje_Error_(ET_entidad e)
+        {
+            Mensaje_Error?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Error;
+        #endregion
 
-            entity._entity_r28._TR28_TM39_ID = entity._entity_m39._TM39_ID;
-            var result = _dt_r28.get_001(entity._entity_r28);
-
-
-            if (!result._hubo_error && result._lista_et_r28.Count > 0)
+        #region Agregaciones
+        public void Et_r28(ET_R28 dato)
+        {
+            if (dato != null)
             {
+                _et_r28 = dato;
+            }
+        }
+        #endregion
 
-                string name_nodo = string.Format("{0} - {1}", entity._entity_m39._TM39_ID, entity._entity_m39._entity_et_m19._TM19_DESCRIP2);
-                TreeNode nodo_principal = new TreeNode();
-                nodo_principal.Tag = 10100;
-                nodo_principal.Name = name_nodo;
-                nodo_principal.Text = name_nodo;
+        #region Eventos
+        protected virtual void Cargar_explorador_De_Servicios(ET_entidad e)
+        {
+            Cargar_explorador_De_Servicios_?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Cargar_explorador_De_Servicios_;
+        #endregion
 
-                var lista_resultadito = result._lista_et_r28
-                    .GroupBy(u => u._TR28_TM42_ID)
-                    .Select(grp => grp.ToList())
-                    .ToList();
-                
-                foreach (List<ET_R28> list in lista_resultadito)
+        #region BackgroundWorker
+        BackgroundWorker bw = new BackgroundWorker();
+        string Tarea_;
+        public NT_R28()
+        {
+            bw.DoWork += Bw_DoWork;
+            bw.ProgressChanged += Bw_ProgressChanged;
+            bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+        }
+        public void Iniciar(Func<string> TAREA)
+        {
+            Tarea_ = TAREA();
+            if (!bw.IsBusy)
+                bw.RunWorkerAsync();
+        }
+
+        private void Bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ////bw.ReportProgress(/*####*/);
+            switch (Tarea_)
+            {
+                case "LISTAR":
+                    Resultado = _dt_r28.get_001(_et_r28._TR28_TM39_ID, Globales._TM2_ID);
+                    break;
+            }
+
+        }
+
+        private void Bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            var percent = e.ProgressPercentage;
+        }
+
+        private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+            }
+            else if (e.Error != null)
+            {
+            }
+            else
+            {
+                if (Resultado._hubo_error)
                 {
-                    int id_tipo_Servicio = 0;
-                    string nombre_servicio = "";
-
-                    TreeNode servicios = new TreeNode();
-
-                    foreach (ET_R28 row_u in list)
+                    Mensaje_Info_(Resultado);
+                }
+                else
+                {
+                    switch (Tarea_)
                     {
-                        // 
-                        id_tipo_Servicio = row_u._TR28_TM42_ID;
-                        nombre_servicio = row_u._TR28_TM42_DESCRIP;
-
-                        Id_servicio_Padre = row_u._TR28_PADRE;
-                        Periodo_Servicio = row_u._TR28_PERIODO;
-
-                        TreeNode mano_obra = new TreeNode("Mano de obra");
-                        mano_obra.Name = "Mano de Obra";
-                        mano_obra.Tag = 0;
-                        TreeNode maquinaria = new TreeNode("Maquinaria y equipo");
-                        maquinaria.Tag = 1;
-                        TreeNode materiales = new TreeNode("Materiales e insumos");
-                        materiales.Tag = 2;
-                        TreeNode implementos = new TreeNode("Implementos de limpieza");
-                        implementos.Tag = 3;
-                        TreeNode suministros = new TreeNode("Suministros");
-                        suministros.Tag = 4;
-                        TreeNode indumentaria = new TreeNode("Indumentaria");
-                        indumentaria.Tag = 5;
-                        TreeNode Epp = new TreeNode("Epp");
-                        Epp.Tag = 6;
-
-
-                        TreeNode node_hijo = new TreeNode(row_u._TR28_DESCRIP, new TreeNode[] {
-                                mano_obra,maquinaria,materiales,implementos,suministros,indumentaria,Epp
-                                        });
-                        node_hijo.Text = row_u._TR28_DESCRIP;
-                        node_hijo.Tag = 1000;
-                        node_hijo.Name = row_u._TR28_ID.ToString();
-
-                        servicios.Nodes.Add(node_hijo);
-                        servicios.Text = row_u._TR28_TM42_DESCRIP;
-                        servicios.Name = Convert.ToString(id_tipo_Servicio);
-                        servicios.Tag = 2000;
-
-                      
+                        case "LISTAR":
+                            Cargar_explorador_De_Servicios(Resultado);
+                            break;
                     }
-
-                    nodo_principal.Nodes.Add(servicios);
 
                 }
 
-
-                //agregar nuevos nodos 7 y 8
-                TreeNode financieros = new TreeNode("Gastos financieros");
-                financieros.Tag = 7;
-                TreeNode indirectos = new TreeNode("Otros gastos indirectos");
-                indirectos.Tag = 8;
-
-                nodo_principal.Nodes.Add(financieros);
-                nodo_principal.Nodes.Add(indirectos);
-
-
-                nodo_principal.ExpandAll();
-
-                treview.Nodes.Add(nodo_principal);
-
-
             }
 
-            int[] resultado = { Id_servicio_Padre, Periodo_Servicio };
 
-            return resultado;
         }
-        
+        #endregion
+
     }
 }

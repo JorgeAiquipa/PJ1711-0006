@@ -137,7 +137,7 @@ namespace Win32dtug
             return _Entidad;
         }
         //OBTENER LISTA DE SERVICIOS QUE POSEE UNA COTIZACIÓN
-        public ET_entidad get_001(ET_R28 objEntity)
+        public ET_entidad get_001(string _TR28_TM39_ID, string _TM2_ID)
         {
             string Mensaje_error = "";
 
@@ -152,8 +152,8 @@ namespace Win32dtug
                 {
                     _lista_et_r28 = new List<ET_R28>();
 
-                    cmd.Parameters.Add("@P_TR28_TM39_ID", SqlDbType.VarChar, 10).Value = objEntity._TR28_TM39_ID;
-                    cmd.Parameters.Add("@P_TR28_TM2_ID", SqlDbType.VarChar, 50).Value = _globales._TM2_ID;
+                    cmd.Parameters.Add("@P_TR28_TM39_ID", SqlDbType.VarChar, 10).Value = _TR28_TM39_ID;
+                    cmd.Parameters.Add("@P_TR28_TM2_ID", SqlDbType.VarChar, 50).Value = _TM2_ID;
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);

@@ -16,11 +16,10 @@ namespace Win32dtug
         ET_entidad _Entidad = new ET_entidad();
         ET_M19 _etm19 = new ET_M19();
         ET_M27 _etm27 = new ET_M27();
-        List<ET_M19> _lista_m19 = new List<ET_M19>();
         List<ET_M27> _lista_m27 = new List<ET_M27>();
        
         //OBTENER LISTA DE CLIENTES MEDIANTE UN FILTRO
-        public ET_entidad get_001(ET_M19 objEntity)
+        public ET_entidad get_001(string filtro_)
         {
             string Mensaje_error = "";
             DataTable dt = new DataTable();
@@ -32,10 +31,12 @@ namespace Win32dtug
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    cmd.Parameters.Add("@p_filtro", SqlDbType.VarChar, 50).Value = objEntity._filtro;
+                    cmd.Parameters.Add("@p_filtro", SqlDbType.VarChar, 50).Value = filtro_;
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dt);
+
+                    List<ET_M19> _lista_m19 = new List<ET_M19>();
 
                     foreach (DataRow fila in dt.Rows)
                     {

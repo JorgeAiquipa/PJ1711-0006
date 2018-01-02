@@ -84,6 +84,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AutoCompleteTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ControlIconTextColumn.cs" />
+    <Compile Include="UserControls\ControlPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ControlTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\frm_tooltip.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +173,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Delete-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cliente.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\if_zoom_16x16_10096.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\borrar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ayuda.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filtro.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reporte_2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archivo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reporte.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nota.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reporte_3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tabla.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\atencion.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

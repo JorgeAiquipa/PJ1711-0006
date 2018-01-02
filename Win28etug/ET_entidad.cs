@@ -19,6 +19,7 @@ namespace Win28etug
         public string _titulo_mensaje { get; set; }
         public string _contenido_mensaje { get; set; }
         public bool _hubo_error { get; set; }
+        public string _Filtro { get; set; }
 
         public List<ET_servicio> _servicio { get; set; }
 
@@ -53,6 +54,7 @@ namespace Win28etug
             _entity_r27 = new ET_R27();
             _entity_m39 = new ET_M39();
             _entity_r19 = new ET_R19();
+            _Filtro = "";
         }
     }
  
