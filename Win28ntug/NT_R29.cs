@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,18 @@ using Win28etug;
 using Win32dtug;
 namespace Win28ntug
 {
-    public class NT_R29
+    public class NT_R29 :NT_tareas
     {
+        ET_entidad Resultado = new ET_entidad();
         ET_entidad _et_entidad = new ET_entidad();
+        ET_globales Globales = new ET_globales();
+        ET_R29 _ETR29 = new ET_R29();
         NT_M40 _NT_M40 = new NT_M40();
         DT_R29 _dt_r29 = new DT_R29();
         DT_R30 _dt_r30 = new DT_R30();
 
+
+        #region Métodos
         public ET_entidad get_001(ET_R29 obj)
         {
             // obj._lista_et_m40; --> conceptos remunerativos disponibles
@@ -40,6 +46,7 @@ namespace Win28ntug
                     entidad_m40._TM40_DESCRIP = row_c._TM40_DESCRIP;
                     entidad_m40._TM40_ID = row_c._TM40_ID;
                     entidad_m40._fila = fila_;
+                    entidad_m40._Work = row_c._Work;
 
                     _lista_child_etm40.Add(entidad_m40);
                 }
@@ -55,7 +62,7 @@ namespace Win28ntug
                 _entidad_final._TR29_TR28_ID = row._TR29_TR28_ID;
                 _entidad_final._lista_et_m40 = _lista_child_etm40;
                 _entidad_final._lista_et_r30 = row._lista_et_r30;
-                _entidad_final._TR29_FLG_ELIMINADO = 0;
+                _entidad_final._TR29_FLG_ELIMINADO = row._TR29_FLG_ELIMINADO;
                 _entidad_final._TR29_ST = 1; // manejare el estado para analizar quien se actualiza y quien no que se registra y quien no lo hace
                 // 1 -> obtenido desde base de datos
                 // 0 -> es un nuevo ingreso
@@ -68,7 +75,6 @@ namespace Win28ntug
             resultado._lista_et_r29 = lista_final;
             return resultado;
         }
-
 
         public int[] Metodo_Analizar_filas_repetidas(List<ET_R29> obj)
         {
@@ -116,13 +122,13 @@ namespace Win28ntug
             // COMPARAR SI A ES IGUAL A B
             bool respuesta = false;
 
-            if (lista_B.Count != lista_A.Count)
-            {  return false; }
-            else if((lista_A.Count + lista_B.Count)== 0)
-            {  return true; }
+            if (lista_B.Where(x=> x._Seleccionado == true).ToList().Count != lista_A.Where(x => x._Seleccionado == true).ToList().Count)
+            { return false; }
+            else if ((lista_A.Count + lista_B.Count) == 0)
+            { return true; }
             else
             {
-                int par_mitad = lista_B.Count;
+                int par_mitad = lista_B.Where(X => X._Seleccionado == true).ToList().Count;
                 int contador = 0;
                 foreach (ET_M40 row_b in lista_B)
                 {
@@ -137,63 +143,199 @@ namespace Win28ntug
             return respuesta;
 
         }
+
         public void set_001(List<ET_R29> _lista_et_r29, List<ET_R29> _lista_et_r29_back)
         {
-            foreach (ET_R29 row in _lista_et_r29_back)
+            _lista_et_r29_back.ForEach(row =>
             {
                 if (row._TR29_FLG_ELIMINADO == 1 && row._TR29_ST == 1)
                 {
-                    //actualizar
+                    //actualizar flg 1
                     bool respuesta = _dt_r29.set_002(row);
                 }
 
-            }
+            });
 
-            foreach (ET_R29 row in _lista_et_r29)
-            {
 
-                if (row._TR29_ST == 0 && row._TR29_FLG_ELIMINADO == 0)
+            _lista_et_r29.Where(X => X._TR29_ST == 1).ToList().ForEach(row => {
+
+                bool respuesta = _dt_r29.set_002(row);
+                int id = row._TR29_ID;
+                if (respuesta)
                 {
-                    //registramos lo nuevo con lo actualizado
+                    row._lista_et_r30.ForEach(x => {
 
-                    DateTime h_e_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_ENTRADA.Hour, minute: row._TR29_HORA_ENTRADA.Minute, second: 0); // reset
-                    DateTime h_s_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_SALIDA.Hour, minute: row._TR29_HORA_SALIDA.Minute, second: 0); // reset
+                        ET_R30 et30 = new ET_R30();
+                        et30._TR30_ID = x._TR30_ID;
+                        et30._TR30_TR29_ID = x._TR30_TR29_ID;
+                        et30._TR30_IMPORTE = x._TR30_IMPORTE;
+                        et30._TR30_TM40_ID = x._TR30_TM40_ID;
+                        et30._TR30_FLG_ELIMINADO = x._TR30_FLG_ELIMINADO;
+                        et30._TR30_TM2_ID = x._TR30_TM2_ID;
+                        et30._TR30_UACTUALIZA = Globales._U_CREA;
+                        _dt_r30.set_002(et30);
+
+                    });
+
+                }
+            });
+
+            _lista_et_r29.Where(X => X._TR29_ST == 0).ToList().ForEach(row => {
+
+                //registramos lo nuevo con lo actualizado
+
+                DateTime h_e_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_ENTRADA.Hour, minute: row._TR29_HORA_ENTRADA.Minute, second: 0); // reset
+                DateTime h_s_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_SALIDA.Hour, minute: row._TR29_HORA_SALIDA.Minute, second: 0); // reset
 
 
-                    ET_R29 _et_r29 = new ET_R29();
-                    _et_r29._TR29_TR28_ID = row._TR29_TR28_ID; //servicio hijo que a su ve es padre en algunos casos
-                    _et_r29._TR29_TM38_ID = row._TR29_TM38_ID; // id del cargo que se va a registrar
+                ET_R29 _et_r29 = new ET_R29();
+                _et_r29._TR29_TR28_ID = row._TR29_TR28_ID; //servicio hijo que a su ve es padre en algunos casos
+                _et_r29._TR29_TM38_ID = row._TR29_TM38_ID; // id del cargo que se va a registrar
 
-                    _et_r29._TR29_HORA_ENTRADA = h_e_;
-                    _et_r29._TR29_HORA_SALIDA = h_s_;
-                    _et_r29._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
-                    _et_r29._TR29_DESCRIP = row._TR29_DESCRIP;
-                    _et_r29._TR29_REMUNERACION = row._TR29_REMUNERACION;
+                _et_r29._TR29_HORA_ENTRADA = h_e_;
+                _et_r29._TR29_HORA_SALIDA = h_s_;
+                _et_r29._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
+                _et_r29._TR29_DESCRIP = row._TR29_DESCRIP;
+                _et_r29._TR29_REMUNERACION = row._TR29_REMUNERACION;
 
-                    var result = _dt_r29.set_001(_et_r29);
+                var result = _dt_r29.set_001(_et_r29);
 
-                    if (!result._hubo_error)
+                if (!result._hubo_error)
+                {
+                    var all_true = row._lista_et_m40.Where(x => x._Seleccionado == true).ToList();
+                    foreach (ET_M40 row_child in all_true)
                     {
-                        var all_true = row._lista_et_m40.Where(x => x._Seleccionado == true).ToList();
-                        foreach (ET_M40 row_child in all_true)
-                        {
-                            ET_R30 _et_r30 = new ET_R30();
+                        ET_R30 _et_r30 = new ET_R30();
 
-                            _et_r30._TR30_TR29_ID = result._entity_r29._TR29_ID;
-                            _et_r30._TR30_TM40_ID = row_child._TM40_ID;
-                            _et_r30._TR30_DESCRIP = row_child._TM40_DESCRIP;
-
-                            _dt_r30.set_001(_et_r30);
-                        }
+                        _et_r30._TR30_TR29_ID = result._entity_r29._TR29_ID;
+                        _et_r30._TR30_TM40_ID = row_child._TM40_ID;
+                        _et_r30._TR30_DESCRIP = row_child._TM40_DESCRIP;
+                        _et_r30._TR30_FLG_ELIMINADO = 0;
+                        _et_r30._TR30_IMPORTE = row_child._Work.Equals("P") ? (row._TR29_REMUNERACION * row_child._TM40_PORCENTAJE) : (row_child._TM40_IMPORTE);
+                        _dt_r30.set_001(_et_r30);
                     }
                 }
 
-                if (row._TR29_ST == 1 && row._TR29_FLG_ELIMINADO == 0)
-                {
-                    bool respuesta = _dt_r29.set_002(row);
-                }
-            }
+            });
 
         }
+        #endregion
+
+        #region Mensajes
+        protected virtual void Mensaje_Alerta_(ET_entidad e)
+        {
+            Mensaje_Alerta?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Alerta;
+        protected virtual void Mensaje_Info_(ET_entidad e)
+        {
+            Mensaje_Info?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Info;
+        protected virtual void Mensaje_Confir_(ET_entidad e)
+        {
+            Mensaje_Confir?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Confir;
+        protected virtual void Mensaje_Error_(ET_entidad e)
+        {
+            Mensaje_Error?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Mensaje_Error;
+        #endregion
+
+        #region Agregaciones
+        public void Agregar_ETR29(ET_R29 dato)
+        {
+            if (dato!= null)
+            {
+                _ETR29 = dato;
+            }
+        }
+        #endregion
+
+        #region Eventos
+        protected virtual void Cargar_Listado(ET_entidad e)
+        {
+            Cargar_Listado_?.Invoke(this, e);
+        }
+        public event EventHandler<ET_entidad> Cargar_Listado_;
+        protected virtual void Porcentaje_De_Craga_(int e)
+        {
+            Porcentaje_De_Craga?.Invoke(this, e);
+        }
+        public event EventHandler<int> Porcentaje_De_Craga;
+        #endregion
+
+        #region BackgroundWorker
+        BackgroundWorker bw = new BackgroundWorker();
+        string Tarea_;
+
+        public NT_R29()
+        {
+            //Eventos
+            bw.WorkerReportsProgress = true;
+            bw.DoWork += Bw_DoWork;
+            bw.ProgressChanged += Bw_ProgressChanged;
+            bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+        }
+        public void Iniciar(Func<string> TAREA)
+        {
+            Tarea_ = TAREA();
+            if (!bw.IsBusy)
+                bw.RunWorkerAsync();
+        }
+
+        private void Bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bw.ReportProgress(0);
+            switch (Tarea_)
+            {
+                case "LISTAR":
+                    Resultado = get_001(_ETR29);
+                    break;
+            }
+            bw.ReportProgress(100);
+        }
+
+        private void Bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //mostrar este valor en un ProgressBar
+            var percent = e.ProgressPercentage;
+            Porcentaje_De_Craga_(percent);
+        }
+
+        private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+            }
+            else if (e.Error != null)
+            {
+            }
+            else
+            {
+
+                if (Resultado._hubo_error)
+                {
+                    Mensaje_Info_(Resultado);
+                }
+                else
+                {
+                    switch (Tarea_)
+                    {
+                        case "LISTAR":
+                            Cargar_Listado(Resultado);
+                            break;
+                    }
+
+                }
+
+            }
+
+
+        }
+        #endregion
+
     }
 }

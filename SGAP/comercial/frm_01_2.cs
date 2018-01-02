@@ -39,7 +39,7 @@ namespace SGAP.comercial
         public string undad = "";
         public double precio = 0;
         public string tipo = "";
-        bool primer_Selected_node = false;
+        //bool primer_Selected_node = false;
         ImageList iconos_treeView = new ImageList();
 
         ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
@@ -130,7 +130,6 @@ namespace SGAP.comercial
                 //Metodo_cargar_informacion_mano_de_obra();
             }
 
-
             tabControl1.Visible = false;
 
             foreach (TabPage page in tabControl1.TabPages)
@@ -143,7 +142,8 @@ namespace SGAP.comercial
                 panel.Visible = false;
             }
 
-            DisplayPanel(0);
+            DisplayPanel(10100);
+            Contruir_DataGrid_Mano_Obra();
             CreateColumn();
 
             _nt_m31.Mensaje_Alerta += Mensaje_Informacion;
@@ -153,7 +153,23 @@ namespace SGAP.comercial
 
             _helper.Set_Style_to_DatagridView(dgv_entrada_datos_mq_eq);
             _nt_r28.Cargar_explorador_De_Servicios_ += CargarExplorados_de_servicios;
+            _nt_r29.Cargar_Listado_ += _nt_r29_Cargar_Listado_;
             Obtener_Servicios_de_cotizacion();
+        }
+
+        private void _nt_r29_Cargar_Listado_(object sender, ET_entidad e)
+        {
+            _lista_et_r29 = e._lista_et_r29;
+
+            if (_lista_et_r29 != null && _lista_et_r29.Count > 0)
+            {
+                Desplegar_informacion();
+            }
+            else
+            {
+                if (_entro)
+                    Item_mano_de_obra_click(null, null);
+            }
         }
 
         public void Obtener_Servicios_de_cotizacion()
@@ -405,7 +421,7 @@ namespace SGAP.comercial
 
         List<Panel> Panels = new List<Panel>();
         Panel VisiblePanel = null;
-        //tiene lugar cuando cambia ala selección.
+        //tiene lugar cuando cambia la selección.
         private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
@@ -415,8 +431,6 @@ namespace SGAP.comercial
 
         private void DisplayPanel(int index)
         {
-            // si el indice esta furea del intervalo veremos los resumenes general
-
             if (index <= 8)
             {
                 if (Panels.Count < 1) return;
@@ -534,7 +548,7 @@ namespace SGAP.comercial
             _entro = false;
             frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _lista_et_m40);
             form_2_1.ShowDialog();
-            if (form_2_1.DialogResult != DialogResult.OK)
+            if (form_2_1.DialogResult == DialogResult.OK)
             {
                 Metodo_cargar_informacion_mano_de_obra();
             }
@@ -546,25 +560,16 @@ namespace SGAP.comercial
         void Metodo_cargar_informacion_mano_de_obra()
         {
             ET_R29 _et = new ET_R29();
+            _lista_et_r29 = new List<ET_R29>();
+            _lista_et_r29.Clear();
             _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
             _et._lista_et_m40 = _lista_et_m40;
-            _lista_et_r29 = _nt_r29.get_001(_et)._lista_et_r29;
 
+            _nt_r29.Agregar_ETR29(_et);
+            _nt_r29.Iniciar(Tarea.LISTAR);
 
-            if (_lista_et_r29 != null && _lista_et_r29.Count > 0)
-            {
-                Contruir_DataGrid_Mano_Obra(); // Construimos la grilla
-                Desplegar_informacion();
-            }
-            else
-            {
-                if(_entro)
-                    Item_mano_de_obra_click(null, null);
-            }
         }
-
-
-
+    
 
         #endregion
 
@@ -588,24 +593,6 @@ namespace SGAP.comercial
         }
         #endregion
 
-
-        private Boolean Dia_semana(String fecha)
-        {
-            try
-            {
-                DateTime.Parse(fecha);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        private void dgv_entrada_datos_mano_de_obra_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            //validar celda
-
-        }
 
         private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
@@ -765,28 +752,16 @@ namespace SGAP.comercial
             }
         }
 
-        void Contruir_DataGrid_Mano_Obra()
+        private void Contruir_DataGrid_Mano_Obra()
         {
             dgv_mano_de_obra.AllowUserToAddRows = false;
-
-            dgv_mano_de_obra.Rows.Clear();
-            dgv_mano_de_obra.Columns.Clear();
-            dgv_mano_de_obra.DataSource = null;
-            dgv_mano_de_obra.Refresh();
-            dgv_mano_de_obra.Update();
-
-            dgv_mano_de_obra_right.Rows.Clear();
-            dgv_mano_de_obra_right.Columns.Clear();
-            dgv_mano_de_obra_right.DataSource = null;
-            dgv_mano_de_obra_right.Refresh();
-            dgv_mano_de_obra_right.Update();
+            dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
 
             _helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
             _helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
 
             dgv_mano_de_obra.AutoGenerateColumns = false;
             dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            //dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             #region COLUMNAS
             //DataGridViewColumn _COL_FILA = new DataGridViewTextBoxColumn();
             //_COL_FILA.DataPropertyName = "_COL_FILA";
@@ -959,38 +934,40 @@ namespace SGAP.comercial
 
         }
 
-        void Desplegar_informacion()
+        private void Desplegar_informacion()
         {
 
-            // Ingresamos los datos evitando enlazarlo a una fuente de datos
-            // _lista_et_r29
+            dgv_mano_de_obra.Rows.Clear();
+            //dgv_mano_de_obra.DataSource = null;
+            //dgv_mano_de_obra.Refresh();
+            //dgv_mano_de_obra.Update();
+
+            dgv_mano_de_obra_right.Rows.Clear();
 
             _lista_et_r29.ForEach(fila_ => {
 
-               
-                string[] ceros_ = new string[dgv_mano_de_obra_right.ColumnCount];
-                for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
-                    ceros_[a] = "0";
+                var list = fila_._lista_et_r30;
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+                fila_._lista_et_r30.ForEach(X =>
+                {
+                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
+                });
 
                 dgv_mano_de_obra_right.Rows.Add(
                     0, // total personal
                     fila_._TR29_REMUNERACION, // sueldo basico
-                    100,
-                    fila_._TR29_REMUNERACION + 100,
-                    (fila_._TR29_REMUNERACION + 100) * 0
+                    SUMA_CONCEPTOS_REMUNERATIVOS,
+                    fila_._TR29_REMUNERACION*1M + SUMA_CONCEPTOS_REMUNERATIVOS*1M,
+                    (fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * 0
                  );
 
                 dgv_mano_de_obra.Rows.Add(
                     Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA,fila_._lista_et_r30)
-                   
                     );
-
-
             });
-
-
         }
-        string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida,List<ET_R30> conceptos_)
+
+        private string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida,List<ET_R30> conceptos_)
         {
             //string semana_laborar = "";
             int horas = 0;
@@ -1110,6 +1087,15 @@ namespace SGAP.comercial
         private void dgv_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             dgv_mano_de_obra_right.Rows[e.RowIndex].Selected = true;
+        }
+
+        private void dgv_mano_de_obra_right_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
+            }
+            catch (Exception) { }
         }
     }
 }

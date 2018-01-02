@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_sel102]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_sel102;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr30_sel001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tr30_sel001;
 GO
 
 -- =============================================
@@ -7,7 +7,7 @@ GO
 -- Create date: 2017.12.26
 -- Descripcion : Obtiene una lista de los conceptos remunarativos que posee un cargo
 -- =============================================
-CREATE PROCEDURE pa_sel102
+CREATE PROCEDURE pa_tr30_sel001
 	@p_TR29_ID INT,
 	--@p_TM40_ID VARCHAR(20),
 	@p_TM2_ID VARCHAR(10)
@@ -52,3 +52,6 @@ BEGIN CATCH
 	
 END CATCH
 GO
+
+
+SELECT * FROM T_R30

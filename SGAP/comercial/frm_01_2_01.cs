@@ -225,7 +225,8 @@ namespace SGAP.comercial
                 e.Control.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Decimal_KeyPress);
             }
 
-            Analizar_registros_repetido();
+            if(_lista_et_r29.Count > 1)
+                Analizar_registros_repetido();
 
         }
 
@@ -307,10 +308,12 @@ namespace SGAP.comercial
                                 }
                                 break;
                             case "_COL_HORA_ENTRADA":
-                                _fila._TR29_HORA_ENTRADA = Convert.ToDateTime(e.FormattedValue.ToString());
+                                 DateTime hora_e_no_Fecha = new DateTime(1900, 1, 1, Convert.ToDateTime(e.FormattedValue.ToString()).Hour, Convert.ToDateTime(e.FormattedValue.ToString()).Minute, Convert.ToDateTime(e.FormattedValue.ToString()).Second);
+                                _fila._TR29_HORA_ENTRADA = hora_e_no_Fecha;// Convert.ToDateTime(e.FormattedValue.ToString());
                                 break;
                             case "_COL_HORA_SALIDA":
-                                _fila._TR29_HORA_SALIDA = Convert.ToDateTime(e.FormattedValue.ToString());
+                                 DateTime hora_s_no_Fecha = new DateTime(1900, 1, 1, Convert.ToDateTime(e.FormattedValue.ToString()).Hour, Convert.ToDateTime(e.FormattedValue.ToString()).Minute, Convert.ToDateTime(e.FormattedValue.ToString()).Second);
+                                _fila._TR29_HORA_SALIDA = hora_s_no_Fecha;// Convert.ToDateTime(e.FormattedValue.ToString());
                                 break;
                             case "_COL_DIAS_POR_SEMANA":
                                 _fila._TR29_DIAS_SEMANA = Convert.ToInt32(e.FormattedValue.ToString());
@@ -348,10 +351,12 @@ namespace SGAP.comercial
                                 }
                                 break;
                             case "_COL_HORA_ENTRADA":
-                                in_et_r29._TR29_HORA_ENTRADA = Convert.ToDateTime(e.FormattedValue.ToString());
+                                DateTime hora_e_no_Fecha = new DateTime(1900, 1, 1, Convert.ToDateTime(e.FormattedValue.ToString()).Hour, Convert.ToDateTime(e.FormattedValue.ToString()).Minute, Convert.ToDateTime(e.FormattedValue.ToString()).Second);
+                                in_et_r29._TR29_HORA_ENTRADA = hora_e_no_Fecha;// Convert.ToDateTime(e.FormattedValue.ToString());
                                 break;
                             case "_COL_HORA_SALIDA":
-                                in_et_r29._TR29_HORA_SALIDA = Convert.ToDateTime(e.FormattedValue.ToString());
+                                DateTime hora_s_no_Fecha = new DateTime(1900, 1, 1, Convert.ToDateTime(e.FormattedValue.ToString()).Hour, Convert.ToDateTime(e.FormattedValue.ToString()).Minute, Convert.ToDateTime(e.FormattedValue.ToString()).Second);
+                                in_et_r29._TR29_HORA_SALIDA = hora_s_no_Fecha;// Convert.ToDateTime(e.FormattedValue.ToString());
                                 break;
                             case "_COL_DIAS_POR_SEMANA":
                                 in_et_r29._TR29_DIAS_SEMANA = Convert.ToInt32(e.FormattedValue.ToString());
@@ -374,9 +379,41 @@ namespace SGAP.comercial
             dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
 
             SendKeys.Send("{TAB}");
-
-            Analizar_registros_repetido();
             Indice_columna_grid_entrada_datos_mano_obra = e.ColumnIndex;
+
+            //_lista_et_r29 -> asignar beneficios sin seleccion false
+            if (!dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].IsNewRow && e.RowIndex > -1)
+            {
+                ET_R29 _et_r29_ = _lista_et_r29.FirstOrDefault(x => x._Fila == e.RowIndex);
+
+                for (int a = 0; a < dgv_entrada_datos_mano_de_obra.Rows.Count; a++)
+                {
+                    if (a != e.RowIndex)
+                        dgv_entrada_datos_mano_de_obra.Rows[a].DefaultCellStyle.BackColor = Color.White;
+                }
+                dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+
+                if (_et_r29_._lista_et_m40.Count != 0)
+                    _lista_et_m40 = _et_r29_._lista_et_m40;
+                else
+                    _lista_et_m40 = _nt_m40.get_001()._lista_et_m40;
+
+                _lista_et_m40_back = new List<ET_M40>();
+                _lista_et_m40_back = _lista_et_m40.Where(x => x._fila >= 0).ToList();
+
+                _et_r29_._lista_et_m40 = _lista_et_m40_back;
+
+
+                panel_conceptos_remuneratios.BackColor = Color.LightSkyBlue;
+
+                //dgv_conceptos_remunerativos.Focus();
+                dgv_conceptos_remunerativos.DataSource = null;
+                dgv_conceptos_remunerativos.Update();
+                dgv_conceptos_remunerativos.Refresh();
+                dgv_conceptos_remunerativos.DataSource = _lista_et_m40;
+            }
+            if (_lista_et_r29.Count > 1)
+                Analizar_registros_repetido();
 
         }
 
@@ -463,11 +500,7 @@ namespace SGAP.comercial
                     {
                         dgv_entrada_datos_mano_de_obra.Rows[a].DefaultCellStyle.BackColor = Color.WhiteSmoke;
                     }
-                    //posicionanos en la fila
-                    //dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[1, Indice_fila_grid_entrada_datos_mano_obra];
-                    // resaltamos la linea repetida
                     dgv_entrada_datos_mano_de_obra.Rows[respuesta[0]].DefaultCellStyle.BackColor = Color.Khaki;
-                    //resaltamos la linea repetida
                     dgv_entrada_datos_mano_de_obra.Rows[Indice_fila_grid_entrada_datos_mano_obra].DefaultCellStyle.BackColor = Color.DarkSalmon;
 
                     panel_cargos.BackColor = Color.DarkSalmon;
@@ -498,11 +531,8 @@ namespace SGAP.comercial
 
             }
         }
-        //Cuando hacemos click en el la celda 
         private void dgv_entrada_datos_mano_de_obra_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //dgv_entrada_datos_mano_de_obra.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(this.dgv_entrada_datos_mano_de_obra_EditingControlShowing);
-
         }
 
         private void dgv_entrada_datos_mano_de_obra_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -551,7 +581,6 @@ namespace SGAP.comercial
 
                             panel_conceptos_remuneratios.BackColor = Color.LightSkyBlue;
 
-                            //dgv_conceptos_remunerativos.Focus();
                             dgv_conceptos_remunerativos.DataSource = null;
                             dgv_conceptos_remunerativos.Update();
                             dgv_conceptos_remunerativos.Refresh();
@@ -612,7 +641,7 @@ namespace SGAP.comercial
         private void dgv_entrada_datos_mano_de_obra_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // eliminamos la fila actual de la vista y del databinding
-            if (!dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].IsNewRow)
+            if (e.RowIndex > -1 && !dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].IsNewRow )
             {
                 Indice_fila_grid_entrada_datos_mano_obra = e.RowIndex;
                 Indice_columna_grid_entrada_datos_mano_obra = e.ColumnIndex;
@@ -671,9 +700,12 @@ namespace SGAP.comercial
                     dgv_conceptos_remunerativos.Update();
                     dgv_conceptos_remunerativos.Refresh();
 
-                    dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[0, e.RowIndex];
-                    dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Selected = true;
-
+                    try
+                    {
+                        dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[0, e.RowIndex];
+                        dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Selected = true;
+                    }
+                    catch (Exception) { }
                 }
             }
 

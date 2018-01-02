@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_sel100]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_sel100;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr29_sel100]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tr29_sel100;
 GO
 
 -- =============================================
@@ -8,7 +8,7 @@ GO
 -- Update: 2017.12.28 -- listar los que no tienen el flag eliminado en 1
 -- Descripcion : Obtiene una lista de los cargos asociados a un servicio que pertenece a una cotizacion.
 -- =============================================
-CREATE PROCEDURE pa_sel100
+CREATE PROCEDURE pa_tr29_sel100
 	@p_TR29_TR28_ID int,
 	@p_TR29_TM2_ID varchar(20)
 AS
@@ -54,3 +54,6 @@ BEGIN CATCH
 	
 END CATCH
 GO
+
+
+SELECT * FROM DBO.T_R29

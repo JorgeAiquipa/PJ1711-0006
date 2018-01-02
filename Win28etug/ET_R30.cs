@@ -12,7 +12,7 @@ namespace Win28etug
         public int _TR30_ID { get; set; }
         public int _TR30_TR29_ID { get; set; }
         public string _TR30_TM40_ID { get; set; }
-        public double _TR30_IMPORTE { get; set; }
+        public decimal _TR30_IMPORTE { get; set; }
         public string _TR30_DESCRIP { get; set; }
         public string _TR30_TM2_ID { get; set; }
         public int _TR30_ST { get; set; }

@@ -29,7 +29,7 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_sel100", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tr29_sel100", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -53,7 +53,7 @@ namespace Win32dtug
                         _etr29._TR29_DIAS_SEMANA = Convert.ToInt32(fila["TR29_DIAS_SEMANA"].ToString());
                         _etr29._TR29_DESCRIP = fila["TR29_DESCRIP"].ToString();
                         //_etr29._TR29_ST = fila["TR29_ST"].ToString();
-                        //_etr29._TR29_FLG_ELIMINADO = fila["TR29_FLG_ELIMINADO"].ToString();
+                        _etr29._TR29_FLG_ELIMINADO = Convert.ToInt32(fila["TR29_FLG_ELIMINADO"].ToString());
                         //_etr29._TR29_UCREA = fila["TR29_UCREA"].ToString();
                         //_etr29._TR29_FCREA = fila["TR29_FCREA"].ToString();
                         //_etr29._TR29_UACTUALIZA = fila["TR29_UACTUALIZA"].ToString();
@@ -182,9 +182,8 @@ namespace Win32dtug
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-
                     cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
-
+                    cmd.Parameters.Add("@p_TR29_ID", SqlDbType.Int).Value = objEntity._TR29_ID;
                     cmd.Parameters.Add("@p_TR29_TR28_ID", SqlDbType.Int).Value = objEntity._TR29_TR28_ID;
                     cmd.Parameters.Add("@p_TR29_TM38_ID", SqlDbType.VarChar, 300).Value = objEntity._TR29_TM38_ID;
                     cmd.Parameters.Add("@p_TR29_TM2_ID", SqlDbType.VarChar, 20).Value = _global._TM2_ID;

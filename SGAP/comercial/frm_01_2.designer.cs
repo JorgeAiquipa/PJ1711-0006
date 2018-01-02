@@ -222,6 +222,7 @@
             this.dgv_mano_de_obra_right.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(400, 456);
             this.dgv_mano_de_obra_right.TabIndex = 8;
+            this.dgv_mano_de_obra_right.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_RowEnter);
             this.dgv_mano_de_obra_right.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_right_Scroll);
             // 
             // dgv_mano_de_obra

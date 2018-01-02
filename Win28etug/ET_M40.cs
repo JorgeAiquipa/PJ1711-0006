@@ -20,6 +20,9 @@ namespace Win28etug
 
         public string _Filtro { get; set; }
         public bool _Seleccionado { get; set; }
+        public decimal _TM40_IMPORTE { get; set; }
+        public decimal _TM40_PORCENTAJE { get; set; }
+        public string _Work {get;set;} // P -> PORCENTAJE , I -> IMPORTE
         public int _fila { get; set; }
     }
 }
