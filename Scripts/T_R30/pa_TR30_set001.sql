@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_set53]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_set53;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_TR30_set001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_TR30_set001;
 GO
 
 -- =============================================
@@ -8,19 +8,13 @@ GO
 -- Table : T_R30 -> cargo por concepto remunerativo
 -- Descripcion : Insertamos los conceptos remunerativos que posee un tipo de operario
 -- =============================================
-CREATE PROCEDURE pa_set53
- --@p_TR30_ID int 
+CREATE PROCEDURE pa_TR30_set001
  @p_TR30_TR29_ID int -- tr_29 id cargo registrado
 ,@p_TR30_TM40_ID varchar(10) -- tm_40 id concepto remunerativo
---,@p_TR30_IMPORTE decimal(10,2) 
+,@p_TR30_IMPORTE decimal(10,2) 
 ,@p_TR30_DESCRIP varchar(3000) --
 ,@p_TR30_TM2_ID varchar(10) --pis
---,@p_TR30_ST smallint
---,@p_TR30_FLG_ELIMINADO smallint
 ,@p_TR30_UCREA varchar(20)
---,@p_TR30_FCREA datetime
---,@p_TR30_UACTUALIZA varchar(20)
---,@p_TR30_FACTUALIZA datetime
 ,@P_MENSAJE_RESPUESTA varchar(200) output
 AS
 
@@ -37,7 +31,7 @@ SET NOCOUNT ON;
 			 TR30_ID
 			,TR30_TR29_ID
 			,TR30_TM40_ID
-			--,TR30_IMPORTE
+			,TR30_IMPORTE
 			,TR30_DESCRIP
 			,TR30_TM2_ID
 			,TR30_ST
@@ -54,7 +48,7 @@ SET NOCOUNT ON;
 			 @L_TR30_ID
 			,@p_TR30_TR29_ID
 			,@p_TR30_TM40_ID
-			--,@p_TR30_IMPORTE
+			,@p_TR30_IMPORTE
 			,@p_TR30_DESCRIP
 			,@p_TR30_TM2_ID
 			,1
@@ -78,5 +72,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-select * from T_R30

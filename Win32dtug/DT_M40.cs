@@ -37,16 +37,21 @@ namespace Win32dtug
                     foreach (DataRow fila in dt.Rows)
                     {
                         _et_m40 = new ET_M40();
+                        string valor = "", importe = "", porcentaje = "";
 
                         _et_m40._fila = indice;
                         _et_m40._TM40_ID = fila["TM40_ID"].ToString();
                         _et_m40._TM40_DESCRIP = fila["TM40_DESCRIP"].ToString();
                         _et_m40._TM40_DESCRIP2 = fila["TM40_DESCRIP2"].ToString();
-                        //_et_m40._TM40_ST = Convert.ToInt32(fila["TM40_ST"].ToString());
-                        //_et_m40._TM40_UCREA = fila["TM40_UCREA"].ToString();
-                        //_et_m40._TM40_FCREA = Convert.ToDateTime(fila["TM40_FCREA"].ToString());
-                        //_et_m40._TM40_UACTUALIZA = fila["TM40_UACTUALIZA"].ToString();
-                        //_et_m40._TM40_FACTUALIZA = Convert.ToDateTime(fila["TM40_FACTUALIZA"].ToString());
+
+                        importe = fila["TM40_IMPORTE"].ToString();
+                        porcentaje = fila["TM40_PORCENTAJE"].ToString();
+
+                        _et_m40._TM40_IMPORTE = string.IsNullOrEmpty(importe) ? 0M : Convert.ToDecimal(importe);
+                        _et_m40._TM40_PORCENTAJE = string.IsNullOrEmpty(porcentaje) ? 0M : Convert.ToDecimal(porcentaje);
+
+                        valor = string.IsNullOrEmpty(importe) ? "P": "I";
+                        _et_m40._Work = valor;
 
                         indice++;
                         _lista_etm40.Add(_et_m40);

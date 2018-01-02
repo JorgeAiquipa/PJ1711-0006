@@ -28,17 +28,18 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_set53", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_TR30_set001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
                     cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
 
                     cmd.Parameters.Add("@p_TR30_TR29_ID", SqlDbType.Int).Value = objEntity._TR30_TR29_ID;
-                    cmd.Parameters.Add("@p_TR30_TM40_ID", SqlDbType.VarChar, 10).Value = objEntity._TR30_TM40_ID;
+                    cmd.Parameters.Add("@p_TR30_TM40_ID", SqlDbType.VarChar, 10).Value = objEntity._TR30_TM40_ID; 
                     cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR30_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR30_DESCRIP;
                     cmd.Parameters.Add("@p_TR30_UCREA", SqlDbType.VarChar, 10).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TR30_IMPORTE", SqlDbType.Decimal).Value = objEntity._TR30_IMPORTE;
 
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
@@ -75,6 +76,43 @@ namespace Win32dtug
             return _Entidad;
 
         }
+        //ACTUALIZAMOS LOS CONCEPTOS REMUNERATIVOS EDITADOS DESDE LA VISTA
+        public bool set_002(ET_R30 objEntity)
+        {
+            bool respuesta = true;
+
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
+            {
+                cn.Open();
+                SqlTransaction sqlTran = cn.BeginTransaction();
+                SqlCommand cmd = new SqlCommand("pa_tr30_set002", cn, sqlTran);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+
+                    cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@p_TR30_TR29_ID", SqlDbType.Int).Value = objEntity._TR30_TR29_ID;
+                    cmd.Parameters.Add("@p_TR30_ID", SqlDbType.Int).Value = objEntity._TR30_ID;
+                    cmd.Parameters.Add("@p_TR30_TM40_ID", SqlDbType.VarChar, 10).Value = objEntity._TR30_TM40_ID;
+                    cmd.Parameters.Add("@p_TR30_IMPORTE", SqlDbType.Decimal).Value = objEntity._TR30_IMPORTE*1M;
+                    cmd.Parameters.Add("@p_TR30_FLG_ELIMINADO", SqlDbType.Int).Value = objEntity._TR30_FLG_ELIMINADO;
+                    cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
+                    cmd.Parameters.Add("@p_TR30_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
+
+                    cmd.ExecuteNonQuery();
+                    sqlTran.Commit();
+                }
+                catch (SqlException exsql)
+                {
+                    respuesta = false;
+                }
+                finally
+                {
+                    cn.Close();
+                }
+            }
+            return respuesta;
+        }
 
         // obtenemos registros de los conceptos remunerativos que posee un cargo ya registrado
 
@@ -89,7 +127,7 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_sel102", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tr30_sel001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
@@ -105,7 +143,7 @@ namespace Win32dtug
                         _etr30._TR30_ID = Convert.ToInt32(fila["TR30_ID"].ToString());
                         _etr30._TR30_TR29_ID = Convert.ToInt32(fila["TR30_TR29_ID"].ToString());
                         _etr30._TR30_TM40_ID = fila["TR30_TM40_ID"].ToString();
-                        //_etr30._TR30_IMPORTE = Convert.ToDecimal(fila["TR30_IMPORTE"].ToString());
+                        _etr30._TR30_IMPORTE = Convert.ToDecimal(string.IsNullOrEmpty(fila["TR30_IMPORTE"].ToString()) ? "0": fila["TR30_IMPORTE"].ToString());
                         _etr30._TR30_DESCRIP = fila["TM40_DESCRIP"].ToString();
                         _etr30._Seleccionado = true;
 

@@ -82,7 +82,6 @@ namespace Win28ntug
         //}
         #endregion
 
-
         #region Mensajes
         protected virtual void Mensaje_Alerta_(ET_entidad e)
         {
