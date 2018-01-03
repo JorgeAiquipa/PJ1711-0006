@@ -54,7 +54,7 @@ namespace SGAP.comercial
             InitializeComponent();
             BackColor = Color.FromArgb(221, 221, 221);
 
-            autoCompleteTextBox_t_m19.MaxLength = 250;
+            autoCompleteTextBox_t_m19.MaxLength = 500;            
 
             _nt_m19.Mensaje_Alerta += Mensaje_alerta;
             _nt_m19.Cargar_busqueda_ += Cargar_Busqueda_T_M19;
@@ -70,7 +70,7 @@ namespace SGAP.comercial
             validation_image.Images.Add(Properties.Resources.atencion);
             validation_image.Images.Add(Properties.Resources.ok);
 
-            panel4.BackgroundImage = validation_image.Images[1];
+            //panel4.BackgroundImage = validation_image.Images[1];
             ////apariencia
             label10.BackColor = Color.FromArgb(0, 137, 123);
             label10.ForeColor = Color.White;
@@ -152,7 +152,7 @@ namespace SGAP.comercial
                 //        );
                 //});
                 dgv_informacion_locales.DataSource = _lista_m27;
-                panel1.BackgroundImage = validation_image.Images[1];
+                panel1.BackgroundImage = null;
                 rb_tipo1.Focus();
             }
         }
@@ -239,11 +239,11 @@ namespace SGAP.comercial
                     }
                     else
                     {
+                        panel2.BackgroundImage = validation_image.Images[0];
                         DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (decision_msg == DialogResult.OK)
                         {
-                            cbx_tipo_servicio.Focus();
-                            panel2.BackgroundImage = validation_image.Images[0];
+                            cbx_tipo_servicio.Focus();                            
                         }
                     }
                 }
@@ -284,14 +284,15 @@ namespace SGAP.comercial
             }
             else
             {
+                panel1.BackgroundImage = validation_image.Images[0];
                 MessageBox.Show
                 (
-                    " La búsqueda no obtubo resultados. \n Intente de nuevo.", "Alerta!",
+                    " La búsqueda de cliente no obtubo resultados. \n Intente de nuevo.", "Alerta!",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
                 autoCompleteTextBox_t_m19.Focus();
-                panel1.BackgroundImage = validation_image.Images[0];
+                
             }
         }
 
@@ -309,7 +310,7 @@ namespace SGAP.comercial
         {
             if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != First_Item_Combobox)
             {
-                panel2.BackgroundImage = validation_image.Images[1];
+                panel2.BackgroundImage = null;
                 cbx_tipo_servicio.Items.Remove(First_Item_Combobox);
                 nombre_de_Servicio = cbx_tipo_servicio.Text.ToString();
                 var result = _lista_R19.FirstOrDefault(p => p._TR19_TM41_DESCRIP == nombre_de_Servicio);
@@ -324,7 +325,7 @@ namespace SGAP.comercial
                 _nt_m19._Filtro(filtro);
                 _nt_m19.Iniciar(Tarea.BUSCAR);
             }
-            Limpiar_Informacion_ingresada();
+            //Limpiar_Informacion_ingresada();
         }
         private void autoCompleteTextBox_t_m19_KeyDown(object sender, KeyEventArgs e)
         {
@@ -335,7 +336,7 @@ namespace SGAP.comercial
         }
         private void autoCompleteTextBox_t_m19_Enter(object sender, EventArgs e)
         {
-            Limpiar_Informacion_ingresada();
+            //Limpiar_Informacion_ingresada();
         }
 
         private void rb_tipo1_CheckedChanged(object sender, EventArgs e)
@@ -360,8 +361,9 @@ namespace SGAP.comercial
         }
 
         private void autoCompleteTextBox_t_m19_Leave(object sender, EventArgs e)
-        {
+        {            
             Obtener_Informacion_t_m19();
+            autoCompleteTextBox_t_m19.Text = autoCompleteTextBox_t_m19.Text.Trim();
         }
         private void dgv_informacion_locales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
