@@ -36,6 +36,7 @@ namespace Win28etug
         public List<ET_R27> _lista_et_r27 { get; set; }
         public List<ET_M31> _lista_et_m31 { get; set; }        
         public List<ET_R19> _lista_et_r19 { get; set; }
+        public List<ET_R31> _lista_et_r31 { get; set; }
 
 
 

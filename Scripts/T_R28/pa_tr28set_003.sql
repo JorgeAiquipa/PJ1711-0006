@@ -21,7 +21,6 @@ BEGIN TRY
 	SET TR28_FLG_ELIMINADO = 1,
 	TR28_FACTUALIZA = GETDATE()
 
-
 	WHERE
 
 		TR28_ID = @P_TR28_ID
@@ -29,6 +28,31 @@ BEGIN TRY
 		TR28_TM39_ID = @P_TR28_TM39_ID
 		AND
 		TR28_TM2_ID = @P_TR28_TM2_ID
+
+		
+	UPDATE DBO.T_R29
+	SET TR29_FLG_ELIMINADO = 1,
+	TR29_FACTUALIZA = GETDATE()
+
+	WHERE
+
+		TR29_TR28_ID = @P_TR28_ID
+
+	UPDATE DBO.T_R31
+	SET TR31_FLG_ELIMINADO = 1,
+	TR31_FACTUALIZA = GETDATE()
+
+	WHERE
+
+		TR31_TR28_ID = @P_TR28_ID
+
+	--UPDATE DBO.T_R30
+	--SET TR30_FLG_ELIMINADO = 1,
+	--TR30_FACTUALIZA = GETDATE()
+
+	--WHERE
+
+	--	TR30_TR29_ID = (SELECT TR29_TR28_ID FROM T_R29 WHERE TR29_TR28_ID = @P_TR28_ID)
 
 END TRY
 BEGIN CATCH
@@ -39,8 +63,11 @@ GO
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
 select * from T_R28
+select * from T_R29
 
-exec pa_tr28set_003 167 ,'COT00099','pis'
+select * from T_R31
 
-exec pa_tr28Get_002 'COT00099','pis'
+exec pa_tr28set_003 203 ,'COT00115','pis'
+
+exec pa_tr28Get_002 'COT00115','pis'
 

@@ -29,6 +29,8 @@ namespace SGAP.comercial
         NT_R29 _nt_r29 = new NT_R29();
         ET_M31 _et_m31 = new ET_M31();
         NT_M40 _NT_M40 = new NT_M40();
+        NT_R31 _nt_r31 = new NT_R31();
+
         List<ET_M31> _lista_m31 = new List<ET_M31>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R29> _lista_et_r29 = new List<ET_R29>();
@@ -54,6 +56,7 @@ namespace SGAP.comercial
         string nodos;
         string Id_Cotizacion;
         int Id_CotizacionServicio;
+        bool Edidar_cotizacion = false;
         #endregion
 
         #region Metodos
@@ -124,17 +127,17 @@ namespace SGAP.comercial
 
             _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
 
-            if (editar)
-            {
-                //Obtenemos los locales que posee la cotización seleccionada
-                _entidad._entity_r27._TR27_TM39_ID = _entidad._entity_m39._TM39_ID;
-                _entidad._entity_r27._TR27_TM19_ID = _entidad._entity_m39._entity_et_m19._TM19_ID;
-                var result = _nt_r27.get_001(_entidad);
-                _entidad._lista_et_m27 = result._lista_et_m27;
-                _entidad._lista_et_r27 = result._lista_et_r27;
+            Edidar_cotizacion = editar;
 
-                //Metodo_cargar_informacion_mano_de_obra();
-            }
+            //Obtenemos los locales que posee la cotización seleccionada
+            _entidad._entity_r27._TR27_TM39_ID = _entidad._entity_m39._TM39_ID;
+            _entidad._entity_r27._TR27_TM19_ID = _entidad._entity_m39._entity_et_m19._TM19_ID;
+            var result = _nt_r27.get_001(_entidad);
+            _entidad._lista_et_m27 = result._lista_et_m27;
+            _entidad._lista_et_r27 = result._lista_et_r27;
+
+            //Metodo_cargar_informacion_mano_de_obra();
+            //}
 
             tabControl1.Visible = false;
 
@@ -634,6 +637,9 @@ namespace SGAP.comercial
             _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
             _et._lista_et_m40 = _lista_et_m40;
 
+
+            if (Edidar_cotizacion)
+                _nt_r31.get_001(Id_servicio_hijo);
             _nt_r29.Agregar_ETR29(_et);
             _nt_r29.Iniciar(Tarea.LISTAR);
 

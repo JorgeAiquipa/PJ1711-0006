@@ -80,7 +80,6 @@
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.autoCompleteTextBox_t_m19 = new SGAP.UserControls.AutoCompleteTextBox();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).BeginInit();
             this.panel3.SuspendLayout();
@@ -562,19 +561,11 @@
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.Visible = false;
             // 
-            // panel4
-            // 
-            this.panel4.Location = new System.Drawing.Point(230, 177);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(16, 16);
-            this.panel4.TabIndex = 103;
-            // 
             // frm_01_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 584);
-            this.Controls.Add(this.panel4);
+            this.ClientSize = new System.Drawing.Size(682, 580);
             this.Controls.Add(this.autoCompleteTextBox_t_m19);
             this.Controls.Add(this.cbx_tipo_servicio);
             this.Controls.Add(this.panel3);
@@ -658,6 +649,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private UserControls.ControlIconTextColumn controlIconTextColumn1;
-        private System.Windows.Forms.Panel panel4;
     }
 }

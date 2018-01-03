@@ -36,12 +36,21 @@ namespace Win28ntug
                     parametros._TR31_TR28_ID = cargo._TR29_TR28_ID;
                     parametros._TR31_TR27_ID = local._TR27_ID;
                     parametros._TR31_CANT_PERSONAS = canti;
-                    //_dt_R31.set_001(parametros);
+                    _dt_R31.set_001(parametros);
                 });
 
                 indice++;
 
             });
+        }
+
+        public List<ET_R31> get_001(int tr_29_id)
+        {
+            ET_R31 parametros = new ET_R31();
+            parametros._TR31_TM2_ID = Globales._TM2_ID;
+            parametros._TR31_TR28_ID = tr_29_id;
+
+            return null;//_dt_R31.sel_001(parametros).lis;
         }
         #endregion
 

@@ -97,7 +97,7 @@
             this.pnl_left.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_left.Location = new System.Drawing.Point(0, 0);
             this.pnl_left.Name = "pnl_left";
-            this.pnl_left.Size = new System.Drawing.Size(256, 640);
+            this.pnl_left.Size = new System.Drawing.Size(254, 638);
             this.pnl_left.TabIndex = 2;
             // 
             // lbl_ayuda
@@ -105,7 +105,7 @@
             this.lbl_ayuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_ayuda.AutoSize = true;
             this.lbl_ayuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ayuda.Location = new System.Drawing.Point(41, 621);
+            this.lbl_ayuda.Location = new System.Drawing.Point(41, 619);
             this.lbl_ayuda.Name = "lbl_ayuda";
             this.lbl_ayuda.Size = new System.Drawing.Size(37, 9);
             this.lbl_ayuda.TabIndex = 18;
@@ -116,7 +116,7 @@
             this.panel_help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel_help.BackgroundImage = global::SGAP.Properties.Resources.ayuda;
             this.panel_help.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel_help.Location = new System.Drawing.Point(22, 617);
+            this.panel_help.Location = new System.Drawing.Point(22, 615);
             this.panel_help.Name = "panel_help";
             this.panel_help.Size = new System.Drawing.Size(16, 16);
             this.panel_help.TabIndex = 17;
@@ -154,7 +154,7 @@
             this.pnl_filter_wraper.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnl_filter_wraper.Location = new System.Drawing.Point(0, 0);
             this.pnl_filter_wraper.Name = "pnl_filter_wraper";
-            this.pnl_filter_wraper.Size = new System.Drawing.Size(256, 50);
+            this.pnl_filter_wraper.Size = new System.Drawing.Size(254, 50);
             this.pnl_filter_wraper.TabIndex = 16;
             // 
             // label4
@@ -181,7 +181,7 @@
             // pnl_cd_close
             // 
             this.pnl_cd_close.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnl_cd_close.Location = new System.Drawing.Point(196, 0);
+            this.pnl_cd_close.Location = new System.Drawing.Point(194, 0);
             this.pnl_cd_close.Name = "pnl_cd_close";
             this.pnl_cd_close.Size = new System.Drawing.Size(60, 50);
             this.pnl_cd_close.TabIndex = 0;
@@ -310,7 +310,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(684, 50);
+            this.panel2.Size = new System.Drawing.Size(682, 50);
             this.panel2.TabIndex = 0;
             // 
             // btnNuevoCotizacion
@@ -338,7 +338,7 @@
             this.listView_Cotizaciones.Location = new System.Drawing.Point(0, 53);
             this.listView_Cotizaciones.Margin = new System.Windows.Forms.Padding(0);
             this.listView_Cotizaciones.Name = "listView_Cotizaciones";
-            this.listView_Cotizaciones.Size = new System.Drawing.Size(684, 560);
+            this.listView_Cotizaciones.Size = new System.Drawing.Size(682, 558);
             this.listView_Cotizaciones.TabIndex = 0;
             this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
             this.listView_Cotizaciones.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_Cotizaciones_KeyDown);
@@ -346,7 +346,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.splitContainer1.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
@@ -377,17 +378,17 @@
             this.panel_first_detail.BackColor = System.Drawing.Color.White;
             this.panel_first_detail.Controls.Add(this.lbl_status);
             this.panel_first_detail.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panel_first_detail.Location = new System.Drawing.Point(0, 613);
+            this.panel_first_detail.Location = new System.Drawing.Point(0, 611);
             this.panel_first_detail.Margin = new System.Windows.Forms.Padding(0);
             this.panel_first_detail.Name = "panel_first_detail";
-            this.panel_first_detail.Size = new System.Drawing.Size(684, 27);
+            this.panel_first_detail.Size = new System.Drawing.Size(682, 27);
             this.panel_first_detail.TabIndex = 1;
             // 
             // lbl_status
             // 
             this.lbl_status.BackColor = System.Drawing.Color.Transparent;
             this.lbl_status.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lbl_status.Location = new System.Drawing.Point(485, 0);
+            this.lbl_status.Location = new System.Drawing.Point(483, 0);
             this.lbl_status.Name = "lbl_status";
             this.lbl_status.Padding = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.lbl_status.Size = new System.Drawing.Size(199, 27);

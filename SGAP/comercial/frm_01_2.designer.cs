@@ -147,7 +147,7 @@
             this.tree_view_servicios.Margin = new System.Windows.Forms.Padding(0);
             this.tree_view_servicios.Name = "tree_view_servicios";
             this.tree_view_servicios.ShowNodeToolTips = true;
-            this.tree_view_servicios.Size = new System.Drawing.Size(242, 482);
+            this.tree_view_servicios.Size = new System.Drawing.Size(240, 480);
             this.tree_view_servicios.TabIndex = 0;
             this.tree_view_servicios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_view_servicios_AfterSelect);
             this.tree_view_servicios.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tree_view_servicios_MouseUp);
@@ -159,7 +159,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(991, 510);
+            this.panel1.Size = new System.Drawing.Size(989, 508);
             this.panel1.TabIndex = 2;
             // 
             // panPages
@@ -169,7 +169,7 @@
             this.panPages.Location = new System.Drawing.Point(0, 0);
             this.panPages.Margin = new System.Windows.Forms.Padding(0);
             this.panPages.Name = "panPages";
-            this.panPages.Size = new System.Drawing.Size(991, 510);
+            this.panPages.Size = new System.Drawing.Size(989, 508);
             this.panPages.TabIndex = 2;
             this.panPages.TabStop = true;
             // 
@@ -190,7 +190,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(991, 510);
+            this.tabControl1.Size = new System.Drawing.Size(989, 508);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -199,7 +199,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(983, 484);
+            this.tabPage1.Size = new System.Drawing.Size(981, 482);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -214,7 +214,7 @@
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(977, 478);
-            this.panel2.TabIndex = 0;
+            this.panel2.TabIndex = 6;
             // 
             // dgv_mano_de_obra_right
             // 
@@ -623,7 +623,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.splitContainer1.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -653,14 +654,14 @@
             this.panel12.Controls.Add(this.panel_colapse);
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(242, 22);
+            this.panel12.Size = new System.Drawing.Size(240, 22);
             this.panel12.TabIndex = 1;
             // 
             // panel_colapse
             // 
             this.panel_colapse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_colapse.BackColor = System.Drawing.Color.Transparent;
-            this.panel_colapse.Location = new System.Drawing.Point(220, 2);
+            this.panel_colapse.Location = new System.Drawing.Point(218, 2);
             this.panel_colapse.Name = "panel_colapse";
             this.panel_colapse.Size = new System.Drawing.Size(18, 18);
             this.panel_colapse.TabIndex = 0;
