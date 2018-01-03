@@ -36,6 +36,7 @@ namespace SGAP.comercial
         List<ET_R29> _lista_et_r29 = new List<ET_R29>();
         List<ET_M40> _lista_et_m40 = new List<ET_M40>();
         List<ET_R28> _lista_et_r28 = new List<ET_R28>();
+        List<ET_R31> _lista_et_r31 = new List<ET_R31>();
      
         public string nom = "";
         public string cod = "";
@@ -56,7 +57,7 @@ namespace SGAP.comercial
         string nodos;
         string Id_Cotizacion;
         int Id_CotizacionServicio;
-        bool Edidar_cotizacion = false;
+        bool Editar_cotizacion = false;
         #endregion
 
         #region Metodos
@@ -121,13 +122,12 @@ namespace SGAP.comercial
 
             _entidad = _entity;
 
-            //Cargar_servicios();
             // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.            
             Id_servicio_hijo = Id_Servicio_Padre;
 
             _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
 
-            Edidar_cotizacion = editar;
+            Editar_cotizacion = editar;
 
             //Obtenemos los locales que posee la cotización seleccionada
             _entidad._entity_r27._TR27_TM39_ID = _entidad._entity_m39._TM39_ID;
@@ -136,8 +136,6 @@ namespace SGAP.comercial
             _entidad._lista_et_m27 = result._lista_et_m27;
             _entidad._lista_et_r27 = result._lista_et_r27;
 
-            //Metodo_cargar_informacion_mano_de_obra();
-            //}
 
             tabControl1.Visible = false;
 
@@ -161,19 +159,35 @@ namespace SGAP.comercial
             dgv_mano_de_obra_right.Scroll += new ScrollEventHandler(dgv_mano_de_obra_Scroll);
 
             _helper.Set_Style_to_DatagridView(dgv_entrada_datos_mq_eq);
+
             _nt_r28.Cargar_explorador_De_Servicios_ += CargarExplorados_de_servicios;
-            _nt_r29.Cargar_Listado_ += _nt_r29_Cargar_Listado_;
             _nt_r28.Eliminar_Servicio_Explorador_ += _nt_r28_Eliminar_Servicio_Explorador_;
+            _nt_r29.Cargar_Listado_ += _nt_r29_Cargar_Listado_;
+
             Obtener_Servicios_de_cotizacion();
+
+            #region mano_de_obra
+            btn_editar_mano_de_obra.Enabled = Editar_cotizacion;
+            btn_guardar_mano_de_obra.Enabled = false;
+            #endregion
+
+            #region maquinaria_y_equipo
+
+            #endregion
+
+            #region page_3
+
+            #endregion
         }
 
         private void _nt_r29_Cargar_Listado_(object sender, ET_entidad e)
         {
             _lista_et_r29 = e._lista_et_r29;
+            
 
             if (_lista_et_r29 != null && _lista_et_r29.Count > 0)
             {
-                Desplegar_informacion();
+                Desplegar_informacion_de_mano_de_obra();
             }
             else
             {
@@ -622,6 +636,8 @@ namespace SGAP.comercial
             form_2_1.ShowDialog();
             if (form_2_1.DialogResult == DialogResult.OK)
             {
+                Editar_cotizacion = true;
+                btn_editar_mano_de_obra.Enabled = true;
                 Metodo_cargar_informacion_mano_de_obra();
             }
         }
@@ -638,13 +654,447 @@ namespace SGAP.comercial
             _et._lista_et_m40 = _lista_et_m40;
 
 
-            if (Edidar_cotizacion)
-                _nt_r31.get_001(Id_servicio_hijo);
+            if (Editar_cotizacion)
+                _lista_et_r31 = _nt_r31.get_001(Id_servicio_hijo);
             _nt_r29.Agregar_ETR29(_et);
             _nt_r29.Iniciar(Tarea.LISTAR);
 
         }
-    
+        private void dgv_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int suma_total = 0;
+
+            for (int a = 1; a < dgv_mano_de_obra.ColumnCount; a++)
+            {
+                suma_total = suma_total + Convert.ToInt32(dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value);
+            }
+
+            dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[0].Value = suma_total;
+            dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[4].Value = suma_total * (Convert.ToDecimal(dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[3].Value));
+
+
+        }
+
+        private void dgv_mano_de_obra_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (this.dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
+            {
+                TextBox TEX_BOX_NUMBER = e.Control as TextBox;
+                TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
+                e.Control.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
+            }
+        }
+
+        private void dgv_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            dgv_mano_de_obra_right.Rows[e.RowIndex].Selected = true;
+        }
+
+        private void dgv_mano_de_obra_right_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
+            }
+            catch (Exception) { }
+        }
+
+        private void btn_guardar_mano_de_obra_Click(object sender, EventArgs e)
+        {
+            // call metodo guardar
+            // mostrar seguidamente la vista general de mano de obra
+            if (_lista_et_r31.Count > 0)
+            //actualizar
+            {
+                Metodo_preparar_informacion_para_actualizar_mano_de_obra();
+            }
+            else
+            {
+                Metodo_preparar_informacion_para_registrar_mano_de_obra();
+            }
+        }
+
+        private void Metodo_preparar_informacion_para_actualizar_mano_de_obra()
+        {
+            var tmp = _lista_et_r29;
+
+            NT_R31 ins = new NT_R31();
+            ins.set_002(_lista_et_r29, _entidad._lista_et_r27);
+        }
+
+        private void Metodo_preparar_informacion_para_registrar_mano_de_obra()
+        {
+            var tmp = _lista_et_r29;
+
+            NT_R31 ins = new NT_R31();
+            ins.set_001(_lista_et_r29, _entidad._lista_et_r27);
+        }
+
+        private void btn_editar_mano_de_obra_Click(object sender, EventArgs e)
+        {
+            //preparar vista de mano de obra para editar
+            btn_guardar_mano_de_obra.Enabled = true;
+            //
+        }
+
+        private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex > 0)
+            {
+                ET_R29 _et_r29_editable = new ET_R29();
+                _et_r29_editable = _lista_et_r29.FirstOrDefault(x => x._Fila == e.RowIndex);
+                object[] respaldo = _et_r29_editable._Locales_por_cargo_cantidad_personal;
+                object[] nuevos_valores = new object[respaldo.Count()];
+                int indice_res = 0;
+                foreach (int[] r in respaldo)
+                {
+                    int[] value = new int[2];
+
+                    value[0] = r[0];
+                    value[1] = r[1];
+                    if(indice_res == (e.ColumnIndex - 1))
+                        value[0] = Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
+
+                    nuevos_valores[indice_res] = value;
+                    indice_res++;
+                }
+
+                _et_r29_editable._Locales_por_cargo_cantidad_personal = nuevos_valores;// Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
+            }
+        }
+        private void Contruir_DataGrid_Mano_Obra()
+        {
+            dgv_mano_de_obra.AllowUserToAddRows = false;
+            dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
+
+            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
+            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
+
+            dgv_mano_de_obra.AutoGenerateColumns = false;
+            dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            #region COLUMNAS
+            //DataGridViewColumn _COL_FILA = new DataGridViewTextBoxColumn();
+            //_COL_FILA.DataPropertyName = "_COL_FILA";
+            //_COL_FILA.HeaderText = "Cargo";
+            //_COL_FILA.Name = "_COL_FILA";
+            //_COL_FILA.Visible = false;
+
+            //DataGridViewColumn _COL_DESCRIPCION = new DataGridViewTextBoxColumn();
+            //_COL_DESCRIPCION.DataPropertyName = "_COL_DESCRIPCION";
+            //_COL_DESCRIPCION.HeaderText = "Cargo";
+            //_COL_DESCRIPCION.Name = "_COL_DESCRIPCION";
+            //_COL_DESCRIPCION.Width = 140;
+            ////_COL_DESCRIPCION.MinimumWidth = 140;
+            ////_COL_DESCRIPCION.FillWeight = 140;
+
+            //DataGridViewColumn _COL_HORA_ENTRADA = new DataGridViewTextBoxColumn();
+            //_COL_HORA_ENTRADA.Name = "_COL_HORA_ENTRADA";
+            //_COL_HORA_ENTRADA.HeaderText = "Hora Entrada";
+            //_COL_HORA_ENTRADA.Width = 80;
+            //_COL_HORA_ENTRADA.DefaultCellStyle.Format = "T";
+            ////_COL_HORA_ENTRADA.MinimumWidth = 70;
+            ////_COL_HORA_ENTRADA.FillWeight = 70;
+
+            //DataGridViewColumn _COL_HORA_SALIDA = new DataGridViewTextBoxColumn();
+            //_COL_HORA_SALIDA.Name = "_COL_HORA_SALIDA";
+            //_COL_HORA_SALIDA.HeaderText = "Hora Salida";
+            //_COL_HORA_SALIDA.Width = 70;
+            //_COL_HORA_SALIDA.DefaultCellStyle.Format = "T";
+            ////_COL_HORA_SALIDA.MinimumWidth = 65;
+            ////_COL_HORA_SALIDA.FillWeight = 65;
+
+            //DataGridViewColumn _COL_DIAS_POR_SEMANA = new DataGridViewTextBoxColumn();
+            //_COL_DIAS_POR_SEMANA.HeaderText = "Dias por Sem.";
+            //_COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
+            //_COL_DIAS_POR_SEMANA.Width = 70;
+            ////_COL_DIAS_POR_SEMANA.MinimumWidth = 70;
+            ////_COL_DIAS_POR_SEMANA.FillWeight = 70;
+
+            //DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
+            //_COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
+            //_COL_REMUNERACION.HeaderText = "Remuneración Básica";
+            //_COL_REMUNERACION.Name = "_COL_REMUNERACION";
+            //_COL_REMUNERACION.DefaultCellStyle.Format = "C";
+            //_COL_REMUNERACION.DefaultCellStyle.NullValue = "850.00";
+            #endregion
+
+            DataGridViewColumn MANO_OBRA_COL_DESCRIPCION = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
+            MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
+            MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
+            MANO_OBRA_COL_DESCRIPCION.Width = 260;
+            MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
+
+            //_COL_DESCRIPCION.MinimumWidth = 140;
+            //_COL_DESCRIPCION.FillWeight = 140
+
+            dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
+                MANO_OBRA_COL_DESCRIPCION,
+            });
+
+            MANO_OBRA_COL_DESCRIPCION.Frozen = true;
+
+            //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
+
+            if (_entidad._lista_et_r27 != null)
+            {
+
+                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _entidad._lista_et_r27.Count);
+                dgv_mano_de_obra.ColumnCount = cantidad_final_de_indices;
+
+                int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_r27.Count;
+
+                int indice_nn = 1;
+                _entidad._lista_et_r27.ForEach(x =>
+                {
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}", indice_nn) : x._TR27_DESCRIP.Length > 26 ? string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
+                    indice_de_inicio++;
+                    indice_nn++;
+                });
+
+            }
+            //dgv_mano_de_obra.
+
+            // for datgrid mano de obra right
+            dgv_mano_de_obra_right.AllowUserToAddRows = false;
+            dgv_mano_de_obra_right.AutoGenerateColumns = false;
+            dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            //dgv_mano_de_obra_right.ReadOnly = true;
+
+            // columnas de remuneraciones 
+
+            // remuneraciones de acuerdo a la lista de remuneraciones que se obtiene al consultar la mano de obra
+            //
+            DataGridViewColumn MANO_OBRA_COL_SUELDO_BASICO = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_SUELDO_BASICO.DataPropertyName = "MANO_OBRA_COL_SUELDO_BASICO";
+            MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "Sueldo básico";
+            MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
+            MANO_OBRA_COL_SUELDO_BASICO.Width = 85;
+            //MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
+            MANO_OBRA_COL_SUELDO_BASICO.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_TOTAL_PERSONAL.DataPropertyName = "MANO_OBRA_COL_TOTAL_PERSONAL";
+            MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.personal";
+            MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
+            MANO_OBRA_COL_TOTAL_PERSONAL.Width = 80;
+            //MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
+            MANO_OBRA_COL_TOTAL_PERSONAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
+            MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
+            MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
+            MANO_OBRA_COL_SUELDO_MENSUAL.Width = 60;
+            //MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
+            MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_TOTAL.DataPropertyName = "MANO_OBRA_COL_TOTAL";
+            MANO_OBRA_COL_TOTAL.HeaderText = "Total";
+            MANO_OBRA_COL_TOTAL.Name = "MANO_OBRA_COL_TOTAL";
+            MANO_OBRA_COL_TOTAL.Width = 85;
+            //MANO_OBRA_COL_TOTAL.ReadOnly = true;
+            MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
+            MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 70;
+            //MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
+            MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+            dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
+                MANO_OBRA_COL_TOTAL_PERSONAL,
+                MANO_OBRA_COL_SUELDO_BASICO,
+                MANO_OBRA_COL_SUM_CONCEPTOS,
+                MANO_OBRA_COL_SUELDO_MENSUAL,
+                MANO_OBRA_COL_TOTAL
+            });
+            //MANO_OBRA_COL_TOTAL_PERSONAL.DisplayIndex = 0;
+            //MANO_OBRA_COL_SUELDO_BASICO.DisplayIndex = 1;
+
+            ////// CARGAR COLUMNAS DE MANERA DINAMICA -> CONCEPTOS REMUNERATIVOS
+
+            //if (_lista_et_m40 != null)
+            //{
+            //    int indice_de_inicio = dgv_mano_de_obra_right.ColumnCount;
+
+            //    dgv_mano_de_obra_right.ColumnCount = _lista_et_m40.Count + dgv_mano_de_obra_right.ColumnCount;
+
+            //    //_lista_et_m40.ForEach(x =>
+            //    //{
+
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Visible = true;
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Width = 200;
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Name = x._TM40_DESCRIP;
+            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
+            //    //    indice_de_inicio++;
+            //    //});
+
+            //    //MANO_OBRA_COL_SUELDO_MENSUAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
+            //    //MANO_OBRA_COL_TOTAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
+            //}
+
+
+        }
+
+        private void Desplegar_informacion_de_mano_de_obra()
+        {
+
+            dgv_mano_de_obra.Rows.Clear();
+            //dgv_mano_de_obra.DataSource = null;
+            //dgv_mano_de_obra.Refresh();
+            //dgv_mano_de_obra.Update();
+            dgv_mano_de_obra_right.Rows.Clear();
+
+            _lista_et_r29.ForEach(fila_ => {
+
+                string cargo_horario_conceptos = Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA, fila_._lista_et_r30);
+
+                //_lista_et_r31
+                var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
+
+                object[] informacion_r31 = new object[res.Count];
+
+
+                int total_personal = 0;
+                int indice_locales = 0;
+
+                string[] fila_dgv_mano_obra = new string[(1 + res.Count)];
+                fila_dgv_mano_obra[0] = cargo_horario_conceptos;
+
+                int indice_dgv_mano_obra = 1;
+                res.ForEach(r => {
+
+                    int[] cantidades = new int[2];
+                    cantidades[0] = r._TR31_CANT_PERSONAS;
+                    cantidades[1] = r._TR31_ID;
+                    informacion_r31[indice_locales] = cantidades;
+
+                    total_personal = total_personal + r._TR31_CANT_PERSONAS;
+                    fila_dgv_mano_obra[indice_dgv_mano_obra] = r._TR31_CANT_PERSONAS.ToString();
+                    indice_locales++;
+                    indice_dgv_mano_obra++;
+                });
+
+                int[] relleno = new int[] { 0, 0 };
+                object[] rellenos = new object[_entidad._lista_et_m27.Count];
+                int indice = 0;
+                _entidad._lista_et_m27.ForEach(c => {
+                    rellenos[indice] = relleno;
+                    indice++;
+                });
+
+                if (Editar_cotizacion)
+                    if (res.Count() == 0)
+                        fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
+                    else
+                        fila_._Locales_por_cargo_cantidad_personal = informacion_r31;
+                else
+                    fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
+
+                var list = fila_._lista_et_r30;
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+                fila_._lista_et_r30.ForEach(X =>
+                {
+                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
+                });
+
+                dgv_mano_de_obra_right.Rows.Add(
+                    total_personal, // total personal
+                    fila_._TR29_REMUNERACION, // sueldo basico
+                    SUMA_CONCEPTOS_REMUNERATIVOS,
+                    fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M,
+                    ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal)*1M
+                 );
+
+                dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
+            });
+        }
+
+        private string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida, List<ET_R30> conceptos_)
+        {
+            //string semana_laborar = "";
+            int horas = 0;
+            string horario = "";
+
+            switch (dias_por_Semana)
+            {
+                case 1:
+                    horario = "Jornal:";
+                    break;
+
+                case 2:
+                    horario = "L-Ma:";
+                    break;
+                case 3:
+                    horario = "L-Mi:";
+                    break;
+                case 4:
+                    horario = "L-J:";
+                    break;
+                case 5:
+                    horario = "L-V:";
+                    break;
+                case 6:
+                    horario = "L-S:";
+                    break;
+                case 7:
+                    horario = "L-D:";
+                    break;
+            }
+
+            horas = (hora_salida - hora_entrada).Hours;
+
+            string conceptos_short = " ";
+            conceptos_.ForEach(row => {
+                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty : row._TR30_DESCRIP.Substring(0, 3)) + "/";
+            });
+            conceptos_short = conceptos_short.Substring(0, conceptos_short.Length - 1);
+
+            horario = horario + hora_entrada.ToString("H:mm") + " - " + hora_salida.ToString("H:mm");
+
+            return descripcion + " " + horas.ToString() + " h " + horario + conceptos_short;
+
+        }
+
+        private void dgv_mano_de_obra_Scroll(object sender, ScrollEventArgs e)
+        {
+            //dgv_mano_de_obra_right.VerticallScrollBar.Value = e.NewValue;
+            try
+            {
+                dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void dgv_mano_de_obra_right_Scroll(object sender, ScrollEventArgs e)
+        {
+            try
+            {
+                dgv_mano_de_obra.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex;
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void dgv_mano_de_obra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.G)
+            {
+
+                // manipular lo ingresado par poder registrarlo
+                //_lista_et_r29 = _lista_et_r29;
+            }
+        }
 
         #endregion
 
@@ -666,7 +1116,6 @@ namespace SGAP.comercial
             }
 
         }
-        #endregion
 
 
         private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -826,306 +1275,9 @@ namespace SGAP.comercial
 
             }
         }
-
-        private void Contruir_DataGrid_Mano_Obra()
-        {
-            dgv_mano_de_obra.AllowUserToAddRows = false;
-            dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
-
-            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
-            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
-
-            dgv_mano_de_obra.AutoGenerateColumns = false;
-            dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            #region COLUMNAS
-            //DataGridViewColumn _COL_FILA = new DataGridViewTextBoxColumn();
-            //_COL_FILA.DataPropertyName = "_COL_FILA";
-            //_COL_FILA.HeaderText = "Cargo";
-            //_COL_FILA.Name = "_COL_FILA";
-            //_COL_FILA.Visible = false;
-
-            //DataGridViewColumn _COL_DESCRIPCION = new DataGridViewTextBoxColumn();
-            //_COL_DESCRIPCION.DataPropertyName = "_COL_DESCRIPCION";
-            //_COL_DESCRIPCION.HeaderText = "Cargo";
-            //_COL_DESCRIPCION.Name = "_COL_DESCRIPCION";
-            //_COL_DESCRIPCION.Width = 140;
-            ////_COL_DESCRIPCION.MinimumWidth = 140;
-            ////_COL_DESCRIPCION.FillWeight = 140;
-
-            //DataGridViewColumn _COL_HORA_ENTRADA = new DataGridViewTextBoxColumn();
-            //_COL_HORA_ENTRADA.Name = "_COL_HORA_ENTRADA";
-            //_COL_HORA_ENTRADA.HeaderText = "Hora Entrada";
-            //_COL_HORA_ENTRADA.Width = 80;
-            //_COL_HORA_ENTRADA.DefaultCellStyle.Format = "T";
-            ////_COL_HORA_ENTRADA.MinimumWidth = 70;
-            ////_COL_HORA_ENTRADA.FillWeight = 70;
-
-            //DataGridViewColumn _COL_HORA_SALIDA = new DataGridViewTextBoxColumn();
-            //_COL_HORA_SALIDA.Name = "_COL_HORA_SALIDA";
-            //_COL_HORA_SALIDA.HeaderText = "Hora Salida";
-            //_COL_HORA_SALIDA.Width = 70;
-            //_COL_HORA_SALIDA.DefaultCellStyle.Format = "T";
-            ////_COL_HORA_SALIDA.MinimumWidth = 65;
-            ////_COL_HORA_SALIDA.FillWeight = 65;
-
-            //DataGridViewColumn _COL_DIAS_POR_SEMANA = new DataGridViewTextBoxColumn();
-            //_COL_DIAS_POR_SEMANA.HeaderText = "Dias por Sem.";
-            //_COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
-            //_COL_DIAS_POR_SEMANA.Width = 70;
-            ////_COL_DIAS_POR_SEMANA.MinimumWidth = 70;
-            ////_COL_DIAS_POR_SEMANA.FillWeight = 70;
-
-            //DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
-            //_COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
-            //_COL_REMUNERACION.HeaderText = "Remuneración Básica";
-            //_COL_REMUNERACION.Name = "_COL_REMUNERACION";
-            //_COL_REMUNERACION.DefaultCellStyle.Format = "C";
-            //_COL_REMUNERACION.DefaultCellStyle.NullValue = "850.00";
-            #endregion
-
-            DataGridViewColumn MANO_OBRA_COL_DESCRIPCION = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
-            MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
-            MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
-            MANO_OBRA_COL_DESCRIPCION.Width = 260;
-            MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
-
-            //_COL_DESCRIPCION.MinimumWidth = 140;
-            //_COL_DESCRIPCION.FillWeight = 140
-
-            dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
-                MANO_OBRA_COL_DESCRIPCION,
-            });
-
-            MANO_OBRA_COL_DESCRIPCION.Frozen = true;
-
-            //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
-
-            if (_entidad._lista_et_r27 != null)
-            {
-
-                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _entidad._lista_et_r27.Count);
-                dgv_mano_de_obra.ColumnCount = cantidad_final_de_indices;
-
-                int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_r27.Count;
-
-                int indice_nn = 1;
-                _entidad._lista_et_r27.ForEach(x =>
-                {
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}",indice_nn): x._TR27_DESCRIP.Length > 26 ?  string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
-                    indice_de_inicio++;
-                    indice_nn++;
-                });
-
-            }
-            //dgv_mano_de_obra.
-
-            // for datgrid mano de obra right
-            dgv_mano_de_obra_right.AllowUserToAddRows = false;
-            dgv_mano_de_obra_right.AutoGenerateColumns = false;
-            dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            //dgv_mano_de_obra_right.ReadOnly = true;
-
-            // columnas de remuneraciones 
-
-            // remuneraciones de acuerdo a la lista de remuneraciones que se obtiene al consultar la mano de obra
-            //
-            DataGridViewColumn MANO_OBRA_COL_SUELDO_BASICO = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_SUELDO_BASICO.DataPropertyName = "MANO_OBRA_COL_SUELDO_BASICO";
-            MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "Sueldo básico";
-            MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
-            MANO_OBRA_COL_SUELDO_BASICO.Width = 85;
-            //MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
-            MANO_OBRA_COL_SUELDO_BASICO.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_TOTAL_PERSONAL.DataPropertyName = "MANO_OBRA_COL_TOTAL_PERSONAL";
-            MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.personal";
-            MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
-            MANO_OBRA_COL_TOTAL_PERSONAL.Width = 80;
-            //MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
-            MANO_OBRA_COL_TOTAL_PERSONAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
-            MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
-            MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
-            MANO_OBRA_COL_SUELDO_MENSUAL.Width = 60;
-            //MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
-            MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_TOTAL.DataPropertyName = "MANO_OBRA_COL_TOTAL";
-            MANO_OBRA_COL_TOTAL.HeaderText = "Total";
-            MANO_OBRA_COL_TOTAL.Name = "MANO_OBRA_COL_TOTAL";
-            MANO_OBRA_COL_TOTAL.Width = 85;
-            //MANO_OBRA_COL_TOTAL.ReadOnly = true;
-            MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-            DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
-            MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 70;
-            //MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
-            MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+        #endregion
 
 
-            dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
-                MANO_OBRA_COL_TOTAL_PERSONAL,
-                MANO_OBRA_COL_SUELDO_BASICO,
-                MANO_OBRA_COL_SUM_CONCEPTOS,
-                MANO_OBRA_COL_SUELDO_MENSUAL,
-                MANO_OBRA_COL_TOTAL
-            });
-            //MANO_OBRA_COL_TOTAL_PERSONAL.DisplayIndex = 0;
-            //MANO_OBRA_COL_SUELDO_BASICO.DisplayIndex = 1;
-
-            ////// CARGAR COLUMNAS DE MANERA DINAMICA -> CONCEPTOS REMUNERATIVOS
-
-            //if (_lista_et_m40 != null)
-            //{
-            //    int indice_de_inicio = dgv_mano_de_obra_right.ColumnCount;
-
-            //    dgv_mano_de_obra_right.ColumnCount = _lista_et_m40.Count + dgv_mano_de_obra_right.ColumnCount;
-
-            //    //_lista_et_m40.ForEach(x =>
-            //    //{
-
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Visible = true;
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Width = 200;
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Name = x._TM40_DESCRIP;
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
-            //    //    indice_de_inicio++;
-            //    //});
-
-            //    //MANO_OBRA_COL_SUELDO_MENSUAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
-            //    //MANO_OBRA_COL_TOTAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
-            //}
-
-
-        }
-
-        private void Desplegar_informacion()
-        {
-
-            dgv_mano_de_obra.Rows.Clear();
-            //dgv_mano_de_obra.DataSource = null;
-            //dgv_mano_de_obra.Refresh();
-            //dgv_mano_de_obra.Update();
-            dgv_mano_de_obra_right.Rows.Clear();
-
-            _lista_et_r29.ForEach(fila_ => {
-                fila_._Locales_por_cargo_cantidad_personal = new int[_entidad._lista_et_r27.Count];
-                var list = fila_._lista_et_r30;
-                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
-                fila_._lista_et_r30.ForEach(X =>
-                {
-                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
-                });
-
-                dgv_mano_de_obra_right.Rows.Add(
-                    0, // total personal
-                    fila_._TR29_REMUNERACION, // sueldo basico
-                    SUMA_CONCEPTOS_REMUNERATIVOS,
-                    fila_._TR29_REMUNERACION*1M + SUMA_CONCEPTOS_REMUNERATIVOS*1M,
-                    (fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * 0
-                 );
-
-                dgv_mano_de_obra.Rows.Add(
-                    Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA,fila_._lista_et_r30)
-                    );
-            });
-        }
-
-        private string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida,List<ET_R30> conceptos_)
-        {
-            //string semana_laborar = "";
-            int horas = 0;
-            string horario = "";
-
-            switch (dias_por_Semana)
-            {
-                case 1:
-                    horario = "Jornal:";
-                    break;
-
-                case 2:
-                    horario = "L-Ma:";
-                    break;
-                case 3:
-                    horario = "L-Mi:";
-                    break;
-                case 4:
-                    horario = "L-J:";
-                    break;
-                case 5:
-                    horario = "L-V:";
-                    break;
-                case 6:
-                    horario = "L-S:";
-                    break;
-                case 7:
-                    horario = "L-D:";
-                    break;
-            }
-
-            horas = (hora_salida - hora_entrada).Hours;
-
-            string conceptos_short = " ";
-            conceptos_.ForEach(row => {
-                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty: row._TR30_DESCRIP.Substring(0,3)) + "/";
-            });
-            conceptos_short = conceptos_short.Substring(0, conceptos_short.Length - 1);
-
-            horario = horario + hora_entrada.ToString("H:mm") + " - " + hora_salida.ToString("H:mm");
-
-            return descripcion + " " + horas.ToString() + " h " + horario + conceptos_short;
-
-        }
-
-        private void dgv_mano_de_obra_Scroll(object sender, ScrollEventArgs e)
-        {
-            //dgv_mano_de_obra_right.VerticallScrollBar.Value = e.NewValue;
-            try
-            {
-                dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
-            }
-            catch (Exception ex)
-            { }
-        }
-
-        private void dgv_mano_de_obra_right_Scroll(object sender, ScrollEventArgs e)
-        {
-            try
-            {
-                dgv_mano_de_obra.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex;
-            }
-            catch (Exception ex)
-            { }
-        }
-
-        private void tabControl1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.G)
-            {
-            }
-        }
-
-        private void dgv_mano_de_obra_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.G)
-            {
-
-                // manipular lo ingresado par poder registrarlo
-                //_lista_et_r29 = _lista_et_r29;
-            }
-        }
-       
         private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
         {
             int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
@@ -1134,73 +1286,6 @@ namespace SGAP.comercial
 
         }
 
-        private void dgv_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            int suma_total = 0;
 
-            for (int a = 1; a < dgv_mano_de_obra.ColumnCount; a++)
-            {
-                suma_total = suma_total + Convert.ToInt32(dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value);
-            }
-
-            dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[0].Value = suma_total;
-            dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[4].Value = suma_total * (Convert.ToDecimal(dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[3].Value));
-
-
-        }
-
-        private void dgv_mano_de_obra_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            if (this.dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
-            {
-                TextBox TEX_BOX_NUMBER = e.Control as TextBox;
-                TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
-                e.Control.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
-            }
-        }
-
-        private void dgv_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            dgv_mano_de_obra_right.Rows[e.RowIndex].Selected = true;
-        }
-
-        private void dgv_mano_de_obra_right_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
-            }
-            catch (Exception) { }
-        }
-
-        private void btn_guardar_mano_de_obra_Click(object sender, EventArgs e)
-        {
-            // call metodo guardar
-            // mostrar seguidamente la vista general de mano de obra
-            Metodo_preparar_informacion();
-        }
-
-        private void Metodo_preparar_informacion()
-        {
-            var tmp = _lista_et_r29;
-
-            NT_R31 ins = new NT_R31();
-            ins.set_001(_lista_et_r29,_entidad._lista_et_r27);
-        }
-
-        private void btn_editar_mano_de_obra_Click(object sender, EventArgs e)
-        {
-            //preparar vista de mano de obra para editar
-        }
-
-        private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex > 0)
-            {
-                ET_R29 _et_r29_editable = new ET_R29();
-                _et_r29_editable = _lista_et_r29.FirstOrDefault(x=> x._Fila == e.RowIndex);
-                _et_r29_editable._Locales_por_cargo_cantidad_personal[(e.ColumnIndex - 1)] = Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
-            }
-        }
     }
 }

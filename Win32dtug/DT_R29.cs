@@ -129,7 +129,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR29_HORA_ENTRADA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_ENTRADA;
                     cmd.Parameters.Add("@p_TR29_HORA_SALIDA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_SALIDA;
                     cmd.Parameters.Add("@p_TR29_DIAS_SEMANA", SqlDbType.Int).Value = objEntity._TR29_DIAS_SEMANA;
-                    cmd.Parameters.Add("@p_TR29_UCREA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TR29_UCREA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
                     cmd.Parameters.Add("@p_TR29_TM2_ID", SqlDbType.VarChar, 20).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR29_REMUNERACION", SqlDbType.Decimal).Value = objEntity._TR29_REMUNERACION;
                     cmd.ExecuteNonQuery();
@@ -191,7 +191,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR29_HORA_ENTRADA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_ENTRADA;
                     cmd.Parameters.Add("@p_TR29_HORA_SALIDA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_SALIDA;
                     cmd.Parameters.Add("@p_TR29_DIAS_SEMANA", SqlDbType.Int).Value = objEntity._TR29_DIAS_SEMANA;
-                    cmd.Parameters.Add("@p_TR29_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TR29_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
                     cmd.Parameters.Add("@p_TR29_REMUNERACION", SqlDbType.Decimal).Value = objEntity._TR29_REMUNERACION;
                     cmd.Parameters.Add("@p_TR29_FLG_ELIMINADO", SqlDbType.SmallInt).Value = objEntity._TR29_FLG_ELIMINADO;
                     cmd.ExecuteNonQuery();
