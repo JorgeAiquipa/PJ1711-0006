@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using Win28etug;
 using Win28ntug;
 
@@ -11,6 +10,8 @@ namespace SGAP.comercial
 {
     public partial class frm_01_1 : Form
     {
+
+        #region Instancias
         public ET_entidad _entity = new ET_entidad();
         ET_globales Globales = new ET_globales();
         NT_helper _helper = new NT_helper();
@@ -30,6 +31,7 @@ namespace SGAP.comercial
         List<ET_M27> _lista_m27 = new List<ET_M27>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R19> _lista_R19 = new List<ET_R19>();
+        #endregion
 
         #region Variables
         string _id_tm19;
@@ -109,7 +111,7 @@ namespace SGAP.comercial
         #region Eventos
         void Porcentaje_De_Craga(object sender, int e)
         {
-            if (e == 0)
+            if (e < 100)
             {
                 Array_clientes_autocomplete = new string[1];
                 Array_clientes_autocomplete[0] = "Cargando...";
@@ -137,9 +139,10 @@ namespace SGAP.comercial
             }
         }
         private void Cargar_Busqueda_T_M27(object sender, ET_entidad e)
-        {
+        {            
             if (!e._hubo_error && e._lista_et_m27.Count > 0)
             {
+                
                 _lista_m27 = new List<ET_M27>();
                 _lista_m27 = e._lista_et_m27;
 
@@ -331,7 +334,9 @@ namespace SGAP.comercial
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
             {
+                Limpiar_Informacion_ingresada();
                 Obtener_Informacion_t_m19();
+                autoCompleteTextBox_t_m19.Text = autoCompleteTextBox_t_m19.Text.Trim();
             }
         }
         private void autoCompleteTextBox_t_m19_Enter(object sender, EventArgs e)
@@ -365,10 +370,7 @@ namespace SGAP.comercial
             Obtener_Informacion_t_m19();
             autoCompleteTextBox_t_m19.Text = autoCompleteTextBox_t_m19.Text.Trim();
         }
-        private void dgv_informacion_locales_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
         #endregion
 
 

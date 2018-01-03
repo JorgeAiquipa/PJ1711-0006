@@ -1,6 +1,6 @@
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr31_set001]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_tr31_set001;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr31_set_001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tr31_set_001;
 GO
 
 -- =============================================
@@ -9,7 +9,7 @@ GO
 -- Table : T_R31 -> Mano de obra
 -- Descripcion : Insertamos los datos de mano de obra
 -- =============================================
-CREATE PROCEDURE pa_tr31_set001
+CREATE PROCEDURE pa_tr31_set_001
  @p_TR31_TR29_ID int --servicio cargo
 ,@p_TR31_TR27_ID int --cotizacion local
 ,@p_TR31_TR28_ID int --cotizacion servicio
@@ -17,7 +17,6 @@ CREATE PROCEDURE pa_tr31_set001
 ,@p_TR31_DESCRIP varchar(3000)
 ,@p_TR31_TM2_ID varchar(10) --pis
 ,@p_TR31_UCREA varchar(20)
-,@p_TR31_UACTUALIZA varchar(20)
 ,@P_MENSAJE_RESPUESTA varchar(200) output
 AS
 
@@ -61,7 +60,7 @@ SET NOCOUNT ON;
 			,0
 			,@p_TR31_UCREA
 			,GETDATE()
-			,@p_TR31_UACTUALIZA
+			,@p_TR31_UCREA
 			,GETDATE()
 
 
@@ -76,11 +75,14 @@ BEGIN CATCH
 END CATCH
 GO
 
+--   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
+
 go
 
+
+SELECT * FROM T_R29 --Servicio Cargo
 SELECT * FROM T_R27 --Cotizacion Local
 SELECT * FROM T_R28 --Cotizacion Servicio 
-SELECT * FROM T_R29 --Servicio Cargo
 GO
 
 EXEC pa_tr31_set001  147, 3892, 205, 4,'Chofer 9 h L-S:8:00 - 17:00 Asi/Ali - DGOMEZ','PIS','DGOMEZ','DGOMEZ','OK'
