@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr31_sel001]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_tr31_sel001;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr31_sel_001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tr31_sel_001;
 GO
 
 -- =============================================
@@ -8,13 +8,10 @@ GO
 -- Table : T_R31 -> Mano de obra
 -- Descripcion : Listamos los datos de mano de obra
 -- =============================================
-CREATE PROCEDURE pa_tr31_sel001
+CREATE PROCEDURE pa_tr31_sel_001
 	--@p_TR31_ID INT,
 
-	@p_TR31_TR29_ID INT,
-	@p_TR31_TR27_ID INT,
 	@p_TR31_TR28_ID INT,
-
 	@p_TM2_ID VARCHAR(10)
 AS
 
@@ -47,11 +44,7 @@ BEGIN TRY
 			AND
 			TR31_TM2_ID = @p_TM2_ID
 			AND
-			TR31_TR29_ID = @p_TR31_TR29_ID
-			AND
 			TR31_TR28_ID = @p_TR31_TR28_ID
-			AND
-			TR31_TR27_ID = @p_TR31_TR27_ID
 
 
 END TRY
@@ -61,7 +54,9 @@ BEGIN CATCH
 END CATCH
 GO
 
-EXEC pa_tr31_sel001  147, 3892, 205, 'PIS'
+--   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
+
+EXEC pa_tr31_sel_001  207, 'PIS'
 
 SELECT * FROM T_R31
 
