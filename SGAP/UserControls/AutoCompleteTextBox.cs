@@ -31,6 +31,9 @@ namespace SGAP.UserControls
             _listBox = new ListBox();
             this.KeyDown += this_KeyDown;
             this.KeyUp += this_KeyUp;
+            //this.MouseClick += mouseClick;
+            MouseClick += new MouseEventHandler(mouseClick);
+
         }
 
         private void ShowListBox()
@@ -58,6 +61,26 @@ namespace SGAP.UserControls
         private void this_KeyUp(object sender, KeyEventArgs e)
         {
             UpdateListBox();
+        }
+
+        private void mouseClick(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    {
+                        if (_listBox.Visible)
+                        {
+                            Text = _listBox.SelectedItem.ToString();
+                            ResetListBox();
+                            _formerValue = Text;
+                            this.Select(this.Text.Length, 0);
+                            //e.Handled = true;
+                        }
+                        break;
+                    }
+               
+            }
         }
 
         private void this_KeyDown(object sender, KeyEventArgs e)
@@ -91,8 +114,6 @@ namespace SGAP.UserControls
                         e.Handled = true;
                         break;
                     }
-
-
             }
         }
 
@@ -140,7 +161,7 @@ namespace SGAP.UserControls
                                 _listBox.Height += _listBox.GetItemHeight(i);
 
                             int itemWidth = (int)graphics.MeasureString(((string)_listBox.Items[i]) + "_", _listBox.Font).Width;
-                            _listBox.Width = (_listBox.Width < itemWidth) ? itemWidth : this.Width; ;
+                            _listBox.Width = 338;//(_listBox.Width < itemWidth) ? itemWidth : this.Width; ;
                         }
                     }
                     _listBox.EndUpdate();

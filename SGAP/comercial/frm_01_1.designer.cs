@@ -198,7 +198,6 @@
             this.dgv_informacion_locales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_informacion_locales.Size = new System.Drawing.Size(668, 326);
             this.dgv_informacion_locales.TabIndex = 0;
-            this.dgv_informacion_locales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellClick);
             // 
             // _seleccionado
             // 

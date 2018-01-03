@@ -8,6 +8,7 @@ namespace SGAP.comercial
 {
     public partial class frm_01 : Form
     {
+
         #region Instancias
         ET_globales Globales = new ET_globales();
         ET_entidad Entidad_ = new ET_entidad();
@@ -198,7 +199,6 @@ namespace SGAP.comercial
                 Obtener_Cotizaciones();
             }
         }
-        #endregion
 
         private void listView_Cotizaciones_KeyDown(object sender, KeyEventArgs e)
         {
@@ -207,6 +207,11 @@ namespace SGAP.comercial
                 listView_Cotizaciones_MouseDoubleClick(null, null);
             }
         }
+
+
+        #endregion
+
+
     }
 
 }

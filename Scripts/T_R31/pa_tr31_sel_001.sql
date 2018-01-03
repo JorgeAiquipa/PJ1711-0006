@@ -56,7 +56,7 @@ GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
-EXEC pa_tr31_sel_001  207, 'PIS'
+EXEC pa_tr31_sel_001  209, 'PIS'
 
 SELECT * FROM T_R31
 

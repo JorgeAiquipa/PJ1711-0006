@@ -173,7 +173,7 @@ namespace Win32dtug
                 {
                     cmd.Parameters.Add("@p_TR31_ID", SqlDbType.Int).Value = objEntity._TR31_ID;
                     cmd.Parameters.Add("@p_TR31_CANT_PERSONAS", SqlDbType.Int).Value = objEntity._TR31_CANT_PERSONAS;
-                    cmd.Parameters.Add("@p_TR31_UACTUALIZA", SqlDbType.Int).Value = objEntity._TR31_UACTUALIZA;
+                    cmd.Parameters.Add("@p_TR31_UACTUALIZA", SqlDbType.VarChar, 20).Value = objEntity._TR31_UACTUALIZA;
                     cmd.Parameters.Add("@p_TM2_ID", SqlDbType.VarChar, 10).Value = objEntity._TR31_TM2_ID;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();

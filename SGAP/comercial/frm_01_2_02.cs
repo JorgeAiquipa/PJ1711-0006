@@ -10,11 +10,12 @@ using System.Windows.Forms;
 using Win28etug;
 using Win28ntug;
 
-
 namespace SGAP.comercial
 {
     public partial class frm_01_2_02 : Form
     {
+
+        #region Instancias
         public ET_entidad _entidad = new ET_entidad();
         ET_globales globales = new ET_globales();
         ET_M41 _et_m41 = new ET_M41();
@@ -24,9 +25,10 @@ namespace SGAP.comercial
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R28> _lista_r28 = new List<ET_R28>();
         List<ET_M42> _lista_m42 = new List<ET_M42>();
-
         List<ET_R19> _lista_R19 = new List<ET_R19>();
+        #endregion
 
+        #region Variables
         public int Id_Servicio_Padre;
         public string tm39_id;
         public int id_Servicio_seleccionado;
@@ -37,6 +39,9 @@ namespace SGAP.comercial
         string nodo_tipo;
 
         int Id_Servicio_hijo;
+        #endregion
+
+        #region Métodos
         public frm_01_2_02(int __id_Servicio_hijo, int __id_Servicio_padre, int _periodo_servicio, string _tm39_id, string nodos)
         {
             InitializeComponent();
@@ -106,6 +111,9 @@ namespace SGAP.comercial
 
         }
 
+        #endregion
+
+        #region Eventos
         private void btn_continuar_Click(object sender, EventArgs e)
         {
             Nombre_Servicio_seleccionado = cbx_servicio.Text;
@@ -154,6 +162,8 @@ namespace SGAP.comercial
             this.DialogResult = DialogResult.Cancel;
         }
 
+        
+
         private void cb_tipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             nombre_tipo_servicio = cb_tipo.Text;
@@ -171,5 +181,9 @@ namespace SGAP.comercial
             else
                 label5.Text = "meses";
         }
+
+        #endregion
+
+
     }
 }
