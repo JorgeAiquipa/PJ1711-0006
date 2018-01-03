@@ -50,7 +50,7 @@ namespace Win28ntug
             parametros._TR31_TM2_ID = Globales._TM2_ID;
             parametros._TR31_TR28_ID = tr_29_id;
 
-            return null;//_dt_R31.sel_001(parametros).lis;
+            return _dt_R31.sel_001(parametros)._lista_et_r31;
         }
         #endregion
 
