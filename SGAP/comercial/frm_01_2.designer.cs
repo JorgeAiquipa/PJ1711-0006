@@ -74,6 +74,9 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel_colapse = new System.Windows.Forms.Panel();
             this.panel_colapse_2 = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.btn_guardar_mano_de_obra = new System.Windows.Forms.Button();
+            this.btn_editar_mano_de_obra = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -130,6 +133,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel12.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // tree_view_servicios
@@ -202,27 +206,28 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.panel13);
             this.panel2.Controls.Add(this.dgv_mano_de_obra_right);
             this.panel2.Controls.Add(this.dgv_mano_de_obra);
-            this.panel2.Controls.Add(this.label10);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(975, 476);
+            this.panel2.Size = new System.Drawing.Size(977, 478);
             this.panel2.TabIndex = 6;
             // 
             // dgv_mano_de_obra_right
             // 
+            this.dgv_mano_de_obra_right.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_mano_de_obra_right.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_mano_de_obra_right.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_mano_de_obra_right.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra_right.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(575, 22);
+            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(577, 50);
             this.dgv_mano_de_obra_right.Name = "dgv_mano_de_obra_right";
             this.dgv_mano_de_obra_right.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(400, 454);
-            this.dgv_mano_de_obra_right.TabIndex = 8;
+            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(400, 428);
+            this.dgv_mano_de_obra_right.TabIndex = 2;
             this.dgv_mano_de_obra_right.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_RowEnter);
             this.dgv_mano_de_obra_right.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_right_Scroll);
             // 
@@ -234,11 +239,13 @@
             this.dgv_mano_de_obra.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_mano_de_obra.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_mano_de_obra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 22);
+            this.dgv_mano_de_obra.GridColor = System.Drawing.SystemColors.AppWorkspace;
+            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 50);
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
-            this.dgv_mano_de_obra.Size = new System.Drawing.Size(574, 454);
-            this.dgv_mano_de_obra.TabIndex = 7;
+            this.dgv_mano_de_obra.Size = new System.Drawing.Size(576, 428);
+            this.dgv_mano_de_obra.TabIndex = 1;
             this.dgv_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellEndEdit);
+            this.dgv_mano_de_obra.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellValueChanged);
             this.dgv_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_mano_de_obra_EditingControlShowing);
             this.dgv_mano_de_obra.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_RowEnter);
             this.dgv_mano_de_obra.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_Scroll);
@@ -251,8 +258,8 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(0, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(975, 22);
-            this.label10.TabIndex = 6;
+            this.label10.Size = new System.Drawing.Size(977, 22);
+            this.label10.TabIndex = 0;
             this.label10.Text = "Mano de obra";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -674,6 +681,39 @@
             this.panel_colapse_2.MouseLeave += new System.EventHandler(this.panel_colapse_2_MouseLeave);
             this.panel_colapse_2.MouseHover += new System.EventHandler(this.panel_colapse_2_MouseHover);
             // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.btn_editar_mano_de_obra);
+            this.panel13.Controls.Add(this.btn_guardar_mano_de_obra);
+            this.panel13.Controls.Add(this.label10);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel13.Location = new System.Drawing.Point(0, 0);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(977, 50);
+            this.panel13.TabIndex = 0;
+            // 
+            // btn_guardar_mano_de_obra
+            // 
+            this.btn_guardar_mano_de_obra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_guardar_mano_de_obra.Location = new System.Drawing.Point(2, 24);
+            this.btn_guardar_mano_de_obra.Name = "btn_guardar_mano_de_obra";
+            this.btn_guardar_mano_de_obra.Size = new System.Drawing.Size(75, 23);
+            this.btn_guardar_mano_de_obra.TabIndex = 1;
+            this.btn_guardar_mano_de_obra.Text = "Guardar";
+            this.btn_guardar_mano_de_obra.UseVisualStyleBackColor = true;
+            this.btn_guardar_mano_de_obra.Click += new System.EventHandler(this.btn_guardar_mano_de_obra_Click);
+            // 
+            // btn_editar_mano_de_obra
+            // 
+            this.btn_editar_mano_de_obra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_editar_mano_de_obra.Location = new System.Drawing.Point(82, 24);
+            this.btn_editar_mano_de_obra.Name = "btn_editar_mano_de_obra";
+            this.btn_editar_mano_de_obra.Size = new System.Drawing.Size(75, 23);
+            this.btn_editar_mano_de_obra.TabIndex = 2;
+            this.btn_editar_mano_de_obra.Text = "Editar";
+            this.btn_editar_mano_de_obra.UseVisualStyleBackColor = true;
+            this.btn_editar_mano_de_obra.Click += new System.EventHandler(this.btn_editar_mano_de_obra_Click);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.Frozen = true;
@@ -898,6 +938,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
             this.ResumeLayout(false);
 
             }
@@ -974,5 +1015,8 @@
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Panel panel_colapse;
         private System.Windows.Forms.Panel panel_colapse_2;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Button btn_editar_mano_de_obra;
+        private System.Windows.Forms.Button btn_guardar_mano_de_obra;
     }
     }

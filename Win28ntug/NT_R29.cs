@@ -9,7 +9,7 @@ using Win28etug;
 using Win32dtug;
 namespace Win28ntug
 {
-    public class NT_R29 :NT_tareas
+    public class NT_R29 : NT_tareas
     {
         ET_entidad Resultado = new ET_entidad();
         ET_entidad _et_entidad = new ET_entidad();
@@ -24,7 +24,7 @@ namespace Win28ntug
         public ET_entidad get_001(ET_R29 obj)
         {
             // obj._lista_et_m40; --> conceptos remunerativos disponibles
-            var resultado =  _dt_r29.get_001(obj);
+            var resultado = _dt_r29.get_001(obj);
             // analizamos los conceptos remunerativos que posee cada cargo y seleccionamos los conceptos que se visualizara como seleccionado
             List<ET_R29> lista_final = new List<ET_R29>();
             int fila_ = 0;
@@ -37,7 +37,7 @@ namespace Win28ntug
 
                     ET_M40 entidad_m40 = new ET_M40();
 
-                    var where_on_list_et_r30 = row._lista_et_r30.FirstOrDefault(x=> x._TR30_TM40_ID == row_c._TM40_ID && x._TR30_DESCRIP == row_c._TM40_DESCRIP);
+                    var where_on_list_et_r30 = row._lista_et_r30.FirstOrDefault(x => x._TR30_TM40_ID == row_c._TM40_ID && x._TR30_DESCRIP == row_c._TM40_DESCRIP);
                     if (where_on_list_et_r30 != null)
                         entidad_m40._Seleccionado = true;
                     else
@@ -122,7 +122,7 @@ namespace Win28ntug
             // COMPARAR SI A ES IGUAL A B
             bool respuesta = false;
 
-            if (lista_B.Where(x=> x._Seleccionado == true).ToList().Count != lista_A.Where(x => x._Seleccionado == true).ToList().Count)
+            if (lista_B.Where(x => x._Seleccionado == true).ToList().Count != lista_A.Where(x => x._Seleccionado == true).ToList().Count)
             { return false; }
             else if ((lista_A.Count + lista_B.Count) == 0)
             { return true; }
@@ -217,10 +217,10 @@ namespace Win28ntug
                 }
 
             });
-
         }
+    
         #endregion
-
+    
         #region Mensajes
         protected virtual void Mensaje_Alerta_(ET_entidad e)
         {

@@ -94,8 +94,6 @@ namespace Win32dtug
                 {
                     _lista_et_r31 = new List<ET_R31>();
                                         
-                    cmd.Parameters.Add("@p_TR31_TR29_ID", SqlDbType.Int).Value = objEntity._TR31_TR29_ID;
-                    cmd.Parameters.Add("@p_TR31_TR27_ID", SqlDbType.Int).Value = objEntity._TR31_TR27_ID;
                     cmd.Parameters.Add("@p_TR31_TR28_ID", SqlDbType.Int).Value = objEntity._TR31_TR28_ID;
                     cmd.Parameters.Add("@p_TM2_ID", SqlDbType.VarChar, 10).Value = objEntity._TR31_TM2_ID;
                     SqlDataAdapter da = new SqlDataAdapter();
