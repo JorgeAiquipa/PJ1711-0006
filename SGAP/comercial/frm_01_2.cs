@@ -131,6 +131,7 @@ namespace SGAP.comercial
                 _entidad._entity_r27._TR27_TM19_ID = _entidad._entity_m39._entity_et_m19._TM19_ID;
                 var result = _nt_r27.get_001(_entidad);
                 _entidad._lista_et_m27 = result._lista_et_m27;
+                _entidad._lista_et_r27 = result._lista_et_r27;
 
                 //Metodo_cargar_informacion_mano_de_obra();
             }
@@ -894,21 +895,22 @@ namespace SGAP.comercial
 
             //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
 
-            if (_entidad._lista_et_m27 != null)
+            if (_entidad._lista_et_r27 != null)
             {
-                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _entidad._lista_et_m27.Count);
+
+                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _entidad._lista_et_r27.Count);
                 dgv_mano_de_obra.ColumnCount = cantidad_final_de_indices;
 
-                int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_m27.Count;
+                int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_r27.Count;
 
                 int indice_nn = 1;
-                _entidad._lista_et_m27.ForEach(x =>
+                _entidad._lista_et_r27.ForEach(x =>
                 {
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
                     dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TM27_NOMBRE;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TM27_NOMBRE) ? string.Format("Local {0}",indice_nn): x._TM27_NOMBRE.Length > 26 ?  string.Format("{0}...", x._TM27_NOMBRE.Substring(0, 26)) : x._TM27_NOMBRE;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}",indice_nn): x._TR27_DESCRIP.Length > 26 ?  string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
                     indice_de_inicio++;
                     indice_nn++;
                 });
@@ -1009,11 +1011,10 @@ namespace SGAP.comercial
             //dgv_mano_de_obra.DataSource = null;
             //dgv_mano_de_obra.Refresh();
             //dgv_mano_de_obra.Update();
-
             dgv_mano_de_obra_right.Rows.Clear();
 
             _lista_et_r29.ForEach(fila_ => {
-
+                fila_._Locales_por_cargo_cantidad_personal = new int[_entidad._lista_et_r27.Count];
                 var list = fila_._lista_et_r30;
                 decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
                 fila_._lista_et_r30.ForEach(X =>
@@ -1164,6 +1165,36 @@ namespace SGAP.comercial
                 dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
             }
             catch (Exception) { }
+        }
+
+        private void btn_guardar_mano_de_obra_Click(object sender, EventArgs e)
+        {
+            // call metodo guardar
+            // mostrar seguidamente la vista general de mano de obra
+            Metodo_preparar_informacion();
+        }
+
+        private void Metodo_preparar_informacion()
+        {
+            var tmp = _lista_et_r29;
+
+            NT_R31 ins = new NT_R31();
+            ins.set_001(_lista_et_r29,_entidad._lista_et_r27);
+        }
+
+        private void btn_editar_mano_de_obra_Click(object sender, EventArgs e)
+        {
+            //preparar vista de mano de obra para editar
+        }
+
+        private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex > 0)
+            {
+                ET_R29 _et_r29_editable = new ET_R29();
+                _et_r29_editable = _lista_et_r29.FirstOrDefault(x=> x._Fila == e.RowIndex);
+                _et_r29_editable._Locales_por_cargo_cantidad_personal[(e.ColumnIndex - 1)] = Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
+            }
         }
     }
 }
