@@ -25,17 +25,17 @@ namespace Win28ntug
 
 
                 cargos_.ForEach(cargo=> {
-
-                    int canti = cargo._Locales_por_cargo_cantidad_personal[indice];
+                    int[] int_object = new int[2];
+                    int_object = (int[])cargo._Locales_por_cargo_cantidad_personal[indice];
+    
                     ET_R31 parametros = new ET_R31();
                     parametros._TR31_TM2_ID = Globales._TM2_ID;
                     parametros._TR31_DESCRIP = "Hey!";
-                    parametros._TR31_UCREA = Globales._U_CREA;
-                    parametros._TR31_TM2_ID = Globales._TM2_ID;
+                    parametros._TR31_UCREA = Globales._U_SESSION;
                     parametros._TR31_TR29_ID = cargo._TR29_ID;
                     parametros._TR31_TR28_ID = cargo._TR29_TR28_ID;
                     parametros._TR31_TR27_ID = local._TR27_ID;
-                    parametros._TR31_CANT_PERSONAS = canti;
+                    parametros._TR31_CANT_PERSONAS = int_object[0];
                     _dt_R31.set_001(parametros);
                 });
 
@@ -51,6 +51,49 @@ namespace Win28ntug
             parametros._TR31_TR28_ID = tr_29_id;
 
             return _dt_R31.sel_001(parametros)._lista_et_r31;
+        }
+
+        public void set_002(List<ET_R29> cargos_, List<ET_R27> locales_)
+        {
+            int indice = 0;
+            locales_.ForEach(local => {
+
+                cargos_.ForEach(cargo => {
+
+                    bool _nuevo_elemento = false;
+
+                    foreach (int[] roe in cargo._Locales_por_cargo_cantidad_personal)
+                    {
+
+                        if (roe[1] != 0)
+                        {
+                            ET_R31 parametros = new ET_R31();
+                            parametros._TR31_TM2_ID = Globales._TM2_ID;
+                            parametros._TR31_DESCRIP = "update!";
+                            parametros._TR31_UACTUALIZA = Globales._U_SESSION;
+                            parametros._TR31_CANT_PERSONAS = roe[0];
+                            parametros._TR31_ID = roe[1];
+
+                            _dt_R31.set_002(parametros);
+                        }
+                        else
+                        {
+                            _nuevo_elemento = true;
+                        }
+                    }
+                    if (_nuevo_elemento)
+                    {
+                        ET_R29 tmp_e = new ET_R29();
+                        tmp_e = cargo;
+                        List<ET_R29> tmp_l = new List<ET_R29>();
+                        tmp_l.Add(tmp_e);
+                        set_001(tmp_l, locales_);
+                    }
+                });
+
+                indice++;
+
+            });
         }
         #endregion
 

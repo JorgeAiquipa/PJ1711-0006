@@ -199,7 +199,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_Mensaje", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@p_CodigoCotizacion", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@p_TM39_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TM39_DESCRIP;
-                    cmd.Parameters.Add("@p_TM39_UCREA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TM39_UCREA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
                     cmd.Parameters.Add("@p_TM39_TM19_ID", SqlDbType.VarChar, 10).Value = objEntity._TM39_TM19_ID;
                     cmd.Parameters.Add("@p_TM39_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.ExecuteNonQuery();

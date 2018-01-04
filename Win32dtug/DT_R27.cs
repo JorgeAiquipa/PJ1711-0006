@@ -43,7 +43,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TM19_ID", SqlDbType.VarChar, 10).Value = _entity_tr27._TR27_TM19_ID;
                     cmd.Parameters.Add("@p_TM2_ID", SqlDbType.VarChar, 10).Value =_globales._TM2_ID;
                     cmd.Parameters.Add("@p_TR27_DESCRIP", SqlDbType.VarChar, 3000).Value = _entity_tr27._TR27_DESCRIP;
-                    cmd.Parameters.Add("@p_TR27_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_CREA;
+                    cmd.Parameters.Add("@p_TR27_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_SESSION;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
 

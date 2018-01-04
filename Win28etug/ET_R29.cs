@@ -27,7 +27,7 @@ namespace Win28etug
 
         public List<ET_M40> _lista_et_m40 { get; set; }
         public List<ET_R30> _lista_et_r30 { get; set; }
-        public int[] _Locales_por_cargo_cantidad_personal { get; set; }
+        public object[] _Locales_por_cargo_cantidad_personal { get; set; }
         public ET_R31 _et_r31 { get; set; }
         public ET_R29()
         {

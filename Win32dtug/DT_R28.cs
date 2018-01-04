@@ -44,7 +44,7 @@ namespace Win32dtug
 
                     cmd.Parameters.Add("@p_TR28_FRECUENCIA", SqlDbType.VarChar, 300).Value = objEntity._TR28_FRECUENCIA; //DIEGO
 
-                    cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 300).Value = _globales._U_CREA;
+                    cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 300).Value = _globales._U_SESSION;
                     cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 20).Value = _globales._TM2_ID;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
@@ -104,7 +104,7 @@ namespace Win32dtug
 
                     cmd.Parameters.Add("@p_TR28_FRECUENCIA", SqlDbType.VarChar, 300).Value = objEntity._TR28_FRECUENCIA; //DIEGO
 
-                    cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_CREA;
+                    cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_SESSION;
                     cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 50).Value = _globales._TM2_ID;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();

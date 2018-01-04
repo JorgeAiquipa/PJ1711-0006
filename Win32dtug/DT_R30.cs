@@ -38,7 +38,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR30_TM40_ID", SqlDbType.VarChar, 10).Value = objEntity._TR30_TM40_ID; 
                     cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR30_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR30_DESCRIP;
-                    cmd.Parameters.Add("@p_TR30_UCREA", SqlDbType.VarChar, 10).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TR30_UCREA", SqlDbType.VarChar, 10).Value = _global._U_SESSION;
                     cmd.Parameters.Add("@p_TR30_IMPORTE", SqlDbType.Decimal).Value = objEntity._TR30_IMPORTE;
 
                     cmd.ExecuteNonQuery();
@@ -97,7 +97,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR30_IMPORTE", SqlDbType.Decimal).Value = objEntity._TR30_IMPORTE*1M;
                     cmd.Parameters.Add("@p_TR30_FLG_ELIMINADO", SqlDbType.Int).Value = objEntity._TR30_FLG_ELIMINADO;
                     cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
-                    cmd.Parameters.Add("@p_TR30_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_CREA;
+                    cmd.Parameters.Add("@p_TR30_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
 
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();

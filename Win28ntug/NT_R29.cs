@@ -172,7 +172,7 @@ namespace Win28ntug
                         et30._TR30_TM40_ID = x._TR30_TM40_ID;
                         et30._TR30_FLG_ELIMINADO = x._TR30_FLG_ELIMINADO;
                         et30._TR30_TM2_ID = x._TR30_TM2_ID;
-                        et30._TR30_UACTUALIZA = Globales._U_CREA;
+                        et30._TR30_UACTUALIZA = Globales._U_SESSION;
                         _dt_r30.set_002(et30);
 
                     });
