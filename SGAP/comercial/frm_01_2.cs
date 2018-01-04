@@ -58,7 +58,7 @@ namespace SGAP.comercial
         string Id_Cotizacion;
         int Id_CotizacionServicio;
         bool Editar_cotizacion = false;
-        bool mostrar_resumen_De_mano_de_obra = false;
+        bool mostrar_resumen_De_mano_de_obra = true;
 
 
         #endregion
@@ -173,6 +173,7 @@ namespace SGAP.comercial
             
             btn_editar_mano_de_obra.Enabled = Editar_cotizacion;
             btn_guardar_mano_de_obra.Enabled = false;
+
             #endregion
 
             #region maquinaria_y_equipo
@@ -182,6 +183,9 @@ namespace SGAP.comercial
             #region page_3
 
             #endregion
+
+
+            
         }
 
         private void _nt_r29_Cargar_Listado_(object sender, ET_entidad e)
@@ -543,7 +547,7 @@ namespace SGAP.comercial
                         case "0": // ver menu para mano de obra
                             Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
                             Metodo_cargar_informacion_mano_de_obra();
-                            MenuStrip_ViewProperties_.Show(tree_view_servicios, p);
+                            MenuStrip_ViewProperties_.Show(tree_view_servicios, p);                            
                             break;
                         case "1000": // ver menu para mano de obra
 
@@ -713,10 +717,18 @@ namespace SGAP.comercial
             //actualizar
             {
                 Metodo_preparar_informacion_para_actualizar_mano_de_obra();
+                btn_guardar_mano_de_obra.Enabled = false;//diego
+                mostrar_resumen_De_mano_de_obra = true;
+                Metodo_calcular_si_es_resumen();
+                Cursor.Current = Cursors.WaitCursor;
             }
             else
             {
                 Metodo_preparar_informacion_para_registrar_mano_de_obra();
+                btn_guardar_mano_de_obra.Enabled = false;//diego
+                mostrar_resumen_De_mano_de_obra = true;
+                Metodo_calcular_si_es_resumen();
+                Cursor.Current = Cursors.WaitCursor;
             }
         }
 
@@ -741,7 +753,9 @@ namespace SGAP.comercial
             //preparar vista de mano de obra para editar
             btn_guardar_mano_de_obra.Enabled = true;
             mostrar_resumen_De_mano_de_obra = false;
+            Editar_cotizacion = true;
             // ocultar el detalle de subtotales
+            Metodo_calcular_si_es_resumen();
             //
         }
 
@@ -1028,7 +1042,8 @@ namespace SGAP.comercial
             });
 
             //if(mostrar_resumen_De_mano_de_obra)
-                //mostrar sub totales
+            //mostrar sub totales
+            Metodo_calcular_si_es_resumen();
         }
 
         private string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida, List<ET_R30> conceptos_)
@@ -1112,6 +1127,20 @@ namespace SGAP.comercial
         private void button1_Click(object sender, EventArgs e)
         {
             Metodo_mostrar_calculos_de_costos_mano_de_obra();
+        }
+
+        private void Metodo_calcular_si_es_resumen()
+        {
+            if(mostrar_resumen_De_mano_de_obra == true)
+            {
+                Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                Editar_cotizacion = false;
+            }
+            else if (Editar_cotizacion == true)
+            {
+                Metodo_cargar_informacion_mano_de_obra();
+                mostrar_resumen_De_mano_de_obra = false;
+            }
         }
 
         private void Metodo_mostrar_calculos_de_costos_mano_de_obra()
