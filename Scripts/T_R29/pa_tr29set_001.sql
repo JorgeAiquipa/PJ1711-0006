@@ -77,6 +77,3 @@ END
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-
-select   CONVERT(VARCHAR(8),GETDATE(),108) ,GETDATE()

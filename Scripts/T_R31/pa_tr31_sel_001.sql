@@ -21,7 +21,6 @@ BEGIN TRY
 
 
 		SELECT 
-
 			 TR31_ID
 			,TR31_TR29_ID
 			,TR31_TR27_ID
@@ -56,10 +55,3 @@ GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
-EXEC pa_tr31_sel_001  209, 'PIS'
-
-SELECT * FROM T_R31
-
-SELECT * FROM T_R27 --Cotizacion Local
-SELECT * FROM T_R28 --Cotizacion Servicio 
-SELECT * FROM T_R29 --Servicio Cargo

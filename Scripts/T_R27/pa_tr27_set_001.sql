@@ -66,8 +66,4 @@ END
 GO
 
 
-SELECT * FROM T_M27
-
-SELECT * FROM T_R27
-
---EXEC pa_tr27_set_001 'COT00010','51','E134','PIS','DESCRIPCION','USER',''
+--   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *

@@ -90,6 +90,7 @@
             // 
             // btn_continuar
             // 
+            this.btn_continuar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btn_continuar.Location = new System.Drawing.Point(93, 156);
             this.btn_continuar.Name = "btn_continuar";
@@ -101,6 +102,7 @@
             // 
             // btn_cancelar
             // 
+            this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btn_cancelar.Location = new System.Drawing.Point(179, 156);
             this.btn_cancelar.Name = "btn_cancelar";

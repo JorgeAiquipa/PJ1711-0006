@@ -54,8 +54,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-select * from T_R27
-
-
-EXEC pa_tr27Get_001 'COT00030','E134','PIS'

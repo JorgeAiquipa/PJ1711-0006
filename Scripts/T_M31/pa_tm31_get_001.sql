@@ -48,14 +48,3 @@ GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 
-EXEC pa_tm31_get_001 'pis' , 'l'
-
-SELECT * FROM T_M31 where TM31_TM34_ID in ('MQ', 'EQ') 
-
-
-INSERT INTO T_M31 VALUES ('PRO04','PIS','EQ','','','','SONNY','KLG','4','TV',4.5,'',1,0,'',GETDATE(),'',GETDATE())
-
-
-GO
-
-

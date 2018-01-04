@@ -113,8 +113,9 @@ namespace SGAP.comercial
         {
             if (e < 100)
             {
-                Array_clientes_autocomplete = new string[1];
-                Array_clientes_autocomplete[0] = "Cargando...";
+                //Array_clientes_autocomplete = new string[1];
+                //Array_clientes_autocomplete[0] = "Cargando...";
+                Cursor.Current = Cursors.WaitCursor;
                 autoCompleteTextBox_t_m19.Values = Array_clientes_autocomplete;
             }
             else
@@ -185,6 +186,7 @@ namespace SGAP.comercial
 
         private void btn_continuar_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Metodo_obtener_informacion_ingresada();
 
             _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
@@ -246,7 +248,7 @@ namespace SGAP.comercial
                 }
                 else
                 {
-                    DialogResult decision_msg = MessageBox.Show("El cliente seleccionado no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult decision_msg = MessageBox.Show("Este cliente no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
                 }
             }
@@ -315,7 +317,14 @@ namespace SGAP.comercial
                 string filtro = autoCompleteTextBox_t_m19.Text;
                 _nt_m19._Filtro(filtro);
                 _nt_m19.Iniciar(Tarea.BUSCAR);
+                
             }
+            else
+            {
+                //txt_ruc_cliente.Text = string.Empty;
+                Limpiar_Informacion_ingresada();
+            }
+
             //Limpiar_Informacion_ingresada();
         }
         private void autoCompleteTextBox_t_m19_KeyDown(object sender, KeyEventArgs e)

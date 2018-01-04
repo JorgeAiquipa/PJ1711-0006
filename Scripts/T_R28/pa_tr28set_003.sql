@@ -46,13 +46,6 @@ BEGIN TRY
 
 		TR31_TR28_ID = @P_TR28_ID
 
-	--UPDATE DBO.T_R30
-	--SET TR30_FLG_ELIMINADO = 1,
-	--TR30_FACTUALIZA = GETDATE()
-
-	--WHERE
-
-	--	TR30_TR29_ID = (SELECT TR29_TR28_ID FROM T_R29 WHERE TR29_TR28_ID = @P_TR28_ID)
 
 END TRY
 BEGIN CATCH
@@ -61,13 +54,4 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-select * from T_R28
-select * from T_R29
-
-select * from T_R31
-
-exec pa_tr28set_003 203 ,'COT00115','pis'
-
-exec pa_tr28Get_002 'COT00115','pis'
 
