@@ -747,6 +747,7 @@ namespace SGAP.comercial
 
         private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            // validar que vista edicion este en false
             if (e.RowIndex >= 0 && e.ColumnIndex > 0)
             {
                 ET_R29 _et_r29_editable = new ET_R29();
@@ -1107,6 +1108,101 @@ namespace SGAP.comercial
             }
         }
 
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Metodo_mostrar_calculos_de_costos_mano_de_obra();
+        }
+
+        private void Metodo_mostrar_calculos_de_costos_mano_de_obra()
+        {
+            //ingresar dos filas vacias de margen
+
+            string[] fila_vacia_mano_de_obra_left = new string[dgv_mano_de_obra.ColumnCount];
+            string[] fila_vacia_mano_de_obra_right = new string[dgv_mano_de_obra_right.ColumnCount];
+
+            //--> llenamos los valores para las filas como vacio en funcion a la cantidad de columnas 
+            for (int a = 0; a < dgv_mano_de_obra.ColumnCount; a++)
+                fila_vacia_mano_de_obra_left[a] = "";
+            for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
+                fila_vacia_mano_de_obra_right[a] = "";
+
+            for (int a = 0; a < 2; a++) // -> cantidad de filas vacias por defecto 2
+            {
+                dgv_mano_de_obra_right.Rows.Add(fila_vacia_mano_de_obra_right);
+                dgv_mano_de_obra.Rows.Add(fila_vacia_mano_de_obra_left);
+            }
+
+            int sub_total_personal = 0;
+            decimal Sub_total_mes = 0 * 1M;
+
+            decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+
+
+            // EL SUBTOTAL -> GRID DE LA DERACHA
+            for (int i = 0; i < (dgv_mano_de_obra_right.RowCount - 2); i++)
+            {
+                sub_total_personal = sub_total_personal + int.Parse(dgv_mano_de_obra_right.Rows[i].Cells[0].Value.ToString());
+                SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + decimal.Parse(dgv_mano_de_obra_right.Rows[i].Cells[2].Value.ToString());
+                Sub_total_mes = Sub_total_mes + decimal.Parse(dgv_mano_de_obra_right.Rows[i].Cells[dgv_mano_de_obra_right.ColumnCount - 1].Value.ToString());
+            }
+
+            string[] Fila_subtotal_de_mano_de_obra_right = new string[dgv_mano_de_obra_right.ColumnCount];
+            for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
+            {
+                if (a == 0)
+                    Fila_subtotal_de_mano_de_obra_right[a] = sub_total_personal.ToString();
+                else
+                    Fila_subtotal_de_mano_de_obra_right[a] = "";
+            }
+            Fila_subtotal_de_mano_de_obra_right[(Fila_subtotal_de_mano_de_obra_right.Count() - 1)] = string.Format("S/ {0:#,#.00}", Sub_total_mes);// string.Format("S/ {0}", Sub_total_mes.ToString());
+
+            // EL SUBTOTAL -> GRID DE LA IZQUIERDA
+
+            int[] totales_por_local = new int[dgv_mano_de_obra.ColumnCount - 1];
+
+            for (int i = 1; i <= (dgv_mano_de_obra.ColumnCount - 1); i++)
+            {
+                int suma = 0;
+                for (int a = 0; a < (dgv_mano_de_obra.RowCount - 2); a++)
+                {
+                    suma = suma + int.Parse(dgv_mano_de_obra.Rows[a].Cells[i].Value.ToString());
+                }
+                totales_por_local[i - 1] = suma;
+            }
+
+            string[] Fila_subtotal_de_mano_de_obra_left = new string[dgv_mano_de_obra.ColumnCount];
+            for (int a = 0; a < dgv_mano_de_obra.ColumnCount; a++)
+            {
+                if (a == 0)
+                    Fila_subtotal_de_mano_de_obra_left[a] = "Sub Total";
+                else
+                    Fila_subtotal_de_mano_de_obra_left[a] = totales_por_local[a - 1].ToString();
+            }
+
+            //MOSTRAMOS LOS SUBTOTALES
+
+            dgv_mano_de_obra_right.Rows.Add(Fila_subtotal_de_mano_de_obra_right);
+            dgv_mano_de_obra.Rows.Add(Fila_subtotal_de_mano_de_obra_left);
+
+            //agregamos estilos a  las celdas ingresadas
+            Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra_right.Rows.Count - 1), Color.Blue, Font_);
+            Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
+
+            //fin estilos
+
+        }
+
+        private void Resaltar_filas_ingresadas(DataGridView visor, int fila, Color c, Font f = null)
+        {
+            for (int a = 0; a < visor.ColumnCount; a++)
+            {
+                visor.Rows[fila].Cells[a].Style.ForeColor = c;
+                if (Font != null)
+                    visor.Rows[fila].Cells[a].Style.Font = f;
+            }
+        }
         #endregion
 
         #region Maquinaria y equipo
@@ -1295,123 +1391,6 @@ namespace SGAP.comercial
             //btn_colapse.Location = new Point(coll, 0);
             panel_colapse_2.Location = new Point(coll + 6, 2);
 
-        }
-
-        //probar calculo de mano de obra
-        // añadir la filas de calculos de mano de obra
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Metodo_mostrar_calculos_de_costos_mano_de_obra();
-        }
-
-        private void Metodo_mostrar_calculos_de_costos_mano_de_obra()
-        {
-            //ingresar dos filas vacias de margen
-
-            string[] fila_vacia_mano_de_obra_left = new string[dgv_mano_de_obra.ColumnCount];
-            string[] fila_vacia_mano_de_obra_right = new string[dgv_mano_de_obra_right.ColumnCount];
-
-            //--> llenamos los valores para las filas como vacio en funcion a la cantidad de columnas 
-            for (int a = 0; a < dgv_mano_de_obra.ColumnCount; a++)
-                fila_vacia_mano_de_obra_left[a] = "";
-            for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
-                fila_vacia_mano_de_obra_right[a] = "";
-
-            for (int a = 0; a < 2; a++) // -> cantidad de filas vacias por defecto 2
-            {
-                dgv_mano_de_obra_right.Rows.Add(fila_vacia_mano_de_obra_right);
-                dgv_mano_de_obra.Rows.Add(fila_vacia_mano_de_obra_left);
-            }
-
-            int sub_total_personal = 0;
-            _lista_et_r29.ForEach(fila_ => {
-
-                // total de personal // suma de todo
-                ////_lista_et_r31
-                //var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
-
-                //object[] informacion_r31 = new object[res.Count];
-
-
-                //int total_personal = 0;
-
-                //int indice_dgv_mano_obra = 1;
-                //res.ForEach(r =>
-                //{
-
-                //    int[] cantidades = new int[2];
-                //    cantidades[0] = r._TR31_CANT_PERSONAS;
-                //    cantidades[1] = r._TR31_ID;
-                //    informacion_r31[indice_locales] = cantidades;
-
-                //    total_personal = total_personal + r._TR31_CANT_PERSONAS;
-                //    indice_locales++;
-                //    indice_dgv_mano_obra++;
-                //});
-            });
-            //_lista_et_r29.ForEach(fila_ => {
-
-            //    string cargo_horario_conceptos = Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA, fila_._lista_et_r30);
-
-            //    //_lista_et_r31
-            //    var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
-
-            //    object[] informacion_r31 = new object[res.Count];
-
-
-            //    int total_personal = 0;
-            //    int indice_locales = 0;
-
-            //    string[] fila_dgv_mano_obra = new string[(1 + res.Count)];
-            //    fila_dgv_mano_obra[0] = cargo_horario_conceptos;
-
-            //    int indice_dgv_mano_obra = 1;
-            //    res.ForEach(r => {
-
-            //        int[] cantidades = new int[2];
-            //        cantidades[0] = r._TR31_CANT_PERSONAS;
-            //        cantidades[1] = r._TR31_ID;
-            //        informacion_r31[indice_locales] = cantidades;
-
-            //        total_personal = total_personal + r._TR31_CANT_PERSONAS;
-            //        fila_dgv_mano_obra[indice_dgv_mano_obra] = r._TR31_CANT_PERSONAS.ToString();
-            //        indice_locales++;
-            //        indice_dgv_mano_obra++;
-            //    });
-
-            //    int[] relleno = new int[] { 0, 0 };
-            //    object[] rellenos = new object[_entidad._lista_et_m27.Count];
-            //    int indice = 0;
-            //    _entidad._lista_et_m27.ForEach(c => {
-            //        rellenos[indice] = relleno;
-            //        indice++;
-            //    });
-
-            //    if (Editar_cotizacion)
-            //        if (res.Count() == 0)
-            //            fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
-            //        else
-            //            fila_._Locales_por_cargo_cantidad_personal = informacion_r31;
-            //    else
-            //        fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
-
-            //    var list = fila_._lista_et_r30;
-            //    decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
-            //    fila_._lista_et_r30.ForEach(X =>
-            //    {
-            //        SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
-            //    });
-
-            //    dgv_mano_de_obra_right.Rows.Add(
-            //        total_personal, // total personal
-            //        fila_._TR29_REMUNERACION, // sueldo basico
-            //        SUMA_CONCEPTOS_REMUNERATIVOS,
-            //        fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M,
-            //        ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M
-            //     );
-
-            //    dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
-            //});
         }
     }
 }

@@ -30,11 +30,12 @@ namespace Win28ntug
     
                     ET_R31 parametros = new ET_R31();
                     parametros._TR31_TM2_ID = Globales._TM2_ID;
-                    parametros._TR31_DESCRIP = "Hey!";
+                    parametros._TR31_DESCRIP = "insert!";
                     parametros._TR31_UCREA = Globales._U_SESSION;
                     parametros._TR31_TR29_ID = cargo._TR29_ID;
                     parametros._TR31_TR28_ID = cargo._TR29_TR28_ID;
                     parametros._TR31_TR27_ID = local._TR27_ID;
+                    parametros._TR31_UACTUALIZA = Globales._U_SESSION;
                     parametros._TR31_CANT_PERSONAS = int_object[0];
                     _dt_R31.set_001(parametros);
                 });
@@ -56,6 +57,8 @@ namespace Win28ntug
         public void set_002(List<ET_R29> cargos_, List<ET_R27> locales_)
         {
             int indice = 0;
+            List<ET_R29> Cargos_nuevos = new List<ET_R29>();
+
             locales_.ForEach(local => {
 
                 cargos_.ForEach(cargo => {
@@ -65,6 +68,11 @@ namespace Win28ntug
                     foreach (int[] roe in cargo._Locales_por_cargo_cantidad_personal)
                     {
 
+                        if (roe[1] == 0)
+                        {
+                            _nuevo_elemento = true;
+                            break;
+                        }
                         if (roe[1] != 0)
                         {
                             ET_R31 parametros = new ET_R31();
@@ -75,25 +83,61 @@ namespace Win28ntug
                             parametros._TR31_ID = roe[1];
 
                             _dt_R31.set_002(parametros);
-                        }
-                        else
-                        {
-                            _nuevo_elemento = true;
+                            
                         }
                     }
+
                     if (_nuevo_elemento)
                     {
                         ET_R29 tmp_e = new ET_R29();
                         tmp_e = cargo;
                         List<ET_R29> tmp_l = new List<ET_R29>();
                         tmp_l.Add(tmp_e);
-                        set_001(tmp_l, locales_);
+                        Cargos_nuevos.Add(tmp_e);
                     }
                 });
 
                 indice++;
 
             });
+
+            // registrar los nuevos ingresos
+
+            if (Cargos_nuevos.Count > 0)
+            {
+                // agrupar los repeticiones
+                var _group_cargos = Cargos_nuevos.GroupBy(x => new
+                {
+                    x._Fila,
+                    x._Locales_por_cargo_cantidad_personal,
+                    x._TR29_DESCRIP,
+                    x._TR29_DIAS_SEMANA,
+                    x._TR29_ID,
+                    x._TR29_TM2_ID,
+                    x._TR29_TM38_ID,
+                    x._TR29_TR28_ID
+                }).Select(y => new ET_R29()
+                        {
+                            _Fila = y.Key._Fila,
+                            _Locales_por_cargo_cantidad_personal = y.Key._Locales_por_cargo_cantidad_personal,
+                            _TR29_DESCRIP = y.Key._TR29_DESCRIP,
+                            _TR29_DIAS_SEMANA = y.Key._TR29_DIAS_SEMANA,
+                            _TR29_ID = y.Key._TR29_ID,
+                            _TR29_TM2_ID = y.Key._TR29_TM2_ID,
+                            _TR29_TM38_ID = y.Key._TR29_TM38_ID,
+                            _TR29_TR28_ID = y.Key._TR29_TR28_ID,
+                            //Children = y.ToList()
+                        }
+                    );
+
+                //poblar los parámetros
+                List<ET_R29> lista_final = new List<ET_R29>();
+                foreach (var entidad in _group_cargos)
+                    lista_final.Add(entidad);
+
+                set_001(lista_final, locales_);
+
+            }
         }
         #endregion
 
