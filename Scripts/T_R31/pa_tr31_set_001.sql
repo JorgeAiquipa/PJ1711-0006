@@ -76,15 +76,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-go
-
-
-SELECT * FROM T_R29 --Servicio Cargo
-SELECT * FROM T_R27 --Cotizacion Local
-SELECT * FROM T_R28 --Cotizacion Servicio 
-GO
-
-EXEC pa_tr31_set001  147, 3892, 205, 4,'Chofer 9 h L-S:8:00 - 17:00 Asi/Ali - DGOMEZ','PIS','DGOMEZ','DGOMEZ','OK'
-
-select * from T_R31

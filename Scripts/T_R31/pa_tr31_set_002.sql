@@ -41,13 +41,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-EXEC pa_tr31_sel_001  147, 3892, 205, 'PIS'
-
-EXEC pa_tr31_set_002  237, 9, 'DGOMEZ', 'PIS'
-
-SELECT * FROM T_R31
-
-SELECT * FROM T_R27 --Cotizacion Local
-SELECT * FROM T_R28 --Cotizacion Servicio 
-SELECT * FROM T_R29 --Servicio Cargo

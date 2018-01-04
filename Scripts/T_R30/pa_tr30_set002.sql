@@ -48,7 +48,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-select * from T_R30
-
-SELECT * FROM T_M40

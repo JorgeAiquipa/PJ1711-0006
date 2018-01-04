@@ -42,5 +42,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-EXEC pa_tm38get_001 'pis' , 's'

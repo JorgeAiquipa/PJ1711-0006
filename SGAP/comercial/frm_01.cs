@@ -154,6 +154,7 @@ namespace SGAP.comercial
         }
         private void btnNuevoCotizacion_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.AppStarting;
             Form_Nueva_Cotizacion_Show();
         }
 

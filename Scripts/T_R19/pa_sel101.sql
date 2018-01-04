@@ -46,10 +46,4 @@ BEGIN CATCH
 END CATCH
 GO
 
-exec pa_sel101 'PIS', '4'
-
-
-
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-SELECT * FROM T_R19

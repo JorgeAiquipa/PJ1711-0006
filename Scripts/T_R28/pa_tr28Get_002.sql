@@ -23,9 +23,7 @@ BEGIN TRY
 		,TR28_TM39_ID
 		,TR28_TM41_ID
 		,TR28_PERIODO
-
 		,TR28_FRECUENCIA
-
 		,TR28_DESCRIP
 		,TR28_ST
 		,TR28_FLG_ELIMINADO
@@ -34,9 +32,6 @@ BEGIN TRY
 		,TR28_UACTUALIZA
 		,TR28_FACTUALIZA
 		,TR28_TM2_ID
-
-		
-
 		,M42.TM42_DESCRIP AS [TR28_TM42_DESCRIP]
 		,R19.TR19_TM42_ID AS [TR28_TM42_ID]
 
@@ -66,7 +61,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-select * from T_R28
-
-exec pa_tr28Get_002 'COT00093','pis'

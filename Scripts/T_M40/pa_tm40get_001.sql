@@ -38,7 +38,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-SELECT * FROM T_M40
-
-EXEC pa_tm40get_001

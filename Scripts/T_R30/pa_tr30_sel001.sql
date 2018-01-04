@@ -53,5 +53,4 @@ BEGIN CATCH
 END CATCH
 GO
 
-
-SELECT * FROM T_R30
+--   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *

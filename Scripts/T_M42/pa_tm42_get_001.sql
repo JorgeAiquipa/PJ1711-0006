@@ -37,7 +37,5 @@ BEGIN CATCH
 END CATCH
 GO
 
-exec pa_tm42_get_001
-
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
 

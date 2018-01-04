@@ -60,15 +60,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-
-exec pa_tm39get_001 'PIS'
-
-select 
-	COUNT(*) AS cant_locales 
-from t_R27 where 
-	TR27_TM2_ID = 'PIS' AND
-	TR27_TM39_ID = 'COT00001'
-
-
-
