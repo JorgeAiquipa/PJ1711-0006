@@ -773,6 +773,9 @@ namespace SGAP.comercial
         }
         private void Contruir_DataGrid_Mano_Obra()
         {
+            bool ajustar = false;
+            if (_entidad._lista_et_r27.Count < 5) ajustar = true;
+
             dgv_mano_de_obra.AllowUserToAddRows = false;
             dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
 
@@ -781,6 +784,10 @@ namespace SGAP.comercial
 
             dgv_mano_de_obra.AutoGenerateColumns = false;
             dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+
+            if(ajustar)
+                dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             #region COLUMNAS
             //DataGridViewColumn _COL_FILA = new DataGridViewTextBoxColumn();
             //_COL_FILA.DataPropertyName = "_COL_FILA";
@@ -831,8 +838,14 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
             MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
             MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
-            MANO_OBRA_COL_DESCRIPCION.Width = 260;
+            MANO_OBRA_COL_DESCRIPCION.Width = 280;
             MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
+            if (ajustar)
+            {
+                MANO_OBRA_COL_DESCRIPCION.Width = 280;
+                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 280;
+                MANO_OBRA_COL_DESCRIPCION.FillWeight = 280;
+            }
 
             //_COL_DESCRIPCION.MinimumWidth = 140;
             //_COL_DESCRIPCION.FillWeight = 140
@@ -858,7 +871,10 @@ namespace SGAP.comercial
                 {
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
+
+                    if(_entidad._lista_et_r27.Count > 5)
+                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
+
                     dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
                     dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}", indice_nn) : x._TR27_DESCRIP.Length > 26 ? string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
                     indice_de_inicio++;
@@ -872,7 +888,8 @@ namespace SGAP.comercial
             dgv_mano_de_obra_right.AllowUserToAddRows = false;
             dgv_mano_de_obra_right.AutoGenerateColumns = false;
             dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            //dgv_mano_de_obra_right.ReadOnly = true;
+            dgv_mano_de_obra_right.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv_mano_de_obra_right.ReadOnly = true;
 
             // columnas de remuneraciones 
 
@@ -898,7 +915,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
             MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
             MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
-            MANO_OBRA_COL_SUELDO_MENSUAL.Width = 60;
+            MANO_OBRA_COL_SUELDO_MENSUAL.Width = 90;
             //MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -914,7 +931,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
             MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
             MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 70;
+            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 90;
             //MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
             MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
@@ -1067,7 +1084,7 @@ namespace SGAP.comercial
 
             string conceptos_short = " ";
             conceptos_.ForEach(row => {
-                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty : row._TR30_DESCRIP.Substring(0, 3)) + "/";
+                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty : row._TR30_DESCRIP.Substring(0, 2)) + "/";
             });
             conceptos_short = conceptos_short.Substring(0, conceptos_short.Length - 1);
 

@@ -383,5 +383,6 @@ namespace SGAP.comercial
             toolTip1.SetToolTip(this.panel1, "Seleccione un cliente");
             toolTip1.SetToolTip(this.panel2, "Seleccione un servicio");
         }
+
     }
 }

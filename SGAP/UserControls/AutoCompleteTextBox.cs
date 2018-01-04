@@ -17,8 +17,8 @@ namespace SGAP.UserControls
     {
         private ListBox _listBox;
         private bool _isAdded;
-        private String[] _values;
-        private String _formerValue = String.Empty;
+        private string[] _values;
+        private string _formerValue = string.Empty;
 
         public AutoCompleteTextBox()
         {
@@ -29,10 +29,11 @@ namespace SGAP.UserControls
         private void InitializeComponent()
         {
             _listBox = new ListBox();
-            this.KeyDown += this_KeyDown;
-            this.KeyUp += this_KeyUp;
-            //this.MouseClick += mouseClick;
-            MouseClick += new MouseEventHandler(mouseClick);
+            KeyDown += this_KeyDown;
+            KeyUp += this_KeyUp;
+            ////this.MouseClick += mouseClick;
+            //MouseClick += new MouseEventHandler(mouseClick);
+            _listBox.Click += new EventHandler(_listBox_Click);
 
         }
 
@@ -40,9 +41,9 @@ namespace SGAP.UserControls
         {
             if (!_isAdded)
             {
-                Form parentForm = this.FindForm(); // new line added
+                Form parentForm = FindForm(); // new line added
                 parentForm.Controls.Add(_listBox); // adds it to the form
-                Point positionOnForm = parentForm.PointToClient(this.Parent.PointToScreen(this.Location)); // absolute position in the form
+                Point positionOnForm = parentForm.PointToClient(Parent.PointToScreen(Location)); // absolute position in the form
                 _listBox.Left = positionOnForm.X;
                 _listBox.Top = positionOnForm.Y + Height;
                 _isAdded = true;
@@ -74,7 +75,7 @@ namespace SGAP.UserControls
                             Text = _listBox.SelectedItem.ToString();
                             ResetListBox();
                             _formerValue = Text;
-                            this.Select(this.Text.Length, 0);
+                            Select(Text.Length, 0);
                             //e.Handled = true;
                         }
                         break;
@@ -152,6 +153,8 @@ namespace SGAP.UserControls
                     _listBox.SelectedIndex = 0;
                     _listBox.Height = 0;
                     _listBox.Width = 0;
+                    var _listBox_margin = new Padding(); _listBox_margin.All = 7;
+                    _listBox.Margin = _listBox_margin;
                     Focus();
                     using (Graphics graphics = _listBox.CreateGraphics())
                     {
@@ -198,5 +201,16 @@ namespace SGAP.UserControls
             }
         }
 
+        private void _listBox_Click(object sender, EventArgs e)
+        {
+            ListBox _Sender = (ListBox)sender;
+            string SelectedItem = _Sender.SelectedItem.ToString();
+
+            Text = SelectedItem;
+            ResetListBox();
+            _formerValue = Text;
+            Select(Text.Length, 0);
+            SendKeys.Send("{ENTER}");
+        }
     }
 }

@@ -11,12 +11,12 @@ namespace Win28etug
     {
         // variables globales
         public string _TM2_ID = "PIS";
-        //public string _U_SESSION = "cesar.freitas";
+        public string _U_SESSION = "cesar.freitas";
         public int Servicio_general = 1;
         public int Servicio_especial = 4;
         //public string _U_SESSION = "DGOMEZ";
         
-        public string _U_SESSION = WindowsIdentity.GetCurrent().Name.ToString().Remove(0, 6);
+        //public string _U_SESSION = WindowsIdentity.GetCurrent().Name.ToString().Remove(0, 6);
 
         public ET_globales()
         {

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_ruc_cliente = new System.Windows.Forms.TextBox();
@@ -212,8 +212,8 @@
             // local_nombre
             // 
             this.local_nombre.DataPropertyName = "_TM27_NOMBRE";
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.local_nombre.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.local_nombre.DefaultCellStyle = dataGridViewCellStyle3;
             this.local_nombre.FillWeight = 300F;
             this.local_nombre.HeaderText = "Nombre";
             this.local_nombre.Image = global::SGAP.Properties.Resources.local;
@@ -435,8 +435,8 @@
             // controlIconTextColumn1
             // 
             this.controlIconTextColumn1.DataPropertyName = "_TM27_NOMBRE";
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.controlIconTextColumn1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.controlIconTextColumn1.DefaultCellStyle = dataGridViewCellStyle4;
             this.controlIconTextColumn1.FillWeight = 300F;
             this.controlIconTextColumn1.HeaderText = "Nombre";
             this.controlIconTextColumn1.Image = global::SGAP.Properties.Resources.local;
@@ -586,7 +586,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 580);
+            this.ClientSize = new System.Drawing.Size(682, 584);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.autoCompleteTextBox_t_m19);

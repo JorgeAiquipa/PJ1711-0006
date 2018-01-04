@@ -36,6 +36,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_editar_mano_de_obra = new System.Windows.Forms.Button();
             this.btn_guardar_mano_de_obra = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -102,7 +103,6 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -229,6 +229,16 @@
             this.panel13.Size = new System.Drawing.Size(975, 50);
             this.panel13.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(407, 24);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(127, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "probar cálculo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btn_editar_mano_de_obra
             // 
             this.btn_editar_mano_de_obra.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -270,10 +280,10 @@
             this.dgv_mano_de_obra_right.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_mano_de_obra_right.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_mano_de_obra_right.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(575, 50);
+            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(506, 50);
             this.dgv_mano_de_obra_right.Name = "dgv_mano_de_obra_right";
             this.dgv_mano_de_obra_right.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(400, 426);
+            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(469, 426);
             this.dgv_mano_de_obra_right.TabIndex = 2;
             this.dgv_mano_de_obra_right.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_RowEnter);
             this.dgv_mano_de_obra_right.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_right_Scroll);
@@ -289,7 +299,7 @@
             this.dgv_mano_de_obra.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 50);
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
-            this.dgv_mano_de_obra.Size = new System.Drawing.Size(574, 426);
+            this.dgv_mano_de_obra.Size = new System.Drawing.Size(505, 426);
             this.dgv_mano_de_obra.TabIndex = 1;
             this.dgv_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellEndEdit);
             this.dgv_mano_de_obra.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellValueChanged);
@@ -895,16 +905,6 @@
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 82;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(407, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "probar cálculo";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frm_01_2
             // 
