@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.pnl_left = new System.Windows.Forms.Panel();
-            this.lbl_ayuda = new System.Windows.Forms.Label();
-            this.panel_help = new System.Windows.Forms.Panel();
             this.btn_limpiar_filtro = new System.Windows.Forms.Button();
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
@@ -77,8 +75,6 @@
             // pnl_left
             // 
             this.pnl_left.BackColor = System.Drawing.Color.White;
-            this.pnl_left.Controls.Add(this.lbl_ayuda);
-            this.pnl_left.Controls.Add(this.panel_help);
             this.pnl_left.Controls.Add(this.txt_cliente);
             this.pnl_left.Controls.Add(this.btn_limpiar_filtro);
             this.pnl_left.Controls.Add(this.btn_filtrar);
@@ -100,31 +96,11 @@
             this.pnl_left.Size = new System.Drawing.Size(254, 638);
             this.pnl_left.TabIndex = 2;
             // 
-            // lbl_ayuda
-            // 
-            this.lbl_ayuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbl_ayuda.AutoSize = true;
-            this.lbl_ayuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ayuda.Location = new System.Drawing.Point(41, 619);
-            this.lbl_ayuda.Name = "lbl_ayuda";
-            this.lbl_ayuda.Size = new System.Drawing.Size(37, 9);
-            this.lbl_ayuda.TabIndex = 18;
-            this.lbl_ayuda.Text = "Ayuda F1";
-            // 
-            // panel_help
-            // 
-            this.panel_help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel_help.BackgroundImage = global::SGAP.Properties.Resources.ayuda;
-            this.panel_help.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.panel_help.Location = new System.Drawing.Point(22, 615);
-            this.panel_help.Name = "panel_help";
-            this.panel_help.Size = new System.Drawing.Size(16, 16);
-            this.panel_help.TabIndex = 17;
-            // 
             // btn_limpiar_filtro
             // 
+            this.btn_limpiar_filtro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_limpiar_filtro.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_limpiar_filtro.Location = new System.Drawing.Point(141, 231);
+            this.btn_limpiar_filtro.Location = new System.Drawing.Point(137, 599);
             this.btn_limpiar_filtro.Name = "btn_limpiar_filtro";
             this.btn_limpiar_filtro.Size = new System.Drawing.Size(100, 26);
             this.btn_limpiar_filtro.TabIndex = 4;
@@ -134,9 +110,10 @@
             // 
             // btn_filtrar
             // 
+            this.btn_filtrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_filtrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_filtrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_filtrar.Location = new System.Drawing.Point(22, 231);
+            this.btn_filtrar.Location = new System.Drawing.Point(18, 599);
             this.btn_filtrar.Name = "btn_filtrar";
             this.btn_filtrar.Size = new System.Drawing.Size(100, 26);
             this.btn_filtrar.TabIndex = 3;
@@ -214,7 +191,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(54, 191);
+            this.label6.Location = new System.Drawing.Point(40, 191);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 13;
@@ -546,8 +523,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel_first_detail;
         private UserControls.ControlTextBox txt_cliente;
-        private System.Windows.Forms.Panel panel_help;
-        private System.Windows.Forms.Label lbl_ayuda;
         private System.Windows.Forms.Label lbl_status;
     }
 }

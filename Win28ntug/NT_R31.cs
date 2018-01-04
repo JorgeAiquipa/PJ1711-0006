@@ -60,16 +60,34 @@ namespace Win28ntug
 
                 cargos_.ForEach(cargo => {
 
+                    bool _nuevo_elemento = false;
+
                     foreach (int[] roe in cargo._Locales_por_cargo_cantidad_personal)
                     {
-                        
-                        ET_R31 parametros = new ET_R31();
-                        parametros._TR31_TM2_ID = Globales._TM2_ID;
-                        parametros._TR31_DESCRIP = "update!";
-                        parametros._TR31_UACTUALIZA = Globales._U_SESSION;
-                        parametros._TR31_CANT_PERSONAS = roe[0];
-                        parametros._TR31_ID = roe[1];
-                        _dt_R31.set_002(parametros);
+
+                        if (roe[1] != 0)
+                        {
+                            ET_R31 parametros = new ET_R31();
+                            parametros._TR31_TM2_ID = Globales._TM2_ID;
+                            parametros._TR31_DESCRIP = "update!";
+                            parametros._TR31_UACTUALIZA = Globales._U_SESSION;
+                            parametros._TR31_CANT_PERSONAS = roe[0];
+                            parametros._TR31_ID = roe[1];
+
+                            _dt_R31.set_002(parametros);
+                        }
+                        else
+                        {
+                            _nuevo_elemento = true;
+                        }
+                    }
+                    if (_nuevo_elemento)
+                    {
+                        ET_R29 tmp_e = new ET_R29();
+                        tmp_e = cargo;
+                        List<ET_R29> tmp_l = new List<ET_R29>();
+                        tmp_l.Add(tmp_e);
+                        set_001(tmp_l, locales_);
                     }
                 });
 
