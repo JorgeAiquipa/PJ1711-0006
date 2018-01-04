@@ -58,8 +58,8 @@ namespace SGAP.comercial
         string Id_Cotizacion;
         int Id_CotizacionServicio;
         bool Editar_cotizacion = false;
-        bool mostrar_resumen_De_mano_de_obra = true;
-
+        bool Mostrar_resumen_De_mano_de_obra = true;
+        bool Se_realizo_cambios_de_mano_De_obra = false;
 
         #endregion
 
@@ -647,28 +647,30 @@ namespace SGAP.comercial
                 Editar_cotizacion = true;
                 btn_editar_mano_de_obra.Enabled = true;
                 Metodo_cargar_informacion_mano_de_obra();
-                mostrar_resumen_De_mano_de_obra = true;
-
+                Mostrar_resumen_De_mano_de_obra = true;
             }
         }
         #endregion
 
         #region Mano de obra
         bool _entro = true;
+        bool _cargo = false;
         void Metodo_cargar_informacion_mano_de_obra()
         {
-            ET_R29 _et = new ET_R29();
-            _lista_et_r29 = new List<ET_R29>();
-            _lista_et_r29.Clear();
-            _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
-            _et._lista_et_m40 = _lista_et_m40;
+            if (!_cargo)
+            {
+                ET_R29 _et = new ET_R29();
+                _lista_et_r29 = new List<ET_R29>();
+                _lista_et_r29.Clear();
+                _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
+                _et._lista_et_m40 = _lista_et_m40;
 
 
-            if (Editar_cotizacion)
-                _lista_et_r31 = _nt_r31.get_001(Id_servicio_hijo);
-            _nt_r29.Agregar_ETR29(_et);
-            _nt_r29.Iniciar(Tarea.LISTAR);
-
+                if (Editar_cotizacion)
+                    _lista_et_r31 = _nt_r31.get_001(Id_servicio_hijo);
+                _nt_r29.Agregar_ETR29(_et);
+                _nt_r29.Iniciar(Tarea.LISTAR);
+            }
         }
         private void dgv_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -676,7 +678,15 @@ namespace SGAP.comercial
 
             for (int a = 1; a < dgv_mano_de_obra.ColumnCount; a++)
             {
-                suma_total = suma_total + Convert.ToInt32(dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value);
+                int value = 0;
+                if (dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value != null)
+                {
+                    if (!string.IsNullOrEmpty(dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value.ToString()))
+                        suma_total = suma_total + Convert.ToInt32(dgv_mano_de_obra.Rows[e.RowIndex].Cells[a].Value);
+                }
+
+                else
+                    suma_total = suma_total + value;
             }
 
             dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[0].Value = suma_total;
@@ -687,7 +697,7 @@ namespace SGAP.comercial
 
         private void dgv_mano_de_obra_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (this.dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
+            if (dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
             {
                 TextBox TEX_BOX_NUMBER = e.Control as TextBox;
                 TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
@@ -711,24 +721,28 @@ namespace SGAP.comercial
 
         private void btn_guardar_mano_de_obra_Click(object sender, EventArgs e)
         {
-            // call metodo guardar
-            // mostrar seguidamente la vista general de mano de obra
-            if (_lista_et_r31.Count > 0)
-            //actualizar
+            if (Se_realizo_cambios_de_mano_De_obra)
             {
-                Metodo_preparar_informacion_para_actualizar_mano_de_obra();
-                btn_guardar_mano_de_obra.Enabled = false;//diego
-                mostrar_resumen_De_mano_de_obra = true;
-                Metodo_calcular_si_es_resumen();
-                Cursor.Current = Cursors.WaitCursor;
+                if (_lista_et_r31.Count > 0)
+                {
+                    _cargo = false;
+                    Metodo_preparar_informacion_para_actualizar_mano_de_obra();
+                    btn_guardar_mano_de_obra.Enabled = false;
+                    btn_editar_mano_de_obra.Enabled = true;
+                    Mostrar_resumen_De_mano_de_obra = true;
+                    Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                    dgv_mano_de_obra.Refresh();
+                    dgv_mano_de_obra.Update();
+                    dgv_mano_de_obra_right.ReadOnly = true;
+                    dgv_mano_de_obra.ReadOnly = true;
+                }
             }
             else
             {
-                Metodo_preparar_informacion_para_registrar_mano_de_obra();
-                btn_guardar_mano_de_obra.Enabled = false;//diego
-                mostrar_resumen_De_mano_de_obra = true;
-                Metodo_calcular_si_es_resumen();
-                Cursor.Current = Cursors.WaitCursor;
+                Mostrar_resumen_De_mano_de_obra = true;
+                btn_editar_mano_de_obra.Enabled = true;
+                btn_guardar_mano_de_obra.Enabled = false;
+                Metodo_mostrar_calculos_de_costos_mano_de_obra();
             }
         }
 
@@ -752,15 +766,26 @@ namespace SGAP.comercial
         {
             //preparar vista de mano de obra para editar
             btn_guardar_mano_de_obra.Enabled = true;
-            mostrar_resumen_De_mano_de_obra = false;
+            Mostrar_resumen_De_mano_de_obra = false;
             Editar_cotizacion = true;
-            // ocultar el detalle de subtotales
-            Metodo_calcular_si_es_resumen();
-            //
+
+            int filas_a_conservar = dgv_mano_de_obra.RowCount - 4;
+            int tope_ = dgv_mano_de_obra.RowCount - 1;
+            for (int i = tope_; i > filas_a_conservar; i--)
+            {
+                dgv_mano_de_obra_right.Rows.RemoveAt(i);
+                dgv_mano_de_obra.Rows.RemoveAt(i);
+            }
+
+            // devolver la propiedad readonly al conjunto de grilas mano de obra
+            dgv_mano_de_obra_right.ReadOnly = false;
+            dgv_mano_de_obra.ReadOnly = false;
+            btn_editar_mano_de_obra.Enabled = Mostrar_resumen_De_mano_de_obra;
         }
 
         private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            Se_realizo_cambios_de_mano_De_obra = true;
             // validar que vista edicion este en false
             if (e.RowIndex >= 0 && e.ColumnIndex > 0)
             {
@@ -775,9 +800,13 @@ namespace SGAP.comercial
 
                     value[0] = r[0];
                     value[1] = r[1];
-                    if(indice_res == (e.ColumnIndex - 1))
-                        value[0] = Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
-
+                    if (indice_res == (e.ColumnIndex - 1))
+                    {
+                        if (!string.IsNullOrEmpty(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value.ToString()))
+                            value[0] = Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
+                        else
+                            value[0] = 0;
+                    }
                     nuevos_valores[indice_res] = value;
                     indice_res++;
                 }
@@ -802,67 +831,18 @@ namespace SGAP.comercial
             if(ajustar)
                 dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            #region COLUMNAS
-            //DataGridViewColumn _COL_FILA = new DataGridViewTextBoxColumn();
-            //_COL_FILA.DataPropertyName = "_COL_FILA";
-            //_COL_FILA.HeaderText = "Cargo";
-            //_COL_FILA.Name = "_COL_FILA";
-            //_COL_FILA.Visible = false;
-
-            //DataGridViewColumn _COL_DESCRIPCION = new DataGridViewTextBoxColumn();
-            //_COL_DESCRIPCION.DataPropertyName = "_COL_DESCRIPCION";
-            //_COL_DESCRIPCION.HeaderText = "Cargo";
-            //_COL_DESCRIPCION.Name = "_COL_DESCRIPCION";
-            //_COL_DESCRIPCION.Width = 140;
-            ////_COL_DESCRIPCION.MinimumWidth = 140;
-            ////_COL_DESCRIPCION.FillWeight = 140;
-
-            //DataGridViewColumn _COL_HORA_ENTRADA = new DataGridViewTextBoxColumn();
-            //_COL_HORA_ENTRADA.Name = "_COL_HORA_ENTRADA";
-            //_COL_HORA_ENTRADA.HeaderText = "Hora Entrada";
-            //_COL_HORA_ENTRADA.Width = 80;
-            //_COL_HORA_ENTRADA.DefaultCellStyle.Format = "T";
-            ////_COL_HORA_ENTRADA.MinimumWidth = 70;
-            ////_COL_HORA_ENTRADA.FillWeight = 70;
-
-            //DataGridViewColumn _COL_HORA_SALIDA = new DataGridViewTextBoxColumn();
-            //_COL_HORA_SALIDA.Name = "_COL_HORA_SALIDA";
-            //_COL_HORA_SALIDA.HeaderText = "Hora Salida";
-            //_COL_HORA_SALIDA.Width = 70;
-            //_COL_HORA_SALIDA.DefaultCellStyle.Format = "T";
-            ////_COL_HORA_SALIDA.MinimumWidth = 65;
-            ////_COL_HORA_SALIDA.FillWeight = 65;
-
-            //DataGridViewColumn _COL_DIAS_POR_SEMANA = new DataGridViewTextBoxColumn();
-            //_COL_DIAS_POR_SEMANA.HeaderText = "Dias por Sem.";
-            //_COL_DIAS_POR_SEMANA.Name = "_COL_DIAS_POR_SEMANA";
-            //_COL_DIAS_POR_SEMANA.Width = 70;
-            ////_COL_DIAS_POR_SEMANA.MinimumWidth = 70;
-            ////_COL_DIAS_POR_SEMANA.FillWeight = 70;
-
-            //DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
-            //_COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
-            //_COL_REMUNERACION.HeaderText = "Remuneración Básica";
-            //_COL_REMUNERACION.Name = "_COL_REMUNERACION";
-            //_COL_REMUNERACION.DefaultCellStyle.Format = "C";
-            //_COL_REMUNERACION.DefaultCellStyle.NullValue = "850.00";
-            #endregion
-
             DataGridViewColumn MANO_OBRA_COL_DESCRIPCION = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
             MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
             MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
-            MANO_OBRA_COL_DESCRIPCION.Width = 280;
+            MANO_OBRA_COL_DESCRIPCION.Width = 300;
             MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
             if (ajustar)
             {
-                MANO_OBRA_COL_DESCRIPCION.Width = 280;
-                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 280;
-                MANO_OBRA_COL_DESCRIPCION.FillWeight = 280;
+                MANO_OBRA_COL_DESCRIPCION.Width = 250;
+                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 250;
+                MANO_OBRA_COL_DESCRIPCION.FillWeight = 250;
             }
-
-            //_COL_DESCRIPCION.MinimumWidth = 140;
-            //_COL_DESCRIPCION.FillWeight = 140
 
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_DESCRIPCION,
@@ -886,35 +866,37 @@ namespace SGAP.comercial
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
 
-                    if(_entidad._lista_et_r27.Count > 5)
+                    if (_entidad._lista_et_r27.Count > 5)
+                    {
                         dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
-
+                    }
+                    else
+                    {
+                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 100;
+                        dgv_mano_de_obra.Columns[indice_de_inicio].MinimumWidth = 100;
+                        dgv_mano_de_obra.Columns[indice_de_inicio].FillWeight = 100;
+                    }
+                    dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
                     dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}", indice_nn) : x._TR27_DESCRIP.Length > 26 ? string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
+                    dgv_mano_de_obra.Columns[indice_de_inicio].ToolTipText = x._TR27_DESCRIP;
                     indice_de_inicio++;
                     indice_nn++;
                 });
 
             }
-            //dgv_mano_de_obra.
-
-            // for datgrid mano de obra right
             dgv_mano_de_obra_right.AllowUserToAddRows = false;
             dgv_mano_de_obra_right.AutoGenerateColumns = false;
             dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgv_mano_de_obra_right.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgv_mano_de_obra_right.ReadOnly = true;
 
-            // columnas de remuneraciones 
-
-            // remuneraciones de acuerdo a la lista de remuneraciones que se obtiene al consultar la mano de obra
-            //
             DataGridViewColumn MANO_OBRA_COL_SUELDO_BASICO = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_BASICO.DataPropertyName = "MANO_OBRA_COL_SUELDO_BASICO";
             MANO_OBRA_COL_SUELDO_BASICO.HeaderText = "Sueldo básico";
             MANO_OBRA_COL_SUELDO_BASICO.Name = "MANO_OBRA_COL_SUELDO_BASICO";
             MANO_OBRA_COL_SUELDO_BASICO.Width = 85;
-            //MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
+            MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_BASICO.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
@@ -922,7 +904,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText = "Tot.personal";
             MANO_OBRA_COL_TOTAL_PERSONAL.Name = "MANO_OBRA_COL_TOTAL_PERSONAL";
             MANO_OBRA_COL_TOTAL_PERSONAL.Width = 80;
-            //MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
+            MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
             MANO_OBRA_COL_TOTAL_PERSONAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
@@ -930,7 +912,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText = "Sueldo mensual";
             MANO_OBRA_COL_SUELDO_MENSUAL.Name = "MANO_OBRA_COL_SUELDO_MENSUAL";
             MANO_OBRA_COL_SUELDO_MENSUAL.Width = 90;
-            //MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
+            MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
@@ -938,7 +920,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL.HeaderText = "Total";
             MANO_OBRA_COL_TOTAL.Name = "MANO_OBRA_COL_TOTAL";
             MANO_OBRA_COL_TOTAL.Width = 85;
-            //MANO_OBRA_COL_TOTAL.ReadOnly = true;
+            MANO_OBRA_COL_TOTAL.ReadOnly = true;
             MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
@@ -946,7 +928,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
             MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
             MANO_OBRA_COL_SUM_CONCEPTOS.Width = 90;
-            //MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
+            MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
             MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
 
@@ -957,37 +939,11 @@ namespace SGAP.comercial
                 MANO_OBRA_COL_SUELDO_MENSUAL,
                 MANO_OBRA_COL_TOTAL
             });
-            //MANO_OBRA_COL_TOTAL_PERSONAL.DisplayIndex = 0;
-            //MANO_OBRA_COL_SUELDO_BASICO.DisplayIndex = 1;
-
-            ////// CARGAR COLUMNAS DE MANERA DINAMICA -> CONCEPTOS REMUNERATIVOS
-
-            //if (_lista_et_m40 != null)
-            //{
-            //    int indice_de_inicio = dgv_mano_de_obra_right.ColumnCount;
-
-            //    dgv_mano_de_obra_right.ColumnCount = _lista_et_m40.Count + dgv_mano_de_obra_right.ColumnCount;
-
-            //    //_lista_et_m40.ForEach(x =>
-            //    //{
-
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Visible = true;
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Width = 200;
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].Name = x._TM40_DESCRIP;
-            //    //    dgv_mano_de_obra_right.Columns[indice_de_inicio].HeaderText = x._TM40_DESCRIP;
-            //    //    indice_de_inicio++;
-            //    //});
-
-            //    //MANO_OBRA_COL_SUELDO_MENSUAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
-            //    //MANO_OBRA_COL_TOTAL.DisplayIndex = dgv_mano_de_obra_right.ColumnCount - 1;
-            //}
-
-
         }
 
         private void Desplegar_informacion_de_mano_de_obra()
         {
-
+            _cargo = true;
             dgv_mano_de_obra.Rows.Clear();
             //dgv_mano_de_obra.DataSource = null;
             //dgv_mano_de_obra.Refresh();
@@ -1058,9 +1014,15 @@ namespace SGAP.comercial
                 dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
             });
 
-            //if(mostrar_resumen_De_mano_de_obra)
+            if (Mostrar_resumen_De_mano_de_obra)
+            {
+                Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                dgv_mano_de_obra_right.ReadOnly = true;
+                dgv_mano_de_obra.ReadOnly = true;
+                btn_editar_mano_de_obra.Enabled = true;
+                Mostrar_resumen_De_mano_de_obra = true;
+            }
             //mostrar sub totales
-            Metodo_calcular_si_es_resumen();
         }
 
         private string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida, List<ET_R30> conceptos_)
@@ -1140,26 +1102,6 @@ namespace SGAP.comercial
             }
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Metodo_mostrar_calculos_de_costos_mano_de_obra();
-        }
-
-        private void Metodo_calcular_si_es_resumen()
-        {
-            if(mostrar_resumen_De_mano_de_obra == true)
-            {
-                Metodo_mostrar_calculos_de_costos_mano_de_obra();
-                Editar_cotizacion = false;
-            }
-            else if (Editar_cotizacion == true)
-            {
-                Metodo_cargar_informacion_mano_de_obra();
-                mostrar_resumen_De_mano_de_obra = false;
-            }
-        }
-
         private void Metodo_mostrar_calculos_de_costos_mano_de_obra()
         {
             //ingresar dos filas vacias de margen
@@ -1212,7 +1154,13 @@ namespace SGAP.comercial
                 int suma = 0;
                 for (int a = 0; a < (dgv_mano_de_obra.RowCount - 2); a++)
                 {
-                    suma = suma + int.Parse(dgv_mano_de_obra.Rows[a].Cells[i].Value.ToString());
+                    int value = 0;
+                    if (dgv_mano_de_obra.Rows[a].Cells[i].Value != null)
+                    { 
+                        if (!string.IsNullOrEmpty(dgv_mano_de_obra.Rows[a].Cells[i].Value.ToString()))
+                            value = Convert.ToInt32(dgv_mano_de_obra.Rows[a].Cells[i].Value.ToString());
+                    }
+                    suma = suma + value;
                 }
                 totales_por_local[i - 1] = suma;
             }
@@ -1437,6 +1385,11 @@ namespace SGAP.comercial
             //btn_colapse.Location = new Point(coll, 0);
             panel_colapse_2.Location = new Point(coll + 6, 2);
 
+        }
+
+        private void dgv_mano_de_obra_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            //_helper.Set_border_toCell_selecction(dgv_mano_de_obra ,e);
         }
     }
 }

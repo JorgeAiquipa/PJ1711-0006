@@ -36,7 +36,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.btn_editar_mano_de_obra = new System.Windows.Forms.Button();
             this.btn_guardar_mano_de_obra = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -219,7 +218,6 @@
             // 
             // panel13
             // 
-            this.panel13.Controls.Add(this.button1);
             this.panel13.Controls.Add(this.btn_editar_mano_de_obra);
             this.panel13.Controls.Add(this.btn_guardar_mano_de_obra);
             this.panel13.Controls.Add(this.label10);
@@ -228,16 +226,6 @@
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(975, 50);
             this.panel13.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(407, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "probar cálculo";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_editar_mano_de_obra
             // 
@@ -302,6 +290,7 @@
             this.dgv_mano_de_obra.Size = new System.Drawing.Size(505, 426);
             this.dgv_mano_de_obra.TabIndex = 1;
             this.dgv_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellEndEdit);
+            this.dgv_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_mano_de_obra_CellPainting);
             this.dgv_mano_de_obra.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellValueChanged);
             this.dgv_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_mano_de_obra_EditingControlShowing);
             this.dgv_mano_de_obra.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_RowEnter);
@@ -1030,6 +1019,5 @@
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Button btn_editar_mano_de_obra;
         private System.Windows.Forms.Button btn_guardar_mano_de_obra;
-        private System.Windows.Forms.Button button1;
     }
     }
