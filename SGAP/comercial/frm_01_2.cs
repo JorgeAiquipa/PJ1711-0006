@@ -594,7 +594,7 @@ namespace SGAP.comercial
             }
             else
             {
-                DialogResult decision_msg = MessageBox.Show("Esta seguro de que desea eliminar este servicio.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                DialogResult decision_msg = MessageBox.Show("Esta seguro de eliminar este servicio.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (decision_msg == DialogResult.OK)
             {
                 _entidad._entity_r28._TR28_ID = Id_CotizacionServicio;

@@ -589,6 +589,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nueva cotización";
+            this.Load += new System.EventHandler(this.frm_01_1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).EndInit();
             this.panel3.ResumeLayout(false);

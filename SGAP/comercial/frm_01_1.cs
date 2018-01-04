@@ -192,13 +192,13 @@ namespace SGAP.comercial
             int cantidad = _entity._lista_et_m27.Count;
             int cant_tabla = _lista_m27.Count;
 
-            if (txt_ruc_cliente.Text != "")
+            if (txt_ruc_cliente.Text != "") //Cliente valido
             {
-                if (cant_tabla != 0)
+                if (cant_tabla != 0) //Hay locales
                 {
-                    if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != First_Item_Combobox)
+                    if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != First_Item_Combobox) //Servicio
                     {
-                        if (cantidad > 0)
+                        if (cantidad > 0) //Local Marcado
                         {
                             //seteamos informacion del cliente
                             _et_m19._TM19_DESCRIP1 = ruc_cliente;
@@ -229,43 +229,31 @@ namespace SGAP.comercial
                             this.DialogResult = DialogResult.OK;
 
                             this.Close();
-
                         }
                         else
                         {
                             DialogResult decision_msg = MessageBox.Show("Se requiere seleccionar por lo menos un local.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (decision_msg == DialogResult.OK)
-                            {
-                                dgv_informacion_locales.Focus();
-                            }
+                            if (decision_msg == DialogResult.OK) { dgv_informacion_locales.Focus(); }
                         }
                     }
                     else
                     {
                         panel2.BackgroundImage = validation_image.Images[0];
+                        rb_tipo1.Focus();
                         DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if (decision_msg == DialogResult.OK)
-                        {
-                            cbx_tipo_servicio.Focus();                            
-                        }
+                        //if (decision_msg == DialogResult.OK) { cbx_tipo_servicio.Focus(); }
                     }
                 }
                 else
                 {
                     DialogResult decision_msg = MessageBox.Show("El cliente seleccionado no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (decision_msg == DialogResult.OK)
-                    {
-                        autoCompleteTextBox_t_m19.Focus();
-                    }
+                    if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
                 }
             }
             else
             {
                 DialogResult decision_msg = MessageBox.Show("Seleccione un cliente valido.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (decision_msg == DialogResult.OK)
-                {
-                    autoCompleteTextBox_t_m19.Focus();
-                }
+                if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
             }
         }
 
@@ -367,12 +355,24 @@ namespace SGAP.comercial
 
         private void autoCompleteTextBox_t_m19_Leave(object sender, EventArgs e)
         {            
-            Obtener_Informacion_t_m19();
+            //Obtener_Informacion_t_m19();
             autoCompleteTextBox_t_m19.Text = autoCompleteTextBox_t_m19.Text.Trim();
         }
 
+
         #endregion
 
+        private void frm_01_1_Load(object sender, EventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
 
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.panel1, "Seleccione un cliente");
+            toolTip1.SetToolTip(this.panel2, "Seleccione un servicio");
+        }
     }
 }
