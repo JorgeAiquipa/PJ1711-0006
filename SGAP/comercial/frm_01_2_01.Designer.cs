@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_conceptos_remuneratios = new System.Windows.Forms.Panel();
             this.dgv_conceptos_remunerativos = new System.Windows.Forms.DataGridView();
             this.panel_cargos = new System.Windows.Forms.Panel();
@@ -36,7 +37,6 @@
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.btn_continuar = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gridTimeControl1 = new SGAP.UserControls.GridTimeControl();
             this.gridTimeControl2 = new SGAP.UserControls.GridTimeControl();
@@ -61,6 +61,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(717, 585);
             this.panel2.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 317);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Conceptos remunerativos:";
             // 
             // panel_conceptos_remuneratios
             // 
@@ -105,19 +114,19 @@
             this.dgv_entrada_datos_mano_de_obra.Location = new System.Drawing.Point(7, 7);
             this.dgv_entrada_datos_mano_de_obra.Margin = new System.Windows.Forms.Padding(0);
             this.dgv_entrada_datos_mano_de_obra.Name = "dgv_entrada_datos_mano_de_obra";
+            this.dgv_entrada_datos_mano_de_obra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(703, 259);
             this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
             this.dgv_entrada_datos_mano_de_obra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellClick);
-            this.dgv_entrada_datos_mano_de_obra.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellContentClick);
             this.dgv_entrada_datos_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEndEdit);
             this.dgv_entrada_datos_mano_de_obra.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEnter);
             this.dgv_entrada_datos_mano_de_obra.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellLeave);
             this.dgv_entrada_datos_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
             this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
+            this.dgv_entrada_datos_mano_de_obra.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValueChanged);
             this.dgv_entrada_datos_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded);
             this.dgv_entrada_datos_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_entrada_datos_mano_de_obra_EditingControlShowing);
             this.dgv_entrada_datos_mano_de_obra.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_RowEnter);
-            this.dgv_entrada_datos_mano_de_obra.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_RowLeave);
             this.dgv_entrada_datos_mano_de_obra.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_entrada_datos_mano_de_obra_RowsAdded);
             this.dgv_entrada_datos_mano_de_obra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_entrada_datos_mano_de_obra_KeyDown);
             // 
@@ -153,15 +162,6 @@
             this.label10.Size = new System.Drawing.Size(717, 22);
             this.label10.TabIndex = 6;
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 317);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Conceptos remunerativos:";
             // 
             // dataGridViewTextBoxColumn1
             // 

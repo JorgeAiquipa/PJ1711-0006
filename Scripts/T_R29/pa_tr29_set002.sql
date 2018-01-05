@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_set55]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_set55;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr29_set002]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tr29_set002;
 GO
 
 -- =============================================
@@ -7,7 +7,7 @@ GO
 -- Create date: 2017.12.28
 -- Descripcion : actualizamos los cargos manipulados desde la solucion / Y las tablas que dependen
 -- =============================================
-CREATE PROCEDURE pa_set55
+CREATE PROCEDURE pa_tr29_set002
  @p_TR29_ID INT 
 ,@p_TR29_TR28_ID int -- codigo servicio _al que pertenece
 ,@p_TR29_TM38_ID varchar(10) -- id cargo
@@ -44,23 +44,23 @@ BEGIN
 			AND
 			TR29_TM38_ID = @p_TR29_TM38_ID
 
-	UPDATE DBO.T_R31
-		SET
-			 TR31_FLG_ELIMINADO = @p_TR29_FLG_ELIMINADO
-			,TR31_UACTUALIZA = @p_TR29_UACTUALIZA
-			,TR31_FACTUALIZA = GETDATE()		
-		WHERE 
-			 TR31_TR29_ID = @p_TR29_ID
+	--UPDATE DBO.T_R31
+	--	SET
+	--		 TR31_FLG_ELIMINADO = @p_TR29_FLG_ELIMINADO
+	--		,TR31_UACTUALIZA = @p_TR29_UACTUALIZA
+	--		,TR31_FACTUALIZA = GETDATE()		
+	--	WHERE 
+	--		 TR31_TR29_ID = @p_TR29_ID
 
-	UPDATE DBO.T_R30
-		SET
-			 TR30_FLG_ELIMINADO = @p_TR29_FLG_ELIMINADO
-			,TR30_UACTUALIZA = @p_TR29_UACTUALIZA
-			,TR30_FACTUALIZA = GETDATE()		
-		WHERE 
-			TR30_TR29_ID = @p_TR29_ID
+	--UPDATE DBO.T_R30
+	--	SET
+	--		 TR30_FLG_ELIMINADO = @p_TR29_FLG_ELIMINADO
+	--		,TR30_UACTUALIZA = @p_TR29_UACTUALIZA
+	--		,TR30_FACTUALIZA = GETDATE()		
+	--	WHERE 
+	--		TR30_TR29_ID = @p_TR29_ID
 
-		IF @@ROWCOUNT <= 0  
+		IF @@ROWCOUNT = 0  
 			SET @P_MENSAJE_RESPUESTA = 'ERROR'
 END
 GO

@@ -178,26 +178,29 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_set55", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tr29_set002", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {
-                    cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 2000).Direction = ParameterDirection.Output;
+
                     cmd.Parameters.Add("@p_TR29_ID", SqlDbType.Int).Value = objEntity._TR29_ID;
                     cmd.Parameters.Add("@p_TR29_TR28_ID", SqlDbType.Int).Value = objEntity._TR29_TR28_ID;
-                    cmd.Parameters.Add("@p_TR29_TM38_ID", SqlDbType.VarChar, 300).Value = objEntity._TR29_TM38_ID;
-                    cmd.Parameters.Add("@p_TR29_TM2_ID", SqlDbType.VarChar, 20).Value = _global._TM2_ID;
-                    cmd.Parameters.Add("@p_TR29_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR29_DESCRIP;
+                    cmd.Parameters.Add("@p_TR29_TM38_ID", SqlDbType.VarChar, 10).Value = objEntity._TR29_TM38_ID;
+                    cmd.Parameters.Add("@p_TR29_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
+                    cmd.Parameters.Add("@p_TR29_DESCRIP", SqlDbType.VarChar, 3000).Value = objEntity._TR29_DESCRIP;
                     cmd.Parameters.Add("@p_TR29_HORA_ENTRADA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_ENTRADA;
                     cmd.Parameters.Add("@p_TR29_HORA_SALIDA", SqlDbType.DateTime).Value = objEntity._TR29_HORA_SALIDA;
                     cmd.Parameters.Add("@p_TR29_DIAS_SEMANA", SqlDbType.Int).Value = objEntity._TR29_DIAS_SEMANA;
                     cmd.Parameters.Add("@p_TR29_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
                     cmd.Parameters.Add("@p_TR29_REMUNERACION", SqlDbType.Decimal).Value = objEntity._TR29_REMUNERACION;
                     cmd.Parameters.Add("@p_TR29_FLG_ELIMINADO", SqlDbType.SmallInt).Value = objEntity._TR29_FLG_ELIMINADO;
+                    cmd.Parameters.Add("@P_MENSAJE_RESPUESTA", SqlDbType.VarChar, 200).Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
 
                     Msg_respuesta = cmd.Parameters["@P_MENSAJE_RESPUESTA"].Value.ToString();
+                    if (Msg_respuesta.Equals("ERROR"))
+                        return false;
                 }
                 catch (SqlException exsql)
                 {

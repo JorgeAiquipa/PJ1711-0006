@@ -1,9 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
-using System.Text;
  
 namespace SGAP.UserControls
 {
@@ -44,17 +40,17 @@ namespace SGAP.UserControls
             base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
 
             CalendarEditingControl1 ctl = (CalendarEditingControl1)DataGridView.EditingControl;
-            if (this.RowIndex >= 0)
+            if (RowIndex >= 0)
             {
-                if ((!object.ReferenceEquals(this.Value, DBNull.Value)))
+                if ((!ReferenceEquals(Value, DBNull.Value)))
                 {
-                    if (this.Value != null)
+                    if (Value != null)
                     {
-                        if (this.Value != string.Empty)
+                        if (!string.IsNullOrEmpty(Value.ToString()))
                         {
                             try
                             {
-                                ctl.Value = DateTime.Parse(this.Value.ToString());
+                                ctl.Value = DateTime.Parse(Value.ToString());
                             }
                             catch (Exception ex)
                             {
@@ -109,7 +105,7 @@ namespace SGAP.UserControls
                 return this.Value.ToShortTimeString();
             }
             set
-            {  //----------Change By Ankur-----------------
+            {  
                 if (value is string)
                 {
                     this.Value = DateTime.Parse(System.Convert.ToString(value));
@@ -143,18 +139,21 @@ namespace SGAP.UserControls
         }
         public bool EditingControlWantsInputKey(Keys key, bool dataGridViewWantsInputKey)
         {
+            bool response = true;
             //if (Keys.KeyCode == Keys.Left || Keys.KeyCode == Keys.Up || Keys.KeyCode == Keys.Down || Keys.KeyCode == Keys.Right || Keys.KeyCode == Keys.Home || Keys.KeyCode == Keys.End || Keys.KeyCode == Keys.PageDown || Keys.KeyCode == Keys.PageUp)
             //{
-            //    return true;
+            //    response = true;
             //}
-            if ( Keys.KeyCode == Keys.Home || Keys.KeyCode == Keys.End || Keys.KeyCode == Keys.PageDown || Keys.KeyCode == Keys.PageUp)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //else if (Keys.KeyCode == Keys.Home || Keys.KeyCode == Keys.End || Keys.KeyCode == Keys.PageDown || Keys.KeyCode == Keys.PageUp)
+            //{
+            //    response = true;
+            //}
+            //else
+            //{
+            //    response = false;
+            //}
+
+            return response;
         }
         public void PrepareEditingControlForEdit(bool selectAll)
         {

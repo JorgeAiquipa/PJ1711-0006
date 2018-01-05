@@ -79,6 +79,7 @@ namespace Win32dtug
         //ACTUALIZAMOS LOS CONCEPTOS REMUNERATIVOS EDITADOS DESDE LA VISTA
         public bool set_002(ET_R30 objEntity)
         {
+            string Msg_respuesta;
             bool respuesta = true;
 
             using (SqlConnection cn = new SqlConnection(_cnx.conexion))
@@ -99,8 +100,12 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR30_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
 
+
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
+                    Msg_respuesta = cmd.Parameters["@P_MENSAJE_RESPUESTA"].Value.ToString();
+                    if (Msg_respuesta.Equals("ERROR"))
+                        return false;
                 }
                 catch (SqlException exsql)
                 {

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_ruc_cliente = new System.Windows.Forms.TextBox();
@@ -80,8 +80,6 @@
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.autoCompleteTextBox_t_m19 = new SGAP.UserControls.AutoCompleteTextBox();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).BeginInit();
             this.panel3.SuspendLayout();
@@ -212,8 +210,8 @@
             // local_nombre
             // 
             this.local_nombre.DataPropertyName = "_TM27_NOMBRE";
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.local_nombre.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.local_nombre.DefaultCellStyle = dataGridViewCellStyle1;
             this.local_nombre.FillWeight = 300F;
             this.local_nombre.HeaderText = "Nombre";
             this.local_nombre.Image = global::SGAP.Properties.Resources.local;
@@ -435,8 +433,8 @@
             // controlIconTextColumn1
             // 
             this.controlIconTextColumn1.DataPropertyName = "_TM27_NOMBRE";
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.controlIconTextColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.controlIconTextColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.controlIconTextColumn1.FillWeight = 300F;
             this.controlIconTextColumn1.HeaderText = "Nombre";
             this.controlIconTextColumn1.Image = global::SGAP.Properties.Resources.local;
@@ -564,31 +562,11 @@
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(514, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 103;
-            this.button1.Text = "Nuevo";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(595, 34);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 104;
-            this.button2.Text = "+ Locales";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // frm_01_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 584);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.autoCompleteTextBox_t_m19);
             this.Controls.Add(this.cbx_tipo_servicio);
             this.Controls.Add(this.panel3);
@@ -673,7 +651,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private UserControls.ControlIconTextColumn controlIconTextColumn1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
     }
 }

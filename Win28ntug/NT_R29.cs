@@ -47,6 +47,8 @@ namespace Win28ntug
                     entidad_m40._TM40_ID = row_c._TM40_ID;
                     entidad_m40._fila = fila_;
                     entidad_m40._Work = row_c._Work;
+                    entidad_m40._TM40_IMPORTE = row_c._TM40_IMPORTE;
+                    entidad_m40._TM40_PORCENTAJE = row_c._TM40_PORCENTAJE;
 
                     _lista_child_etm40.Add(entidad_m40);
                 }
@@ -156,8 +158,9 @@ namespace Win28ntug
 
             });
 
+            var lista_where_r29 = _lista_et_r29.Where(X => X._TR29_ST == 1).ToList();
 
-            _lista_et_r29.Where(X => X._TR29_ST == 1).ToList().ForEach(row => {
+            lista_where_r29.ForEach(row => {
 
                 bool respuesta = _dt_r29.set_002(row);
                 int id = row._TR29_ID;
@@ -170,19 +173,32 @@ namespace Win28ntug
                         et30._TR30_TR29_ID = x._TR30_TR29_ID;
                         et30._TR30_IMPORTE = x._TR30_IMPORTE;
                         et30._TR30_TM40_ID = x._TR30_TM40_ID;
-                        et30._TR30_FLG_ELIMINADO = x._TR30_FLG_ELIMINADO;
+                        et30._TR30_FLG_ELIMINADO = 1;
                         et30._TR30_TM2_ID = x._TR30_TM2_ID;
                         et30._TR30_UACTUALIZA = Globales._U_SESSION;
                         _dt_r30.set_002(et30);
 
                     });
 
+                    var all_true = row._lista_et_m40.Where(x => x._Seleccionado == true).ToList();
+                    foreach (ET_M40 row_child in all_true)
+                    {
+                        ET_R30 _et_r30 = new ET_R30();
+
+                        _et_r30._TR30_TR29_ID = row._TR29_ID;//result._entity_r29._TR29_ID;
+                        _et_r30._TR30_TM40_ID = row_child._TM40_ID;
+                        _et_r30._TR30_DESCRIP = row_child._TM40_DESCRIP;
+                        _et_r30._TR30_FLG_ELIMINADO = 0;
+                        _et_r30._TR30_IMPORTE = row_child._Work.Equals("P") ? (row._TR29_REMUNERACION * row_child._TM40_PORCENTAJE) : (row_child._TM40_IMPORTE);
+                        _dt_r30.set_001(_et_r30);
+                    }
+
                 }
             });
 
             _lista_et_r29.Where(X => X._TR29_ST == 0).ToList().ForEach(row => {
 
-                //registramos lo nuevo con lo actualizado
+                //registramos lo nuevo
 
                 DateTime h_e_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_ENTRADA.Hour, minute: row._TR29_HORA_ENTRADA.Minute, second: 0); // reset
                 DateTime h_s_ = new DateTime(year: 1900, month: 1, day: 1, hour: row._TR29_HORA_SALIDA.Hour, minute: row._TR29_HORA_SALIDA.Minute, second: 0); // reset

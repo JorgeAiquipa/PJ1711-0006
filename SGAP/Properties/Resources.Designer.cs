@@ -143,6 +143,16 @@ namespace SGAP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icono_red_300x300 {
+            get {
+                object obj = ResourceManager.GetObject("icono_red_300x300", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap izquierda {
             get {
                 object obj = ResourceManager.GetObject("izquierda", resourceCulture);
