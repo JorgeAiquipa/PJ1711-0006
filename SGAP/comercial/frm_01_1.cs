@@ -230,7 +230,7 @@ namespace SGAP.comercial
 
                             this.DialogResult = DialogResult.OK;
 
-                            this.Close();
+                            this.Dispose();
                         }
                         else
                         {

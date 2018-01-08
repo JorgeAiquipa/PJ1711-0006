@@ -10,6 +10,11 @@ using Win28etug;
 
 namespace SGAP.comercial
 {
+    /*
+     •	Si un trabajador tiene un turno de menos de 4 horas, no se le considerará Asignación Familiar.
+   
+    */
+
     public partial class frm_01_2_01 : Form
     {
         NT_helper _helper = new NT_helper();
@@ -43,14 +48,14 @@ namespace SGAP.comercial
             //end style
             _lista_et_m40_sin_Dependencia = conceptos_remunerativos;
             id_Servicio_hijo = __id_Servicio_hijo;
-            Crear_GridView_ManoDeObra();
-            Crear_GridView_ConceptoRemunerativo();
+            Construir_GridView_ManoDeObra();
+            Construir_GridView_ConceptoRemunerativo();
             dgv_entrada_datos_mano_de_obra.Focus();
             dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[0, 0];
             btn_continuar.Enabled = false;
         }
 
-        void Crear_GridView_ManoDeObra()
+        void Construir_GridView_ManoDeObra()
         {
             _helper.Set_Style_to_DatagridView(dgv_entrada_datos_mano_de_obra);
 
@@ -83,6 +88,8 @@ namespace SGAP.comercial
             _COL_DIAS_POR_SEMANA.Width = 80;
             _COL_DIAS_POR_SEMANA.MinimumWidth = 80;
             _COL_DIAS_POR_SEMANA.FillWeight = 80;
+            _COL_DIAS_POR_SEMANA.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
             DataGridViewColumn _COL_REMUNERACION = new DataGridViewTextBoxColumn();
             _COL_REMUNERACION.DataPropertyName = "_COL_REMUNERACION";
             _COL_REMUNERACION.HeaderText = "Remuneración básica";
@@ -124,8 +131,12 @@ namespace SGAP.comercial
             }
 
         }
-        void Crear_GridView_ConceptoRemunerativo()
+        void Construir_GridView_ConceptoRemunerativo()
         {
+            dgv_conceptos_remunerativos.DataSource = null;
+            dgv_conceptos_remunerativos.Update();
+            dgv_conceptos_remunerativos.Refresh();
+
             dgv_conceptos_remunerativos.AllowUserToAddRows = false;
             _helper.Set_Style_to_DatagridView(dgv_conceptos_remunerativos);
             dgv_conceptos_remunerativos.AutoGenerateColumns = false;
@@ -189,6 +200,7 @@ namespace SGAP.comercial
                     numeric.Value = Convert.ToDecimal(e.Control.Text);
                     numeric.Maximum = 7;
                     numeric.Minimum = 1;
+                    numeric.TextAlign = HorizontalAlignment.Center;
                 }
             }
             if (dgv_entrada_datos_mano_de_obra.CurrentCell.ColumnIndex == dgv_entrada_datos_mano_de_obra.Columns["_COL_REMUNERACION"].Index)

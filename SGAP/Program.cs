@@ -19,6 +19,7 @@ namespace SGAP
 
             //Application.Run(new UserControls.frm_tooltip());
             Application.Run(new comercial.frm_01());
+            //Application.Run(new comercial.Form1());
             //Application.Run(new comercial.frm_01_2_01());
             //Application.Run(new FOLDER_FRMS.frm_01_2_01());
         }

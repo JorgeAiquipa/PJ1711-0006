@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SGAP.UserControls
 {
-    public partial class frm_tooltip : Form
+    public partial class ControlLoader : UserControl
     {
-        public frm_tooltip()
+        public ControlLoader()
         {
             InitializeComponent();
         }

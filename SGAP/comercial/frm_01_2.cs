@@ -16,6 +16,7 @@ namespace SGAP.comercial
 {
     public partial class frm_01_2 : Form
     {
+        
         #region Variables
         ET_entidad _entidad = new ET_entidad();
         NT_helper _helper = new NT_helper();
@@ -59,10 +60,14 @@ namespace SGAP.comercial
         bool Editar_cotizacion = false;
 
         #region Mano de obra
-            bool Mostrar_resumen_De_mano_de_obra = true;
-            bool Se_realizo_cambios_de_mano_De_obra = false;
+            bool Mano_de_obra_modo_vista_reporte = true;
+            bool Mano_de_obra_se_edito_al_menos_un_registro = false;
             bool Mano_de_obra_modo_en_edicion = false;
             bool Mano_de_obra_Cambios_guardados = false;
+            int hs_mano_obra_max_value = 100;
+            int hs_mano_obra_min_value = 0;
+            int hs_mano_obra_large_change = 100;
+            int hs_mano_obra_value_ = 0;
         #endregion
 
         #endregion
@@ -120,6 +125,7 @@ namespace SGAP.comercial
             iconos_treeView.Images.Add(Properties.Resources.reporte_3);
             iconos_treeView.Images.Add(Properties.Resources.reporte_2);
             iconos_treeView.Images.Add(Properties.Resources.nota);
+            iconos_treeView.Images.Add(Properties.Resources.ojo);
 
             //tree_view_servicios.ImageList = iconos_treeView;
 
@@ -177,7 +183,7 @@ namespace SGAP.comercial
 
             //btn_editar_mano_de_obra.Enabled = false;
             btn_guardar_mano_de_obra.Enabled = false;
-            Se_realizo_cambios_de_mano_De_obra = false;
+            Mano_de_obra_se_edito_al_menos_un_registro = false;
             Mano_de_obra_modo_en_edicion = false;
             Mano_de_obra_Cambios_guardados = true;
             #endregion
@@ -201,10 +207,11 @@ namespace SGAP.comercial
 
             if (_lista_et_r29 != null && _lista_et_r29.Count > 0)
             {
-                Desplegar_informacion_de_mano_de_obra();
+                Desplegar_informacion_de_mano_de_obra(true);
             }
             else
             {
+                
                 if (_entro_por_primera_vez_mano_de_obra)
                     Item_mano_de_obra_click(null, null);
             }
@@ -272,37 +279,37 @@ namespace SGAP.comercial
                         mano_obra.Name = "Mano de Obra";
                         mano_obra.Tag = 0;
                         mano_obra.ImageIndex = 3;
-                        mano_obra.SelectedImageIndex = 3;
+                        mano_obra.SelectedImageIndex = 4;
 
                         TreeNode maquinaria = new TreeNode("Maquinaria y equipo");
                         maquinaria.Tag = 1;
                         maquinaria.ImageIndex = 3;
-                        maquinaria.SelectedImageIndex = 3;
+                        maquinaria.SelectedImageIndex = 4;
 
                         TreeNode materiales = new TreeNode("Materiales e insumos");
                         materiales.Tag = 2;
                         materiales.ImageIndex = 3;
-                        materiales.SelectedImageIndex = 3;
+                        materiales.SelectedImageIndex = 4;
 
                         TreeNode implementos = new TreeNode("Implementos de limpieza");
                         implementos.Tag = 3;
                         implementos.ImageIndex = 3;
-                        implementos.SelectedImageIndex = 3;
+                        implementos.SelectedImageIndex = 4;
 
                         TreeNode suministros = new TreeNode("Suministros");
                         suministros.Tag = 4;
                         suministros.ImageIndex = 3;
-                        suministros.SelectedImageIndex = 3;
+                        suministros.SelectedImageIndex = 4;
 
                         TreeNode indumentaria = new TreeNode("Indumentaria");
                         indumentaria.Tag = 5;
                         indumentaria.ImageIndex = 3;
-                        indumentaria.SelectedImageIndex = 3;
+                        indumentaria.SelectedImageIndex = 4;
 
                         TreeNode Epp = new TreeNode("Epp");
                         Epp.Tag = 6;
                         Epp.ImageIndex = 3;
-                        Epp.SelectedImageIndex = 3;
+                        Epp.SelectedImageIndex = 4;
 
 
                         TreeNode node_hijo = new TreeNode(row_u._TR28_DESCRIP, new TreeNode[] {
@@ -388,13 +395,15 @@ namespace SGAP.comercial
             panel_colapse_2.Enabled = true;
             panel_colapse_2.Visible = true;
             panel_colapse_2.Location = new Point(4, 2);
+            Definir_valores_scroll_de_mano_De_obra();
         }
-
+        
         private void panel_colapse_2_Click(object sender, EventArgs e)
         {
             splitContainer1.Panel1Collapsed = false;
             panel_colapse_2.Enabled = false;
             panel_colapse_2.Visible = false;
+            Definir_valores_scroll_de_mano_De_obra();
         }
 
         private void frm_01_2_Load(object sender, EventArgs e)
@@ -406,8 +415,8 @@ namespace SGAP.comercial
             toolTip1.ReshowDelay = 500;
             toolTip1.ShowAlways = true;
 
-            toolTip1.SetToolTip(this.panel_colapse, "Ocultar estructura");
-            toolTip1.SetToolTip(this.panel_colapse_2, "Ver estructura");
+            toolTip1.SetToolTip(this.panel_colapse, "   Ocultar estructura   ");
+            toolTip1.SetToolTip(this.panel_colapse_2, "   Mostrar estructura   ");
 
             int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
             panel_colapse_2.Location = new Point(coll + 6, 2);
@@ -417,10 +426,11 @@ namespace SGAP.comercial
         private void frm_01_2_Resize(object sender, EventArgs e)
         {
             panel_colapse_2.Location = new Point(4, 2);
+            Definir_valores_scroll_de_mano_De_obra();
         }
         #endregion
 
-        void Agregar_menu_contextual()
+        private void Agregar_menu_contextual()
         {
             MenuStrip_ViewProperties_.Text = "Propiedades";
             MenuStrip_ViewProperties_.Name = "MenuStrip_ViewProperties_";
@@ -431,6 +441,7 @@ namespace SGAP.comercial
             View_Properties.Name = "View_Properties";
             View_Properties.Size = new System.Drawing.Size(132, 22);
             View_Properties.Text = "Configuración de cargos";
+            View_Properties.Image = Properties.Resources.configuracion_dos;
 
             MenuStrip_ViewProperties_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         View_Properties
@@ -449,6 +460,7 @@ namespace SGAP.comercial
             Add_service.Name = "Add_service";
             Add_service.Size = new System.Drawing.Size(132, 22);
             Add_service.Text = "Agregar servicio...";
+            Add_service.Image = Properties.Resources.agregar_reporte_dos;
 
             MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         Add_service
@@ -472,6 +484,7 @@ namespace SGAP.comercial
             Del_service.Name = "Del_service";
             Del_service.Size = new System.Drawing.Size(132, 22);
             Del_service.Text = "Eliminar servicio";
+            Del_service.Image = Properties.Resources.reporte_borrar_dos;
 
             MenuStrip_DelService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         Del_service
@@ -623,28 +636,42 @@ namespace SGAP.comercial
             form_2_1.ShowDialog();
             if (form_2_1.DialogResult == DialogResult.OK)
             {
-
+                btn_editar_mano_de_obra.Enabled = true;
                 if (btn_editar_mano_de_obra.Enabled)
                 {
                     Editar_cotizacion = true;//btn_editar_mano_de_obra.Enabled = true;
-                    Mostrar_resumen_De_mano_de_obra = true;
+                    Mano_de_obra_modo_vista_reporte = true;
                 }
                 else
                 {
-                    Mostrar_resumen_De_mano_de_obra = false;
+                    Mano_de_obra_modo_vista_reporte = false;
                 }
                 _cargo_data_mano_obra = false;
                 Metodo_cargar_informacion_mano_de_obra();
             }
+            else
+            {
+                btn_editar_mano_de_obra.Enabled = false;
+                if (!Mano_de_obra_modo_en_edicion)
+                    btn_editar_mano_de_obra.Enabled = true;
+            }
+        }
+
+        private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
+        {
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            //btn_colapse.Location = new Point(coll, 0);
+            panel_colapse_2.Location = new Point(coll + 6, 2);
+            Definir_valores_scroll_de_mano_De_obra();
         }
         #endregion
 
         #region Mano de obra
         bool _entro_por_primera_vez_mano_de_obra = true;
         bool _cargo_data_mano_obra = false;
-        void Metodo_cargar_informacion_mano_de_obra()
+        private void Metodo_cargar_informacion_mano_de_obra()
         {
-            if (Se_realizo_cambios_de_mano_De_obra)
+            if (Mano_de_obra_se_edito_al_menos_un_registro)
             {
                 DialogResult decision_msg = MessageBox.Show(" Tiene cambios sin guardar \n ¿Desea guardar los cambios?", "Cotización mano de obra dice:", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (decision_msg == DialogResult.OK)
@@ -665,6 +692,10 @@ namespace SGAP.comercial
 
                     _nt_r29.Agregar_ETR29(_et);
                     _nt_r29.Iniciar(Tarea.LISTAR);
+                }
+                else
+                {
+                    Desplegar_informacion_de_mano_de_obra(true);
                 }
             }
         }
@@ -723,14 +754,16 @@ namespace SGAP.comercial
             if (!Mano_de_obra_Cambios_guardados)
             {
                 Guardar_Cambios_mano_De_obra();
+                // recargar
+                Metodo_cargar_informacion_mano_de_obra();
             }
             else
             {
 
                 btn_guardar_mano_de_obra.Enabled = false;
                 btn_editar_mano_de_obra.Enabled = true;
-                Mostrar_resumen_De_mano_de_obra = true;
-                Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                Mano_de_obra_modo_vista_reporte = true;
+                //Metodo_mostrar_calculos_de_costos_mano_de_obra();
                 dgv_mano_de_obra.Refresh();
                 dgv_mano_de_obra.Update();
                 dgv_mano_de_obra_right.ReadOnly = true;
@@ -740,7 +773,7 @@ namespace SGAP.comercial
 
         private void Guardar_Cambios_mano_De_obra()
         {
-            if (Se_realizo_cambios_de_mano_De_obra)
+            if (Mano_de_obra_se_edito_al_menos_un_registro)
             {
                 if (_lista_et_r31 != null)
                 {
@@ -750,8 +783,8 @@ namespace SGAP.comercial
                     {
                         btn_guardar_mano_de_obra.Enabled = false;
                         btn_editar_mano_de_obra.Enabled = true;
-                        Mostrar_resumen_De_mano_de_obra = true;
-                        Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                        Mano_de_obra_modo_vista_reporte = true;
+                        //Metodo_mostrar_calculos_de_costos_mano_de_obra();
                         dgv_mano_de_obra.Refresh();
                         dgv_mano_de_obra.Update();
                         dgv_mano_de_obra_right.ReadOnly = true;
@@ -762,12 +795,16 @@ namespace SGAP.comercial
             else
             {
                 _cargo_data_mano_obra = true;
-                Mostrar_resumen_De_mano_de_obra = true;
+                Mano_de_obra_modo_vista_reporte = true;
                 btn_editar_mano_de_obra.Enabled = true;
                 btn_guardar_mano_de_obra.Enabled = false;
-                Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                //Metodo_mostrar_calculos_de_costos_mano_de_obra();
+                dgv_mano_de_obra.Refresh();
+                dgv_mano_de_obra.Update();
+                dgv_mano_de_obra_right.ReadOnly = true;
+                dgv_mano_de_obra.ReadOnly = true;
             }
-            Se_realizo_cambios_de_mano_De_obra = false;
+            Mano_de_obra_se_edito_al_menos_un_registro = false;
         }
 
         private void Metodo_preparar_informacion_para_actualizar_mano_de_obra()
@@ -780,39 +817,101 @@ namespace SGAP.comercial
 
         }
 
-        //private void Metodo_preparar_informacion_para_registrar_mano_de_obra()
-        //{
-        //    //var tmp = _lista_et_r29;
-
-        //    //NT_R31 ins = new NT_R31();
-        //    //ins.set_001(_lista_et_r29, _entidad._lista_et_r27);
-        //}
-
         private void btn_editar_mano_de_obra_Click(object sender, EventArgs e)
         {
+            dgv_mano_de_obra_right.GridColor = Color.Gray;
+            dgv_mano_de_obra.GridColor = Color.Gray;
+
+            dgv_mano_de_obra_right.Rows.Clear();
+            dgv_mano_de_obra.Rows.Clear();
+
+            var _Lista_et_r29_trabajadores_8_horas = _lista_et_r29.Where(o => o._HOURS_DAY >= 4);
+            var _Lista_et_r29_trabajadores_4_horas = _lista_et_r29.Where(o => o._HOURS_DAY < 4);
+
             //preparar vista de mano de obra para editar
             btn_guardar_mano_de_obra.Enabled = true;
-            Mostrar_resumen_De_mano_de_obra = false;
+            Mano_de_obra_modo_vista_reporte = false;
             Mano_de_obra_Cambios_guardados = false;
             Editar_cotizacion = true;
-
-            int filas_a_conservar = dgv_mano_de_obra.RowCount - 4;
-            int tope_ = dgv_mano_de_obra.RowCount - 1;
-            for (int i = tope_; i > filas_a_conservar; i--)
-            {
-                dgv_mano_de_obra_right.Rows.RemoveAt(i);
-                dgv_mano_de_obra.Rows.RemoveAt(i);
-            }
-
+            Mano_de_obra_preparar_modo_en_edicion(_Lista_et_r29_trabajadores_8_horas.ToList());
+            Mano_de_obra_preparar_modo_en_edicion(_Lista_et_r29_trabajadores_4_horas.ToList());
             // devolver la propiedad readonly al conjunto de grilas mano de obra
             dgv_mano_de_obra_right.ReadOnly = false;
             dgv_mano_de_obra.ReadOnly = false;
             btn_editar_mano_de_obra.Enabled = false;
         }
 
+        private void Mano_de_obra_preparar_modo_en_edicion( List<ET_R29> object_list_etr29)
+        {
+            #region porblar grids mano de obra
+            object_list_etr29.ForEach(fila_ => {
+                string Texto_descripcion_mano_del_cargo = Obtener_descripcion_mano_obra(
+                    fila_._TR29_DESCRIP,
+                    fila_._TR29_DIAS_SEMANA,
+                    fila_._TR29_HORA_ENTRADA,
+                    fila_._TR29_HORA_SALIDA,
+                    fila_._lista_et_r30
+                );
+                var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
+                object[] informacion_r31 = new object[res.Count];
+
+                int total_personal = 0;
+                int indice_locales = 0;
+
+                string[] fila_dgv_mano_obra = new string[(1 + res.Count)];
+                fila_dgv_mano_obra[0] = Texto_descripcion_mano_del_cargo;
+
+                int indice_dgv_mano_obra = 1;
+                res.ForEach(r => {
+
+                    int[] cantidades = new int[2];
+                    cantidades[0] = r._TR31_CANT_PERSONAS;
+                    cantidades[1] = r._TR31_ID;
+                    informacion_r31[indice_locales] = cantidades;
+
+                    total_personal = total_personal + r._TR31_CANT_PERSONAS;
+                    fila_dgv_mano_obra[indice_dgv_mano_obra] = r._TR31_CANT_PERSONAS.ToString();
+                    indice_locales++;
+                    indice_dgv_mano_obra++;
+                });
+
+                int[] relleno = new int[] { 0, 0 };
+                object[] rellenos = new object[_entidad._lista_et_m27.Count];
+                int indice = 0;
+                _entidad._lista_et_m27.ForEach(c => {
+                    rellenos[indice] = relleno;
+                    indice++;
+                });
+
+                if (Editar_cotizacion)
+                    if (res.Count() == 0)
+                        fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
+                    else
+                        fila_._Locales_por_cargo_cantidad_personal = informacion_r31;
+                else
+                    fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
+
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+                fila_._lista_et_r30.ForEach(X =>
+                {
+                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
+                });
+
+                dgv_mano_de_obra_right.Rows.Add(
+                    total_personal,
+                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION),
+                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
+                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M),
+                    string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M)
+                 );
+                dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
+            });
+            #endregion
+        }
+
         private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            Se_realizo_cambios_de_mano_De_obra = true;
+            Mano_de_obra_se_edito_al_menos_un_registro = true;
             Mano_de_obra_modo_en_edicion = true;
             // validar que vista edicion este en false
             if (e.RowIndex >= 0 && e.ColumnIndex > 0)
@@ -852,10 +951,12 @@ namespace SGAP.comercial
         private void Contruir_DataGrid_Mano_Obra()
         {
             bool ajustar = false;
-            if (_entidad._lista_et_r27.Count < 5) ajustar = true;
+            if (_entidad._lista_et_r27.Count < 5)
+                ajustar = true;
 
             dgv_mano_de_obra.AllowUserToAddRows = false;
             dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
+            dgv_mano_de_obra_right.ScrollBars = ScrollBars.Vertical;
 
             _helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
             _helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
@@ -863,20 +964,20 @@ namespace SGAP.comercial
             dgv_mano_de_obra.AutoGenerateColumns = false;
             dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 
-            if(ajustar)
+            if (ajustar)
                 dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             DataGridViewColumn MANO_OBRA_COL_DESCRIPCION = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
             MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
             MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
-            MANO_OBRA_COL_DESCRIPCION.Width = 300;
+            MANO_OBRA_COL_DESCRIPCION.Width = 270;
             MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
             if (ajustar)
             {
-                MANO_OBRA_COL_DESCRIPCION.Width = 250;
-                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 250;
-                MANO_OBRA_COL_DESCRIPCION.FillWeight = 250;
+                MANO_OBRA_COL_DESCRIPCION.Width = 240;
+                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 240;
+                MANO_OBRA_COL_DESCRIPCION.FillWeight = 240;
             }
 
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
@@ -886,7 +987,6 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.Frozen = true;
 
             //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
-
             if (_entidad._lista_et_r27 != null)
             {
 
@@ -901,15 +1001,15 @@ namespace SGAP.comercial
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
 
-                    if (_entidad._lista_et_r27.Count > 5)
-                    {
-                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
-                    }
-                    else
+                    if (ajustar)
                     {
                         dgv_mano_de_obra.Columns[indice_de_inicio].Width = 100;
                         dgv_mano_de_obra.Columns[indice_de_inicio].MinimumWidth = 100;
                         dgv_mano_de_obra.Columns[indice_de_inicio].FillWeight = 100;
+                    }
+                    else
+                    {
+                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
                     }
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
@@ -920,6 +1020,9 @@ namespace SGAP.comercial
                 });
 
             }
+            for (int i = 0; i < dgv_mano_de_obra.Columns.Count; i++)
+                dgv_mano_de_obra.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+
             dgv_mano_de_obra_right.AllowUserToAddRows = false;
             dgv_mano_de_obra_right.AutoGenerateColumns = false;
             dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
@@ -933,6 +1036,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_BASICO.Width = 85;
             MANO_OBRA_COL_SUELDO_BASICO.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_BASICO.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            MANO_OBRA_COL_SUELDO_BASICO.ToolTipText = MANO_OBRA_COL_SUELDO_BASICO.HeaderText;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL_PERSONAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL_PERSONAL.DataPropertyName = "MANO_OBRA_COL_TOTAL_PERSONAL";
@@ -941,6 +1045,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL_PERSONAL.Width = 80;
             MANO_OBRA_COL_TOTAL_PERSONAL.ReadOnly = true;
             MANO_OBRA_COL_TOTAL_PERSONAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            MANO_OBRA_COL_TOTAL_PERSONAL.ToolTipText = MANO_OBRA_COL_TOTAL_PERSONAL.HeaderText;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_MENSUAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_MENSUAL.DataPropertyName = "MANO_OBRA_COL_SUELDO_MENSUAL";
@@ -949,6 +1054,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUELDO_MENSUAL.Width = 90;
             MANO_OBRA_COL_SUELDO_MENSUAL.ReadOnly = true;
             MANO_OBRA_COL_SUELDO_MENSUAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            MANO_OBRA_COL_SUELDO_MENSUAL.ToolTipText = MANO_OBRA_COL_SUELDO_MENSUAL.HeaderText;
 
             DataGridViewColumn MANO_OBRA_COL_TOTAL = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_TOTAL.DataPropertyName = "MANO_OBRA_COL_TOTAL";
@@ -957,6 +1063,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL.Width = 85;
             MANO_OBRA_COL_TOTAL.ReadOnly = true;
             MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            MANO_OBRA_COL_TOTAL.ToolTipText = MANO_OBRA_COL_TOTAL.HeaderText;
 
             DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
@@ -965,7 +1072,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_SUM_CONCEPTOS.Width = 90;
             MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
             MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
+            MANO_OBRA_COL_SUM_CONCEPTOS.ToolTipText = MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText;
 
             dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_TOTAL_PERSONAL,
@@ -974,28 +1081,167 @@ namespace SGAP.comercial
                 MANO_OBRA_COL_SUELDO_MENSUAL,
                 MANO_OBRA_COL_TOTAL
             });
+            for (int i = 0; i < dgv_mano_de_obra_right.Columns.Count; i++)
+                dgv_mano_de_obra_right.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            Definir_valores_scroll_de_mano_De_obra();
         }
 
-        private void Desplegar_informacion_de_mano_de_obra()
+        private void Definir_valores_scroll_de_mano_De_obra()
+        {
+            foreach (Control control_ in dgv_mano_de_obra.Controls)
+            {
+                if (control_.AccessibilityObject.Role == AccessibleRole.ScrollBar)
+                {
+                    AccessibleObject objeto_de_acceso = new AccessibleObject();
+                    objeto_de_acceso = control_.AccessibilityObject;
+                    var datagridview_scroll = control_.Controls.Owner;
+                    datagridview_scroll.IsAccessible = true;
+                    hs_mano_obra_max_value = ((ScrollBar)datagridview_scroll).Maximum;
+                    hs_mano_obra_min_value = ((ScrollBar)datagridview_scroll).Minimum;
+                    hs_mano_obra_large_change = ((ScrollBar)datagridview_scroll).LargeChange;
+                    hs_mano_obra_value_ = ((ScrollBar)datagridview_scroll).Value;
+                }
+                break;
+            }
+
+            h_scroll_mano_de_obra.Maximum = hs_mano_obra_max_value;
+            h_scroll_mano_de_obra.Minimum = hs_mano_obra_min_value;
+            h_scroll_mano_de_obra.LargeChange = hs_mano_obra_large_change;
+            h_scroll_mano_de_obra.Value = hs_mano_obra_value_;
+        }
+
+        private void Desplegar_informacion_de_mano_de_obra(bool es_vista_reporte = false)
         {
             dgv_mano_de_obra.Rows.Clear();
             dgv_mano_de_obra_right.Rows.Clear();
 
-            _lista_et_r29.ForEach(fila_ => {
+            var _Lista_et_r29_trabajadores_8_horas = _lista_et_r29.Where(o => o._HOURS_DAY >= 4);
+            var _Lista_et_r29_trabajadores_4_horas = _lista_et_r29.Where(o => o._HOURS_DAY < 4);
 
-                string cargo_horario_conceptos = Obtener_descripcion_mano_obra(fila_._TR29_DESCRIP, fila_._TR29_DIAS_SEMANA, fila_._TR29_HORA_ENTRADA, fila_._TR29_HORA_SALIDA, fila_._lista_et_r30);
+            if (es_vista_reporte)
+            {
+                dgv_mano_de_obra.GridColor = Color.WhiteSmoke;
+                dgv_mano_de_obra_right.GridColor = Color.WhiteSmoke;
+                dgv_mano_de_obra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                //_lista_et_r31
+                decimal[] MANO_DE_OBRA_COSTO_MENSUAL_LEFT = new decimal[dgv_mano_de_obra.ColumnCount];
+                decimal[] MANO_DE_OBRA_COSTO_MENSUAL_RIGHT = new decimal[dgv_mano_de_obra_right.ColumnCount];
+                MANO_DE_OBRA_COSTO_MENSUAL[0] = MANO_DE_OBRA_COSTO_MENSUAL_LEFT;
+                MANO_DE_OBRA_COSTO_MENSUAL[1] = MANO_DE_OBRA_COSTO_MENSUAL_RIGHT;
+
+            }
+            var obj = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_8_horas.ToList());
+            if (Mano_de_obra_modo_vista_reporte)
+            {
+                Ingresar_filas_vacias_dentro_de_grids(Color.Blue ,dgv_mano_de_obra, dgv_mano_de_obra_right);
+                Metodo_mostrar_calculos_de_costos_mano_de_obra(obj);
+            }
+            if (_Lista_et_r29_trabajadores_4_horas.ToList().Count() != 0)
+            {
+                //MANO DE OBRA (MENOR A 4 HORAS DIARIAS)
+                Ingresar_filas_vacias_dentro_de_grids(Color.Blue,dgv_mano_de_obra, dgv_mano_de_obra_right,2, "MANO DE OBRA (MENOR A 4 HORAS DIARIAS)");
+
+                var obj_ = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_4_horas.ToList(),true);
+                if (Mano_de_obra_modo_vista_reporte)
+                {
+                    Ingresar_filas_vacias_dentro_de_grids(Color.Blue,dgv_mano_de_obra, dgv_mano_de_obra_right);
+                    Metodo_mostrar_calculos_de_costos_mano_de_obra(obj_);
+                }
+            }
+            if (Mano_de_obra_modo_vista_reporte)
+            {
+                Metodo_mostrar_costo_mensual_mano_de_obra();
+                dgv_mano_de_obra_right.ReadOnly = true;
+                dgv_mano_de_obra.ReadOnly = true;
+                btn_editar_mano_de_obra.Enabled = true;
+                Mano_de_obra_modo_vista_reporte = true;
+            }
+            Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, 2);
+        }
+
+        private object[] Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(List<ET_R29> object_list_etr29, bool MENOR_CUATRO_HORAS = false)
+        {
+            object[] respuesta = new object[4];
+
+            #region Primer_subtotal
+            object[] MANO_DE_OBRA_FIRST_SUBTOTAL = new object[2];
+            string[] MANO_DE_OBRA_SUBTOTALES_UNO = new string[dgv_mano_de_obra.ColumnCount];
+            string[] MANO_DE_OBRA_SUBTOTALES_DOS = new string[dgv_mano_de_obra_right.ColumnCount];
+
+            decimal[] MANO_DE_OBRA_TOTAL_POR_LOCAL = new decimal[dgv_mano_de_obra.ColumnCount - 1];
+
+            long MANO_OBRA_TOTAL_PERSONAL = 0;
+            decimal MANO_OBRA_TOTAL = 0 * 1M;
+
+            int INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO = 0;
+            decimal[] MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO = new decimal[object_list_etr29.Count];
+
+            #endregion
+
+            #region Beneficios_sociales
+            object[] MANO_DE_OBRA_BENEFICIOS_SOCIALES = new object[4];
+
+                object[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES = new object[2];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+
+                object[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS = new object[2];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+
+                object[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES = new object[2];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+
+                object[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL = new object[2];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+                    string[] MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+            #endregion
+
+            #region Leyes Sociales
+            object[] MANO_DE_OBRA_LEYES_SOCIALES = new object[4];
+            object[] MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD = new object[2];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+
+            object[] MANO_DE_OBRA_LEYES_SOCIALES_SCTR = new object[2];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_SCTR_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_SCTR_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+
+            object[] MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY = new object[2];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+
+            object[] MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL = new object[2];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+            string[] MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+            #endregion
+
+            #region Subtotal
+
+            object[] MANO_DE_OBRA_SUB_TOTAL = new object[2];
+            string[] MANO_DE_OBRA_SUB_TOTAL_LEFT = new string[dgv_mano_de_obra.ColumnCount];
+            string[] MANO_DE_OBRA_SUB_TOTAL_RIGHT = new string[dgv_mano_de_obra_right.ColumnCount];
+            #endregion
+
+            #region Poblar grids
+            object_list_etr29.ForEach(fila_ => {
+                string Texto_descripcion_mano_del_cargo = Obtener_descripcion_mano_obra(
+                    fila_._TR29_DESCRIP, 
+                    fila_._TR29_DIAS_SEMANA, 
+                    fila_._TR29_HORA_ENTRADA, 
+                    fila_._TR29_HORA_SALIDA, 
+                    fila_._lista_et_r30
+                );
                 var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
-
                 object[] informacion_r31 = new object[res.Count];
-
 
                 int total_personal = 0;
                 int indice_locales = 0;
 
                 string[] fila_dgv_mano_obra = new string[(1 + res.Count)];
-                fila_dgv_mano_obra[0] = cargo_horario_conceptos;
+                fila_dgv_mano_obra[0] = Texto_descripcion_mano_del_cargo;
 
                 int indice_dgv_mano_obra = 1;
                 res.ForEach(r => {
@@ -1027,40 +1273,474 @@ namespace SGAP.comercial
                 else
                     fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
 
-                var list = fila_._lista_et_r30;
                 decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
                 fila_._lista_et_r30.ForEach(X =>
                 {
                     SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
                 });
+
                 dgv_mano_de_obra_right.Rows.Add(
-                    total_personal, 
-                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00")? "0.00": string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION), 
-                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00": string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
+                    total_personal,
+                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION),
+                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M),
                     string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M)
                  );
 
+                MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO[INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO] = fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M;
+                INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO++;
+
+                MANO_OBRA_TOTAL             = MANO_OBRA_TOTAL + (((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M);
+                MANO_OBRA_TOTAL_PERSONAL    = MANO_OBRA_TOTAL_PERSONAL + total_personal;
+
                 dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
             });
+            #endregion
 
-            if (Mostrar_resumen_De_mano_de_obra)
+            #region Primer_subtotal
+            for (int a = 0; a < (MANO_DE_OBRA_SUBTOTALES_UNO.Count()); a++)
             {
-                Metodo_mostrar_calculos_de_costos_mano_de_obra();
-                dgv_mano_de_obra_right.ReadOnly = true;
-                dgv_mano_de_obra.ReadOnly = true;
-                btn_editar_mano_de_obra.Enabled = true;
-                Mostrar_resumen_De_mano_de_obra = true;
+                if (a == 0)
+                {
+                    MANO_DE_OBRA_SUBTOTALES_UNO[a] = "Sub Total";
+                }
+                else
+                {
+                    decimal MANO_DE_OBRA_TOTAL_POR_LOCAL_ = 0 * 1M;
+                    object_list_etr29.ForEach(fila_ =>
+                    {
+                        var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
+                        for (int N = 0; N < res.Count(); N++)
+                        {
+                            if (N == (a -1))
+                            {
+                                var total_personal = res.ElementAt(N);
+                                decimal SUELDO_MENSUAL_POR_CARGO = 0 * 1M;
+                                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+                                fila_._lista_et_r30.ForEach(X =>
+                                {
+                                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
+                                });
+                                SUELDO_MENSUAL_POR_CARGO = fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M;
+                                MANO_DE_OBRA_TOTAL_POR_LOCAL_ = MANO_DE_OBRA_TOTAL_POR_LOCAL_ + (SUELDO_MENSUAL_POR_CARGO * total_personal._TR31_CANT_PERSONAS);
+                                break;
+                            }
+                        }
+                    });
+                    string VALOR_POR_LOCAL_SUBTOTAL = string.Format("{0:#,#.00}", MANO_DE_OBRA_TOTAL_POR_LOCAL_).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", MANO_DE_OBRA_TOTAL_POR_LOCAL_);
+                    MANO_DE_OBRA_SUBTOTALES_UNO[a] = VALOR_POR_LOCAL_SUBTOTAL;
+                }
             }
 
+            MANO_DE_OBRA_SUBTOTALES_DOS[0] = MANO_OBRA_TOTAL_PERSONAL.ToString();
+            MANO_DE_OBRA_SUBTOTALES_DOS[1] = string.Empty;
+            MANO_DE_OBRA_SUBTOTALES_DOS[2] = string.Empty;
+            MANO_DE_OBRA_SUBTOTALES_DOS[3] = "S/";
+            MANO_DE_OBRA_SUBTOTALES_DOS[4] = string.Format("{0:#,#.00}", MANO_OBRA_TOTAL).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", MANO_OBRA_TOTAL);
+
+            MANO_DE_OBRA_FIRST_SUBTOTAL[0] = MANO_DE_OBRA_SUBTOTALES_UNO;
+            MANO_DE_OBRA_FIRST_SUBTOTAL[1] = MANO_DE_OBRA_SUBTOTALES_DOS;
+
+            #endregion
+
+            #region Beneficios_sociales
+            decimal suma_De_beneficios_sociales_vacaciones = 0*1M;
+            decimal suma_De_beneficios_sociales_cts = 0*1M;
+            decimal suma_De_beneficios_sociales_gratificaciones = 0*1M;
+
+            decimal valor_vacaciones = 0.0833M;
+            decimal valor_cts = 0.0972M;
+            decimal valor_gratificaciones = 0.1667M;
+            for (int a = 0; a < MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT.Count(); a++)
+            {
+                if (a == 0)
+                {
+                    if (!MENOR_CUATRO_HORAS)
+                    {
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a] = "Vacaciones 8.33%";
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_LEFT[a] = "CTS 9.72%";
+                    }
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a] = "Gratificaciones 16.67%";
+                }
+                else
+                {
+                    if (!MENOR_CUATRO_HORAS)
+                    {
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a] = string.Format("{0:#,#.00}", (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_vacaciones * 1M)).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_vacaciones * 1M));
+                        suma_De_beneficios_sociales_vacaciones = suma_De_beneficios_sociales_vacaciones + (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_vacaciones * 1M);
+
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_LEFT[a] = string.Format("{0:#,#.00}", (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_cts * 1M)).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_cts * 1M));
+                        suma_De_beneficios_sociales_cts = suma_De_beneficios_sociales_cts + (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_cts * 1M);
+                    }
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a] = string.Format("{0:#,#.00}", (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_gratificaciones * 1M)).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_gratificaciones * 1M));
+                    suma_De_beneficios_sociales_gratificaciones = suma_De_beneficios_sociales_gratificaciones + (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) * valor_gratificaciones * 1M);
+
+                }
+            }
+            for (int A = 0; A < MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT.Count(); A++)
+            {
+                if (A == MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT.Count() - 1)
+                {
+                    if (!MENOR_CUATRO_HORAS)
+                    {
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT[A] = string.Format("{0:#,#.00}", suma_De_beneficios_sociales_vacaciones).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", suma_De_beneficios_sociales_vacaciones);
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_RIGHT[A] = string.Format("{0:#,#.00}", suma_De_beneficios_sociales_cts).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", suma_De_beneficios_sociales_cts);
+                    }
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_RIGHT[A] = string.Format("{0:#,#.00}", suma_De_beneficios_sociales_gratificaciones).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", suma_De_beneficios_sociales_gratificaciones);
+                }
+                else
+                {
+                    if (!MENOR_CUATRO_HORAS)
+                    {
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT[A] = "";
+                        MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_RIGHT[A] = "";
+                    }
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_RIGHT[A] = "";
+                }
+            }
+
+            for (int a = 0; a < MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT.Count(); a++)
+            {
+                if (a == 0)
+                {
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT[a] = "";
+                }
+                else
+                {
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT[a] = 
+                        string.Format("{0:#,#.00}",
+                        (
+                        (MENOR_CUATRO_HORAS == true ? (0) : (
+
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_LEFT[a])
+
+                        )) + 
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a])
+                        )).Equals(".00") ?
+                        "0.00" 
+                        :
+                        string.Format("{0:#,#.00}",
+                        (
+                        (MENOR_CUATRO_HORAS == true ? (0):(
+
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_LEFT[a])
+
+                        )) +
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a])
+                        ));
+                }
+            }
+            for (int a = 0; a < MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT.Count(); a++)
+            {
+                MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT[a] = "";
+                if (a == MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT.Count() - 1)
+                {
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT[a] =
+                    string.Format("{0:#,#.00}",
+                        (
+                        (MENOR_CUATRO_HORAS == true ? (0) : (
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_RIGHT[a])
+                        )) +
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_RIGHT[a])
+                        )).Equals(".00") ?
+                        "0.00"
+                        :
+                        string.Format("{0:#,#.00}",
+                        (
+                        (MENOR_CUATRO_HORAS == true ? (0) : (
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_RIGHT[a])
+                        )) +
+                        Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_RIGHT[a])
+                        ));
+                }
+                if (a == (MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT.Count() - 2))
+                    MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT[a] = "S/";
+            }
+
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES[0] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT;
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES[1] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_RIGHT;
+
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS[0] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_LEFT;
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS[1] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS_RIGHT;
+
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES[0] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT;
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES[1] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_RIGHT;
+
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL[0] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT;
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL[1] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT;
+
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES[0] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES;
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES[1] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_CTS;
+            if (MENOR_CUATRO_HORAS)
+            {
+                MANO_DE_OBRA_BENEFICIOS_SOCIALES[0] = null;
+                MANO_DE_OBRA_BENEFICIOS_SOCIALES[1] = null;
+            }
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES[2] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES;
+            MANO_DE_OBRA_BENEFICIOS_SOCIALES[3] = MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL;
+            #endregion
+
+            #region Leyes Sociales
+
+            decimal suma_De_leyes_sociales_essalud = 0 * 1M;
+            decimal suma_de_leyes_sociales_sctr = 0 * 1M;
+            decimal suma_de_leyes_seguro_ley_vida = 0 * 1M;
+
+            decimal valor_essalud = 0.09M;
+            decimal valor_sctr = 0.0113M;
+            decimal valor_seguro_ley_veida = 0.0071M;
+
+            for (int a = 0; a < MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT.Count(); a++)
+            {
+                if (a == 0)
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT[a] = "EsSalud 9.00%";
+                    MANO_DE_OBRA_LEYES_SOCIALES_SCTR_LEFT[a] = "S.C.T.R 1.13%";
+                    if(MENOR_CUATRO_HORAS)
+                        MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_LEFT[a] = "Seguro ley vida 0.71%";
+                }
+                else
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT[a] = 
+                        string.Format("{0:#,#.00}", 
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) +  
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a]) + 
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a])) * valor_essalud * 1M
+                        )).Equals(".00") ? 
+                        "0.00" : 
+                        string.Format("{0:#,#.00}", 
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a]))) * valor_essalud * 1M
+                        );
+                    suma_De_leyes_sociales_essalud = suma_De_leyes_sociales_essalud + 
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a])) * valor_essalud * 1M
+                        );
+                    // *********************************
+                    MANO_DE_OBRA_LEYES_SOCIALES_SCTR_LEFT[a] =
+                        string.Format("{0:#,#.00}",
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a])) * valor_sctr * 1M
+                        )).Equals(".00") ?
+                        "0.00" :
+                        string.Format("{0:#,#.00}",
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a]))) * valor_sctr * 1M
+                        );
+                    suma_de_leyes_sociales_sctr = suma_de_leyes_sociales_sctr +
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_GRATIFICACIONES_LEFT[a]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT[a])) * valor_sctr * 1M
+                        );
+                    // *********************************
+
+                    if (MENOR_CUATRO_HORAS)
+                    {
+                        MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_LEFT[a] =
+                            string.Format("{0:#,#.00}",
+                            (
+                                (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a])) * valor_seguro_ley_veida * 1M
+                            )).Equals(".00") ?
+                            "0.00" :
+                            string.Format("{0:#,#.00}",
+                            (
+                                (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a]))) * valor_seguro_ley_veida * 1M
+                            );
+                        suma_de_leyes_seguro_ley_vida = suma_de_leyes_seguro_ley_vida +
+                            (
+                                (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[a])) * valor_seguro_ley_veida * 1M
+                            );
+                    }
+
+                    // *********************************
+
+                }
+            }
+
+            for (int A = 0; A < MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT.Count(); A++)
+            {
+                if (A == MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT.Count() - 1)
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT[A] = string.Format("{0:#,#.00}", suma_De_leyes_sociales_essalud).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", suma_De_leyes_sociales_essalud);
+                    MANO_DE_OBRA_LEYES_SOCIALES_SCTR_RIGHT[A] = string.Format("{0:#,#.00}", suma_de_leyes_sociales_sctr).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", suma_de_leyes_sociales_sctr);
+                    MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_RIGHT[A] = string.Format("{0:#,#.00}", suma_de_leyes_seguro_ley_vida).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", suma_de_leyes_seguro_ley_vida);
+                }
+                else
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT[A] = "";
+                    MANO_DE_OBRA_LEYES_SOCIALES_SCTR_RIGHT[A] = "";
+                    MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_RIGHT[A] = "";
+                }
+            }
+
+            for (int a = 0; a < MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT.Count(); a++)
+            {
+                if (a == 0)
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT[a] = "";
+                }
+                else
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT[a] =
+                        string.Format("{0:#,#.00}",
+                        (
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SCTR_LEFT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_LEFT[a])
+                        )).Equals(".00") ?
+                        "0.00"
+                        :
+                        string.Format("{0:#,#.00}",
+                        (
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SCTR_LEFT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_LEFT[a])
+                        ));
+                }
+            }
+            for (int a = 0; a < MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT.Count(); a++)
+            {
+                MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT[a] = "";
+                if (a == MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT.Count() - 1)
+                {
+                    MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT[a] =
+                    string.Format("{0:#,#.00}",
+                        (
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SCTR_RIGHT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_RIGHT[a])
+                        )).Equals(".00") ?
+                        "0.00"
+                        :
+                        string.Format("{0:#,#.00}",
+                        (
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SCTR_RIGHT[a]) +
+                        Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_RIGHT[a])
+                        ));
+                }
+                if (a == (MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT.Count() - 2))
+                    MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT[a] = "S/";
+            }
+
+            MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD[0] = MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_LEFT;
+            MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD[1] = MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD_RIGHT;
+
+            MANO_DE_OBRA_LEYES_SOCIALES_SCTR[0] = MANO_DE_OBRA_LEYES_SOCIALES_SCTR_LEFT;
+            MANO_DE_OBRA_LEYES_SOCIALES_SCTR[1] = MANO_DE_OBRA_LEYES_SOCIALES_SCTR_RIGHT;
+
+            MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY[0] = MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_LEFT;
+            MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY[1] = MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY_RIGHT;
+
+            MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL[0] = MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT;
+            MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL[1] = MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT;
+
+            MANO_DE_OBRA_LEYES_SOCIALES[0] = MANO_DE_OBRA_LEYES_SOCIALES_ESSALUD;
+            MANO_DE_OBRA_LEYES_SOCIALES[1] = MANO_DE_OBRA_LEYES_SOCIALES_SCTR;
+            if(!MENOR_CUATRO_HORAS)
+                MANO_DE_OBRA_LEYES_SOCIALES[2] = null;
+            else
+                MANO_DE_OBRA_LEYES_SOCIALES[2] = MANO_DE_OBRA_LEYES_SOCIALES_SEGURO_VIDA_LEY;
+
+            MANO_DE_OBRA_LEYES_SOCIALES[3] = MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL;
+
+
+            #endregion
+
+            #region Subtotal
+            for (int A = 0; A < MANO_DE_OBRA_SUB_TOTAL_LEFT.Count(); A++)
+            {
+                if (A == 0)
+                    MANO_DE_OBRA_SUB_TOTAL_LEFT[A] = "Sub Total";
+                else
+                {
+                    MANO_DE_OBRA_SUB_TOTAL_LEFT[A] =string.Format("{0:#,#.00}",
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[A]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT[A]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT[A])) * 1M
+                        )).Equals(".00") ?
+                        "0.00" :
+                        string.Format("{0:#,#.00}",
+                        (
+                            (Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_UNO[A]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_LEFT[A]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_LEFT[A])) * 1M
+                        ));
+                }
+            }
+            decimal subtotal  = 0 * 1M;
+            for (int A = 0; A < MANO_DE_OBRA_SUB_TOTAL_RIGHT.Count(); A++)
+            {
+                if (A == (MANO_DE_OBRA_SUB_TOTAL_RIGHT.Count() - 2))
+                    MANO_DE_OBRA_SUB_TOTAL_RIGHT[A] = "S/";
+                else if ((A == (MANO_DE_OBRA_SUB_TOTAL_RIGHT.Count() - 1)))
+                {
+                    subtotal = subtotal + ((Convert.ToDecimal(MANO_DE_OBRA_SUBTOTALES_DOS[A]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_BENEFICIOS_SOCIALES_SUTOTAL_RIGHT[A]) +
+                            Convert.ToDecimal(MANO_DE_OBRA_LEYES_SOCIALES_SUB_TOTAL_RIGHT[A])) * 1M);
+                }
+                else
+                {
+                    MANO_DE_OBRA_SUB_TOTAL_RIGHT[A] = "";
+                }
+            }
+            MANO_DE_OBRA_SUB_TOTAL_RIGHT[MANO_DE_OBRA_SUB_TOTAL_RIGHT.Count() - 1] = string.Format("{0:#,#.00}",(subtotal)).Equals(".00") ?"0.00" :string.Format("{0:#,#.00}",(subtotal));
+
+            MANO_DE_OBRA_SUB_TOTAL[0] = MANO_DE_OBRA_SUB_TOTAL_LEFT;
+            MANO_DE_OBRA_SUB_TOTAL[1] = MANO_DE_OBRA_SUB_TOTAL_RIGHT;
+            #endregion
+
+            respuesta[0] = MANO_DE_OBRA_FIRST_SUBTOTAL; //PRIMER SUBTOTAL
+            respuesta[1] = MANO_DE_OBRA_BENEFICIOS_SOCIALES; //OBJETOS CON INFORMACION DE BENEFICIOS SOCIALES
+            respuesta[2] = MANO_DE_OBRA_LEYES_SOCIALES; // OBJETOS CON INFORMACION DE LEYES SOCIALES  
+            respuesta[3] = MANO_DE_OBRA_SUB_TOTAL; // SEGUNDO SUBTOTAL
+
+            Metodo_Calcular_costo_mensual_mano_De_obra(MANO_DE_OBRA_SUB_TOTAL);
+            return respuesta;
+        }
+
+        private object[] MANO_DE_OBRA_COSTO_MENSUAL = new object[2];
+
+        private void Metodo_Calcular_costo_mensual_mano_De_obra(object[] mANO_DE_OBRA_SUB_TOTAL)
+        {
+            if (MANO_DE_OBRA_COSTO_MENSUAL[0] != null && MANO_DE_OBRA_COSTO_MENSUAL[1] != null)
+            {
+                decimal[] costo_mensual_por_local = (decimal[])MANO_DE_OBRA_COSTO_MENSUAL[0];
+                decimal[] costo_mensual_subtotal = (decimal[])MANO_DE_OBRA_COSTO_MENSUAL[1];
+                string[] sub_total_mensual_por_local = (string[])mANO_DE_OBRA_SUB_TOTAL[0];
+                string[] sub_total_mensual = (string[])mANO_DE_OBRA_SUB_TOTAL[1];
+                for (int A = 1; A < costo_mensual_por_local.Count(); A++)
+                {
+                    costo_mensual_por_local[A] = costo_mensual_por_local[A] + Convert.ToDecimal(sub_total_mensual_por_local[A]);
+                }
+                for (int B = costo_mensual_subtotal.Count() - 1; B < costo_mensual_subtotal.Count(); B++)
+                {
+                    costo_mensual_subtotal[B] = costo_mensual_subtotal[B] + Convert.ToDecimal(sub_total_mensual[B]);
+                }
+                MANO_DE_OBRA_COSTO_MENSUAL[0] = costo_mensual_por_local;
+                MANO_DE_OBRA_COSTO_MENSUAL[1] = costo_mensual_subtotal;
+            }
         }
 
         private string Obtener_descripcion_mano_obra(string descripcion, int dias_por_Semana, DateTime hora_entrada, DateTime hora_salida, List<ET_R30> conceptos_)
         {
-            //string semana_laborar = "";
             int horas = 0;
             string horario = "";
-
             switch (dias_por_Semana)
             {
                 case 1:
@@ -1094,16 +1774,12 @@ namespace SGAP.comercial
                 conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty : row._TR30_DESCRIP.Substring(0, 2)) + "/";
             });
             conceptos_short = conceptos_short.Substring(0, conceptos_short.Length - 1);
-
             horario = horario + hora_entrada.ToString("H:mm") + " - " + hora_salida.ToString("H:mm");
-
             return descripcion + " " + horas.ToString() + " h " + horario + conceptos_short;
-
         }
 
         private void dgv_mano_de_obra_Scroll(object sender, ScrollEventArgs e)
         {
-            //dgv_mano_de_obra_right.VerticallScrollBar.Value = e.NewValue;
             try
             {
                 dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
@@ -1132,103 +1808,169 @@ namespace SGAP.comercial
             }
         }
 
-        private void Metodo_mostrar_calculos_de_costos_mano_de_obra()
+        // 1054 ok
+        // 1058 ok
+        private void Metodo_mostrar_calculos_de_costos_mano_de_obra(object Subtotal_line)
         {
+            Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            if (Subtotal_line != null)
+            {
+                //MOSTRAMOS LOS SUBTOTALES
+                object[] s_one = (object[])Subtotal_line;
+
+                object[] FILA_UNO = (object[])s_one[0];
+
+                string[] s_right = (string[])FILA_UNO[1];
+                string[] s_left = (string[])FILA_UNO[0];
+                dgv_mano_de_obra_right.Rows.Add(s_right);
+                dgv_mano_de_obra.Rows.Add(s_left);
+                //agregamos estilos a  las celdas ingresadas
+                Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
+                Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
+
+                #region SUBTOTALES
+                for (int A = 1; A < s_one.Count(); A++)
+                {
+                    if (A == 1)
+                        Ingresar_filas_vacias_dentro_de_grids(Color.Blue,dgv_mano_de_obra, dgv_mano_de_obra_right, Titulo: "Beneficios Sociales");
+                    if (A == 2)
+                        Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, Titulo: "Leyes Sociales");
+                    object[] NEXT_ROW = (object[])s_one[A];
+
+                    for (int B = 0; B < NEXT_ROW.Count(); B++)
+                    {
+                        object[] ROW__ = (object[])NEXT_ROW[B];
+
+                        if (A < (s_one.Count() - 1))
+                        {
+                            if (ROW__ != null)
+                            {
+                                string[] row_left = (string[])ROW__[0];
+                                string[] row_right = (string[])ROW__[1];
+                                dgv_mano_de_obra_right.Rows.Add(row_right);
+                                dgv_mano_de_obra.Rows.Add(row_left);
+
+                                if (B == (NEXT_ROW.Count() - 1))
+                                {
+                                    //agregamos estilos a  las celdas ingresadas
+                                    Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra_right.Rows.Count - 1), Color.Blue, Font_);
+                                    Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
+                                    //fin estilos
+                                }
+                            }
+                        }
+                    }
+                    if (A == (s_one.Count() - 1))
+                    {
+                        Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, Titulo: "Leyes Sociales");
+                        object[] FILA_ST = (object[])s_one[A];
+                        //SUBTOTAL ONE
+                        string[] sT_right = (string[])FILA_ST[1];
+                        string[] sT_left = (string[])FILA_ST[0];
+                        dgv_mano_de_obra_right.Rows.Add(sT_right);
+                        dgv_mano_de_obra.Rows.Add(sT_left);
+                        //agregamos estilos a  las celdas ingresadas
+                        Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.DarkBlue, Font_);
+                        Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.DarkBlue, Font_);
+                    }
+                }
+                #endregion
+            }
+        }
+
+        private void Metodo_mostrar_costo_mensual_mano_de_obra()
+        {
+            Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            #region COSTO_MENSUAL
+
             //ingresar dos filas vacias de margen
-
-            string[] fila_vacia_mano_de_obra_left = new string[dgv_mano_de_obra.ColumnCount];
-            string[] fila_vacia_mano_de_obra_right = new string[dgv_mano_de_obra_right.ColumnCount];
-
+            string[] COSTO_MENSUAL_PO_LOCAL__ = new string[dgv_mano_de_obra.ColumnCount];
+            string[] COSTO_MENSUAL_SUMA_SUBTOTALES = new string[dgv_mano_de_obra_right.ColumnCount];
             //--> llenamos los valores para las filas como vacio en funcion a la cantidad de columnas 
             for (int a = 0; a < dgv_mano_de_obra.ColumnCount; a++)
-                fila_vacia_mano_de_obra_left[a] = "";
+                COSTO_MENSUAL_PO_LOCAL__[a] = "";
             for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
+                COSTO_MENSUAL_SUMA_SUBTOTALES[a] = "";
+
+            decimal[] costo_mensual_por_local = (decimal[])MANO_DE_OBRA_COSTO_MENSUAL[0];
+            decimal[] costo_mensual_subtotal = (decimal[])MANO_DE_OBRA_COSTO_MENSUAL[1];
+            COSTO_MENSUAL_PO_LOCAL__[0] = "COSTO MENSUAL DE M.O.";
+            for (int A = 1; A < costo_mensual_por_local.Count(); A++)
+            {
+                COSTO_MENSUAL_PO_LOCAL__[A] = string.Format("{0:#,#.00}",
+                        (
+                            costo_mensual_por_local[A]
+                        )).Equals(".00") ?
+                        "0.00" :
+                        string.Format("{0:#,#.00}",
+                        (
+                            costo_mensual_por_local[A]
+                        ));
+            }
+            for (int B = costo_mensual_subtotal.Count() - 2; B < costo_mensual_subtotal.Count(); B++)
+            {
+                if (B == costo_mensual_subtotal.Count() - 2)
+                    COSTO_MENSUAL_SUMA_SUBTOTALES[B] = "S/";
+                if (B == costo_mensual_subtotal.Count() - 1)
+                    COSTO_MENSUAL_SUMA_SUBTOTALES[B] =
+                        string.Format("{0:#,#.00}",
+                        (
+                            costo_mensual_subtotal[B]
+                        )).Equals(".00") ?
+                        "0.00" :
+                        string.Format("{0:#,#.00}",
+                        (
+                            costo_mensual_subtotal[B]
+                        ));
+                ;
+            }
+
+            dgv_mano_de_obra_right.Rows.Add(COSTO_MENSUAL_SUMA_SUBTOTALES);
+            dgv_mano_de_obra.Rows.Add(COSTO_MENSUAL_PO_LOCAL__);
+            //agregamos estilos a  las celdas ingresadas
+            Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.Green, Font_);
+            Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Green, Font_);
+
+            #endregion
+        }
+
+        private void Ingresar_filas_vacias_dentro_de_grids(Color textcolor ,DataGridView grid_left, DataGridView grid_right, int filas = 1,string Titulo = null)
+        {
+            //ingresar dos filas vacias de margen
+            string[] fila_vacia_mano_de_obra_left = new string[grid_left.ColumnCount];
+            string[] fila_vacia_mano_de_obra_right = new string[grid_right.ColumnCount];
+            //--> llenamos los valores para las filas como vacio en funcion a la cantidad de columnas 
+            for (int a = 0; a < grid_left.ColumnCount; a++)
+            {
+                fila_vacia_mano_de_obra_left[a] = "";
+            }
+            for (int a = 0; a < grid_right.ColumnCount; a++)
                 fila_vacia_mano_de_obra_right[a] = "";
 
-            for (int a = 0; a < 2; a++) // -> cantidad de filas vacias por defecto 2
+            for (int a = 0; a < filas; a++) // -> cantidad de filas vacias
             {
-                dgv_mano_de_obra_right.Rows.Add(fila_vacia_mano_de_obra_right);
-                dgv_mano_de_obra.Rows.Add(fila_vacia_mano_de_obra_left);
+                grid_right.Rows.Add(fila_vacia_mano_de_obra_right);
+                grid_left.Rows.Add(fila_vacia_mano_de_obra_left);
             }
 
-            int sub_total_personal = 0;
-            decimal Sub_total_mes = 0 * 1M;
-
-            decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
-
-
-            // EL SUBTOTAL -> GRID DE LA DERACHA
-            for (int i = 0; i < (dgv_mano_de_obra_right.RowCount - 2); i++)
+            if (!string.IsNullOrEmpty(Titulo))
             {
-                sub_total_personal = sub_total_personal + int.Parse(dgv_mano_de_obra_right.Rows[i].Cells[0].Value.ToString());
-                SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + decimal.Parse(dgv_mano_de_obra_right.Rows[i].Cells[2].Value.ToString());
-                Sub_total_mes = Sub_total_mes + decimal.Parse(dgv_mano_de_obra_right.Rows[i].Cells[dgv_mano_de_obra_right.ColumnCount - 1].Value.ToString());
-            }
+                grid_right.Rows.Add(fila_vacia_mano_de_obra_right);
 
-            string[] Fila_subtotal_de_mano_de_obra_right = new string[dgv_mano_de_obra_right.ColumnCount];
-            for (int a = 0; a < dgv_mano_de_obra_right.ColumnCount; a++)
-            {
-                if (a == 0)
-                    Fila_subtotal_de_mano_de_obra_right[a] = sub_total_personal.ToString();
-                else
-                    Fila_subtotal_de_mano_de_obra_right[a] = "";
-            }
-            string Formato_mano_de_obra_total_costo_mensual = string.Format("{0:#,#.00}", Sub_total_mes).Equals(".00") ? "S/ 0.00": string.Format("S/ {0:#,#.00}", Sub_total_mes);
-            Fila_subtotal_de_mano_de_obra_right[(Fila_subtotal_de_mano_de_obra_right.Count() - 1)] = Formato_mano_de_obra_total_costo_mensual;//string.Format("S/ {0:#,#.00}", Sub_total_mes);// string.Format("S/ {0}", Sub_total_mes.ToString());
-
-            // EL SUBTOTAL -> GRID DE LA IZQUIERDA
-
-            decimal[] totales_por_local = new decimal[dgv_mano_de_obra.ColumnCount - 1];
-
-            for (int i = 1; i <= (dgv_mano_de_obra.ColumnCount - 1); i++)
-            {
-                decimal suma = 0;
-                for (int a = 0; a < (dgv_mano_de_obra.RowCount - 2); a++)
+                string[] fila_titulo = new string[grid_left.ColumnCount];
+                fila_titulo[0] = Titulo;
+                for (int a = 1; a < grid_left.ColumnCount; a++)
                 {
-                    int value_izquierda = 0;
-                    if (dgv_mano_de_obra.Rows[a].Cells[i].Value != null)
-                    { 
-                        if (!string.IsNullOrEmpty(dgv_mano_de_obra.Rows[a].Cells[i].Value.ToString()))
-                            value_izquierda = Convert.ToInt32(dgv_mano_de_obra.Rows[a].Cells[i].Value.ToString());
-                    }
-                    decimal value_derecha = 0;
-                    if (dgv_mano_de_obra_right.Rows[a].Cells[3].Value != null)
-                    {
-                        if (!string.IsNullOrEmpty(dgv_mano_de_obra_right.Rows[a].Cells[3].Value.ToString()))
-                            value_derecha = Convert.ToDecimal(dgv_mano_de_obra_right.Rows[a].Cells[3].Value.ToString())*1M;
-                    }
-                    decimal producto = value_izquierda * 1M * value_derecha;
-                    suma = suma + producto;
+                    fila_titulo[a] = "";
                 }
-                totales_por_local[i - 1] = suma;
+                grid_left.Rows.Add(fila_titulo);
+                //agregamos estilos a  las celdas ingresadas
+                Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+                Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), textcolor, Font_);
+                //fin estilos
+                grid_right.Rows.Add(fila_vacia_mano_de_obra_right);
+                grid_left.Rows.Add(fila_vacia_mano_de_obra_left);
             }
-
-            string[] Fila_subtotal_de_mano_de_obra_left = new string[dgv_mano_de_obra.ColumnCount];
-            for (int a = 0; a < dgv_mano_de_obra.ColumnCount; a++)
-            {
-                if (a == 0)
-                {
-                    Fila_subtotal_de_mano_de_obra_left[a] = "Sub Total";
-                }
-                else
-                {
-                    string Valor_subtotal_po_local_mano_De_obra = string.Format("{0:#,#.00}", totales_por_local[a - 1]).Equals(".00") ? "S/ 0.00" : string.Format("S/ {0:#,#.00}", totales_por_local[a - 1]);
-                    Fila_subtotal_de_mano_de_obra_left[a] = Valor_subtotal_po_local_mano_De_obra;//string.Format("S/ {0:#,#.00}", totales_por_local[a - 1]);
-                }
-            }
-
-            //MOSTRAMOS LOS SUBTOTALES
-
-            dgv_mano_de_obra_right.Rows.Add(Fila_subtotal_de_mano_de_obra_right);
-            dgv_mano_de_obra.Rows.Add(Fila_subtotal_de_mano_de_obra_left);
-
-            //agregamos estilos a  las celdas ingresadas
-            Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra_right.Rows.Count - 1), Color.Blue, Font_);
-            Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
-
-            //fin estilos
-
         }
 
         private void Resaltar_filas_ingresadas(DataGridView visor, int fila, Color c, Font f = null)
@@ -1239,6 +1981,16 @@ namespace SGAP.comercial
                 if (Font != null)
                     visor.Rows[fila].Cells[a].Style.Font = f;
             }
+        }
+
+        private void h_scroll_mano_de_obra_Scroll(object sender, ScrollEventArgs e)
+        {
+            dgv_mano_de_obra.HorizontalScrollingOffset = h_scroll_mano_de_obra.Value;
+        }
+
+        private void dgv_mano_de_obra_Resize(object sender, EventArgs e)
+        {
+            Definir_valores_scroll_de_mano_De_obra();
         }
         #endregion
 
@@ -1421,18 +2173,5 @@ namespace SGAP.comercial
         }
         #endregion
 
-
-        private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
-        {
-            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-            //btn_colapse.Location = new Point(coll, 0);
-            panel_colapse_2.Location = new Point(coll + 6, 2);
-
-        }
-
-        private void dgv_mano_de_obra_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            //_helper.Set_border_toCell_selecction(dgv_mano_de_obra ,e);
-        }
     }
 }

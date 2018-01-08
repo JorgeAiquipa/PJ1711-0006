@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_01));
             this.pnl_left = new System.Windows.Forms.Panel();
-            this.btn_limpiar_filtro = new System.Windows.Forms.Button();
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.pnl_cd_close = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -46,12 +45,10 @@
             this.dtp_fecha_inicio = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.listView_Cotizaciones = new System.Windows.Forms.ListView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel_first_detail = new System.Windows.Forms.Panel();
             this.lbl_status = new System.Windows.Forms.Label();
-            this.txt_cliente = new SGAP.UserControls.ControlTextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +59,10 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_cliente = new SGAP.UserControls.ControlTextBox();
+            this.btn_limpiar_filtro = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.pnl_left.SuspendLayout();
             this.pnl_filter_wraper.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -96,23 +97,13 @@
             this.pnl_left.Size = new System.Drawing.Size(254, 638);
             this.pnl_left.TabIndex = 2;
             // 
-            // btn_limpiar_filtro
-            // 
-            this.btn_limpiar_filtro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_limpiar_filtro.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_limpiar_filtro.Location = new System.Drawing.Point(137, 599);
-            this.btn_limpiar_filtro.Name = "btn_limpiar_filtro";
-            this.btn_limpiar_filtro.Size = new System.Drawing.Size(100, 26);
-            this.btn_limpiar_filtro.TabIndex = 4;
-            this.btn_limpiar_filtro.Text = "Quitar filtro";
-            this.btn_limpiar_filtro.UseVisualStyleBackColor = true;
-            this.btn_limpiar_filtro.Click += new System.EventHandler(this.btn_limpiar_filtro_Click);
-            // 
             // btn_filtrar
             // 
             this.btn_filtrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_filtrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_filtrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btn_filtrar.Image = global::SGAP.Properties.Resources.filtro;
+            this.btn_filtrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_filtrar.Location = new System.Drawing.Point(18, 599);
             this.btn_filtrar.Name = "btn_filtrar";
             this.btn_filtrar.Size = new System.Drawing.Size(100, 26);
@@ -145,15 +136,6 @@
             this.label4.Size = new System.Drawing.Size(53, 15);
             this.label4.TabIndex = 17;
             this.label4.Text = "FILTROS";
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.filtro;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Location = new System.Drawing.Point(30, 17);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(16, 16);
-            this.panel1.TabIndex = 14;
             // 
             // pnl_cd_close
             // 
@@ -290,19 +272,6 @@
             this.panel2.Size = new System.Drawing.Size(682, 50);
             this.panel2.TabIndex = 0;
             // 
-            // btnNuevoCotizacion
-            // 
-            this.btnNuevoCotizacion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNuevoCotizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnNuevoCotizacion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevoCotizacion.Location = new System.Drawing.Point(13, 12);
-            this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
-            this.btnNuevoCotizacion.Size = new System.Drawing.Size(141, 26);
-            this.btnNuevoCotizacion.TabIndex = 0;
-            this.btnNuevoCotizacion.Text = "Nueva cotización";
-            this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
-            this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
-            // 
             // listView_Cotizaciones
             // 
             this.listView_Cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -310,6 +279,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView_Cotizaciones.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView_Cotizaciones.Cursor = System.Windows.Forms.Cursors.Default;
+            this.listView_Cotizaciones.ForeColor = System.Drawing.Color.Black;
             this.listView_Cotizaciones.FullRowSelect = true;
             this.listView_Cotizaciones.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView_Cotizaciones.Location = new System.Drawing.Point(0, 53);
@@ -318,7 +288,6 @@
             this.listView_Cotizaciones.Size = new System.Drawing.Size(682, 558);
             this.listView_Cotizaciones.TabIndex = 0;
             this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
-            this.listView_Cotizaciones.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_Cotizaciones_KeyDown);
             this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
             // 
             // splitContainer1
@@ -372,20 +341,6 @@
             this.lbl_status.TabIndex = 0;
             this.lbl_status.Text = "PreLoad";
             this.lbl_status.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txt_cliente
-            // 
-            this.txt_cliente.Location = new System.Drawing.Point(24, 97);
-            this.txt_cliente.MaxLength = 500;
-            this.txt_cliente.Name = "txt_cliente";
-            this.txt_cliente.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.txt_cliente.PlaceHolderIcon = global::SGAP.Properties.Resources.cliente;
-            this.txt_cliente.PlaceHolderIconAlignment = SGAP.UserControls.ContAlignment.Left;
-            this.txt_cliente.PlaceHolderText = "Ingrese nombre de cliente  o R.U.C";
-            this.txt_cliente.Size = new System.Drawing.Size(217, 20);
-            this.txt_cliente.TabIndex = 0;
-            this.txt_cliente.TextChanged += new System.EventHandler(this.txt_cliente_TextChanged);
-            this.txt_cliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_cliente_KeyDown);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -464,12 +419,65 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Width = 120;
             // 
+            // txt_cliente
+            // 
+            this.txt_cliente.Location = new System.Drawing.Point(24, 97);
+            this.txt_cliente.MaxLength = 500;
+            this.txt_cliente.Name = "txt_cliente";
+            this.txt_cliente.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.txt_cliente.PlaceHolderIcon = global::SGAP.Properties.Resources.cliente;
+            this.txt_cliente.PlaceHolderIconAlignment = SGAP.UserControls.ContAlignment.Left;
+            this.txt_cliente.PlaceHolderText = "Ingrese nombre de cliente  o R.U.C";
+            this.txt_cliente.Size = new System.Drawing.Size(217, 20);
+            this.txt_cliente.TabIndex = 0;
+            this.txt_cliente.TextChanged += new System.EventHandler(this.txt_cliente_TextChanged);
+            this.txt_cliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_cliente_KeyDown);
+            // 
+            // btn_limpiar_filtro
+            // 
+            this.btn_limpiar_filtro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_limpiar_filtro.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_limpiar_filtro.Image = global::SGAP.Properties.Resources.borrar_filtro;
+            this.btn_limpiar_filtro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_limpiar_filtro.Location = new System.Drawing.Point(137, 599);
+            this.btn_limpiar_filtro.Name = "btn_limpiar_filtro";
+            this.btn_limpiar_filtro.Size = new System.Drawing.Size(100, 26);
+            this.btn_limpiar_filtro.TabIndex = 4;
+            this.btn_limpiar_filtro.Text = "Quitar filtro";
+            this.btn_limpiar_filtro.UseVisualStyleBackColor = true;
+            this.btn_limpiar_filtro.Click += new System.EventHandler(this.btn_limpiar_filtro_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.filtro;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Location = new System.Drawing.Point(30, 17);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(16, 16);
+            this.panel1.TabIndex = 14;
+            // 
+            // btnNuevoCotizacion
+            // 
+            this.btnNuevoCotizacion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevoCotizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnNuevoCotizacion.Image = global::SGAP.Properties.Resources.agregar;
+            this.btnNuevoCotizacion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNuevoCotizacion.Location = new System.Drawing.Point(13, 12);
+            this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
+            this.btnNuevoCotizacion.Size = new System.Drawing.Size(117, 26);
+            this.btnNuevoCotizacion.TabIndex = 0;
+            this.btnNuevoCotizacion.Text = "Nueva cotización";
+            this.btnNuevoCotizacion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
+            this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
+            // 
             // frm_01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 640);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(960, 600);
             this.Name = "frm_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

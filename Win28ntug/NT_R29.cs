@@ -29,7 +29,12 @@ namespace Win28ntug
             List<ET_R29> lista_final = new List<ET_R29>();
             int fila_ = 0;
 
-            resultado._lista_et_r29.ForEach(row => {
+            var _Lista_et_r29_trabajadores_8_horas = resultado._lista_et_r29.Where(o => (o._TR29_HORA_SALIDA - o._TR29_HORA_ENTRADA).Hours >= 4);
+            var _Lista_et_r29_trabajadores_4_horas = resultado._lista_et_r29.Where(o => (o._TR29_HORA_SALIDA - o._TR29_HORA_ENTRADA).Hours < 4);
+
+            #region mayor a 4 h
+
+            _Lista_et_r29_trabajadores_8_horas.ToList().ForEach(row => {
                 ET_R29 _entidad_final = new ET_R29();
                 List<ET_M40> _lista_child_etm40 = new List<ET_M40>();
                 foreach (ET_M40 row_c in obj._lista_et_m40)
@@ -57,6 +62,10 @@ namespace Win28ntug
                 _entidad_final._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
                 _entidad_final._TR29_HORA_ENTRADA = row._TR29_HORA_ENTRADA;
                 _entidad_final._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
+
+
+                _entidad_final._HOURS_DAY = (row._TR29_HORA_SALIDA - row._TR29_HORA_ENTRADA).Hours;
+
                 _entidad_final._TR29_ID = row._TR29_ID;
                 _entidad_final._TR29_REMUNERACION = row._TR29_REMUNERACION;
                 _entidad_final._TR29_TM2_ID = row._TR29_TM2_ID;
@@ -73,6 +82,61 @@ namespace Win28ntug
                 fila_++;
 
             });
+
+            #endregion
+
+            #region menor a 4 h
+
+            _Lista_et_r29_trabajadores_4_horas.ToList().ForEach(row => {
+                ET_R29 _entidad_final = new ET_R29();
+                List<ET_M40> _lista_child_etm40 = new List<ET_M40>();
+                foreach (ET_M40 row_c in obj._lista_et_m40)
+                {
+
+                    ET_M40 entidad_m40 = new ET_M40();
+
+                    var where_on_list_et_r30 = row._lista_et_r30.FirstOrDefault(x => x._TR30_TM40_ID == row_c._TM40_ID && x._TR30_DESCRIP == row_c._TM40_DESCRIP);
+                    if (where_on_list_et_r30 != null)
+                        entidad_m40._Seleccionado = true;
+                    else
+                        entidad_m40._Seleccionado = false;
+
+                    entidad_m40._TM40_DESCRIP = row_c._TM40_DESCRIP;
+                    entidad_m40._TM40_ID = row_c._TM40_ID;
+                    entidad_m40._fila = fila_;
+                    entidad_m40._Work = row_c._Work;
+                    entidad_m40._TM40_IMPORTE = row_c._TM40_IMPORTE;
+                    entidad_m40._TM40_PORCENTAJE = row_c._TM40_PORCENTAJE;
+
+                    _lista_child_etm40.Add(entidad_m40);
+                }
+                _entidad_final._Fila = fila_;
+                _entidad_final._TR29_DESCRIP = row._TR29_DESCRIP;
+                _entidad_final._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
+                _entidad_final._TR29_HORA_ENTRADA = row._TR29_HORA_ENTRADA;
+                _entidad_final._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
+
+
+                _entidad_final._HOURS_DAY = (row._TR29_HORA_SALIDA - row._TR29_HORA_ENTRADA).Hours;
+
+                _entidad_final._TR29_ID = row._TR29_ID;
+                _entidad_final._TR29_REMUNERACION = row._TR29_REMUNERACION;
+                _entidad_final._TR29_TM2_ID = row._TR29_TM2_ID;
+                _entidad_final._TR29_TM38_ID = row._TR29_TM38_ID;
+                _entidad_final._TR29_TR28_ID = row._TR29_TR28_ID;
+                _entidad_final._lista_et_m40 = _lista_child_etm40;
+                _entidad_final._lista_et_r30 = row._lista_et_r30;
+                _entidad_final._TR29_FLG_ELIMINADO = row._TR29_FLG_ELIMINADO;
+                _entidad_final._TR29_ST = 1; // manejare el estado para analizar quien se actualiza y quien no que se registra y quien no lo hace
+                // 1 -> obtenido desde base de datos
+                // 0 -> es un nuevo ingreso
+
+                lista_final.Add(_entidad_final);
+                fila_++;
+
+            });
+
+            #endregion
 
             resultado._lista_et_r29 = lista_final;
             return resultado;

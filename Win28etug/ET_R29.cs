@@ -24,7 +24,7 @@ namespace Win28etug
         public DateTime _TR29_FACTUALIZA { get; set; }
         public Decimal _TR29_REMUNERACION { get; set; }
         public string _TR29_TM2_ID { get; set; }
-
+        public int _HOURS_DAY { get; set; }
         public List<ET_M40> _lista_et_m40 { get; set; }
         public List<ET_R30> _lista_et_r30 { get; set; }
         public object[] _Locales_por_cargo_cantidad_personal { get; set; }

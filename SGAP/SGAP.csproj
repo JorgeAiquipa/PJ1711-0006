@@ -79,6 +79,12 @@
     <Compile Include="comercial\frm_01_2_01.Designer.cs">
       <DependentUpon>frm_01_2_01.cs</DependentUpon>
     </Compile>
+    <Compile Include="comercial\lienzo_de_prueba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="comercial\lienzo_de_prueba.Designer.cs">
+      <DependentUpon>lienzo_de_prueba.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,17 +94,17 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UserControls\ControlIconTextColumn.cs" />
-    <Compile Include="UserControls\ControlPanel.cs">
+    <Compile Include="UserControls\ControlListView.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ControlLoader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ControlLoader.Designer.cs">
+      <DependentUpon>ControlLoader.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ControlTextBox.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UserControls\frm_tooltip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserControls\frm_tooltip.Designer.cs">
-      <DependentUpon>frm_tooltip.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\NumericUpDown.cs" />
     <Compile Include="Program.cs" />
@@ -119,13 +125,16 @@
     <EmbeddedResource Include="comercial\frm_01_2_01.resx">
       <DependentUpon>frm_01_2_01.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="comercial\lienzo_de_prueba.resx">
+      <DependentUpon>lienzo_de_prueba.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\frm_tooltip.resx">
-      <DependentUpon>frm_tooltip.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\ControlLoader.resx">
+      <DependentUpon>ControlLoader.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -215,6 +224,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icono_red-300x300.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="comercial\icon_illary.ico" />
+    <None Include="Resources\configuracion.gif" />
+    <None Include="Resources\agregar_reporte_dos.gif" />
+    <None Include="Resources\agregar_reporte.gif" />
+    <None Include="Resources\reporte_borrar_dos.gif" />
+    <None Include="Resources\reporte_borrar.gif" />
+    <None Include="Resources\ojo.gif" />
+    <None Include="Resources\configuracion_dos.gif" />
+    <None Include="Resources\nota_edicion.gif" />
+    <None Include="Resources\borrar_filtro.gif" />
+    <None Include="Resources\agregar.gif" />
+    <None Include="Resources\editar.gif" />
+    <None Include="Resources\guardar.gif" />
+    <None Include="Resources\giphy.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

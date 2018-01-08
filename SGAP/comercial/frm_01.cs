@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Win28etug;
 using Win28ntug;
@@ -24,10 +25,27 @@ namespace SGAP.comercial
         #endregion
 
         #region Métodos
+
+        //[DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        //private static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
+        //[DllImport("user32.dll")]
+        //public static extern int SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        //public int MakeLong(short lowPart, short highPart)
+        //{
+        //    return (int)(((ushort)lowPart) | (uint)(highPart << 16));
+        //}
+
+        //public void ListViewItem_SetSpacing(ListView listview, short leftPadding, short topPadding)
+        //{
+        //    const int LVM_FIRST = 0x1000;
+        //    const int LVM_SETICONSPACING = LVM_FIRST + 53;
+        //    SendMessage(listview.Handle, LVM_SETICONSPACING, IntPtr.Zero, (IntPtr)MakeLong(leftPadding, topPadding));
+        //}
         public frm_01()
         {
             InitializeComponent();
-
+            //SetWindowTheme(listView_Cotizaciones.Handle, "Explorer", null);
+            //ListViewItem_SetSpacing(listView_Cotizaciones, 64 + 32, 100 + 16);
             dtp_fecha_inicio.Value = dtp_fecha_fin.Value.AddMonths(-1);
             dtp_fecha_inicio.MaxDate = DateTime.Now;
             dtp_fecha_fin.MaxDate = DateTime.Now;
@@ -35,16 +53,16 @@ namespace SGAP.comercial
             pnl_filter_wraper.BackColor = Color.FromArgb(0, 137, 123);//(65,48,124);
             //pnl_cd_close.BackColor = Color.FromArgb(55,41,106);
             panel2.BackColor = Color.FromArgb(0, 137, 123);
-
             panel_first_detail.Controls.Add(lbl_info_list);
             lbl_info_list.Location = new Point(10, 7);
-
+            btn_limpiar_filtro.Enabled = false;
             Crear_ListView();
 
             _nt_m39.Cargar_explorador_De_cotizaciones_ += Cargar_explorador_De_cotizaciones;
             _nt_m39.Porcentaje_de_Carga += Porcentaje_De_carga;
             _nt_m39.Mensaje_Info += Mensaje_Info;
             Obtener_Cotizaciones();
+
         }
         void Crear_ListView()
         {
@@ -53,18 +71,17 @@ namespace SGAP.comercial
             icon.ImageSize = new Size(14, 14);
             icon.Images.Add(Properties.Resources.reporte);
             //Columnas
-            listView_Cotizaciones.Columns.Add("Cotización", 100);
+            listView_Cotizaciones.Columns.Add("Cotización", 100, HorizontalAlignment.Center);
             listView_Cotizaciones.Columns.Add("Id cliente", 0);
-            listView_Cotizaciones.Columns.Add("Cliente", 500);
+            listView_Cotizaciones.Columns.Add("Cliente", 400);
             listView_Cotizaciones.Columns.Add("Ruc", 90);
             listView_Cotizaciones.Columns.Add("Cantidad locales", 100, HorizontalAlignment.Center);
             listView_Cotizaciones.Columns.Add("Creado por", 80);
-            listView_Cotizaciones.Columns.Add("Fecha creación", 150);
-            //listView_Cotizaciones.Columns.Add("Fecha actualización",200);
-            //propiedades
+            listView_Cotizaciones.Columns.Add("Fecha de creación", 150);
             listView_Cotizaciones.View = View.Details;
             listView_Cotizaciones.FullRowSelect = true;
             listView_Cotizaciones.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
+            listView_Cotizaciones.ForeColor = Color.FromArgb(36,39,41);
         }
 
         void Form_Nueva_Cotizacion_Show()
@@ -95,9 +112,16 @@ namespace SGAP.comercial
         void PreLoad(bool enable)
         {
             if (enable)
+            {
                 lbl_status.Text = "Cargando...";
+                this.Cursor = Cursors.AppStarting;
+            }
             else
+            {
                 lbl_status.Text = "Listo!";
+                this.Cursor = Cursors.Arrow;
+            }
+
         }
         #endregion
 
@@ -123,13 +147,15 @@ namespace SGAP.comercial
                 {
                     string[] row =
                     {
-                        fila._TM39_ID,
+                        string.Format("  {0}",fila._TM39_ID),
                         fila._entity_et_m19._TM19_ID,
                         fila._entity_et_m19._TM19_DESCRIP2,
                         fila._entity_et_m19._TM19_DESCRIP1,
                         fila._TM39_tm27_count.ToString(),
                         fila._TM39_UCREA,
-                        fila._TM39_FCREA.ToString(),
+                        //fila._TM39_FCREA.ToString("dd/MM/yyyy"),
+                        fila._TM39_FCREA.ToString("dd/MM/yyyy    hh:mm tt"),
+                        //fila._TM39_FCREA.ToString("hh:mm tt"),
                         fila._TM39_FACTUALIZA.ToString()
                     };
                     listView_Cotizaciones.Items.Add(new ListViewItem(row));
@@ -161,11 +187,12 @@ namespace SGAP.comercial
         private void btn_filtrar_Click(object sender, EventArgs e)
         {
             Obtener_Cotizaciones();
+            btn_limpiar_filtro.Enabled = true;
         }
 
         private void listView_Cotizaciones_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            string codigo_cotizacion = listView_Cotizaciones.SelectedItems[0].SubItems[0].Text;
+            string codigo_cotizacion = listView_Cotizaciones.SelectedItems[0].SubItems[0].Text.Trim();
             string codigo_cliente = listView_Cotizaciones.SelectedItems[0].SubItems[1].Text;
             string descripcion_cliente = listView_Cotizaciones.SelectedItems[0].SubItems[2].Text;
 
@@ -186,6 +213,7 @@ namespace SGAP.comercial
             txt_cliente.Focus();
             txt_cliente.Text = string.Empty;
             Obtener_Cotizaciones();
+            btn_limpiar_filtro.Enabled = false;
         }
 
         private void txt_cliente_TextChanged(object sender, EventArgs e)
@@ -198,6 +226,7 @@ namespace SGAP.comercial
             if (e.KeyCode == Keys.Enter)
             {
                 Obtener_Cotizaciones();
+                btn_limpiar_filtro.Enabled = true;
             }
         }
 
@@ -210,9 +239,8 @@ namespace SGAP.comercial
         }
 
 
+
         #endregion
-
-
     }
 
 }
