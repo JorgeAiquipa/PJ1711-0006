@@ -340,11 +340,11 @@ namespace Win28ntug
             Cargar_Listado_?.Invoke(this, e);
         }
         public event EventHandler<ET_entidad> Cargar_Listado_;
-        protected virtual void Porcentaje_De_Craga_(int e)
+        protected virtual void Porcentaje_De_Carga_(int e)
         {
-            Porcentaje_De_Craga?.Invoke(this, e);
+            Porcentaje_De_Carga?.Invoke(this, e);
         }
-        public event EventHandler<int> Porcentaje_De_Craga;
+        public event EventHandler<int> Porcentaje_De_Carga;
         #endregion
 
         #region BackgroundWorker
@@ -353,7 +353,6 @@ namespace Win28ntug
 
         public NT_R29()
         {
-            //Eventos
             bw.WorkerReportsProgress = true;
             bw.DoWork += Bw_DoWork;
             bw.ProgressChanged += Bw_ProgressChanged;
@@ -382,7 +381,7 @@ namespace Win28ntug
         {
             //mostrar este valor en un ProgressBar
             var percent = e.ProgressPercentage;
-            Porcentaje_De_Craga_(percent);
+            Porcentaje_De_Carga_(percent);
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

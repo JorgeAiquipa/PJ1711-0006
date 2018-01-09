@@ -39,7 +39,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.nupd_periodo_de_servicio = new System.Windows.Forms.NumericUpDown();
             this.dgv_informacion_locales = new System.Windows.Forms.DataGridView();
-            this._seleccionado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this._seleccionado = new SGAP.UserControls.GridViewCheckBoxColumn();
             this.local_nombre = new SGAP.UserControls.ControlIconTextColumn();
             this.col_TM27_DIRECCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,9 +81,12 @@
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.autoCompleteTextBox_t_m19 = new SGAP.UserControls.AutoCompleteTextBox();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lbl_locales_info = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -199,6 +202,9 @@
             this.dgv_informacion_locales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_informacion_locales.Size = new System.Drawing.Size(668, 326);
             this.dgv_informacion_locales.TabIndex = 0;
+            this.dgv_informacion_locales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellContentClick);
+            this.dgv_informacion_locales.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_informacion_locales_CellValueChanged);
+            this.dgv_informacion_locales.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_informacion_locales_ColumnHeaderMouseClick);
             // 
             // _seleccionado
             // 
@@ -207,6 +213,7 @@
             this._seleccionado.HeaderText = "";
             this._seleccionado.MinimumWidth = 50;
             this._seleccionado.Name = "_seleccionado";
+            this._seleccionado.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // local_nombre
             // 
@@ -330,9 +337,10 @@
             // 
             // btn_cancelar
             // 
+            this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_cancelar.Location = new System.Drawing.Point(543, 549);
+            this.btn_cancelar.Location = new System.Drawing.Point(543, 571);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(125, 23);
             this.btn_cancelar.TabIndex = 8;
@@ -342,9 +350,10 @@
             // 
             // btn_continuar
             // 
+            this.btn_continuar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_continuar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_continuar.Location = new System.Drawing.Point(412, 549);
+            this.btn_continuar.Location = new System.Drawing.Point(412, 571);
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(125, 23);
             this.btn_continuar.TabIndex = 7;
@@ -424,6 +433,9 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.dgv_informacion_locales);
             this.panel3.Location = new System.Drawing.Point(0, 203);
             this.panel3.Name = "panel3";
@@ -563,11 +575,32 @@
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.Visible = false;
             // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.lbl_locales_info);
+            this.panel4.Location = new System.Drawing.Point(0, 542);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(682, 23);
+            this.panel4.TabIndex = 103;
+            // 
+            // lbl_locales_info
+            // 
+            this.lbl_locales_info.AutoSize = true;
+            this.lbl_locales_info.ForeColor = System.Drawing.Color.Navy;
+            this.lbl_locales_info.Location = new System.Drawing.Point(9, 5);
+            this.lbl_locales_info.Name = "lbl_locales_info";
+            this.lbl_locales_info.Size = new System.Drawing.Size(24, 13);
+            this.lbl_locales_info.TabIndex = 0;
+            this.lbl_locales_info.Text = "info";
+            // 
             // frm_01_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 584);
+            this.ClientSize = new System.Drawing.Size(682, 600);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.autoCompleteTextBox_t_m19);
             this.Controls.Add(this.cbx_tipo_servicio);
             this.Controls.Add(this.panel3);
@@ -587,8 +620,6 @@
             this.Controls.Add(this.txt_ruc_cliente);
             this.Controls.Add(this.label2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(698, 619);
-            this.MinimumSize = new System.Drawing.Size(698, 619);
             this.Name = "frm_01_1";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -597,6 +628,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nupd_periodo_de_servicio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_informacion_locales)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -637,7 +670,10 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private UserControls.AutoCompleteTextBox autoCompleteTextBox_t_m19;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn _seleccionado;
+        private UserControls.ControlIconTextColumn controlIconTextColumn1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lbl_locales_info;
+        private UserControls.GridViewCheckBoxColumn _seleccionado;
         private UserControls.ControlIconTextColumn local_nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_TM27_DIRECCION;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
@@ -652,6 +688,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
-        private UserControls.ControlIconTextColumn controlIconTextColumn1;
     }
 }

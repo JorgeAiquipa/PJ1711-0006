@@ -9,6 +9,16 @@ namespace Win28etug
 {
     public class ET_M19
     {
+        public ET_M19(string _TM19_DESCRIP1, string _TM19_DESCRIP2)
+        {
+            this._TM19_DESCRIP1 = _TM19_DESCRIP1;
+            this._TM19_DESCRIP2 = _TM19_DESCRIP2;
+        }
+
+        public ET_M19()
+        {
+        }
+
         public delegate void MensajeEventHandler(Object sender, ET_M19 e);
 
         public string _TM19_ID { get; set; }

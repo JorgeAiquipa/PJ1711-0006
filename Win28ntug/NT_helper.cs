@@ -80,7 +80,7 @@ namespace Win28ntug
             DataGridView.GridColor = Color.DarkGray;
             DataGridView.EnableHeadersVisualStyles = true;
             //DataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            DataGridView.ColumnHeadersHeight = 25;
+            DataGridView.ColumnHeadersHeight = 22;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             DataGridView.AllowUserToResizeColumns = false;
             DataGridView.AllowUserToResizeRows = false;

@@ -114,7 +114,7 @@ namespace SGAP.UserControls
                 graphics.BeginContainer();
 
                 graphics.SetClip(cellBounds);
-                graphics.DrawImageUnscaled(Image, cellBounds.Location);
+                graphics.DrawImageUnscaled(Image, cellBounds.Location.X,cellBounds.Location.Y + 3);
 
                 graphics.EndContainer(container);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Win28etug;
@@ -63,6 +64,8 @@ namespace SGAP.comercial
             _nt_m39.Mensaje_Info += Mensaje_Info;
             Obtener_Cotizaciones();
 
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
         void Crear_ListView()
         {
@@ -84,6 +87,17 @@ namespace SGAP.comercial
             listView_Cotizaciones.ForeColor = Color.FromArgb(36,39,41);
         }
 
+        private void frm_01_Load(object sender, EventArgs e)
+        {
+            Habilitar_Buffer_doble_control_listview(listView_Cotizaciones, true);
+        }
+
+        private void Habilitar_Buffer_doble_control_listview(ListView listview, bool v)
+        {
+            typeof(ListView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            listview, new object[] { true });
+        }
         void Form_Nueva_Cotizacion_Show()
         {
             frm_01_1 frm_01_1 = new frm_01_1();
@@ -114,12 +128,12 @@ namespace SGAP.comercial
             if (enable)
             {
                 lbl_status.Text = "Cargando...";
-                this.Cursor = Cursors.AppStarting;
+                listView_Cotizaciones.Cursor = Cursors.WaitCursor;
             }
             else
             {
                 lbl_status.Text = "Listo!";
-                this.Cursor = Cursors.Arrow;
+                listView_Cotizaciones.Cursor = Cursors.Arrow;
             }
 
         }
@@ -192,6 +206,11 @@ namespace SGAP.comercial
 
         private void listView_Cotizaciones_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            Metodo_abrir_cotizacion();
+        }
+
+        private void Metodo_abrir_cotizacion()
+        {
             string codigo_cotizacion = listView_Cotizaciones.SelectedItems[0].SubItems[0].Text.Trim();
             string codigo_cliente = listView_Cotizaciones.SelectedItems[0].SubItems[1].Text;
             string descripcion_cliente = listView_Cotizaciones.SelectedItems[0].SubItems[2].Text;
@@ -238,9 +257,15 @@ namespace SGAP.comercial
             }
         }
 
-
-
         #endregion
+
+        private void listView_Cotizaciones_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Metodo_abrir_cotizacion();
+            }
+        }
     }
 
 }

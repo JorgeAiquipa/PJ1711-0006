@@ -209,6 +209,7 @@
             this.Name = "frm_01_2_01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configuración de cargos";
+            this.Load += new System.EventHandler(this.frm_01_2_01_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel_conceptos_remuneratios.ResumeLayout(false);

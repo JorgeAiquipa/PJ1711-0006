@@ -26,6 +26,10 @@ namespace Win28ntug
         {
             return "ELIMINAR";
         }
+        public string ACTUALIZAR()
+        {
+            return "ACTUALIZAR";
+        }
 
     }
 }

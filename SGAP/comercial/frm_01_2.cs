@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 using Win28etug;
 using Win28ntug;
@@ -16,28 +17,27 @@ namespace SGAP.comercial
 {
     public partial class frm_01_2 : Form
     {
-        
-        #region Variables
-        ET_entidad _entidad = new ET_entidad();
-        NT_helper _helper = new NT_helper();
+        #region Variables e Instancias
+        ET_entidad _ET_ENTIDAD = new ET_entidad();
+        NT_helper _NT_Helper = new NT_helper();
         NT_tareas Tarea = new NT_tareas();
-        ET_M41 _et_m41 = new ET_M41();
-        NT_M38 _nt_m38 = new NT_M38();
-        NT_M41 _nt_m41 = new NT_M41();
-        NT_R28 _nt_r28 = new NT_R28();
-        NT_R27 _nt_r27 = new NT_R27();
-        NT_M31 _nt_m31 = new NT_M31();
-        NT_R29 _nt_r29 = new NT_R29();
-        ET_M31 _et_m31 = new ET_M31();
+        ET_M41 _ET_M41 = new ET_M41();
+        NT_M38 _NT_M38 = new NT_M38();
+        NT_M41 _NT_M41 = new NT_M41();
+        NT_R28 _NT_R28 = new NT_R28();
+        NT_R27 _NT_R27 = new NT_R27();
+        NT_M31 _NT_M31 = new NT_M31();
+        NT_R29 _NT_R29 = new NT_R29();
+        ET_M31 _ET_M31 = new ET_M31();
         NT_M40 _NT_M40 = new NT_M40();
-        NT_R31 _nt_r31 = new NT_R31();
+        NT_R31 _NT_R31 = new NT_R31();
 
-        List<ET_M31> _lista_m31 = new List<ET_M31>();
-        List<ET_M41> _lista_m41 = new List<ET_M41>();
-        List<ET_R29> _lista_et_r29 = new List<ET_R29>();
-        List<ET_M40> _lista_et_m40 = new List<ET_M40>();
-        List<ET_R28> _lista_et_r28 = new List<ET_R28>();
-        List<ET_R31> _lista_et_r31 = new List<ET_R31>();
+        List<ET_M31> _LISTA_M31 = new List<ET_M31>();
+        List<ET_M41> _LISTA_M41 = new List<ET_M41>();
+        List<ET_R29> _LISTA_ET_R29 = new List<ET_R29>();
+        List<ET_M40> _LISTA_ET_M40 = new List<ET_M40>();
+        List<ET_R28> _LISTA_ET_R28 = new List<ET_R28>();
+        List<ET_R31> _LISTA_ET_R31 = new List<ET_R31>();
      
         public string nom = "";
         public string cod = "";
@@ -45,19 +45,22 @@ namespace SGAP.comercial
         public string undad = "";
         public double precio = 0;
         public string tipo = "";
+
         ImageList iconos_treeView = new ImageList();
 
-        ContextMenuStrip MenuStrip_AddService = new ContextMenuStrip();
-        ContextMenuStrip MenuStrip_DelService = new ContextMenuStrip();
-        ContextMenuStrip MenuStrip_ViewProperties_ = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_AgregarServicio = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_BorrarServicio = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_VerPropiedades = new ContextMenuStrip();
 
-        int Id_Servicio_Padre;
+        bool Editar_cotizacion = false;
+
         public int Id_servicio_hijo;
+        int Id_Servicio_Padre;
         int Periodo_servicio;
+        int Id_CotizacionServicio;
+
         string nodos;
         string Id_Cotizacion;
-        int Id_CotizacionServicio;
-        bool Editar_cotizacion = false;
 
         #region Mano de obra
             bool Mano_de_obra_modo_vista_reporte = true;
@@ -74,14 +77,10 @@ namespace SGAP.comercial
 
         #region Metodos
         public frm_01_2(ET_entidad _entity, bool editar = false)
-        {         
-            
+        {
             InitializeComponent();
-
-            Agregar_menu_contextual();         
-
+            Agregar_menu_contextual_servicios();         
             //style
-
             this.BackColor = Color.FromArgb(221, 221, 221);
 
             label10.BackColor = Color.FromArgb(0, 137,123);
@@ -127,28 +126,22 @@ namespace SGAP.comercial
             iconos_treeView.Images.Add(Properties.Resources.nota);
             iconos_treeView.Images.Add(Properties.Resources.ojo);
 
-            //tree_view_servicios.ImageList = iconos_treeView;
+            BringToFront();
 
-            this.BringToFront();
-
-            //end style
-
-            _entidad = _entity;
+            _ET_ENTIDAD = _entity;
 
             // Obtenemos los servicios de la cotización y alamacenamos el id del servicio padre.            
             Id_servicio_hijo = Id_Servicio_Padre;
 
-            _lista_et_m40 = _NT_M40.get_001()._lista_et_m40;
-
+            Conceptos_Remunerativos_metodo_Cargar();
+            _NT_M40.Cargar_Listado_ += _NT_M40_Cargar_Listado_;
             Editar_cotizacion = editar;
 
             //Obtenemos los locales que posee la cotización seleccionada
-            _entidad._entity_r27._TR27_TM39_ID = _entidad._entity_m39._TM39_ID;
-            _entidad._entity_r27._TR27_TM19_ID = _entidad._entity_m39._entity_et_m19._TM19_ID;
-            var result = _nt_r27.get_001(_entidad);
-            _entidad._lista_et_m27 = result._lista_et_m27;
-            _entidad._lista_et_r27 = result._lista_et_r27;
-
+            _ET_ENTIDAD._entity_r27._TR27_TM39_ID = _ET_ENTIDAD._entity_m39._TM39_ID;
+            _ET_ENTIDAD._entity_r27._TR27_TM19_ID = _ET_ENTIDAD._entity_m39._entity_et_m19._TM19_ID;
+            Locales_metodo_Cargar();
+            _NT_R27.Cargar_Listado_ += _NT_R27_Cargar_Listado_;
 
             tabControl1.Visible = false;
 
@@ -163,29 +156,45 @@ namespace SGAP.comercial
             }
 
             Mostrar_pagina_cotizador(10100);
-            Contruir_DataGrid_Mano_Obra();
-            CreateColumn();
 
-            _nt_m31.Mensaje_Alerta += Mensaje_Informacion;
+            _NT_M31.Mensaje_Alerta += Mensaje_Informacion;
+
 
             dgv_mano_de_obra.Scroll += new ScrollEventHandler(dgv_mano_de_obra_right_Scroll);
             dgv_mano_de_obra_right.Scroll += new ScrollEventHandler(dgv_mano_de_obra_Scroll);
 
-            _helper.Set_Style_to_DatagridView(dgv_entrada_datos_mq_eq);
+            _NT_Helper.Set_Style_to_DatagridView(dgv_entrada_datos_mq_eq);
 
-            _nt_r28.Cargar_explorador_De_Servicios_ += CargarExplorados_de_servicios;
-            _nt_r28.Eliminar_Servicio_Explorador_ += _nt_r28_Eliminar_Servicio_Explorador_;
-            _nt_r29.Cargar_Listado_ += _nt_r29_Cargar_Listado_;
+            _NT_R28.Cargar_explorador_De_Servicios_ += CargarExplorados_de_servicios;
+            _NT_R28.Eliminar_Servicio_Explorador_ += _nt_r28_Eliminar_Servicio_Explorador_;
+            _NT_R29.Cargar_Listado_ += _nt_r29_Cargar_Listado_;
+            _NT_R29.Porcentaje_De_Carga += _nt_r29_Porcentaje_De_Carga;
 
             Obtener_Servicios_de_cotizacion();
 
             #region mano_de_obra
-
-            //btn_editar_mano_de_obra.Enabled = false;
+            _NT_R31.Mensaje_Info += _nt_r31_Mensaje_Info;
+            _NT_R31.Mensaje_Alerta += _nt_r31_Mensaje_Alerta;
+            _NT_R31.Porcentaje_De_Craga += _nt_r31_Mano_De_obra_Porcentaje_De_Craga;
             btn_guardar_mano_de_obra.Enabled = false;
             Mano_de_obra_se_edito_al_menos_un_registro = false;
             Mano_de_obra_modo_en_edicion = false;
             Mano_de_obra_Cambios_guardados = true;
+
+            //ToolTip BTN_GUARDAR_TOOLTIP = new ToolTip();
+            ////BTN_GUARDAR_TOOLTIP.IsBalloon = true;
+            ////BTN_GUARDAR_TOOLTIP.ToolTipIcon = ToolTipIcon.Info;
+            ////BTN_GUARDAR_TOOLTIP.ToolTipTitle = "Mensaje del sistema";
+            //BTN_GUARDAR_TOOLTIP.SetToolTip(btn_guardar_mano_de_obra, "Para guardar");
+
+            ToolTip toolTip1 = new ToolTip();
+
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+            toolTip1.SetToolTip(this.btn_guardar_mano_de_obra, "   Guardar mano de obra (Ctrl+G)   ");
+            //toolTip1.SetToolTip(this.btn_editar_mano_de_obra, "   Editar mano de obra (Ctrl+Mayús+E)   ");
             #endregion
 
             #region maquinaria_y_equipo
@@ -195,35 +204,25 @@ namespace SGAP.comercial
             #region page_3
 
             #endregion
-
-
-
         }
 
-        private void _nt_r29_Cargar_Listado_(object sender, ET_entidad e)
+        void PreLoad(bool enable)
         {
-            _lista_et_r29 = e._lista_et_r29;
-            
-
-            if (_lista_et_r29 != null && _lista_et_r29.Count > 0)
+            if (enable)
             {
-                Desplegar_informacion_de_mano_de_obra(true);
+                Cursor = Cursors.WaitCursor;
+                splitContainer1.Panel2.Cursor = Cursors.WaitCursor;
+                tabControl1.Cursor = Cursors.WaitCursor;
             }
             else
             {
-                
-                if (_entro_por_primera_vez_mano_de_obra)
-                    Item_mano_de_obra_click(null, null);
+                Cursor = Cursors.Arrow;
+                splitContainer1.Panel2.Cursor = Cursors.Arrow;
+                tabControl1.Cursor = Cursors.Arrow;
             }
         }
 
-        public void Obtener_Servicios_de_cotizacion()
-        {
-            _entidad._entity_r28._TR28_TM39_ID = _entidad._entity_m39._TM39_ID;
-            _nt_r28.Et_r28(_entidad._entity_r28);
-            _nt_r28.Iniciar(Tarea.LISTAR);
-        }
-        #region Eventos
+        #region Eventos de la region
          
         public void Mensaje_Informacion(object sender, ET_entidad e)
         {
@@ -234,19 +233,301 @@ namespace SGAP.comercial
                 MessageBoxIcon.Information
             );
         }
+
+        private void panel_colapse_MouseHover(object sender, EventArgs e)
+        {
+            panel_colapse.BackColor = Color.White;
+            panel_colapse.Cursor = Cursors.Hand;
+        }
+
+        private void panel_colapse_MouseLeave(object sender, EventArgs e)
+        {
+            panel_colapse.BackColor = Color.FromArgb(255, 238, 88);
+        }
+
+        private void panel_colapse_2_MouseHover(object sender, EventArgs e)
+        {
+            panel_colapse_2.BackColor = Color.White;
+            panel_colapse_2.Cursor = Cursors.Hand;
+        }
+
+        private void panel_colapse_2_MouseLeave(object sender, EventArgs e)
+        {
+            panel_colapse_2.BackColor = Color.FromArgb(255, 238, 88);
+        }
+
+        private void panel_colapse_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = true;
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            panel_colapse_2.Enabled = true;
+            panel_colapse_2.Visible = true;
+            panel_colapse_2.Location = new Point(4, 2);
+            Definir_valores_scroll_de_mano_De_obra();
+        }
+        
+        private void panel_colapse_2_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = false;
+            panel_colapse_2.Enabled = false;
+            panel_colapse_2.Visible = false;
+            Definir_valores_scroll_de_mano_De_obra();
+        }
+
+        private void frm_01_2_Load(object sender, EventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
+
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(this.panel_colapse, "   Ocultar estructura   ");
+            toolTip1.SetToolTip(this.panel_colapse_2, "   Mostrar estructura   ");
+
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            panel_colapse_2.Location = new Point(coll + 6, 2);
+
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            Habilitar_Buffer_doble_form(this,true);
+            Habilitar_Buffer_doble_control_SplitContainer(splitContainer1,true);
+            Habilitar_Buffer_doble_control_SplitterPanel(splitContainer1.Panel1,true);
+            Habilitar_Buffer_doble_control_SplitterPanel(splitContainer1.Panel2,true);
+            Habilitar_Buffer_doble_control_TabControl(tabControl1, true);
+            Habilitar_Buffer_doble_control_Panel(panel1,true);
+            Habilitar_Buffer_doble_control_Panel(panPages,true);
+            Habilitar_Buffer_doble_control_Panel(panel_mano_de_obra,true);
+            Habilitar_Buffer_doble_control_TabPage(tabPage1,true);
+            Habilitar_Buffer_doble_control_TabPage(tabPage2,true);
+            Habilitar_Buffer_doble_control_TabPage(tabPage3,true);
+            Habilitar_Buffer_doble_control_gridview(dgv_mano_de_obra,true);
+            Habilitar_Buffer_doble_control_gridview(dgv_mano_de_obra_right,true);
+
+        }
+
+        private void Habilitar_Buffer_doble_form(Form control, bool v)
+        {
+            typeof(Form).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            control, new object[] { true });
+        }
+        private void Habilitar_Buffer_doble_control_gridview(DataGridView gridview, bool v)
+        {
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            gridview, new object[] { true });
+        }
+        private void Habilitar_Buffer_doble_control_TabControl(TabControl control, bool v)
+        {
+            typeof(TabControl).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            control, new object[] { true });
+        }
+        private void Habilitar_Buffer_doble_control_Panel(Panel control, bool v)
+        {
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            control, new object[] { true });
+        }
+
+        private void Habilitar_Buffer_doble_control_TabPage(TabPage control, bool v)
+        {
+            typeof(TabPage).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            control, new object[] { true });
+        }
+        private void Habilitar_Buffer_doble_control_SplitContainer(SplitContainer control, bool v)
+        {
+            typeof(SplitContainer).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            control, new object[] { true });
+        }
+        private void Habilitar_Buffer_doble_control_SplitterPanel(SplitterPanel control, bool v)
+        {
+            typeof(SplitterPanel).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+            BindingFlags.Instance | BindingFlags.SetProperty, null,
+            control, new object[] { true });
+        }
+        private void frm_01_2_Resize(object sender, EventArgs e)
+        {
+            panel_colapse_2.Location = new Point(4, 2);
+            Definir_valores_scroll_de_mano_De_obra();
+        }
+        #endregion
+
+        #endregion
+
+        #region Eventos
+
+        List<Panel> Panels = new List<Panel>();
+        Panel VisiblePanel = null;
+        private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            int index = int.Parse(e.Node.Tag.ToString());
+            Mostrar_pagina_cotizador(index);
+        }
+        private void Mostrar_pagina_cotizador(int index)
+        {
+            if (index <= 8)
+            {
+                if (Panels.Count < 1) return;
+
+                if (VisiblePanel == Panels[index]) return;
+
+                if (VisiblePanel != null) VisiblePanel.Visible = false;
+
+                Panels[index].Visible = true;
+                VisiblePanel = Panels[index];
+            }
+            else if (index == 10100)
+            {
+                if (Panels.Count < 1) return;
+
+                if (VisiblePanel == Panels[9]) return;
+
+                if (VisiblePanel != null) VisiblePanel.Visible = false;
+
+                Panels[9].Visible = true;
+                VisiblePanel = Panels[9];
+            }
+        }
+        private void tree_view_servicios_MouseUp(object sender, MouseEventArgs e)
+        {
+            Point p = new Point(e.X, e.Y);
+            TreeNode node = tree_view_servicios.GetNodeAt(p);
+            if (e.Button == MouseButtons.Right)
+            {
+                if (node != null)
+                {
+                    tree_view_servicios.SelectedNode = node;
+                    switch (Convert.ToString(node.Tag))
+                    {
+                        case "10100": // ver menu nuevo servicio
+                            MenuStrip_AgregarServicio.Show(tree_view_servicios, p);
+                            nodos = Convert.ToString(tree_view_servicios.SelectedNode.FirstNode.Name);
+                            break;
+                        case "0": // ver menu para mano de obra
+                            Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
+                            if(btn_editar_mano_de_obra.Enabled == false)
+                                Metodo_cargar_informacion_mano_de_obra();
+                            MenuStrip_VerPropiedades.Show(tree_view_servicios, p);                            
+                            break;
+                        case "1000": // ver menu para mano de obra
+                            Id_CotizacionServicio = Convert.ToInt32(tree_view_servicios.SelectedNode.Name);
+                            MenuStrip_BorrarServicio.Show(tree_view_servicios, p);
+                            break;
+                    }
+                }
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+
+                if (node != null)
+                {
+                    tree_view_servicios.SelectedNode = node;
+
+                    switch (Convert.ToString(node.Tag))
+                    {
+                        case "0": // ver menu para mano de obra
+                            Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
+                            if(!Mano_de_obra_se_edito_al_menos_un_registro)
+                                Metodo_cargar_informacion_mano_de_obra();
+                            break;
+                    }
+                }
+            }
+        }
+        private void Item_Add_Service_click(object sender, EventArgs e)
+        {
+            string tm39_id;
+            if (string.IsNullOrEmpty(_ET_ENTIDAD._entity_r27._TR27_TM39_ID))
+                tm39_id = _ET_ENTIDAD._entity_m39._TM39_ID;
+            else
+                tm39_id = _ET_ENTIDAD._entity_r27._TR27_TM39_ID;
+
+            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id, nodos);
+            form_2_2.ShowDialog();
+
+            if (form_2_2.DialogResult == DialogResult.OK)
+            {
+                ET_R29 _et = new ET_R29();
+                _et._TR29_TR28_ID = Id_servicio_hijo;
+                Obtener_Servicios_de_cotizacion();
+            }
+        }
+        private void Item_Del_Service_click(object sender, EventArgs e)
+        {
+            if (Id_CotizacionServicio == Id_Servicio_Padre)
+            {
+                DialogResult decision2_msg = MessageBox.Show("No puede eliminar el servicio principal.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                DialogResult decision_msg = MessageBox.Show("Esta seguro de eliminar este servicio.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (decision_msg == DialogResult.OK)
+                {
+                    _ET_ENTIDAD._entity_r28._TR28_ID = Id_CotizacionServicio;
+                    _ET_ENTIDAD._entity_r28._TR28_TM39_ID = Id_Cotizacion;
+                    _NT_R28.Et_r28(_ET_ENTIDAD._entity_r28);
+                    _NT_R28.Iniciar(Tarea.ELIMINAR);
+                }
+            }
+        }
+        private void Item_mano_de_obra_click(object sender, EventArgs e)
+        {
+            _entro_por_primera_vez_mano_de_obra = false;
+            frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _LISTA_ET_M40);
+            form_2_1.ShowDialog();
+            if (form_2_1.DialogResult == DialogResult.OK)
+            {
+                btn_editar_mano_de_obra.Enabled = true;
+                if (btn_editar_mano_de_obra.Enabled)
+                {
+                    Editar_cotizacion = true;
+                    Mano_de_obra_modo_vista_reporte = true;
+                }
+                else
+                {
+                    Mano_de_obra_modo_vista_reporte = false;
+                }
+                _cargo_data_mano_obra = false;
+                Metodo_cargar_informacion_mano_de_obra();
+            }
+            else
+            {
+                btn_editar_mano_de_obra.Enabled = false;
+                if (!Mano_de_obra_modo_en_edicion)
+                    btn_editar_mano_de_obra.Enabled = true;
+            }
+        }
+        private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
+        {
+            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
+            //btn_colapse.Location = new Point(coll, 0);
+            panel_colapse_2.Location = new Point(coll + 6, 2);
+            Definir_valores_scroll_de_mano_De_obra();
+        }
+
+        #endregion
+
+
+        #region Servicios
         public void CargarExplorados_de_servicios(object sender, ET_entidad e)
         {
-            Id_Servicio_Padre = _entidad._entity_r28._TR28_PADRE;
-            Periodo_servicio = _entidad._entity_r28._TR28_PERIODO;
+            Id_Servicio_Padre = _ET_ENTIDAD._entity_r28._TR28_PADRE;
+            Periodo_servicio = _ET_ENTIDAD._entity_r28._TR28_PERIODO;
 
             tree_view_servicios.Nodes.Clear();
 
             tree_view_servicios.ImageList = iconos_treeView;
             tree_view_servicios.ImageIndex = 0;
 
-            if (!e._hubo_error && _lista_et_r28 != null)
+            if (!e._hubo_error && _LISTA_ET_R28 != null)
             {
-                string name_nodo = string.Format("{0} - {1}", _entidad._entity_m39._TM39_ID, _entidad._entity_m39._entity_et_m19._TM19_DESCRIP2);
+                string name_nodo = string.Format("{0} - {1}", _ET_ENTIDAD._entity_m39._TM39_ID, _ET_ENTIDAD._entity_m39._entity_et_m19._TM19_DESCRIP2);
                 Text = string.Format("Cotización: {0}", name_nodo);
                 TreeNode nodo_principal = new TreeNode();
                 nodo_principal.Tag = 10100;
@@ -264,7 +545,7 @@ namespace SGAP.comercial
                     int id_tipo_Servicio = 0;
                     string nombre_servicio = "";
 
-                    TreeNode servicios = new TreeNode();                    
+                    TreeNode servicios = new TreeNode();
 
                     foreach (ET_R28 row_u in _lista_r28)
                     {
@@ -362,79 +643,19 @@ namespace SGAP.comercial
         }
         private void _nt_r28_Eliminar_Servicio_Explorador_(object sender, ET_entidad e)
         {
-            //throw new NotImplementedException();
             Obtener_Servicios_de_cotizacion();
-
         }
-        private void panel_colapse_MouseHover(object sender, EventArgs e)
+        public void Obtener_Servicios_de_cotizacion()
         {
-            panel_colapse.BackColor = Color.White;
-            panel_colapse.Cursor = Cursors.Hand;
+            _ET_ENTIDAD._entity_r28._TR28_TM39_ID = _ET_ENTIDAD._entity_m39._TM39_ID;
+            _NT_R28.Et_r28(_ET_ENTIDAD._entity_r28);
+            _NT_R28.Iniciar(Tarea.LISTAR);
         }
-
-        private void panel_colapse_MouseLeave(object sender, EventArgs e)
+        private void Agregar_menu_contextual_servicios()
         {
-            panel_colapse.BackColor = Color.FromArgb(255, 238, 88);
-        }
-
-        private void panel_colapse_2_MouseHover(object sender, EventArgs e)
-        {
-            panel_colapse_2.BackColor = Color.White;
-            panel_colapse_2.Cursor = Cursors.Hand;
-        }
-
-        private void panel_colapse_2_MouseLeave(object sender, EventArgs e)
-        {
-            panel_colapse_2.BackColor = Color.FromArgb(255, 238, 88);
-        }
-
-        private void panel_colapse_Click(object sender, EventArgs e)
-        {
-            splitContainer1.Panel1Collapsed = true;
-            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-            panel_colapse_2.Enabled = true;
-            panel_colapse_2.Visible = true;
-            panel_colapse_2.Location = new Point(4, 2);
-            Definir_valores_scroll_de_mano_De_obra();
-        }
-        
-        private void panel_colapse_2_Click(object sender, EventArgs e)
-        {
-            splitContainer1.Panel1Collapsed = false;
-            panel_colapse_2.Enabled = false;
-            panel_colapse_2.Visible = false;
-            Definir_valores_scroll_de_mano_De_obra();
-        }
-
-        private void frm_01_2_Load(object sender, EventArgs e)
-        {
-            ToolTip toolTip1 = new ToolTip();
-
-            toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 500;
-            toolTip1.ReshowDelay = 500;
-            toolTip1.ShowAlways = true;
-
-            toolTip1.SetToolTip(this.panel_colapse, "   Ocultar estructura   ");
-            toolTip1.SetToolTip(this.panel_colapse_2, "   Mostrar estructura   ");
-
-            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-            panel_colapse_2.Location = new Point(coll + 6, 2);
-
-        }
-
-        private void frm_01_2_Resize(object sender, EventArgs e)
-        {
-            panel_colapse_2.Location = new Point(4, 2);
-            Definir_valores_scroll_de_mano_De_obra();
-        }
-        #endregion
-
-        private void Agregar_menu_contextual()
-        {
-            MenuStrip_ViewProperties_.Text = "Propiedades";
-            MenuStrip_ViewProperties_.Name = "MenuStrip_ViewProperties_";
-            MenuStrip_ViewProperties_.Size = new System.Drawing.Size(153, 48);
+            MenuStrip_VerPropiedades.Text = "Propiedades";
+            MenuStrip_VerPropiedades.Name = "MenuStrip_ViewProperties_";
+            MenuStrip_VerPropiedades.Size = new System.Drawing.Size(153, 48);
 
             ToolStripMenuItem View_Properties = new ToolStripMenuItem();
 
@@ -443,7 +664,7 @@ namespace SGAP.comercial
             View_Properties.Text = "Configuración de cargos";
             View_Properties.Image = Properties.Resources.configuracion_dos;
 
-            MenuStrip_ViewProperties_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MenuStrip_VerPropiedades.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         View_Properties
                     });
 
@@ -451,9 +672,9 @@ namespace SGAP.comercial
 
 
             //Agregar Servicio
-            MenuStrip_AddService.Text = "Servicios";
-            MenuStrip_AddService.Name = "Menu_strip_for_TreeView";
-            MenuStrip_AddService.Size = new System.Drawing.Size(153, 48);
+            MenuStrip_AgregarServicio.Text = "Servicios";
+            MenuStrip_AgregarServicio.Name = "Menu_strip_for_TreeView";
+            MenuStrip_AgregarServicio.Size = new System.Drawing.Size(153, 48);
 
             ToolStripMenuItem Add_service = new ToolStripMenuItem();
 
@@ -462,22 +683,22 @@ namespace SGAP.comercial
             Add_service.Text = "Agregar servicio...";
             Add_service.Image = Properties.Resources.agregar_reporte_dos;
 
-            MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MenuStrip_AgregarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         Add_service
                     });
 
             Add_service.Click += new System.EventHandler(this.Item_Add_Service_click);
 
-            MenuStrip_AddService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MenuStrip_AgregarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 Add_service
             });
 
-            
+
 
             //Eliminar Servicio
-            MenuStrip_DelService.Text = "Servicios";
-            MenuStrip_DelService.Name = "Menu_strip_for_TreeView";
-            MenuStrip_DelService.Size = new System.Drawing.Size(153, 48);
+            MenuStrip_BorrarServicio.Text = "Servicios";
+            MenuStrip_BorrarServicio.Name = "Menu_strip_for_TreeView";
+            MenuStrip_BorrarServicio.Size = new System.Drawing.Size(153, 48);
 
             ToolStripMenuItem Del_service = new ToolStripMenuItem();
 
@@ -486,187 +707,99 @@ namespace SGAP.comercial
             Del_service.Text = "Eliminar servicio";
             Del_service.Image = Properties.Resources.reporte_borrar_dos;
 
-            MenuStrip_DelService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MenuStrip_BorrarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         Del_service
                     });
 
             Del_service.Click += new System.EventHandler(this.Item_Del_Service_click);
 
-            MenuStrip_DelService.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MenuStrip_BorrarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 Del_service
             });
         }
 
         #endregion
 
-        #region Eventos
-
-        List<Panel> Panels = new List<Panel>();
-        Panel VisiblePanel = null;
-        private void tree_view_servicios_AfterSelect(object sender, TreeViewEventArgs e)
+        #region Conceptos remunerativos
+        private void Conceptos_Remunerativos_metodo_Cargar()
         {
-            int index = int.Parse(e.Node.Tag.ToString());
-            Mostrar_pagina_cotizador(index);
+            _NT_M40.Iniciar(Tarea.LISTAR);
         }
-
-        private void Mostrar_pagina_cotizador(int index)
+        private void _NT_M40_Cargar_Listado_(object sender, ET_entidad e)
         {
-            if (index <= 8)
-            {
-                if (Panels.Count < 1) return;
-
-                if (VisiblePanel == Panels[index]) return;
-
-                if (VisiblePanel != null) VisiblePanel.Visible = false;
-
-                Panels[index].Visible = true;
-                VisiblePanel = Panels[index];
-            }
-            else if (index == 10100)
-            {
-                if (Panels.Count < 1) return;
-
-                if (VisiblePanel == Panels[9]) return;
-
-                if (VisiblePanel != null) VisiblePanel.Visible = false;
-
-                Panels[9].Visible = true;
-                VisiblePanel = Panels[9];
-            }
-        }
-
-        // Mostramos un menu contextual por cada nodeo del treeview
-        private void tree_view_servicios_MouseUp(object sender, MouseEventArgs e)
-        {
-            Point p = new Point(e.X, e.Y);
-            TreeNode node = tree_view_servicios.GetNodeAt(p);
-            if (e.Button == MouseButtons.Right)
-            {
-                if (node != null)
-                {
-                    tree_view_servicios.SelectedNode = node;
-                    switch (Convert.ToString(node.Tag))
-                    {
-                        case "10100": // ver menu nuevo servicio
-                            MenuStrip_AddService.Show(tree_view_servicios, p);
-                            nodos = Convert.ToString(tree_view_servicios.SelectedNode.FirstNode.Name);
-                            break;
-                        case "0": // ver menu para mano de obra
-                            Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
-                            if(btn_editar_mano_de_obra.Enabled == false)
-                                Metodo_cargar_informacion_mano_de_obra();
-                            MenuStrip_ViewProperties_.Show(tree_view_servicios, p);                            
-                            break;
-                        case "1000": // ver menu para mano de obra
-                            Id_CotizacionServicio = Convert.ToInt32(tree_view_servicios.SelectedNode.Name);
-                            MenuStrip_DelService.Show(tree_view_servicios, p);
-                            break;
-                    }
-                }
-            }
-            if (e.Button == MouseButtons.Left)
-            {
-
-                if (node != null)
-                {
-                    tree_view_servicios.SelectedNode = node;
-
-                    switch (Convert.ToString(node.Tag))
-                    {
-                        case "0": // ver menu para mano de obra
-                            Id_servicio_hijo = Convert.ToInt32(node.Parent.Name.ToString());
-                            if(!btn_editar_mano_de_obra.Enabled == false)
-                                Metodo_cargar_informacion_mano_de_obra();
-                            break;
-                    }
-                }
-            }
-        }
-
-
-        private void Item_Add_Service_click(object sender, EventArgs e)
-        {
-            string tm39_id;
-
-            if (string.IsNullOrEmpty(_entidad._entity_r27._TR27_TM39_ID))
-                tm39_id = _entidad._entity_m39._TM39_ID;
-            else
-                tm39_id = _entidad._entity_r27._TR27_TM39_ID;
-
-            frm_01_2_02 form_2_2 = new frm_01_2_02(Id_servicio_hijo, Id_Servicio_Padre, Periodo_servicio, tm39_id, nodos);
-            form_2_2.ShowDialog();
-
-            if (form_2_2.DialogResult == DialogResult.OK)
-            {
-                Metodo_cargar_informacion_servicio();
-                Obtener_Servicios_de_cotizacion();
-            }
-
-        }
-
-        private void Item_Del_Service_click(object sender, EventArgs e)
-        {
-            if (Id_CotizacionServicio == Id_Servicio_Padre)
-            {
-                DialogResult decision2_msg = MessageBox.Show("No puede eliminar el servicio principal.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                DialogResult decision_msg = MessageBox.Show("Esta seguro de eliminar este servicio.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (decision_msg == DialogResult.OK)
-                {
-                    _entidad._entity_r28._TR28_ID = Id_CotizacionServicio;
-                    _entidad._entity_r28._TR28_TM39_ID = Id_Cotizacion;
-                    _nt_r28.Et_r28(_entidad._entity_r28);
-                    _nt_r28.Iniciar(Tarea.ELIMINAR);
-                }
-            }
-        }
-
-        void Metodo_cargar_informacion_servicio()//diego
-        {
-            ET_R29 _et = new ET_R29();
-            _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
-        }
-
-        private void Item_mano_de_obra_click(object sender, EventArgs e)
-        {
-            _entro_por_primera_vez_mano_de_obra = false;
-            frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _lista_et_m40);
-            form_2_1.ShowDialog();
-            if (form_2_1.DialogResult == DialogResult.OK)
-            {
-                btn_editar_mano_de_obra.Enabled = true;
-                if (btn_editar_mano_de_obra.Enabled)
-                {
-                    Editar_cotizacion = true;//btn_editar_mano_de_obra.Enabled = true;
-                    Mano_de_obra_modo_vista_reporte = true;
-                }
-                else
-                {
-                    Mano_de_obra_modo_vista_reporte = false;
-                }
-                _cargo_data_mano_obra = false;
-                Metodo_cargar_informacion_mano_de_obra();
-            }
-            else
-            {
-                btn_editar_mano_de_obra.Enabled = false;
-                if (!Mano_de_obra_modo_en_edicion)
-                    btn_editar_mano_de_obra.Enabled = true;
-            }
-        }
-
-        private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
-        {
-            int coll = Convert.ToInt32(splitContainer1.SplitterDistance);
-            //btn_colapse.Location = new Point(coll, 0);
-            panel_colapse_2.Location = new Point(coll + 6, 2);
-            Definir_valores_scroll_de_mano_De_obra();
+            if(!e._hubo_error)
+                _LISTA_ET_M40 = e._lista_et_m40;
         }
         #endregion
 
-        #region Mano de obra
+        #region Locales
+
+        private void Locales_metodo_Cargar()
+        {
+            _NT_R27.Agregar_ET_R27(_ET_ENTIDAD._entity_r27);
+            _NT_R27.Iniciar(Tarea.LISTAR);
+            //var result = _NT_R27.get_001(_ET_ENTIDAD);
+
+        }
+        private void _NT_R27_Cargar_Listado_(object sender, ET_entidad e)
+        {
+            if (!e._hubo_error)
+            {
+                _ET_ENTIDAD._lista_et_m27 = e._lista_et_m27;
+                _ET_ENTIDAD._lista_et_r27 = e._lista_et_r27;
+
+
+                Construir_DataGrid_Mano_Obra();
+                CreateColumn();
+
+            }
+        }
+
+        #endregion
+
+        #region cargos
+        private void _nt_r29_Cargar_Listado_(object sender, ET_entidad e)
+        {
+            _LISTA_ET_R29 = e._lista_et_r29;
+
+            if (_LISTA_ET_R29 != null)
+            {
+                Desplegar_informacion_de_mano_de_obra(true);
+       
+                if (_LISTA_ET_R29.Count() == 0)
+                    Item_mano_de_obra_click(null, null);
+            }
+        }
+        private void _nt_r29_Porcentaje_De_Carga(object sender, int e)
+        {
+            if (e == 0)
+                PreLoad(true);
+            else
+                PreLoad(false);
+        }
+
+        #endregion
+
+
+        #region MANO DE OBRA
+        #region MANO DE OBRA - EVENTOS
+        private void _nt_r31_Mensaje_Info(object sender, ET_entidad e)
+        {
+            Metodo_cargar_informacion_mano_de_obra();
+            MessageBox.Show(e._contenido_mensaje, e._titulo_mensaje,MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void _nt_r31_Mensaje_Alerta(object sender, ET_entidad e)
+        {
+            MessageBox.Show(e._contenido_mensaje, e._titulo_mensaje, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        private void _nt_r31_Mano_De_obra_Porcentaje_De_Craga(object sender, int e)
+        {
+            if (e == 0)
+                PreLoad(true);
+            else
+                PreLoad(false);
+        }
+        #endregion
         bool _entro_por_primera_vez_mano_de_obra = true;
         bool _cargo_data_mano_obra = false;
         private void Metodo_cargar_informacion_mano_de_obra()
@@ -682,16 +815,16 @@ namespace SGAP.comercial
                 if (!_cargo_data_mano_obra)
                 {
                     ET_R29 _et = new ET_R29();
-                    _lista_et_r29 = new List<ET_R29>();
-                    _lista_et_r29.Clear();
+                    _LISTA_ET_R29 = new List<ET_R29>();
+                    _LISTA_ET_R29.Clear();
                     _et._TR29_TR28_ID = Id_servicio_hijo; // captura el node
-                    _et._lista_et_m40 = _lista_et_m40;
+                    _et._lista_et_m40 = _LISTA_ET_M40;
 
                     if (Editar_cotizacion)
-                        _lista_et_r31 = _nt_r31.get_001(Id_servicio_hijo);
+                        _LISTA_ET_R31 = _NT_R31.get_001(Id_servicio_hijo);
 
-                    _nt_r29.Agregar_ETR29(_et);
-                    _nt_r29.Iniciar(Tarea.LISTAR);
+                    _NT_R29.Agregar_ETR29(_et);
+                    _NT_R29.Iniciar(Tarea.LISTAR);
                 }
                 else
                 {
@@ -729,23 +862,25 @@ namespace SGAP.comercial
             if (dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
             {
                 TextBox TEX_BOX_NUMBER = e.Control as TextBox;
-                TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
-                e.Control.KeyPress += new KeyPressEventHandler(_helper.dataGridViewTextBox_Number_KeyPress);
+                TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_NT_Helper.dataGridViewTextBox_Number_KeyPress);
+                e.Control.KeyPress += new KeyPressEventHandler(_NT_Helper.dataGridViewTextBox_Number_KeyPress);
             }
         }
 
         private void dgv_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            dgv_mano_de_obra_right.Rows[e.RowIndex].Selected = true;
+            if (dgv_mano_de_obra_right.RowCount > 0)
+                dgv_mano_de_obra_right.Rows[e.RowIndex].Selected = true;
         }
 
         private void dgv_mano_de_obra_right_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
+                if(dgv_mano_de_obra.RowCount > 0)
+                    dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
             }
-            catch (Exception) { }
+            catch (Exception ex) { }
         }
 
         private void btn_guardar_mano_de_obra_Click(object sender, EventArgs e)
@@ -775,7 +910,7 @@ namespace SGAP.comercial
         {
             if (Mano_de_obra_se_edito_al_menos_un_registro)
             {
-                if (_lista_et_r31 != null)
+                if (_LISTA_ET_R31 != null)
                 {
                     _cargo_data_mano_obra = false;
                     Metodo_preparar_informacion_para_actualizar_mano_de_obra();
@@ -809,12 +944,16 @@ namespace SGAP.comercial
 
         private void Metodo_preparar_informacion_para_actualizar_mano_de_obra()
         {
-            var tmp = _lista_et_r29;
+            var tmp = _LISTA_ET_R29;
 
             NT_R31 ins = new NT_R31();
-            ins.set_002(_lista_et_r29, _entidad._lista_et_r27);
-            Mano_de_obra_Cambios_guardados = true;
+            //ins.set_002(_lista_et_r29, _entidad._lista_et_r27);
 
+            _NT_R31.Argregar_ET_R29_CARGOS(_LISTA_ET_R29);
+            _NT_R31.Agregar_ET_R27_LOCALES(_ET_ENTIDAD._lista_et_r27);
+            _NT_R31.Iniciar(Tarea.ACTUALIZAR);
+
+            Mano_de_obra_Cambios_guardados = true;
         }
 
         private void btn_editar_mano_de_obra_Click(object sender, EventArgs e)
@@ -825,8 +964,8 @@ namespace SGAP.comercial
             dgv_mano_de_obra_right.Rows.Clear();
             dgv_mano_de_obra.Rows.Clear();
 
-            var _Lista_et_r29_trabajadores_8_horas = _lista_et_r29.Where(o => o._HOURS_DAY >= 4);
-            var _Lista_et_r29_trabajadores_4_horas = _lista_et_r29.Where(o => o._HOURS_DAY < 4);
+            var _Lista_et_r29_trabajadores_8_horas = _LISTA_ET_R29.Where(o => o._HOURS_DAY >= 4);
+            var _Lista_et_r29_trabajadores_4_horas = _LISTA_ET_R29.Where(o => o._HOURS_DAY < 4);
 
             //preparar vista de mano de obra para editar
             btn_guardar_mano_de_obra.Enabled = true;
@@ -838,6 +977,7 @@ namespace SGAP.comercial
             // devolver la propiedad readonly al conjunto de grilas mano de obra
             dgv_mano_de_obra_right.ReadOnly = false;
             dgv_mano_de_obra.ReadOnly = false;
+            dgv_mano_de_obra.Columns[0].ReadOnly = true;
             btn_editar_mano_de_obra.Enabled = false;
         }
 
@@ -852,7 +992,7 @@ namespace SGAP.comercial
                     fila_._TR29_HORA_SALIDA,
                     fila_._lista_et_r30
                 );
-                var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
+                var res = _LISTA_ET_R31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
                 object[] informacion_r31 = new object[res.Count];
 
                 int total_personal = 0;
@@ -876,9 +1016,9 @@ namespace SGAP.comercial
                 });
 
                 int[] relleno = new int[] { 0, 0 };
-                object[] rellenos = new object[_entidad._lista_et_m27.Count];
+                object[] rellenos = new object[_ET_ENTIDAD._lista_et_m27.Count];
                 int indice = 0;
-                _entidad._lista_et_m27.ForEach(c => {
+                _ET_ENTIDAD._lista_et_m27.ForEach(c => {
                     rellenos[indice] = relleno;
                     indice++;
                 });
@@ -911,13 +1051,14 @@ namespace SGAP.comercial
 
         private void dgv_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            Mano_de_obra_se_edito_al_menos_un_registro = true;
-            Mano_de_obra_modo_en_edicion = true;
             // validar que vista edicion este en false
             if (e.RowIndex >= 0 && e.ColumnIndex > 0)
             {
+                Mano_de_obra_se_edito_al_menos_un_registro = true;
+                Mano_de_obra_modo_en_edicion = true;
+
                 ET_R29 _et_r29_editable = new ET_R29();
-                _et_r29_editable = _lista_et_r29.FirstOrDefault(x => x._Fila == e.RowIndex);
+                _et_r29_editable = _LISTA_ET_R29.FirstOrDefault(x => x._Fila == e.RowIndex);
                 object[] respaldo = _et_r29_editable._Locales_por_cargo_cantidad_personal;
                 object[] nuevos_valores = new object[respaldo.Count()];
                 int indice_res = 0;
@@ -948,21 +1089,21 @@ namespace SGAP.comercial
                 _et_r29_editable._Locales_por_cargo_cantidad_personal = nuevos_valores;// Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
             }
         }
-        private void Contruir_DataGrid_Mano_Obra()
+        private void Construir_DataGrid_Mano_Obra()
         {
             bool ajustar = false;
-            if (_entidad._lista_et_r27.Count < 5)
+            if (_ET_ENTIDAD._lista_et_r27.Count < 5)
                 ajustar = true;
 
             dgv_mano_de_obra.AllowUserToAddRows = false;
             dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
             dgv_mano_de_obra_right.ScrollBars = ScrollBars.Vertical;
 
-            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
-            _helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
+            _NT_Helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
+            _NT_Helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
 
             dgv_mano_de_obra.AutoGenerateColumns = false;
-            dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
 
             if (ajustar)
                 dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -971,13 +1112,18 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
             MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
             MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
-            MANO_OBRA_COL_DESCRIPCION.Width = 270;
             MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
             if (ajustar)
             {
                 MANO_OBRA_COL_DESCRIPCION.Width = 240;
                 MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 240;
                 MANO_OBRA_COL_DESCRIPCION.FillWeight = 240;
+            }
+            else
+            {
+                MANO_OBRA_COL_DESCRIPCION.Width = 310;
+                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 310;
+                MANO_OBRA_COL_DESCRIPCION.FillWeight = 310;
             }
 
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
@@ -987,25 +1133,22 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.Frozen = true;
 
             //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
-            if (_entidad._lista_et_r27 != null)
+            if (_ET_ENTIDAD._lista_et_r27 != null)
             {
-
-                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _entidad._lista_et_r27.Count);
+                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _ET_ENTIDAD._lista_et_r27.Count);
                 dgv_mano_de_obra.ColumnCount = cantidad_final_de_indices;
-
-                int indice_de_inicio = cantidad_final_de_indices - _entidad._lista_et_r27.Count;
-
+                int indice_de_inicio = cantidad_final_de_indices - _ET_ENTIDAD._lista_et_r27.Count;
                 int indice_nn = 1;
-                _entidad._lista_et_r27.ForEach(x =>
+                _ET_ENTIDAD._lista_et_r27.ForEach(x =>
                 {
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
 
                     if (ajustar)
                     {
-                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 100;
-                        dgv_mano_de_obra.Columns[indice_de_inicio].MinimumWidth = 100;
-                        dgv_mano_de_obra.Columns[indice_de_inicio].FillWeight = 100;
+                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 159;
+                        dgv_mano_de_obra.Columns[indice_de_inicio].MinimumWidth = 159;
+                        dgv_mano_de_obra.Columns[indice_de_inicio].FillWeight = 159;
                     }
                     else
                     {
@@ -1018,7 +1161,6 @@ namespace SGAP.comercial
                     indice_de_inicio++;
                     indice_nn++;
                 });
-
             }
             for (int i = 0; i < dgv_mano_de_obra.Columns.Count; i++)
                 dgv_mano_de_obra.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -1115,49 +1257,57 @@ namespace SGAP.comercial
         {
             dgv_mano_de_obra.Rows.Clear();
             dgv_mano_de_obra_right.Rows.Clear();
-
-            var _Lista_et_r29_trabajadores_8_horas = _lista_et_r29.Where(o => o._HOURS_DAY >= 4);
-            var _Lista_et_r29_trabajadores_4_horas = _lista_et_r29.Where(o => o._HOURS_DAY < 4);
-
-            if (es_vista_reporte)
+            if (_LISTA_ET_R29 != null && _LISTA_ET_R29.Count > 0)
             {
-                dgv_mano_de_obra.GridColor = Color.WhiteSmoke;
-                dgv_mano_de_obra_right.GridColor = Color.WhiteSmoke;
-                dgv_mano_de_obra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                #region metodo
+                var _Lista_et_r29_trabajadores_8_horas = _LISTA_ET_R29.Where(o => o._HOURS_DAY >= 4);
+                var _Lista_et_r29_trabajadores_4_horas = _LISTA_ET_R29.Where(o => o._HOURS_DAY < 4);
 
-                decimal[] MANO_DE_OBRA_COSTO_MENSUAL_LEFT = new decimal[dgv_mano_de_obra.ColumnCount];
-                decimal[] MANO_DE_OBRA_COSTO_MENSUAL_RIGHT = new decimal[dgv_mano_de_obra_right.ColumnCount];
-                MANO_DE_OBRA_COSTO_MENSUAL[0] = MANO_DE_OBRA_COSTO_MENSUAL_LEFT;
-                MANO_DE_OBRA_COSTO_MENSUAL[1] = MANO_DE_OBRA_COSTO_MENSUAL_RIGHT;
-
-            }
-            var obj = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_8_horas.ToList());
-            if (Mano_de_obra_modo_vista_reporte)
-            {
-                Ingresar_filas_vacias_dentro_de_grids(Color.Blue ,dgv_mano_de_obra, dgv_mano_de_obra_right);
-                Metodo_mostrar_calculos_de_costos_mano_de_obra(obj);
-            }
-            if (_Lista_et_r29_trabajadores_4_horas.ToList().Count() != 0)
-            {
-                //MANO DE OBRA (MENOR A 4 HORAS DIARIAS)
-                Ingresar_filas_vacias_dentro_de_grids(Color.Blue,dgv_mano_de_obra, dgv_mano_de_obra_right,2, "MANO DE OBRA (MENOR A 4 HORAS DIARIAS)");
-
-                var obj_ = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_4_horas.ToList(),true);
-                if (Mano_de_obra_modo_vista_reporte)
+                if (es_vista_reporte)
                 {
-                    Ingresar_filas_vacias_dentro_de_grids(Color.Blue,dgv_mano_de_obra, dgv_mano_de_obra_right);
-                    Metodo_mostrar_calculos_de_costos_mano_de_obra(obj_);
+                    dgv_mano_de_obra.GridColor = Color.WhiteSmoke;
+                    dgv_mano_de_obra_right.GridColor = Color.WhiteSmoke;
+                    dgv_mano_de_obra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                    decimal[] MANO_DE_OBRA_COSTO_MENSUAL_LEFT = new decimal[dgv_mano_de_obra.ColumnCount];
+                    decimal[] MANO_DE_OBRA_COSTO_MENSUAL_RIGHT = new decimal[dgv_mano_de_obra_right.ColumnCount];
+                    MANO_DE_OBRA_COSTO_MENSUAL[0] = MANO_DE_OBRA_COSTO_MENSUAL_LEFT;
+                    MANO_DE_OBRA_COSTO_MENSUAL[1] = MANO_DE_OBRA_COSTO_MENSUAL_RIGHT;
+
                 }
+                if (es_vista_reporte)
+                    Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, 0, "MANO DE OBRA (MAYOR A 4 HORAS DIARIAS)");
+
+                var obj = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_8_horas.ToList());
+
+                if (es_vista_reporte)
+                {
+                    //Ingresar_filas_vacias_dentro_de_grids(Color.Blue ,dgv_mano_de_obra, dgv_mano_de_obra_right);
+                    Metodo_mostrar_calculos_de_costos_mano_de_obra(obj);
+                }
+                if (_Lista_et_r29_trabajadores_4_horas.ToList().Count() != 0)
+                {
+                    //MANO DE OBRA (MENOR A 4 HORAS DIARIAS)
+                    Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, 2, "MANO DE OBRA (MENOR A 4 HORAS DIARIAS)");
+
+                    var obj_ = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_4_horas.ToList(), true);
+                    if (es_vista_reporte)
+                    {
+                        Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right);
+                        Metodo_mostrar_calculos_de_costos_mano_de_obra(obj_);
+                    }
+                }
+                if (es_vista_reporte)
+                {
+                    Metodo_mostrar_costo_mensual_mano_de_obra();
+                    dgv_mano_de_obra_right.ReadOnly = true;
+                    dgv_mano_de_obra.ReadOnly = true;
+                    btn_editar_mano_de_obra.Enabled = true;
+                    Mano_de_obra_modo_vista_reporte = true;
+                }
+                Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, 2);
+                #endregion
             }
-            if (Mano_de_obra_modo_vista_reporte)
-            {
-                Metodo_mostrar_costo_mensual_mano_de_obra();
-                dgv_mano_de_obra_right.ReadOnly = true;
-                dgv_mano_de_obra.ReadOnly = true;
-                btn_editar_mano_de_obra.Enabled = true;
-                Mano_de_obra_modo_vista_reporte = true;
-            }
-            Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, 2);
         }
 
         private object[] Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(List<ET_R29> object_list_etr29, bool MENOR_CUATRO_HORAS = false)
@@ -1234,7 +1384,7 @@ namespace SGAP.comercial
                     fila_._TR29_HORA_SALIDA, 
                     fila_._lista_et_r30
                 );
-                var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
+                var res = _LISTA_ET_R31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
                 object[] informacion_r31 = new object[res.Count];
 
                 int total_personal = 0;
@@ -1258,9 +1408,9 @@ namespace SGAP.comercial
                 });
 
                 int[] relleno = new int[] { 0, 0 };
-                object[] rellenos = new object[_entidad._lista_et_m27.Count];
+                object[] rellenos = new object[_ET_ENTIDAD._lista_et_m27.Count];
                 int indice = 0;
-                _entidad._lista_et_m27.ForEach(c => {
+                _ET_ENTIDAD._lista_et_m27.ForEach(c => {
                     rellenos[indice] = relleno;
                     indice++;
                 });
@@ -1309,7 +1459,7 @@ namespace SGAP.comercial
                     decimal MANO_DE_OBRA_TOTAL_POR_LOCAL_ = 0 * 1M;
                     object_list_etr29.ForEach(fila_ =>
                     {
-                        var res = _lista_et_r31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
+                        var res = _LISTA_ET_R31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
                         for (int N = 0; N < res.Count(); N++)
                         {
                             if (N == (a -1))
@@ -1782,7 +1932,8 @@ namespace SGAP.comercial
         {
             try
             {
-                dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
+                if(dgv_mano_de_obra.FirstDisplayedScrollingRowIndex > 0)
+                    dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
             }
             catch (Exception ex)
             { }
@@ -1792,7 +1943,8 @@ namespace SGAP.comercial
         {
             try
             {
-                dgv_mano_de_obra.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex;
+                if(dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex > 0)
+                    dgv_mano_de_obra.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex;
             }
             catch (Exception ex)
             { }
@@ -1802,10 +1954,9 @@ namespace SGAP.comercial
         {
             if (e.Control && e.KeyCode == Keys.G)
             {
-
-                // manipular lo ingresado par poder registrarlo
-                //_lista_et_r29 = _lista_et_r29;
+                btn_guardar_mano_de_obra_Click(null,null);
             }
+
         }
 
         // 1054 ok
@@ -1862,7 +2013,7 @@ namespace SGAP.comercial
                     }
                     if (A == (s_one.Count() - 1))
                     {
-                        Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, Titulo: "Leyes Sociales");
+                        //Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right, Titulo: "Leyes Sociales");
                         object[] FILA_ST = (object[])s_one[A];
                         //SUBTOTAL ONE
                         string[] sT_right = (string[])FILA_ST[1];
@@ -1968,8 +2119,6 @@ namespace SGAP.comercial
                 Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                 Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), textcolor, Font_);
                 //fin estilos
-                grid_right.Rows.Add(fila_vacia_mano_de_obra_right);
-                grid_left.Rows.Add(fila_vacia_mano_de_obra_left);
             }
         }
 
@@ -1994,12 +2143,13 @@ namespace SGAP.comercial
         }
         #endregion
 
+
         #region Maquinaria y equipo
         //diego
         private void CreateColumn()
         {
             int index = 1;
-            foreach (ET_M27 fila in _entidad._lista_et_m27)
+            foreach (ET_M27 fila in _ET_ENTIDAD._lista_et_m27)
             {
                 // Initialize the button column.
                 DataGridViewTextBoxColumn Column = new DataGridViewTextBoxColumn
@@ -2016,7 +2166,7 @@ namespace SGAP.comercial
 
         private void dvg_entrada_datos_mq_eq_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            int cont = _entidad._lista_et_m27.Count;
+            int cont = _ET_ENTIDAD._lista_et_m27.Count;
             e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
             if (dgv_entrada_datos_mq_eq.CurrentCell.ColumnIndex > 5 && dgv_entrada_datos_mq_eq.CurrentCell.ColumnIndex <= cont + 5) //Desired Column
             {
@@ -2042,8 +2192,8 @@ namespace SGAP.comercial
 
                     ET_entidad _entidades_ = new ET_entidad();
 
-                    _entidades_ = _nt_m31.gridTextBoxAutocomplete(auto_text);
-                    _lista_m31 = _entidades_._lista_et_m31;
+                    _entidades_ = _NT_M31.gridTextBoxAutocomplete(auto_text);
+                    _LISTA_M31 = _entidades_._lista_et_m31;
                 }
             }
 
@@ -2068,11 +2218,11 @@ namespace SGAP.comercial
             string nombre = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name;
             if (nombre == "nombre")
             {
-                bool existe = _lista_m31.Any(item => (item._TM31_DESCRIP + " " + item._TM31_TM33_ID + " " + item._TM31_TM72_ID) == e.FormattedValue.ToString());
+                bool existe = _LISTA_M31.Any(item => (item._TM31_DESCRIP + " " + item._TM31_TM33_ID + " " + item._TM31_TM72_ID) == e.FormattedValue.ToString());
                 //bool existe = _lista_m31.Any(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
                 if (existe)
                 {
-                    ET_M31 fila = _lista_m31.FirstOrDefault(item => (item._TM31_DESCRIP + " " + item._TM31_TM33_ID + " " + item._TM31_TM72_ID) == e.FormattedValue.ToString());
+                    ET_M31 fila = _LISTA_M31.FirstOrDefault(item => (item._TM31_DESCRIP + " " + item._TM31_TM33_ID + " " + item._TM31_TM72_ID) == e.FormattedValue.ToString());
                     //ET_M31 fila = _lista_m31.FirstOrDefault(item => item._TM31_DESCRIP == e.FormattedValue.ToString());
 
                     nom = fila._TM31_DESCRIP;//
@@ -2089,7 +2239,7 @@ namespace SGAP.comercial
 
         private void dgv_entrada_datos_mq_eq_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int cont = _entidad._lista_et_m27.Count;
+            int cont = _ET_ENTIDAD._lista_et_m27.Count;
             int i;
             i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
 
@@ -2150,7 +2300,7 @@ namespace SGAP.comercial
             string column_name = dgv_entrada_datos_mq_eq.Columns[e.ColumnIndex].Name; // nombre
             if (column_name.Equals("nombre"))
             {
-                int cont = _entidad._lista_et_m27.Count;
+                int cont = _ET_ENTIDAD._lista_et_m27.Count;
                 int i;
                 i = dgv_entrada_datos_mq_eq.CurrentRow.Index;
                 dgv_entrada_datos_mq_eq.Rows[i].Cells[0].Value = "";
@@ -2172,6 +2322,5 @@ namespace SGAP.comercial
             }
         }
         #endregion
-
     }
 }

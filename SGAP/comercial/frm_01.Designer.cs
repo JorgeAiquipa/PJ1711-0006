@@ -30,9 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_01));
             this.pnl_left = new System.Windows.Forms.Panel();
+            this.txt_cliente = new SGAP.UserControls.ControlTextBox();
+            this.btn_limpiar_filtro = new System.Windows.Forms.Button();
             this.btn_filtrar = new System.Windows.Forms.Button();
             this.pnl_filter_wraper = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnl_cd_close = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -45,6 +48,7 @@
             this.dtp_fecha_inicio = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.listView_Cotizaciones = new System.Windows.Forms.ListView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel_first_detail = new System.Windows.Forms.Panel();
@@ -59,10 +63,6 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_cliente = new SGAP.UserControls.ControlTextBox();
-            this.btn_limpiar_filtro = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNuevoCotizacion = new System.Windows.Forms.Button();
             this.pnl_left.SuspendLayout();
             this.pnl_filter_wraper.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -96,6 +96,34 @@
             this.pnl_left.Name = "pnl_left";
             this.pnl_left.Size = new System.Drawing.Size(254, 638);
             this.pnl_left.TabIndex = 2;
+            // 
+            // txt_cliente
+            // 
+            this.txt_cliente.Location = new System.Drawing.Point(24, 97);
+            this.txt_cliente.MaxLength = 500;
+            this.txt_cliente.Name = "txt_cliente";
+            this.txt_cliente.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.txt_cliente.PlaceHolderIcon = global::SGAP.Properties.Resources.cliente;
+            this.txt_cliente.PlaceHolderIconAlignment = SGAP.UserControls.ContAlignment.Left;
+            this.txt_cliente.PlaceHolderText = "Ingrese nombre de cliente  o R.U.C";
+            this.txt_cliente.Size = new System.Drawing.Size(217, 20);
+            this.txt_cliente.TabIndex = 0;
+            this.txt_cliente.TextChanged += new System.EventHandler(this.txt_cliente_TextChanged);
+            this.txt_cliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_cliente_KeyDown);
+            // 
+            // btn_limpiar_filtro
+            // 
+            this.btn_limpiar_filtro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_limpiar_filtro.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_limpiar_filtro.Image = global::SGAP.Properties.Resources.borrar_filtro;
+            this.btn_limpiar_filtro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_limpiar_filtro.Location = new System.Drawing.Point(137, 599);
+            this.btn_limpiar_filtro.Name = "btn_limpiar_filtro";
+            this.btn_limpiar_filtro.Size = new System.Drawing.Size(100, 26);
+            this.btn_limpiar_filtro.TabIndex = 4;
+            this.btn_limpiar_filtro.Text = "Quitar filtro";
+            this.btn_limpiar_filtro.UseVisualStyleBackColor = true;
+            this.btn_limpiar_filtro.Click += new System.EventHandler(this.btn_limpiar_filtro_Click);
             // 
             // btn_filtrar
             // 
@@ -136,6 +164,15 @@
             this.label4.Size = new System.Drawing.Size(53, 15);
             this.label4.TabIndex = 17;
             this.label4.Text = "FILTROS";
+            // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.filtro;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Location = new System.Drawing.Point(30, 17);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(16, 16);
+            this.panel1.TabIndex = 14;
             // 
             // pnl_cd_close
             // 
@@ -272,6 +309,21 @@
             this.panel2.Size = new System.Drawing.Size(682, 50);
             this.panel2.TabIndex = 0;
             // 
+            // btnNuevoCotizacion
+            // 
+            this.btnNuevoCotizacion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevoCotizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.btnNuevoCotizacion.Image = global::SGAP.Properties.Resources.agregar;
+            this.btnNuevoCotizacion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNuevoCotizacion.Location = new System.Drawing.Point(13, 12);
+            this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
+            this.btnNuevoCotizacion.Size = new System.Drawing.Size(117, 26);
+            this.btnNuevoCotizacion.TabIndex = 0;
+            this.btnNuevoCotizacion.Text = "Nueva cotización";
+            this.btnNuevoCotizacion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
+            this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
+            // 
             // listView_Cotizaciones
             // 
             this.listView_Cotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -288,6 +340,7 @@
             this.listView_Cotizaciones.Size = new System.Drawing.Size(682, 558);
             this.listView_Cotizaciones.TabIndex = 0;
             this.listView_Cotizaciones.UseCompatibleStateImageBehavior = false;
+            this.listView_Cotizaciones.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_Cotizaciones_KeyDown_1);
             this.listView_Cotizaciones.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_Cotizaciones_MouseDoubleClick);
             // 
             // splitContainer1
@@ -419,58 +472,6 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Width = 120;
             // 
-            // txt_cliente
-            // 
-            this.txt_cliente.Location = new System.Drawing.Point(24, 97);
-            this.txt_cliente.MaxLength = 500;
-            this.txt_cliente.Name = "txt_cliente";
-            this.txt_cliente.PlaceHolderColor = System.Drawing.Color.DarkGray;
-            this.txt_cliente.PlaceHolderIcon = global::SGAP.Properties.Resources.cliente;
-            this.txt_cliente.PlaceHolderIconAlignment = SGAP.UserControls.ContAlignment.Left;
-            this.txt_cliente.PlaceHolderText = "Ingrese nombre de cliente  o R.U.C";
-            this.txt_cliente.Size = new System.Drawing.Size(217, 20);
-            this.txt_cliente.TabIndex = 0;
-            this.txt_cliente.TextChanged += new System.EventHandler(this.txt_cliente_TextChanged);
-            this.txt_cliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_cliente_KeyDown);
-            // 
-            // btn_limpiar_filtro
-            // 
-            this.btn_limpiar_filtro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_limpiar_filtro.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_limpiar_filtro.Image = global::SGAP.Properties.Resources.borrar_filtro;
-            this.btn_limpiar_filtro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_limpiar_filtro.Location = new System.Drawing.Point(137, 599);
-            this.btn_limpiar_filtro.Name = "btn_limpiar_filtro";
-            this.btn_limpiar_filtro.Size = new System.Drawing.Size(100, 26);
-            this.btn_limpiar_filtro.TabIndex = 4;
-            this.btn_limpiar_filtro.Text = "Quitar filtro";
-            this.btn_limpiar_filtro.UseVisualStyleBackColor = true;
-            this.btn_limpiar_filtro.Click += new System.EventHandler(this.btn_limpiar_filtro_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::SGAP.Properties.Resources.filtro;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Location = new System.Drawing.Point(30, 17);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(16, 16);
-            this.panel1.TabIndex = 14;
-            // 
-            // btnNuevoCotizacion
-            // 
-            this.btnNuevoCotizacion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNuevoCotizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnNuevoCotizacion.Image = global::SGAP.Properties.Resources.agregar;
-            this.btnNuevoCotizacion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNuevoCotizacion.Location = new System.Drawing.Point(13, 12);
-            this.btnNuevoCotizacion.Name = "btnNuevoCotizacion";
-            this.btnNuevoCotizacion.Size = new System.Drawing.Size(117, 26);
-            this.btnNuevoCotizacion.TabIndex = 0;
-            this.btnNuevoCotizacion.Text = "Nueva cotización";
-            this.btnNuevoCotizacion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNuevoCotizacion.UseVisualStyleBackColor = true;
-            this.btnNuevoCotizacion.Click += new System.EventHandler(this.btnNuevoCotizacion_Click);
-            // 
             // frm_01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,6 +484,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lista de cotizaciones";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frm_01_Load);
             this.pnl_left.ResumeLayout(false);
             this.pnl_left.PerformLayout();
             this.pnl_filter_wraper.ResumeLayout(false);

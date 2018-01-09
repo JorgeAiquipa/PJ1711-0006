@@ -85,6 +85,12 @@
     <Compile Include="comercial\lienzo_de_prueba.Designer.cs">
       <DependentUpon>lienzo_de_prueba.cs</DependentUpon>
     </Compile>
+    <Compile Include="comercial\lienzo_prueba_dos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="comercial\lienzo_prueba_dos.Designer.cs">
+      <DependentUpon>lienzo_prueba_dos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,6 +112,7 @@
     <Compile Include="UserControls\ControlTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\GridViewCheckBoxColumn .cs" />
     <Compile Include="UserControls\NumericUpDown.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="comercial\lienzo_de_prueba.resx">
       <DependentUpon>lienzo_de_prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="comercial\lienzo_prueba_dos.resx">
+      <DependentUpon>lienzo_prueba_dos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -227,6 +237,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="comercial\icon_illary.ico" />
+    <None Include="Resources\informacion.gif" />
+    <None Include="Resources\attention2_16x16.gif" />
     <None Include="Resources\configuracion.gif" />
     <None Include="Resources\agregar_reporte_dos.gif" />
     <None Include="Resources\agregar_reporte.gif" />

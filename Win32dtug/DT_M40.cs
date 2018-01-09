@@ -41,6 +41,8 @@ namespace Win32dtug
 
                         _et_m40._fila = indice;
                         _et_m40._TM40_ID = fila["TM40_ID"].ToString();
+                        if (_et_m40._TM40_ID.Equals("P3"))
+                            _et_m40._Seleccionado = true;
                         _et_m40._TM40_DESCRIP = fila["TM40_DESCRIP"].ToString();
                         _et_m40._TM40_DESCRIP2 = fila["TM40_DESCRIP2"].ToString();
 
