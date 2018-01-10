@@ -418,20 +418,33 @@ namespace SGAP.comercial
                         A = A - 1;
                     bool a = _continuar;
                     dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[Indice_columna_grid_entrada_datos_mano_obra, A];
+
+                    if (ES_TAB)
+                        Indice_fila_grid_entrada_datos_mano_obra -= 1;
+                    if (_dibujar_repetidos && Indice_fila_que_repite < dgv_entrada_datos_mano_de_obra.RowCount - 1 && !ES_TAB)
+                    {
+                        Indice_fila_grid_entrada_datos_mano_obra = Indice_fila_que_repite;
+                        //SendKeys.Send("{UP}");
+                        SendKeys.Send("{RIGHT}");
+
+                    }
+                    else if (_dibujar_repetidos && Indice_fila_que_repite < dgv_entrada_datos_mano_de_obra.RowCount - 1 && ES_TAB)
+                    {
+                        SendKeys.Send("{RIGHT}");
+                    }
+                    Mostrar_conceptos_Remunerativos_fila_seleccionada(false, Indice_fila_grid_entrada_datos_mano_obra);
                     if (!ES_TAB)
                         SendKeys.Send("{RIGHT}");
                     else
                         ES_TAB = false;
-
-                    Mostrar_conceptos_Remunerativos_fila_seleccionada(false, Indice_fila_grid_entrada_datos_mano_obra);
-
                 }
 
                 if (e.KeyData == Keys.Enter)
                 {
                     e.Handled = true;
-                    if (COLUMN_SELECTED != 0)
-                    {
+                    //if (COLUMN_SELECTED > 0)
+                    //{
+                        ES_TAB = false;
                         if (!ES_TAB)
                         {
                             SendKeys.Send("{RIGHT}");
@@ -440,11 +453,7 @@ namespace SGAP.comercial
                         {
                             ES_TAB = false;
                         }
-                    }
-                    else if (COLUMN_SELECTED == 0)
-                    {
-                        //SendKeys.Send("{RIGHT}");
-                    }
+                    //}
 
                     int A = Indice_fila_grid_entrada_datos_mano_obra;
                     if (dgv_entrada_datos_mano_de_obra.RowCount - 1 == Indice_fila_grid_entrada_datos_mano_obra)
@@ -484,9 +493,12 @@ namespace SGAP.comercial
                 }
                 else
                 {
+                        //if(dgv_entrada_datos_mano_de_obra.RowCount > 0 && !_dibujar_repetidos && (dgv_entrada_datos_mano_de_obra.CurrentRow.Index != dgv_entrada_datos_mano_de_obra.RowCount-1))
+                            //SendKeys.Send("{UP}");
                     if (e.KeyData == Keys.Tab)
-                        if(dgv_entrada_datos_mano_de_obra.RowCount > 0)
-                            SendKeys.Send("{UP}");
+                        if (ES_TAB && dgv_entrada_datos_mano_de_obra.RowCount > 0 && !_dibujar_repetidos && (dgv_entrada_datos_mano_de_obra.CurrentRow.Index != dgv_entrada_datos_mano_de_obra.RowCount - 1))
+                            SendKeys.Send("{RIGHT}");
+
                     //if (_continuar)
                     //    SendKeys.Send("{UP}");
                 }
@@ -510,29 +522,38 @@ namespace SGAP.comercial
         }
 
         bool _continuar = false;
+        int Indice_fila_repetida = 0;
+        int Indice_fila_que_repite = 0;
+        bool _dibujar_repetidos = false;
         bool Analizar_registros_repetido()
         {
             int[] respuesta = _nt_r29.Metodo_Analizar_filas_repetidas(_lista_et_r29);
             // 0 -> indice repetido
             // 1 -> devielve true: si se encontro ? fasle si no se encontro
-            if (Convert.ToBoolean(respuesta[1]))
+            if (Convert.ToBoolean(respuesta[2]))
             {
                 try
                 {
-                    dgv_entrada_datos_mano_de_obra.Rows[respuesta[0]].DefaultCellStyle.BackColor = Color.Khaki;
-
-                    //dgv_entrada_datos_mano_de_obra.CellPainting += new DataGridViewCellPaintingEventArgs(dgv_entrada_datos_mano_de_obra,);
-
+                    //dgv_entrada_datos_mano_de_obra.Rows[respuesta[0]].DefaultCellStyle.BackColor = Color.Khaki;
+                    Indice_fila_repetida = respuesta[0];
+                    Indice_fila_que_repite = respuesta[1];
+                    Indice_fila_grid_entrada_datos_mano_obra = Indice_fila_que_repite;
+                    _dibujar_repetidos = true;
+                    this.dgv_entrada_datos_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
                     panel_cargos.BackColor = Color.DarkSalmon;
                     dgv_entrada_datos_mano_de_obra.AllowUserToAddRows = false;
                     _continuar = false;
                     btn_continuar.Enabled = false;
+
+                    //dgv_entrada_datos_mano_de_obra.Update();
+                    //dgv_entrada_datos_mano_de_obra.Refresh();
                 }
                 catch (Exception ex) { }
                 return false;
             }
             else
             {
+                this.dgv_entrada_datos_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
                 panel_cargos.BackColor = Color.White;
                 try
                 {
@@ -543,6 +564,9 @@ namespace SGAP.comercial
                 dgv_conceptos_remunerativos.DataSource = null;
                 dgv_conceptos_remunerativos.Update();
                 dgv_conceptos_remunerativos.Refresh();
+
+                //dgv_entrada_datos_mano_de_obra.Update();
+                //dgv_entrada_datos_mano_de_obra.Refresh();
 
                 _continuar = true;
                 btn_continuar.Enabled = true;
@@ -556,6 +580,9 @@ namespace SGAP.comercial
             dgv_conceptos_remunerativos.DataSource = null;
             dgv_conceptos_remunerativos.Update();
             dgv_conceptos_remunerativos.Refresh();
+
+            dgv_entrada_datos_mano_de_obra.Update();
+            dgv_entrada_datos_mano_de_obra.Refresh();
         }
 
         private void dgv_entrada_datos_mano_de_obra_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -598,6 +625,8 @@ namespace SGAP.comercial
                             dgv_conceptos_remunerativos.Update();
                             dgv_conceptos_remunerativos.Refresh();
                             dgv_conceptos_remunerativos.DataSource = _lista_et_m40;
+
+
                         }
                     }
                     else
@@ -608,6 +637,14 @@ namespace SGAP.comercial
                         dgv_conceptos_remunerativos.Update();
                         dgv_conceptos_remunerativos.Refresh();
                     }
+                }
+                try
+                {
+                    dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[Indice_columna_grid_entrada_datos_mano_obra, RowIndex];
+                }
+                catch(Exception EX)
+                {
+                    ////dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[Indice_columna_grid_entrada_datos_mano_obra, Indice_fila_repetida];
                 }
             }
             else
@@ -626,6 +663,15 @@ namespace SGAP.comercial
                 dgv_conceptos_remunerativos.Refresh();
 
             }
+
+            try
+            {
+                dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[Indice_columna_grid_entrada_datos_mano_obra, RowIndex];
+            }
+            catch (Exception EX)
+            {
+                ////dgv_entrada_datos_mano_de_obra.CurrentCell = dgv_entrada_datos_mano_de_obra[Indice_columna_grid_entrada_datos_mano_obra, Indice_fila_repetida];
+            }
         }
 
         //Aqui dibujamos el boton de eliminar fila par dgv_entrada_datos_mano_de_obra.
@@ -639,22 +685,40 @@ namespace SGAP.comercial
                 e.Graphics.DrawImage(delete_image, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Height = delete_image.Height + 7;
                 dgv_entrada_datos_mano_de_obra.Columns[e.ColumnIndex].Width = delete_image.Width + 7;
+
                 e.Handled = true;
             }
-            //if (dibujar_error)
-            //{
-            //    if (e.RowIndex >= 0 && e.ColumnIndex == columna && e.RowIndex == fila)
-            //    {
-            //        e.PaintBackground(e.ClipBounds, false);
-            //        dgv_entrada_datos_mano_de_obra[e.ColumnIndex, e.RowIndex].ToolTipText = e.Value.ToString();
-            //        PointF p = e.CellBounds.Location;
-            //        p.X += 22;
+            if (_dibujar_repetidos)
+            {
+                if((e.ColumnIndex >= 0 && this.dgv_entrada_datos_mano_de_obra.Columns[e.ColumnIndex].Name == "_COL_CARGO" && e.RowIndex >= 0))
+                {
+                    if (e.RowIndex >= 0 && e.ColumnIndex == 0 && (e.RowIndex == Indice_fila_repetida) && e.Value != null)
+                    {
+                        e.PaintBackground(e.ClipBounds, false);
+                        dgv_entrada_datos_mano_de_obra[e.ColumnIndex, e.RowIndex].ToolTipText = e.Value.ToString();
+                        PointF p = e.CellBounds.Location;
+                        p.X += 22;
 
-            //        e.Graphics.DrawImage(Properties.Resources.atencion_dos, e.CellBounds.X + 2, e.CellBounds.Y + 2, 16, 16);
-            //        e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font, Brushes.Black, p.X, p.Y + 5);
-            //        e.Handled = true;
-            //    }
-            //}
+                        e.Graphics.DrawImage(Properties.Resources.atencion, e.CellBounds.X + 2, e.CellBounds.Y + 2, 16, 16);
+                        e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font, Brushes.Black, p.X, p.Y + 5);
+                        e.Handled = true;
+                    }
+                    if (e.RowIndex >= 0 && e.ColumnIndex == 0 && (e.RowIndex == Indice_fila_que_repite) && e.Value != null)
+                    {
+
+                        e.PaintBackground(e.ClipBounds, false);
+                        dgv_entrada_datos_mano_de_obra[e.ColumnIndex, e.RowIndex].ToolTipText = e.Value.ToString();
+                        PointF p = e.CellBounds.Location;
+                        p.X += 22;
+
+                        e.Graphics.DrawImage(Properties.Resources.atencion, e.CellBounds.X + 2, e.CellBounds.Y + 2, 16, 16);
+                        e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font, Brushes.Black, p.X, p.Y + 5);
+                        e.Handled = true;
+
+                        _dibujar_repetidos = false;
+                    }
+                }
+            }
         }
 
         //Eliminamos la fila en la que se presiono el boton de borrar
@@ -723,6 +787,12 @@ namespace SGAP.comercial
                     dgv_conceptos_remunerativos.Update();
                     dgv_conceptos_remunerativos.Refresh();
 
+                    _dibujar_repetidos = false;
+
+                    dgv_entrada_datos_mano_de_obra.Update();
+                    dgv_entrada_datos_mano_de_obra.Refresh();
+
+
                     _continuar = true;
                     btn_continuar.Enabled = true;
 
@@ -755,7 +825,8 @@ namespace SGAP.comercial
         // Reevaluacion de la entrada de datos de configuraion cargos. version 1.2 - mejoramiento de funcionalidad por cesar.freitas
         private void dgv_entrada_datos_mano_de_obra_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            COLUMN_SELECTED = e.ColumnIndex;
+            dgv_entrada_datos_mano_de_obra.Update();
+            dgv_entrada_datos_mano_de_obra.Refresh();
             //Indice_fila_grid_entrada_datos_mano_obra = e.RowIndex;
         }
 
@@ -769,6 +840,13 @@ namespace SGAP.comercial
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
             BindingFlags.Instance | BindingFlags.SetProperty, null,
             gridview, new object[] { true });
+        }
+
+        private void dgv_entrada_datos_mano_de_obra_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            Analizar_registros_repetido();
+            dgv_entrada_datos_mano_de_obra.Update();
+            dgv_entrada_datos_mano_de_obra.Refresh();
         }
     }
 }

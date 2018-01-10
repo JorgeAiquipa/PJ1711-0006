@@ -149,7 +149,7 @@
             this.tree_view_servicios.Margin = new System.Windows.Forms.Padding(0);
             this.tree_view_servicios.Name = "tree_view_servicios";
             this.tree_view_servicios.ShowNodeToolTips = true;
-            this.tree_view_servicios.Size = new System.Drawing.Size(240, 480);
+            this.tree_view_servicios.Size = new System.Drawing.Size(238, 478);
             this.tree_view_servicios.TabIndex = 0;
             this.tree_view_servicios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_view_servicios_AfterSelect);
             this.tree_view_servicios.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tree_view_servicios_MouseUp);
@@ -309,7 +309,9 @@
             this.dgv_mano_de_obra.Size = new System.Drawing.Size(505, 426);
             this.dgv_mano_de_obra.TabIndex = 1;
             this.dgv_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellEndEdit);
+            this.dgv_mano_de_obra.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgv_mano_de_obra_CellFormatting);
             this.dgv_mano_de_obra.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellValueChanged);
+            this.dgv_mano_de_obra.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgv_mano_de_obra_ColumnWidthChanged);
             this.dgv_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_mano_de_obra_EditingControlShowing);
             this.dgv_mano_de_obra.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_RowEnter);
             this.dgv_mano_de_obra.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgv_mano_de_obra_Scroll);
@@ -673,7 +675,7 @@
             this.panel12.Controls.Add(this.panel_colapse);
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(240, 22);
+            this.panel12.Size = new System.Drawing.Size(238, 22);
             this.panel12.TabIndex = 1;
             // 
             // panel_colapse

@@ -148,8 +148,8 @@ namespace Win28ntug
 
             int indice_repetido = 0;
             bool existe = false;
-            int[] respuesta = new int[2];
-
+            int[] respuesta = new int[3];
+            int indice_comparacion = 0;
             foreach (ET_R29 row in obj)
             {
                 int _indice = row._Fila; // 0 ,1, 2
@@ -174,13 +174,14 @@ namespace Win28ntug
                                 row_clon._TR29_REMUNERACION == _remuneracion &&
                                 Comparar_conceptos_remunerativos(row_clon._lista_et_m40, _lista_De_remuneraciones) == true
 
-                            ) { indice_repetido = row_clon._Fila; existe = true; }
+                            ) { indice_repetido = row_clon._Fila; existe = true; indice_comparacion = _indice; }
                     }
                 }
             }
 
             respuesta[0] = indice_repetido;
-            respuesta[1] = Convert.ToInt32(existe);
+            respuesta[1] = indice_comparacion;
+            respuesta[2] = Convert.ToInt32(existe);
             return respuesta;
         }
         bool Comparar_conceptos_remunerativos(List<ET_M40> lista_A, List<ET_M40> lista_B)

@@ -588,7 +588,7 @@
             // lbl_locales_info
             // 
             this.lbl_locales_info.AutoSize = true;
-            this.lbl_locales_info.ForeColor = System.Drawing.Color.Navy;
+            this.lbl_locales_info.ForeColor = System.Drawing.Color.Black;
             this.lbl_locales_info.Location = new System.Drawing.Point(9, 5);
             this.lbl_locales_info.Name = "lbl_locales_info";
             this.lbl_locales_info.Size = new System.Drawing.Size(24, 13);

@@ -82,7 +82,7 @@ namespace Win28ntug
             //DataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             DataGridView.ColumnHeadersHeight = 22;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            DataGridView.AllowUserToResizeColumns = false;
+            DataGridView.AllowUserToResizeColumns = true;
             DataGridView.AllowUserToResizeRows = false;
             DataGridView.BorderStyle = BorderStyle.None;
             DataGridView.BackgroundColor = Color.White;

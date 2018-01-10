@@ -961,8 +961,16 @@ namespace SGAP.comercial
             dgv_mano_de_obra_right.GridColor = Color.Gray;
             dgv_mano_de_obra.GridColor = Color.Gray;
 
+            dgv_mano_de_obra.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgv_mano_de_obra.BackgroundColor = Color.White;
+            dgv_mano_de_obra_right.DefaultCellStyle.BackColor = Color.FromArgb(238,238,238);
+            dgv_mano_de_obra.Columns[0].DefaultCellStyle.BackColor = Color.FromArgb(238,238,238);
+            dgv_mano_de_obra.Columns[0].DefaultCellStyle.SelectionBackColor = Color.FromArgb(189,189,189);
+            dgv_mano_de_obra_right.DefaultCellStyle.SelectionBackColor = Color.FromArgb(189,189,189);
+
             dgv_mano_de_obra_right.Rows.Clear();
             dgv_mano_de_obra.Rows.Clear();
+
 
             var _Lista_et_r29_trabajadores_8_horas = _LISTA_ET_R29.Where(o => o._HOURS_DAY >= 4);
             var _Lista_et_r29_trabajadores_4_horas = _LISTA_ET_R29.Where(o => o._HOURS_DAY < 4);
@@ -1103,7 +1111,6 @@ namespace SGAP.comercial
             _NT_Helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
 
             dgv_mano_de_obra.AutoGenerateColumns = false;
-            dgv_mano_de_obra.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
 
             if (ajustar)
                 dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -1116,13 +1123,13 @@ namespace SGAP.comercial
             if (ajustar)
             {
                 MANO_OBRA_COL_DESCRIPCION.Width = 240;
-                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 240;
+                //MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 240;
                 MANO_OBRA_COL_DESCRIPCION.FillWeight = 240;
             }
             else
             {
                 MANO_OBRA_COL_DESCRIPCION.Width = 310;
-                MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 310;
+                //MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 310;
                 MANO_OBRA_COL_DESCRIPCION.FillWeight = 310;
             }
 
@@ -1265,9 +1272,17 @@ namespace SGAP.comercial
 
                 if (es_vista_reporte)
                 {
-                    dgv_mano_de_obra.GridColor = Color.WhiteSmoke;
-                    dgv_mano_de_obra_right.GridColor = Color.WhiteSmoke;
-                    dgv_mano_de_obra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgv_mano_de_obra_right.GridColor = Color.White;
+                    dgv_mano_de_obra.GridColor = Color.White;
+
+                    dgv_mano_de_obra.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                    dgv_mano_de_obra.BackgroundColor = Color.White;
+                    dgv_mano_de_obra_right.BackgroundColor = Color.White;
+                    dgv_mano_de_obra.DefaultCellStyle.BackColor = Color.White;
+                    dgv_mano_de_obra_right.DefaultCellStyle.BackColor = Color.White;
+                    dgv_mano_de_obra_right.DefaultCellStyle.SelectionBackColor = Color.LightSkyBlue;
+                    dgv_mano_de_obra.Columns[0].DefaultCellStyle.BackColor = Color.White;
+                    dgv_mano_de_obra.Columns[0].DefaultCellStyle.SelectionBackColor = Color.LightSkyBlue;
 
                     decimal[] MANO_DE_OBRA_COSTO_MENSUAL_LEFT = new decimal[dgv_mano_de_obra.ColumnCount];
                     decimal[] MANO_DE_OBRA_COSTO_MENSUAL_RIGHT = new decimal[dgv_mano_de_obra_right.ColumnCount];
@@ -1293,7 +1308,7 @@ namespace SGAP.comercial
                     var obj_ = Desplegar_informacion_de_mano_de_obra_por_horas_de_jornada(_Lista_et_r29_trabajadores_4_horas.ToList(), true);
                     if (es_vista_reporte)
                     {
-                        Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right);
+                        //Ingresar_filas_vacias_dentro_de_grids(Color.Blue, dgv_mano_de_obra, dgv_mano_de_obra_right);
                         Metodo_mostrar_calculos_de_costos_mano_de_obra(obj_);
                     }
                 }
@@ -1452,7 +1467,7 @@ namespace SGAP.comercial
             {
                 if (a == 0)
                 {
-                    MANO_DE_OBRA_SUBTOTALES_UNO[a] = "Sub Total";
+                    MANO_DE_OBRA_SUBTOTALES_UNO[a] = "Sub Total ";
                 }
                 else
                 {
@@ -1932,7 +1947,7 @@ namespace SGAP.comercial
         {
             try
             {
-                if(dgv_mano_de_obra.FirstDisplayedScrollingRowIndex > 0)
+                if(dgv_mano_de_obra.FirstDisplayedScrollingRowIndex >= 0)
                     dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra.FirstDisplayedScrollingRowIndex;
             }
             catch (Exception ex)
@@ -1943,7 +1958,7 @@ namespace SGAP.comercial
         {
             try
             {
-                if(dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex > 0)
+                if(dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex >= 0)
                     dgv_mano_de_obra.FirstDisplayedScrollingRowIndex = dgv_mano_de_obra_right.FirstDisplayedScrollingRowIndex;
             }
             catch (Exception ex)
@@ -1976,8 +1991,8 @@ namespace SGAP.comercial
                 dgv_mano_de_obra_right.Rows.Add(s_right);
                 dgv_mano_de_obra.Rows.Add(s_left);
                 //agregamos estilos a  las celdas ingresadas
-                Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
-                Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Blue, Font_);
+                Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.Black, Font_);
+                Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Black, Font_);
 
                 #region SUBTOTALES
                 for (int A = 1; A < s_one.Count(); A++)
@@ -2079,8 +2094,8 @@ namespace SGAP.comercial
             dgv_mano_de_obra_right.Rows.Add(COSTO_MENSUAL_SUMA_SUBTOTALES);
             dgv_mano_de_obra.Rows.Add(COSTO_MENSUAL_PO_LOCAL__);
             //agregamos estilos a  las celdas ingresadas
-            Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.Green, Font_);
-            Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.Green, Font_);
+            Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra.Rows.Count - 1), Color.DarkBlue, Font_);
+            Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), Color.DarkBlue, Font_);
 
             #endregion
         }
@@ -2115,10 +2130,8 @@ namespace SGAP.comercial
                     fila_titulo[a] = "";
                 }
                 grid_left.Rows.Add(fila_titulo);
-                //agregamos estilos a  las celdas ingresadas
                 Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                 Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), textcolor, Font_);
-                //fin estilos
             }
         }
 
@@ -2141,6 +2154,34 @@ namespace SGAP.comercial
         {
             Definir_valores_scroll_de_mano_De_obra();
         }
+
+        private void dgv_mano_de_obra_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgv_mano_de_obra.NewRowIndex != e.RowIndex)
+            {
+                if (e.ColumnIndex == 1 && dgv_mano_de_obra.Rows[e.RowIndex].Cells[0].Value.ToString() == "Sub Total")
+                {
+                    foreach (DataGridViewCell item in dgv_mano_de_obra_right.Rows[e.RowIndex].Cells)
+                        item.Style.BackColor = Color.FromArgb(255, 224, 178);
+                    foreach (DataGridViewCell item in dgv_mano_de_obra.Rows[e.RowIndex].Cells)
+                        item.Style.BackColor = Color.FromArgb(255, 224, 178);
+                }
+                // COSTO MENSUAL DE M.O.
+                if (e.ColumnIndex == 1 && dgv_mano_de_obra.Rows[e.RowIndex].Cells[0].Value.ToString() == "COSTO MENSUAL DE M.O.")
+                {
+                    foreach (DataGridViewCell item in dgv_mano_de_obra_right.Rows[e.RowIndex].Cells)
+                        item.Style.BackColor = Color.FromArgb(255, 204, 128);
+                    foreach (DataGridViewCell item in dgv_mano_de_obra.Rows[e.RowIndex].Cells)
+                        item.Style.BackColor = Color.FromArgb(255, 204, 128);
+                }
+            }
+        }
+
+        private void dgv_mano_de_obra_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            Definir_valores_scroll_de_mano_De_obra();
+        }
+
         #endregion
 
 
@@ -2322,5 +2363,6 @@ namespace SGAP.comercial
             }
         }
         #endregion
+
     }
 }

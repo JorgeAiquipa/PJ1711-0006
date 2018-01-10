@@ -76,7 +76,7 @@ namespace SGAP.comercial
 
             panel1.BackgroundImage = validation_image.Images[0];
             panel2.BackgroundImage = validation_image.Images[0];
-
+            panel2.Visible = false;
             label10.BackColor = Color.FromArgb(0, 137, 123);
             label10.ForeColor = Color.White;
             panel3.BackColor = Color.White;

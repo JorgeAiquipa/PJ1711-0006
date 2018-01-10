@@ -11,8 +11,8 @@ namespace Win28etug
     {
         // variables globales
         public string _TM2_ID = "PIS";
-        //public string _U_SESSION = "cesar.freitas";
-        public string _U_SESSION = "userprueba";
+        public string _U_SESSION = "cesar.freitas";
+        //public string _U_SESSION = "userprueba";
         //public string _U_SESSION = "regina.salazar";
         public int Servicio_general = 1;
         public int Servicio_especial = 4;
