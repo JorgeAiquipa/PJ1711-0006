@@ -68,6 +68,10 @@ namespace Win28ntug
             //{
             //    // Do Something
             //}
+            if (e.KeyChar == '\r')
+            {
+                //presiono enter
+            }
             if (char.IsLetter(e.KeyChar)) { e.Handled = false; }
             else if (char.IsControl(e.KeyChar)) { e.Handled = false; }
             else if (char.IsSeparator(e.KeyChar)) { e.Handled = false; }

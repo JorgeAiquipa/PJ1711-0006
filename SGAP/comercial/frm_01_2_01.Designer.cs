@@ -125,13 +125,15 @@
             this.dgv_entrada_datos_mano_de_obra.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellLeave);
             this.dgv_entrada_datos_mano_de_obra.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
             this.dgv_entrada_datos_mano_de_obra.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValidating);
-            this.dgv_entrada_datos_mano_de_obra.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellValueChanged);
             this.dgv_entrada_datos_mano_de_obra.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded);
             this.dgv_entrada_datos_mano_de_obra.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgv_entrada_datos_mano_de_obra_EditingControlShowing);
             this.dgv_entrada_datos_mano_de_obra.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_RowEnter);
             this.dgv_entrada_datos_mano_de_obra.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_entrada_datos_mano_de_obra_RowsAdded);
             this.dgv_entrada_datos_mano_de_obra.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_entrada_datos_mano_de_obra_UserDeletedRow);
             this.dgv_entrada_datos_mano_de_obra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_entrada_datos_mano_de_obra_KeyDown);
+            this.dgv_entrada_datos_mano_de_obra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgv_entrada_datos_mano_de_obra_KeyPress);
+            this.dgv_entrada_datos_mano_de_obra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgv_entrada_datos_mano_de_obra_KeyUp);
+            this.dgv_entrada_datos_mano_de_obra.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dgv_entrada_datos_mano_de_obra_PreviewKeyDown);
             // 
             // btn_cancelar
             // 

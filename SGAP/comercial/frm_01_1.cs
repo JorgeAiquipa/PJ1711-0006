@@ -71,7 +71,7 @@ namespace SGAP.comercial
             validation_image.TransparentColor = Color.White;
             validation_image.ColorDepth = ColorDepth.Depth32Bit;
             validation_image.ImageSize = new Size(16, 16);
-            validation_image.Images.Add(Properties.Resources.informacion);
+            validation_image.Images.Add(Properties.Resources.atencion);
             validation_image.Images.Add(Properties.Resources.ok);
 
             panel1.BackgroundImage = validation_image.Images[0];
