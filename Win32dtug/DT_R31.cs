@@ -37,7 +37,7 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR31_TR29_ID", SqlDbType.Int).Value = objEntity._TR31_TR29_ID;
                     cmd.Parameters.Add("@p_TR31_TR27_ID", SqlDbType.Int).Value = objEntity._TR31_TR27_ID;
                     cmd.Parameters.Add("@p_TR31_TR28_ID", SqlDbType.Int).Value = objEntity._TR31_TR28_ID;
-                    cmd.Parameters.Add("@p_TR31_CANT_PERSONAS", SqlDbType.Int).Value = objEntity._TR31_CANT_PERSONAS;
+                    cmd.Parameters.Add("@p_TR31_CANT_PERSONAS", SqlDbType.BigInt).Value = objEntity._TR31_CANT_PERSONAS;
                     cmd.Parameters.Add("@p_TR31_DESCRIP", SqlDbType.VarChar, 3000).Value = objEntity._TR31_DESCRIP;
                     cmd.Parameters.Add("@p_TR31_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR31_UCREA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;

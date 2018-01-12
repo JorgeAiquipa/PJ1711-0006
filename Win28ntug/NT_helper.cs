@@ -38,9 +38,8 @@ namespace Win28ntug
         public void dataGridViewTextBox_Number_KeyPress(object sender, KeyPressEventArgs e)
         {
             TextBox _textbox = (TextBox)sender;
-
-            //if (char.IsDigit(e.KeyChar)) { e.Handled = false; }
-            //if (char.IsLetter(e.KeyChar)) { e.Handled = true; }
+            if (char.IsDigit(e.KeyChar)) { e.Handled = false; }
+            if (char.IsLetter(e.KeyChar)) { e.Handled = true; }
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 e.Handled = true;

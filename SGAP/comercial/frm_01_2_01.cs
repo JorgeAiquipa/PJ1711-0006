@@ -168,14 +168,29 @@ namespace SGAP.comercial
             _COL_CONCEPTO_REMUNERATIVO.Name = "_COL_CONCEPTO_REMUNERATIVO";
             _COL_CONCEPTO_REMUNERATIVO.DefaultCellStyle.SelectionBackColor = Color.White;
             _COL_CONCEPTO_REMUNERATIVO.ReadOnly = true;
-            _COL_CONCEPTO_REMUNERATIVO.Width = 651;
-            _COL_CONCEPTO_REMUNERATIVO.MinimumWidth = 651;
-            _COL_CONCEPTO_REMUNERATIVO.FillWeight = 651;
+            _COL_CONCEPTO_REMUNERATIVO.Width = 260;
+            _COL_CONCEPTO_REMUNERATIVO.MinimumWidth = 260;
+            _COL_CONCEPTO_REMUNERATIVO.FillWeight = 260;
+
+            DataGridViewColumn _COL_AFECTO = new DataGridViewCheckBoxColumn();
+            _COL_AFECTO.DataPropertyName = "_afecto";
+            _COL_AFECTO.HeaderText = "Es Afecto";
+            _COL_AFECTO.Name = "_COL_AFECTO";
+            _COL_CONCEPTO_REMUNERATIVO.Width = 50;
+            _COL_CONCEPTO_REMUNERATIVO.MinimumWidth = 50;
+            _COL_CONCEPTO_REMUNERATIVO.FillWeight = 50;
+
+            DataGridViewColumn _COL_VALOR = new DataGridViewTextBoxColumn();
+            _COL_VALOR.DataPropertyName = "";
+            _COL_VALOR.HeaderText = "Valor";
+            _COL_VALOR.Name = "_COL_VALOR";
 
             dgv_conceptos_remunerativos.Columns.AddRange(new DataGridViewColumn[] {
                    _COL_CONCEPTO_SELECCIONADO,
                    _COL_ID_CONCEPTO_REMUNERATIVO,
-                   _COL_CONCEPTO_REMUNERATIVO
+                   _COL_CONCEPTO_REMUNERATIVO,
+                   _COL_AFECTO,
+                   _COL_VALOR
             });
         }
 
@@ -219,7 +234,6 @@ namespace SGAP.comercial
                 Analizar_registros_repetido();
             }
         }
-
         private void btn_continuar_Click(object sender, EventArgs e)
         {
             if (_continuar)
@@ -228,7 +242,6 @@ namespace SGAP.comercial
                 DialogResult = DialogResult.OK;
             }
         }
-
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
             Close();
@@ -419,11 +432,6 @@ namespace SGAP.comercial
 
         private void dgv_conceptos_remunerativos_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.KeyData == Keys.Escape)
-            //{
-            //    Close();
-            //    DialogResult = DialogResult.Cancel;
-            //}
             if (e.KeyData == Keys.Tab)
             {
                 e.Handled = true;
@@ -483,7 +491,6 @@ namespace SGAP.comercial
                 return true;
             }
         }
-
         private void dgv_entrada_datos_mano_de_obra_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             _lista_et_m40.Clear();
@@ -753,7 +760,21 @@ namespace SGAP.comercial
 
         private void dgv_entrada_datos_mano_de_obra_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            
+        }
+        private void dgv_conceptos_remunerativos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
+
+        private void dgv_conceptos_remunerativos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewCell selected_cell = dgv_conceptos_remunerativos.CurrentCell;
+            if (e.ColumnIndex == 3)
+            {
+                dgv_conceptos_remunerativos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                bool valor_obtenido = Convert.ToBoolean(selected_cell.Value);
+            }
         }
     }
 }

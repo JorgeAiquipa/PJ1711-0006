@@ -95,6 +95,8 @@
             this.dgv_conceptos_remunerativos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(703, 203);
             this.dgv_conceptos_remunerativos.TabIndex = 0;
+            this.dgv_conceptos_remunerativos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_conceptos_remunerativos_CellContentClick);
+            this.dgv_conceptos_remunerativos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_conceptos_remunerativos_CellEndEdit);
             this.dgv_conceptos_remunerativos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_conceptos_remunerativos_KeyDown);
             // 
             // panel_cargos

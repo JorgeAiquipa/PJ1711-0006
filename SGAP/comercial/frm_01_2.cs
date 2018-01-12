@@ -194,7 +194,6 @@ namespace SGAP.comercial
             toolTip1.ReshowDelay = 500;
             toolTip1.ShowAlways = true;
             toolTip1.SetToolTip(this.btn_guardar_mano_de_obra, "   Guardar mano de obra (Ctrl+G)   ");
-            //toolTip1.SetToolTip(this.btn_editar_mano_de_obra, "   Editar mano de obra (Ctrl+Mayús+E)   ");
             #endregion
 
             #region maquinaria_y_equipo
@@ -850,10 +849,9 @@ namespace SGAP.comercial
             }
 
             dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[0].Value = suma_total;
-            decimal producto = suma_total * (Convert.ToDecimal(dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[3].Value));
+            decimal producto = suma_total * (Convert.ToDecimal(dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[2].Value));
 
             dgv_mano_de_obra_right.Rows[e.RowIndex].Cells[4].Value = string.Format("{0:#,#.00}", producto);
-
 
         }
 
@@ -862,8 +860,9 @@ namespace SGAP.comercial
             if (dgv_mano_de_obra.CurrentCell.ColumnIndex != 0)
             {
                 TextBox TEX_BOX_NUMBER = e.Control as TextBox;
+                TEX_BOX_NUMBER.MaxLength = 5;
                 TEX_BOX_NUMBER.KeyPress += new KeyPressEventHandler(_NT_Helper.dataGridViewTextBox_Number_KeyPress);
-                e.Control.KeyPress += new KeyPressEventHandler(_NT_Helper.dataGridViewTextBox_Number_KeyPress);
+                e.Control.KeyPress += new KeyPressEventHandler(_NT_Helper.dataGridViewTextBox_Number_KeyPress); 
             }
         }
 
@@ -965,8 +964,6 @@ namespace SGAP.comercial
             dgv_mano_de_obra.BackgroundColor = Color.White;
             dgv_mano_de_obra_right.DefaultCellStyle.BackColor = Color.FromArgb(238,238,238);
             dgv_mano_de_obra.Columns[0].DefaultCellStyle.BackColor = Color.FromArgb(238,238,238);
-            dgv_mano_de_obra.Columns[0].DefaultCellStyle.SelectionBackColor = Color.FromArgb(189,189,189);
-            dgv_mano_de_obra_right.DefaultCellStyle.SelectionBackColor = Color.FromArgb(189,189,189);
 
             dgv_mano_de_obra_right.Rows.Clear();
             dgv_mano_de_obra.Rows.Clear();
@@ -1049,6 +1046,7 @@ namespace SGAP.comercial
                     total_personal,
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION),
                     string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
+                    "",
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M),
                     string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M)
                  );
@@ -1120,18 +1118,8 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.HeaderText = "Cargo";
             MANO_OBRA_COL_DESCRIPCION.Name = "MANO_OBRA_COL_DESCRIPCION";
             MANO_OBRA_COL_DESCRIPCION.ReadOnly = true;
-            if (ajustar)
-            {
-                MANO_OBRA_COL_DESCRIPCION.Width = 240;
-                //MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 240;
-                MANO_OBRA_COL_DESCRIPCION.FillWeight = 240;
-            }
-            else
-            {
-                MANO_OBRA_COL_DESCRIPCION.Width = 310;
-                //MANO_OBRA_COL_DESCRIPCION.MinimumWidth = 310;
-                MANO_OBRA_COL_DESCRIPCION.FillWeight = 310;
-            }
+            MANO_OBRA_COL_DESCRIPCION.Width = 240;
+            MANO_OBRA_COL_DESCRIPCION.FillWeight = 240;
 
             dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_DESCRIPCION,
@@ -1150,17 +1138,7 @@ namespace SGAP.comercial
                 {
                     dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
-
-                    if (ajustar)
-                    {
-                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 159;
-                        dgv_mano_de_obra.Columns[indice_de_inicio].MinimumWidth = 159;
-                        dgv_mano_de_obra.Columns[indice_de_inicio].FillWeight = 159;
-                    }
-                    else
-                    {
-                        dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
-                    }
+                    dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
                     dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
                     dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}", indice_nn) : x._TR27_DESCRIP.Length > 26 ? string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
@@ -1214,19 +1192,31 @@ namespace SGAP.comercial
             MANO_OBRA_COL_TOTAL.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             MANO_OBRA_COL_TOTAL.ToolTipText = MANO_OBRA_COL_TOTAL.HeaderText;
 
-            DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS = new DataGridViewTextBoxColumn();
-            MANO_OBRA_COL_SUM_CONCEPTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText = "Total conceptos";
-            MANO_OBRA_COL_SUM_CONCEPTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS.Width = 90;
-            MANO_OBRA_COL_SUM_CONCEPTOS.ReadOnly = false;
-            MANO_OBRA_COL_SUM_CONCEPTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            MANO_OBRA_COL_SUM_CONCEPTOS.ToolTipText = MANO_OBRA_COL_SUM_CONCEPTOS.HeaderText;
+            DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.HeaderText = "Total conceptos no afectos";
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.Width = 90;
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.ReadOnly = false;
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.ToolTipText = MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.HeaderText;
+
+            DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS = new DataGridViewTextBoxColumn();
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.HeaderText = "Total conceptos afectos";
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS";
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.Width = 90;
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.ReadOnly = false;
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.ToolTipText = MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.HeaderText;
+
+
 
             dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_TOTAL_PERSONAL,
                 MANO_OBRA_COL_SUELDO_BASICO,
-                MANO_OBRA_COL_SUM_CONCEPTOS,
+                MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS,
+                MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS,
                 MANO_OBRA_COL_SUELDO_MENSUAL,
                 MANO_OBRA_COL_TOTAL
             });
@@ -1391,12 +1381,13 @@ namespace SGAP.comercial
             #endregion
 
             #region Poblar grids
+
             object_list_etr29.ForEach(fila_ => {
                 string Texto_descripcion_mano_del_cargo = Obtener_descripcion_mano_obra(
-                    fila_._TR29_DESCRIP, 
-                    fila_._TR29_DIAS_SEMANA, 
-                    fila_._TR29_HORA_ENTRADA, 
-                    fila_._TR29_HORA_SALIDA, 
+                    fila_._TR29_DESCRIP,
+                    fila_._TR29_DIAS_SEMANA,
+                    fila_._TR29_HORA_ENTRADA,
+                    fila_._TR29_HORA_SALIDA,
                     fila_._lista_et_r30
                 );
                 var res = _LISTA_ET_R31.Where(fila => fila._TR31_TR29_ID == fila_._TR29_ID).ToList();
@@ -1448,6 +1439,7 @@ namespace SGAP.comercial
                     total_personal,
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION),
                     string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
+                    "",
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M),
                     string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M)
                  );
@@ -1455,8 +1447,8 @@ namespace SGAP.comercial
                 MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO[INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO] = fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M;
                 INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO++;
 
-                MANO_OBRA_TOTAL             = MANO_OBRA_TOTAL + (((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M);
-                MANO_OBRA_TOTAL_PERSONAL    = MANO_OBRA_TOTAL_PERSONAL + total_personal;
+                MANO_OBRA_TOTAL = MANO_OBRA_TOTAL + (((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M);
+                MANO_OBRA_TOTAL_PERSONAL = MANO_OBRA_TOTAL_PERSONAL + total_personal;
 
                 dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
             });
@@ -1497,11 +1489,17 @@ namespace SGAP.comercial
                 }
             }
 
-            MANO_DE_OBRA_SUBTOTALES_DOS[0] = MANO_OBRA_TOTAL_PERSONAL.ToString();
-            MANO_DE_OBRA_SUBTOTALES_DOS[1] = string.Empty;
-            MANO_DE_OBRA_SUBTOTALES_DOS[2] = string.Empty;
-            MANO_DE_OBRA_SUBTOTALES_DOS[3] = "S/";
-            MANO_DE_OBRA_SUBTOTALES_DOS[4] = string.Format("{0:#,#.00}", MANO_OBRA_TOTAL).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", MANO_OBRA_TOTAL);
+            for (int a = 0; a <= dgv_mano_de_obra_right.ColumnCount - 1; a++)
+            {
+                if(a== 0)
+                    MANO_DE_OBRA_SUBTOTALES_DOS[0] = MANO_OBRA_TOTAL_PERSONAL.ToString();
+                MANO_DE_OBRA_SUBTOTALES_DOS[a] = string.Empty;
+                if(a == dgv_mano_de_obra_right.ColumnCount - 2)
+                    MANO_DE_OBRA_SUBTOTALES_DOS[a] = "S/";
+                if (a == dgv_mano_de_obra_right.ColumnCount - 1)
+                    MANO_DE_OBRA_SUBTOTALES_DOS[a] = string.Format("{0:#,#.00}", MANO_OBRA_TOTAL).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", MANO_OBRA_TOTAL);
+
+            }
 
             MANO_DE_OBRA_FIRST_SUBTOTAL[0] = MANO_DE_OBRA_SUBTOTALES_UNO;
             MANO_DE_OBRA_FIRST_SUBTOTAL[1] = MANO_DE_OBRA_SUBTOTALES_DOS;
