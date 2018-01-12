@@ -23,6 +23,13 @@ namespace Win28ntug
 
         DT_M19 _dt_m19 = new DT_M19();
         object locker = new object();
+
+        ////BUSCAR CLIENTE
+        public List<ET_M19> sel_002(string TM39_ID_)
+        {
+            return _dt_m19.get_002(TM39_ID_)._lista_et_m19;
+        }
+
         public void txt_autocomplete(TextBox _textbox)
         {
             var result = _dt_m19.get_001(_textbox.Text);

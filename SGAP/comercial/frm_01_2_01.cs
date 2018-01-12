@@ -238,8 +238,12 @@ namespace SGAP.comercial
         {
             if (_continuar)
             {
-                _nt_r29.set_001(_lista_et_r29, _lista_et_r29_los_eliminados);
-                DialogResult = DialogResult.OK;
+                DialogResult decision_msg = MessageBox.Show("Las modificaciones realizadas afectaran la base de datos.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (decision_msg == DialogResult.OK)
+                {
+                    _nt_r29.set_001(_lista_et_r29, _lista_et_r29_los_eliminados);
+                    DialogResult = DialogResult.OK;
+                }
             }
         }
         private void btn_cancelar_Click(object sender, EventArgs e)

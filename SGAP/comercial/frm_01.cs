@@ -100,7 +100,7 @@ namespace SGAP.comercial
         }
         void Form_Nueva_Cotizacion_Show()
         {
-            frm_01_1 frm_01_1 = new frm_01_1();
+            frm_01_1 frm_01_1 = new frm_01_1(null);
             frm_01_1.ShowDialog();
 
             if (frm_01_1.DialogResult == DialogResult.OK)

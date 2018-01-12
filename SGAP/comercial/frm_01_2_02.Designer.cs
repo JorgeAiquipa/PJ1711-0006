@@ -40,6 +40,8 @@
             this.num_frecuencia = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_frecuencia)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 82);
+            this.label2.Location = new System.Drawing.Point(39, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 3;
@@ -64,7 +66,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 116);
+            this.label3.Location = new System.Drawing.Point(24, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 4;
@@ -84,7 +86,7 @@
             // 
             this.cbx_servicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx_servicio.FormattingEnabled = true;
-            this.cbx_servicio.Location = new System.Drawing.Point(93, 79);
+            this.cbx_servicio.Location = new System.Drawing.Point(93, 103);
             this.cbx_servicio.Name = "cbx_servicio";
             this.cbx_servicio.Size = new System.Drawing.Size(164, 21);
             this.cbx_servicio.TabIndex = 1;
@@ -93,7 +95,7 @@
             // 
             this.btn_continuar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_continuar.Location = new System.Drawing.Point(93, 156);
+            this.btn_continuar.Location = new System.Drawing.Point(93, 180);
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(78, 23);
             this.btn_continuar.TabIndex = 3;
@@ -105,7 +107,7 @@
             // 
             this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btn_cancelar.Location = new System.Drawing.Point(179, 156);
+            this.btn_cancelar.Location = new System.Drawing.Point(179, 180);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(78, 23);
             this.btn_cancelar.TabIndex = 4;
@@ -116,7 +118,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(93, 116);
+            this.label4.Location = new System.Drawing.Point(93, 140);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 5;
@@ -124,7 +126,7 @@
             // 
             // num_frecuencia
             // 
-            this.num_frecuencia.Location = new System.Drawing.Point(128, 114);
+            this.num_frecuencia.Location = new System.Drawing.Point(128, 138);
             this.num_frecuencia.Minimum = new decimal(new int[] {
             1,
             0,
@@ -143,7 +145,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(178, 116);
+            this.label5.Location = new System.Drawing.Point(178, 140);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 7;
@@ -160,11 +162,31 @@
             this.label10.TabIndex = 8;
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(93, 73);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(164, 20);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Descripcion";
+            this.label6.Visible = false;
+            // 
             // frm_01_2_02
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(271, 191);
+            this.ClientSize = new System.Drawing.Size(271, 213);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.num_frecuencia);
@@ -199,5 +221,7 @@
         private System.Windows.Forms.NumericUpDown num_frecuencia;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
     }
 }

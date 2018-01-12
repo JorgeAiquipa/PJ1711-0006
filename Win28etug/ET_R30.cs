@@ -21,6 +21,7 @@ namespace Win28etug
         public DateTime _TR30_FCREA { get; set; }
         public string _TR30_UACTUALIZA { get; set; }
         public DateTime _TR30_FACTUALIZA { get; set; }
+        public string _TR30_ABREV { get; set; }//DIEGO
 
 
 
