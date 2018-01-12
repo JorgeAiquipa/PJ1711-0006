@@ -17,6 +17,7 @@ namespace Win28etug
         public DateTime _TM40_FCREA { get; set; }
         public string _TM40_UACTUALIZA { get; set; }
         public DateTime _TM40_FACTUALIZA { get; set; }
+        public string _TM40_ABREV { get; set; }
 
         public string _Filtro { get; set; }
         public bool _Seleccionado { get; set; }

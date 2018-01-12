@@ -21,17 +21,20 @@ namespace SGAP.comercial
         ET_M41 _et_m41 = new ET_M41();
         ET_M39 _et_m39 = new ET_M39();
         ET_R28 _et_r28 = new ET_R28();
+        ET_M27 _et_m27 = new ET_M27();
 
         NT_M19 _nt_m19 = new NT_M19();
         NT_M27 _nt_m27 = new NT_M27();
         NT_M41 _nt_m41 = new NT_M41();
         NT_M39 _nt_m39 = new NT_M39();
         NT_R28 _nt_r28 = new NT_R28();
+        NT_R27 _NT_R27 = new NT_R27();
 
         List<ET_M19> _lista_m19 = new List<ET_M19>();
         List<ET_M27> _lista_m27 = new List<ET_M27>();
         List<ET_M41> _lista_m41 = new List<ET_M41>();
         List<ET_R19> _lista_R19 = new List<ET_R19>();
+        //_lista_et_m19
         #endregion
 
         #region Variables
@@ -47,14 +50,27 @@ namespace SGAP.comercial
         string CBX_PRIMER_ITEM = "[Seleccione un servicio]";
         string[] Array_clientes_autocomplete;
 
+        string _Tarea;
+        string Cotizacion;
+
         DataGridViewCellStyle Estilo_de_columna_nombre_local = new DataGridViewCellStyle();
         ImageList validation_image = new ImageList();
         #endregion
 
         #region Métodos
-        public frm_01_1()
+        public frm_01_1(string Id_Cotizacion)
         {
             InitializeComponent();
+
+            
+            if (!string.IsNullOrEmpty(Id_Cotizacion))
+            {
+                _Tarea = Tarea.ACTUALIZAR();
+                Cotizacion = Id_Cotizacion;
+            }
+
+
+            
             BackColor = Color.FromArgb(221, 221, 221);
 
             autoCompleteTextBox_t_m19.MaxLength = 500;            
@@ -89,6 +105,41 @@ namespace SGAP.comercial
             //Tooltip_locales.ToolTipIcon = ToolTipIcon.Info;
             //Tooltip_locales.ToolTipTitle = "Mensaje del sistema";
             //Tooltip_locales.SetToolTip(dgv_informacion_locales, "Se requiere seleccionar por lo menos un local.");
+            #region ACTUALIZAR
+
+            if (_Tarea == "ACTUALIZAR")
+            {
+                autoCompleteTextBox_t_m19.Enabled = false;
+                txt_ruc_cliente.Enabled = false;
+                rb_tipo1.Enabled = false;
+                rb_tipo2.Enabled = false;
+                cbx_tipo_servicio.Enabled = false;
+
+                _lista_m19 = _nt_m19.sel_002(Cotizacion);
+
+                _lista_m19.ForEach(x =>
+                {
+                    autoCompleteTextBox_t_m19.Text = x._TM19_DESCRIP2;
+                    txt_ruc_cliente.Text = x._TM19_DESCRIP1;
+                    _entity._entity_r27._TR27_TM39_ID = Cotizacion;
+                    _entity._entity_r27._TR27_TM19_ID = x._TM19_ID;
+                });
+
+
+                Obtener_Informacion_t_m19();
+
+                
+
+                Locales_metodo_Cargar();
+
+                _NT_R27.Cargar_Listado_ += _NT_R27_Cargar_Listado_;
+
+
+            }
+
+            #endregion
+
+
         }
         void Crear_Grid_Locales()
         {
@@ -99,6 +150,8 @@ namespace SGAP.comercial
             dgv_informacion_locales.AutoGenerateColumns = false;
             dgv_informacion_locales.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgv_informacion_locales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            
         }
         void Metodo_obtener_tipo_servicio()
         {
@@ -119,6 +172,7 @@ namespace SGAP.comercial
         #endregion
 
         #region Eventos
+
         void Porcentaje_De_Craga(object sender, int e)
         {
             if (e < 100)
@@ -185,77 +239,85 @@ namespace SGAP.comercial
 
         private void btn_continuar_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            Metodo_obtener_informacion_ingresada();
-
-            _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
-
-            int cantidad = _entity._lista_et_m27.Count;
-            int cant_tabla = _lista_m27.Count;
-
-            if (txt_ruc_cliente.Text != "") //Cliente valido
+            if (_Tarea != "ACTUALIZAR")
             {
-                if (cant_tabla != 0) //Hay locales
+                #region REGISTRAR
+
+                Cursor.Current = Cursors.WaitCursor;
+                Metodo_obtener_informacion_ingresada();
+
+                _entity._lista_et_m27 = _lista_m27.Where(local => local._seleccionado == true).ToList();
+
+                int cantidad = _entity._lista_et_m27.Count;
+                int cant_tabla = _lista_m27.Count;
+                
+                if (txt_ruc_cliente.Text != "") //Cliente valido
                 {
-                    if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != CBX_PRIMER_ITEM) //Servicio
+                    if (cant_tabla != 0) //Hay locales
                     {
-                        if (cantidad > 0) //Local Marcado
+                        if (cbx_tipo_servicio.Text != "" && cbx_tipo_servicio.Text != CBX_PRIMER_ITEM) //Servicio
                         {
-                            //seteamos informacion del cliente
-                            _et_m19._TM19_DESCRIP1 = RUC_DEL_CLIENTE;
-                            _et_m19._TM19_DESCRIP2 = NOMBRE_DEL_CLIENTE;
-                            _et_m19._TM19_ID = ID_TM19;
-                            _entity._entity_m19 = _et_m19;
+                            if (cantidad > 0) //Local Marcado
+                            {
+                                //seteamos informacion del cliente
+                                _et_m19._TM19_DESCRIP1 = RUC_DEL_CLIENTE;
+                                _et_m19._TM19_DESCRIP2 = NOMBRE_DEL_CLIENTE;
+                                _et_m19._TM19_ID = ID_TM19;
+                                _entity._entity_m19 = _et_m19;
 
-                            //seteamos info del servicio seleccionado
-                            _et_m41._TM41_TM42_ID = ID_TIPO_SERVICIO;//diego
-                            _et_m41._TM41_DESCRIP = nombre_de_Servicio;
-                            _et_m41._TM41_ID = ID_TM41;
-                            _entity._entity_m41 = _et_m41;
+                                //seteamos info del servicio seleccionado
+                                _et_m41._TM41_TM42_ID = ID_TIPO_SERVICIO;//diego
+                                _et_m41._TM41_DESCRIP = nombre_de_Servicio;
+                                _et_m41._TM41_ID = ID_TM41;
+                                _entity._entity_m41 = _et_m41;
 
-                            //informacion de la cotizacion a registrar
-                            _et_m39._TM39_DESCRIP = string.Format("{0} Para {1}", nombre_de_Servicio, NOMBRE_DEL_CLIENTE);//nombre de la cotizacion
-                            _et_m39._TM39_TM19_ID = ID_TM19;
+                                //informacion de la cotizacion a registrar
+                                _et_m39._TM39_DESCRIP = string.Format("{0} Para {1}", nombre_de_Servicio, NOMBRE_DEL_CLIENTE);//nombre de la cotizacion
+                                _et_m39._TM39_TM19_ID = ID_TM19;
 
-                            _entity._entity_m39 = _et_m39;
-                            _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
+                                _entity._entity_m39 = _et_m39;
+                                _entity._entity_r28._TR28_PERIODO = Convert.ToInt32(nupd_periodo_de_servicio.Value);
 
-                            var result = _nt_m39.set_001(_entity);
+                                var result = _nt_m39.set_001(_entity);
 
-                            _entity._entity_r28._TR28_PADRE = result._entity_r28._TR28_PADRE;
-                            _entity._entity_m39._TM39_ID = result._entity_m39._TM39_ID;
-                            _entity._entity_m39._entity_et_m19._TM19_ID = ID_TM19;
-                            _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = NOMBRE_DEL_CLIENTE; //razon social
+                                _entity._entity_r28._TR28_PADRE = result._entity_r28._TR28_PADRE;
+                                _entity._entity_m39._TM39_ID = result._entity_m39._TM39_ID;
+                                _entity._entity_m39._entity_et_m19._TM19_ID = ID_TM19;
+                                _entity._entity_m39._entity_et_m19._TM19_DESCRIP2 = NOMBRE_DEL_CLIENTE; //razon social
 
-                            this.DialogResult = DialogResult.OK;
+                                this.DialogResult = DialogResult.OK;
 
-                            this.Dispose();
+                                this.Dispose();
+                            }
+                            else
+                            {
+                                DialogResult decision_msg = MessageBox.Show("Se requiere seleccionar por lo menos un local.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (decision_msg == DialogResult.OK) { dgv_informacion_locales.Focus(); }
+                            }
                         }
                         else
                         {
-                            DialogResult decision_msg = MessageBox.Show("Se requiere seleccionar por lo menos un local.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            if (decision_msg == DialogResult.OK) { dgv_informacion_locales.Focus(); }
-
+                            panel2.Visible = true;
+                            rb_tipo1.Focus();
+                            DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        panel2.Visible = true;
-                        rb_tipo1.Focus();
-                        DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //if (decision_msg == DialogResult.OK) { cbx_tipo_servicio.Focus(); }
+                        DialogResult decision_msg = MessageBox.Show("Este cliente no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
                     }
                 }
                 else
                 {
-                    DialogResult decision_msg = MessageBox.Show("Este cliente no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult decision_msg = MessageBox.Show("Seleccione un cliente valido.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
                 }
+                #endregion
             }
-            else
+            else if (_Tarea == "ACTUALIZAR")
             {
-                DialogResult decision_msg = MessageBox.Show("Seleccione un cliente valido.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
+
             }
         }
 
@@ -263,9 +325,29 @@ namespace SGAP.comercial
         {
             Close();
         }
+        private void Locales_metodo_Cargar()
+        {
+            _NT_R27.Agregar_ET_R27(_entity._entity_r27);
+            _NT_R27.Iniciar(Tarea.LISTAR);
+            //var result = _NT_R27.get_001(_ET_ENTIDAD);
+
+        }
+
+        private void _NT_R27_Cargar_Listado_(object sender, ET_entidad e)
+        {
+            if (!e._hubo_error)
+            {
+                _entity._lista_et_m27 = e._lista_et_m27; //Total locales
+                _entity._lista_et_r27 = e._lista_et_r27; //Locales de la cotizacion
+
+                
+                
+            }
+        }
 
         private void Obtener_Informacion_t_m19()
         {
+            
             _et_m19 = new ET_M19();
             _et_m19 = _lista_m19.FirstOrDefault(item=> item._TM19_DESCRIP2.ToUpper() == autoCompleteTextBox_t_m19.Text.ToUpper().Trim());
             if (_et_m19 != null)
@@ -319,19 +401,22 @@ namespace SGAP.comercial
         }
         private void autoCompleteTextBox_t_m19_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(autoCompleteTextBox_t_m19.Text))
+            if (_Tarea != "ACTUALIZAR")
             {
-                string filtro = autoCompleteTextBox_t_m19.Text;
-                _nt_m19._Filtro(filtro);
-                _nt_m19.Iniciar(Tarea.BUSCAR);
-                
-            }
-            else
-            {
+                if (!string.IsNullOrEmpty(autoCompleteTextBox_t_m19.Text))
+                {
+                    string filtro = autoCompleteTextBox_t_m19.Text;
+                    _nt_m19._Filtro(filtro);
+                    _nt_m19.Iniciar(Tarea.BUSCAR);
+
+                }
+                else
+                {
+                    Limpiar_Informacion_ingresada();
+                }
+
                 Limpiar_Informacion_ingresada();
             }
-
-            Limpiar_Informacion_ingresada();
         }
         private void autoCompleteTextBox_t_m19_KeyDown(object sender, KeyEventArgs e)
         {
@@ -390,6 +475,7 @@ namespace SGAP.comercial
             toolTip1.SetToolTip(this.panel2, "Seleccione un servicio");
             panel1.Visible = false;
             Habilitar_Buffer_doble_control_gridview(dgv_informacion_locales,true);
+
         }
 
         private void Habilitar_Buffer_doble_control_gridview(DataGridView gridview, bool v)

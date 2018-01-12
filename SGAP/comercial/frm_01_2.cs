@@ -39,18 +39,19 @@ namespace SGAP.comercial
         List<ET_R28> _LISTA_ET_R28 = new List<ET_R28>();
         List<ET_R31> _LISTA_ET_R31 = new List<ET_R31>();
      
+        ImageList iconos_treeView = new ImageList();
+
+        ContextMenuStrip MenuStrip_AgregarServicio = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_BorrarServicio = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_VerPropiedades = new ContextMenuStrip();
+        ContextMenuStrip MenuStrip_DatosGenerales = new ContextMenuStrip();
+
         public string nom = "";
         public string cod = "";
         public string marc = "";
         public string undad = "";
         public double precio = 0;
         public string tipo = "";
-
-        ImageList iconos_treeView = new ImageList();
-
-        ContextMenuStrip MenuStrip_AgregarServicio = new ContextMenuStrip();
-        ContextMenuStrip MenuStrip_BorrarServicio = new ContextMenuStrip();
-        ContextMenuStrip MenuStrip_VerPropiedades = new ContextMenuStrip();
 
         bool Editar_cotizacion = false;
 
@@ -61,9 +62,8 @@ namespace SGAP.comercial
 
         string nodos;
         string Id_Cotizacion;
-
         #region Mano de obra
-            bool Mano_de_obra_modo_vista_reporte = true;
+        bool Mano_de_obra_modo_vista_reporte = true;
             bool Mano_de_obra_se_edito_al_menos_un_registro = false;
             bool Mano_de_obra_modo_en_edicion = false;
             bool Mano_de_obra_Cambios_guardados = false;
@@ -458,6 +458,13 @@ namespace SGAP.comercial
                 Obtener_Servicios_de_cotizacion();
             }
         }
+
+        private void Item_Datos_Generales_click(object sender, EventArgs e)
+        {
+            frm_01_1 form_1_1 = new frm_01_1(Id_Cotizacion);
+            form_1_1.ShowDialog();            
+        }
+
         private void Item_Del_Service_click(object sender, EventArgs e)
         {
             if (Id_CotizacionServicio == Id_Servicio_Padre)
@@ -466,7 +473,7 @@ namespace SGAP.comercial
             }
             else
             {
-                DialogResult decision_msg = MessageBox.Show("Esta seguro de eliminar este servicio.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                DialogResult decision_msg = MessageBox.Show("Esta seguro de eliminar este servicio. \nSe eliminarán los registros asociados.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (decision_msg == DialogResult.OK)
                 {
                     _ET_ENTIDAD._entity_r28._TR28_ID = Id_CotizacionServicio;
@@ -671,10 +678,11 @@ namespace SGAP.comercial
             View_Properties.Click += new System.EventHandler(this.Item_mano_de_obra_click);
 
 
-            //Agregar Servicio
+            //Agregar Servicio -- Datos_Generales
             MenuStrip_AgregarServicio.Text = "Servicios";
             MenuStrip_AgregarServicio.Name = "Menu_strip_for_TreeView";
             MenuStrip_AgregarServicio.Size = new System.Drawing.Size(153, 48);
+
 
             ToolStripMenuItem Add_service = new ToolStripMenuItem();
 
@@ -683,18 +691,24 @@ namespace SGAP.comercial
             Add_service.Text = "Agregar servicio...";
             Add_service.Image = Properties.Resources.agregar_reporte_dos;
 
+            ToolStripMenuItem Datos_Generales = new ToolStripMenuItem();
+
+            Datos_Generales.Name = "Datos_Generales";
+            Datos_Generales.Size = new System.Drawing.Size(132, 22);
+            Datos_Generales.Text = "Datos Generales";
+            Datos_Generales.Image = Properties.Resources.agregar_reporte_dos;
+
             MenuStrip_AgregarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                        Add_service
+                        Datos_Generales, Add_service
                     });
 
             Add_service.Click += new System.EventHandler(this.Item_Add_Service_click);
+            Datos_Generales.Click += new System.EventHandler(this.Item_Datos_Generales_click);
 
             MenuStrip_AgregarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                Add_service
+                Datos_Generales, Add_service
             });
-
-
-
+            
             //Eliminar Servicio
             MenuStrip_BorrarServicio.Text = "Servicios";
             MenuStrip_BorrarServicio.Name = "Menu_strip_for_TreeView";
@@ -1936,7 +1950,7 @@ namespace SGAP.comercial
 
             string conceptos_short = " ";
             conceptos_.ForEach(row => {
-                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_DESCRIP) ? string.Empty : row._TR30_DESCRIP.Substring(0, 2)) + "/";
+                conceptos_short = conceptos_short + (string.IsNullOrEmpty(row._TR30_ABREV) ? string.Empty : row._TR30_ABREV) + "/";
             });
             conceptos_short = conceptos_short.Substring(0, conceptos_short.Length - 1);
             horario = horario + hora_entrada.ToString("H:mm") + " - " + hora_salida.ToString("H:mm");
