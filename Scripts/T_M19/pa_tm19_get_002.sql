@@ -44,5 +44,3 @@ END CATCH
 GO
 
 --   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
-
-exec pa_tm19_get_002 COT00173

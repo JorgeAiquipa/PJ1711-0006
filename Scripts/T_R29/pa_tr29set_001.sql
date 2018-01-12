@@ -5,10 +5,11 @@ GO
 -- =============================================
 -- Author:		cesar.freitas
 -- Create date: 2017.12.18
+-- Update date: 2017.12.21 -> devuelve el id del cargo registrado.
+-- Table : T_R29
 -- Descripcion : Insertamos los cargos, hora entrada, hora salida dias por semana para mano de obra
 -- =============================================
 CREATE PROCEDURE pa_tr29set_001
- --@p_TR29_ID int id de la tabla
  @p_TR29_TR28_ID int -- codigo servicio _al que pertenece
 ,@p_TR29_TM38_ID varchar(10) -- id cargo
 ,@p_TR29_HORA_ENTRADA datetime 
@@ -21,9 +22,10 @@ CREATE PROCEDURE pa_tr29set_001
 --,@p_TR29_FCREA datetime
 --,@p_TR29_UACTUALIZA varchar
 --,@p_TR29_FACTUALIZA datetime
---,@p_TR29_REMUNERACION decimal
+,@p_TR29_REMUNERACION decimal
 ,@p_TR29_TM2_ID varchar(10)
 ,@P_MENSAJE_RESPUESTA varchar(200) output
+,@p_TR29_ID int output--id de la tabla
 AS
 
 BEGIN
@@ -47,7 +49,7 @@ BEGIN
 			,TR29_FCREA
 			,TR29_UACTUALIZA
 			,TR29_FACTUALIZA
-			--,TR29_REMUNERACION
+			,TR29_REMUNERACION
 			,TR29_TM2_ID
 		)
 
@@ -67,9 +69,11 @@ BEGIN
 			,GETDATE()
 			,@p_TR29_UCREA
 			,GETDATE()
-			--,@p_TR29_REMUNERACION
+			,@p_TR29_REMUNERACION
 			,@p_TR29_TM2_ID
 		)
+
+		SET @p_TR29_ID = @L_TR29_ID
 
 		IF @@ROWCOUNT <= 0  
 			SET @P_MENSAJE_RESPUESTA = 'ERROR'

@@ -13,7 +13,7 @@ namespace Win32dtug
 {
     public class DT_M42
     {
-
+        DT_CNX _cnx = new DT_CNX();
         ET_globales _global = new ET_globales();
         ET_entidad _Entidad = new ET_entidad();
         ET_M42 _et_m42;
@@ -25,7 +25,7 @@ namespace Win32dtug
             string Mensaje_error = "";
 
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();

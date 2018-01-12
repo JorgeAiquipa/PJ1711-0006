@@ -39,7 +39,9 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR30_DESCRIP", SqlDbType.VarChar, 300).Value = objEntity._TR30_DESCRIP;
                     cmd.Parameters.Add("@p_TR30_UCREA", SqlDbType.VarChar, 10).Value = _global._U_SESSION;
+                    cmd.Parameters.Add("@P_TR30_AFECTO", SqlDbType.SmallInt).Value = objEntity._TR30_AFECTO;
                     cmd.Parameters.Add("@p_TR30_IMPORTE", SqlDbType.Decimal).Value = objEntity._TR30_IMPORTE;
+                    cmd.Parameters.Add("@P_TR30_PORCENTAJE", SqlDbType.Decimal).Value = objEntity._TR30_PORCENTAJE;
 
                     cmd.ExecuteNonQuery();
                     sqlTran.Commit();
@@ -99,6 +101,8 @@ namespace Win32dtug
                     cmd.Parameters.Add("@p_TR30_FLG_ELIMINADO", SqlDbType.Int).Value = objEntity._TR30_FLG_ELIMINADO;
                     cmd.Parameters.Add("@p_TR30_TM2_ID", SqlDbType.VarChar, 10).Value = _global._TM2_ID;
                     cmd.Parameters.Add("@p_TR30_UACTUALIZA", SqlDbType.VarChar, 20).Value = _global._U_SESSION;
+                    cmd.Parameters.Add("@P_TR30_AFECTO", SqlDbType.SmallInt).Value = objEntity._TR30_AFECTO;
+                    cmd.Parameters.Add("@P_TR30_PORCENTAJE", SqlDbType.Decimal).Value = objEntity._TR30_PORCENTAJE;
 
 
                     cmd.ExecuteNonQuery();
@@ -148,8 +152,10 @@ namespace Win32dtug
                         _etr30._TR30_ID = Convert.ToInt32(fila["TR30_ID"].ToString());
                         _etr30._TR30_TR29_ID = Convert.ToInt32(fila["TR30_TR29_ID"].ToString());
                         _etr30._TR30_TM40_ID = fila["TR30_TM40_ID"].ToString();
-                        _etr30._TR30_IMPORTE = Convert.ToDecimal(string.IsNullOrEmpty(fila["TR30_IMPORTE"].ToString()) ? "0": fila["TR30_IMPORTE"].ToString());
+                        _etr30._TR30_IMPORTE = Convert.ToDecimal(string.IsNullOrEmpty(fila["TR30_IMPORTE"].ToString()) ? "0.00": fila["TR30_IMPORTE"].ToString());
                         _etr30._TR30_DESCRIP = fila["TM40_DESCRIP"].ToString();
+                        _etr30._TR30_AFECTO = string.IsNullOrEmpty(fila["TR30_AFECTO"].ToString()) ? false: (fila["TR30_AFECTO"].ToString().Equals("1") ? true: false);
+                        _etr30._TR30_PORCENTAJE = Convert.ToDecimal(string.IsNullOrEmpty(fila["TR30_PORCENTAJE"].ToString()) ? "0.00" : fila["TR30_PORCENTAJE"].ToString()); //Convert.ToDecimal(fila["TR30_PORCENTAJE"].ToString());
                         _etr30._TR30_ABREV = fila["TM40_ABREV"].ToString(); //DIEGO
                         
                         _etr30._Seleccionado = true;

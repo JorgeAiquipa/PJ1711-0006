@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Win28etug;
 namespace Win32dtug
 {
-    public class DT_M41
+    public class DT_M41:DT_CNX
     {
         ET_globales _global = new ET_globales();
         ET_entidad _Entidad = new ET_entidad();
@@ -24,11 +24,11 @@ namespace Win32dtug
             string Mensaje_error = "";
 
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            using (SqlConnection cn = new SqlConnection(conexion))
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_sel101", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tr19_sel001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {

@@ -237,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="comercial\icon_illary.ico" />
+    <None Include="Resources\report1-add-16x16.gif" />
     <None Include="Resources\informacion.gif" />
     <None Include="Resources\attention2_16x16.gif" />
     <None Include="Resources\configuracion.gif" />

@@ -41,18 +41,21 @@ namespace Win32dtug
 
                         _et_m40._fila = indice;
                         _et_m40._TM40_ID = fila["TM40_ID"].ToString();
-                        if (_et_m40._TM40_ID.Equals("P3"))
+
+                        if (_et_m40._TM40_ID.Equals("P3")) // --> asignacion familiar
                             _et_m40._Seleccionado = true;
+
                         _et_m40._TM40_DESCRIP = fila["TM40_DESCRIP"].ToString();
                         _et_m40._TM40_DESCRIP2 = fila["TM40_DESCRIP2"].ToString();
 
                         importe = fila["TM40_IMPORTE"].ToString();
                         porcentaje = fila["TM40_PORCENTAJE"].ToString();
 
-                        _et_m40._TM40_IMPORTE = string.IsNullOrEmpty(importe) ? 0M : Convert.ToDecimal(importe);
-                        _et_m40._TM40_PORCENTAJE = string.IsNullOrEmpty(porcentaje) ? 0M : Convert.ToDecimal(porcentaje);
+                        _et_m40._TM40_IMPORTE = string.IsNullOrEmpty(importe) ? 0.00M : Convert.ToDecimal(importe);
+                        _et_m40._TM40_PORCENTAJE = string.IsNullOrEmpty(porcentaje) ? 0.00M : Convert.ToDecimal(porcentaje)*100.00M;
 
                         valor = string.IsNullOrEmpty(importe) ? "P": "I";
+
                         _et_m40._Work = valor;
 
                         indice++;

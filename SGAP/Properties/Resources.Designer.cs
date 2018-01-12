@@ -83,6 +83,16 @@ namespace SGAP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agregar_reporte_dorado {
+            get {
+                object obj = ResourceManager.GetObject("agregar_reporte_dorado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap agregar_reporte_dos {
             get {
                 object obj = ResourceManager.GetObject("agregar_reporte_dos", resourceCulture);

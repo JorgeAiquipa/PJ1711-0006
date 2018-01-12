@@ -20,6 +20,8 @@ namespace Win28ntug
         DT_R30 _dt_r30 = new DT_R30();
 
 
+        //AFECTO => 1 : NO AFECTO => 0
+
         #region Métodos
         public ET_entidad get_001(ET_R29 obj)
         {
@@ -41,20 +43,25 @@ namespace Win28ntug
                 {
 
                     ET_M40 entidad_m40 = new ET_M40();
-
                     var where_on_list_et_r30 = row._lista_et_r30.FirstOrDefault(x => x._TR30_TM40_ID == row_c._TM40_ID && x._TR30_DESCRIP == row_c._TM40_DESCRIP);
-                    if (where_on_list_et_r30 != null)
-                        entidad_m40._Seleccionado = true;
-                    else
-                        entidad_m40._Seleccionado = false;
-
-                    entidad_m40._TM40_DESCRIP = row_c._TM40_DESCRIP;
-                    entidad_m40._TM40_ID = row_c._TM40_ID;
-                    entidad_m40._fila = fila_;
-                    entidad_m40._Work = row_c._Work;
                     entidad_m40._TM40_IMPORTE = row_c._TM40_IMPORTE;
                     entidad_m40._TM40_PORCENTAJE = row_c._TM40_PORCENTAJE;
-
+                    entidad_m40._TR40_AFECTO = row_c._TR40_AFECTO;
+                    if (where_on_list_et_r30 != null)
+                    {
+                        entidad_m40._Seleccionado = true;
+                        entidad_m40._TM40_IMPORTE = where_on_list_et_r30._TR30_IMPORTE;
+                        entidad_m40._TM40_PORCENTAJE = where_on_list_et_r30._TR30_PORCENTAJE * 100;
+                        entidad_m40._TR40_AFECTO = where_on_list_et_r30._TR30_AFECTO;
+                    }
+                    else
+                    {
+                        entidad_m40._Seleccionado = false;
+                    }
+                    entidad_m40._TM40_DESCRIP = row_c._TM40_DESCRIP;
+                    entidad_m40._TM40_ID = row_c._TM40_ID;
+                    entidad_m40._Work = row_c._Work;
+                    entidad_m40._fila = fila_;
                     _lista_child_etm40.Add(entidad_m40);
                 }
                 _entidad_final._Fila = fila_;
@@ -62,10 +69,7 @@ namespace Win28ntug
                 _entidad_final._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
                 _entidad_final._TR29_HORA_ENTRADA = row._TR29_HORA_ENTRADA;
                 _entidad_final._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
-
-
                 _entidad_final._HOURS_DAY = (row._TR29_HORA_SALIDA - row._TR29_HORA_ENTRADA).Hours;
-
                 _entidad_final._TR29_ID = row._TR29_ID;
                 _entidad_final._TR29_REMUNERACION = row._TR29_REMUNERACION;
                 _entidad_final._TR29_TM2_ID = row._TR29_TM2_ID;
@@ -77,10 +81,8 @@ namespace Win28ntug
                 _entidad_final._TR29_ST = 1; // manejare el estado para analizar quien se actualiza y quien no que se registra y quien no lo hace
                 // 1 -> obtenido desde base de datos
                 // 0 -> es un nuevo ingreso
-
                 lista_final.Add(_entidad_final);
                 fila_++;
-
             });
 
             #endregion
@@ -94,20 +96,25 @@ namespace Win28ntug
                 {
 
                     ET_M40 entidad_m40 = new ET_M40();
-
                     var where_on_list_et_r30 = row._lista_et_r30.FirstOrDefault(x => x._TR30_TM40_ID == row_c._TM40_ID && x._TR30_DESCRIP == row_c._TM40_DESCRIP);
-                    if (where_on_list_et_r30 != null)
-                        entidad_m40._Seleccionado = true;
-                    else
-                        entidad_m40._Seleccionado = false;
-
-                    entidad_m40._TM40_DESCRIP = row_c._TM40_DESCRIP;
-                    entidad_m40._TM40_ID = row_c._TM40_ID;
-                    entidad_m40._fila = fila_;
-                    entidad_m40._Work = row_c._Work;
                     entidad_m40._TM40_IMPORTE = row_c._TM40_IMPORTE;
                     entidad_m40._TM40_PORCENTAJE = row_c._TM40_PORCENTAJE;
-
+                    entidad_m40._TR40_AFECTO = row_c._TR40_AFECTO;
+                    if (where_on_list_et_r30 != null)
+                    {
+                        entidad_m40._Seleccionado = true;
+                        entidad_m40._TM40_IMPORTE = where_on_list_et_r30._TR30_IMPORTE;
+                        entidad_m40._TM40_PORCENTAJE = where_on_list_et_r30._TR30_PORCENTAJE * 100;
+                        entidad_m40._TR40_AFECTO = where_on_list_et_r30._TR30_AFECTO;
+                    }
+                    else
+                    {
+                        entidad_m40._Seleccionado = false;
+                    }
+                    entidad_m40._TM40_DESCRIP = row_c._TM40_DESCRIP;
+                    entidad_m40._TM40_ID = row_c._TM40_ID;
+                    entidad_m40._Work = row_c._Work;
+                    entidad_m40._fila = fila_;
                     _lista_child_etm40.Add(entidad_m40);
                 }
                 _entidad_final._Fila = fila_;
@@ -115,10 +122,7 @@ namespace Win28ntug
                 _entidad_final._TR29_DIAS_SEMANA = row._TR29_DIAS_SEMANA;
                 _entidad_final._TR29_HORA_ENTRADA = row._TR29_HORA_ENTRADA;
                 _entidad_final._TR29_HORA_SALIDA = row._TR29_HORA_SALIDA;
-
-
                 _entidad_final._HOURS_DAY = (row._TR29_HORA_SALIDA - row._TR29_HORA_ENTRADA).Hours;
-
                 _entidad_final._TR29_ID = row._TR29_ID;
                 _entidad_final._TR29_REMUNERACION = row._TR29_REMUNERACION;
                 _entidad_final._TR29_TM2_ID = row._TR29_TM2_ID;
@@ -130,10 +134,8 @@ namespace Win28ntug
                 _entidad_final._TR29_ST = 1; // manejare el estado para analizar quien se actualiza y quien no que se registra y quien no lo hace
                 // 1 -> obtenido desde base de datos
                 // 0 -> es un nuevo ingreso
-
                 lista_final.Add(_entidad_final);
                 fila_++;
-
             });
 
             #endregion
@@ -213,15 +215,15 @@ namespace Win28ntug
 
         public void set_001(List<ET_R29> _lista_et_r29, List<ET_R29> _lista_et_r29_back)
         {
-            _lista_et_r29_back.ForEach(row =>
-            {
-                if (row._TR29_FLG_ELIMINADO == 1 && row._TR29_ST == 1)
-                {
-                    //actualizar flg 1
-                    bool respuesta = _dt_r29.set_002(row);
-                }
+            //_lista_et_r29_back.ForEach(row =>
+            //{
+            //    if (row._TR29_FLG_ELIMINADO == 1 && row._TR29_ST == 1)
+            //    {
+            //        //actualizar flg 1
+            //        bool respuesta = _dt_r29.set_002(row);
+            //    }
 
-            });
+            //});
 
             var lista_where_r29 = _lista_et_r29.Where(X => X._TR29_ST == 1).ToList();
 
@@ -240,8 +242,10 @@ namespace Win28ntug
                         et30._TR30_TM40_ID = x._TR30_TM40_ID;
                         et30._TR30_FLG_ELIMINADO = 1;
                         et30._TR30_TM2_ID = x._TR30_TM2_ID;
+                        et30._TR30_AFECTO = x._TR30_AFECTO;
+                        et30._TR30_PORCENTAJE = x._TR30_PORCENTAJE;
                         et30._TR30_UACTUALIZA = Globales._U_SESSION;
-                        _dt_r30.set_002(et30);
+                        _dt_r30.set_002(et30); // ACTUALIZAMOS
 
                     });
 
@@ -254,8 +258,10 @@ namespace Win28ntug
                         _et_r30._TR30_TM40_ID = row_child._TM40_ID;
                         _et_r30._TR30_DESCRIP = row_child._TM40_DESCRIP;
                         _et_r30._TR30_FLG_ELIMINADO = 0;
-                        _et_r30._TR30_IMPORTE = row_child._Work.Equals("P") ? (row._TR29_REMUNERACION * row_child._TM40_PORCENTAJE) : (row_child._TM40_IMPORTE);
-                        _dt_r30.set_001(_et_r30);
+                        _et_r30._TR30_IMPORTE = row_child._TM40_IMPORTE;
+                        _et_r30._TR30_PORCENTAJE = row_child._TM40_PORCENTAJE/100;
+                        _et_r30._TR30_AFECTO = row_child._TR40_AFECTO;
+                        _dt_r30.set_001(_et_r30); // REGISTRAMOS LOS CONCEPTOS REMUNERATIVOS
                     }
 
                 }
@@ -292,8 +298,11 @@ namespace Win28ntug
                         _et_r30._TR30_TM40_ID = row_child._TM40_ID;
                         _et_r30._TR30_DESCRIP = row_child._TM40_DESCRIP;
                         _et_r30._TR30_FLG_ELIMINADO = 0;
-                        _et_r30._TR30_IMPORTE = row_child._Work.Equals("P") ? (row._TR29_REMUNERACION * row_child._TM40_PORCENTAJE) : (row_child._TM40_IMPORTE);
-                        _dt_r30.set_001(_et_r30);
+                        _et_r30._TR30_IMPORTE = row_child._TM40_IMPORTE;
+                        _et_r30._TR30_PORCENTAJE = row_child._TM40_PORCENTAJE / 100;
+                        _et_r30._TR30_AFECTO = row_child._TR40_AFECTO;
+
+                        _dt_r30.set_001(_et_r30); // REGISTRAMOS LOS CONCEPTOS DE UN NUEVO CARGO
                     }
                 }
 

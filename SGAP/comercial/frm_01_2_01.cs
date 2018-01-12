@@ -154,7 +154,7 @@ namespace SGAP.comercial
             _COL_CONCEPTO_SELECCIONADO.Width = 50;
             _COL_CONCEPTO_SELECCIONADO.MinimumWidth = 50;
             _COL_CONCEPTO_SELECCIONADO.FillWeight = 50;
-            _COL_CONCEPTO_SELECCIONADO.DefaultCellStyle.SelectionBackColor = Color.White;
+            //_COL_CONCEPTO_SELECCIONADO.DefaultCellStyle.SelectionBackColor = Color.White;
 
             DataGridViewColumn _COL_ID_CONCEPTO_REMUNERATIVO = new DataGridViewTextBoxColumn();
             _COL_ID_CONCEPTO_REMUNERATIVO.DataPropertyName = "_TM40_ID";
@@ -166,31 +166,43 @@ namespace SGAP.comercial
             _COL_CONCEPTO_REMUNERATIVO.DataPropertyName = "_TM40_DESCRIP";
             _COL_CONCEPTO_REMUNERATIVO.HeaderText = "Concepto remunerativo";
             _COL_CONCEPTO_REMUNERATIVO.Name = "_COL_CONCEPTO_REMUNERATIVO";
-            _COL_CONCEPTO_REMUNERATIVO.DefaultCellStyle.SelectionBackColor = Color.White;
+            //_COL_CONCEPTO_REMUNERATIVO.DefaultCellStyle.SelectionBackColor = Color.White;
             _COL_CONCEPTO_REMUNERATIVO.ReadOnly = true;
-            _COL_CONCEPTO_REMUNERATIVO.Width = 260;
-            _COL_CONCEPTO_REMUNERATIVO.MinimumWidth = 260;
-            _COL_CONCEPTO_REMUNERATIVO.FillWeight = 260;
+            _COL_CONCEPTO_REMUNERATIVO.Width = 400;
+            _COL_CONCEPTO_REMUNERATIVO.MinimumWidth = 400;
+            _COL_CONCEPTO_REMUNERATIVO.FillWeight = 400;
 
             DataGridViewColumn _COL_AFECTO = new DataGridViewCheckBoxColumn();
-            _COL_AFECTO.DataPropertyName = "_afecto";
+            _COL_AFECTO.DataPropertyName = "_TR40_AFECTO";
             _COL_AFECTO.HeaderText = "Es Afecto";
             _COL_AFECTO.Name = "_COL_AFECTO";
-            _COL_CONCEPTO_REMUNERATIVO.Width = 50;
-            _COL_CONCEPTO_REMUNERATIVO.MinimumWidth = 50;
-            _COL_CONCEPTO_REMUNERATIVO.FillWeight = 50;
+            _COL_AFECTO.Width = 90;
+            _COL_AFECTO.MinimumWidth = 90;
+            _COL_AFECTO.FillWeight = 90;
 
-            DataGridViewColumn _COL_VALOR = new DataGridViewTextBoxColumn();
-            _COL_VALOR.DataPropertyName = "";
-            _COL_VALOR.HeaderText = "Valor";
-            _COL_VALOR.Name = "_COL_VALOR";
+            DataGridViewColumn _COL_IMPORTE = new DataGridViewTextBoxColumn();
+            _COL_IMPORTE.DataPropertyName = "_TM40_IMPORTE";
+            _COL_IMPORTE.HeaderText = "Importe";
+            _COL_IMPORTE.Name = "_COL_IMPORTE";
+            _COL_IMPORTE.Width = 100;
+            _COL_IMPORTE.MinimumWidth = 100;
+            _COL_IMPORTE.FillWeight = 100;
+
+            DataGridViewColumn _COL_PORCENTAJE = new DataGridViewTextBoxColumn();
+            _COL_PORCENTAJE.DataPropertyName = "_TM40_PORCENTAJE";
+            _COL_PORCENTAJE.HeaderText = "Porcentaje %";
+            _COL_PORCENTAJE.Name = "_COL_VALOR_NO_AFECTO";
+            _COL_PORCENTAJE.Width = 100;
+            _COL_PORCENTAJE.MinimumWidth = 100;
+            _COL_PORCENTAJE.FillWeight = 100;
 
             dgv_conceptos_remunerativos.Columns.AddRange(new DataGridViewColumn[] {
                    _COL_CONCEPTO_SELECCIONADO,
                    _COL_ID_CONCEPTO_REMUNERATIVO,
                    _COL_CONCEPTO_REMUNERATIVO,
                    _COL_AFECTO,
-                   _COL_VALOR
+                   _COL_IMPORTE,
+                   _COL_PORCENTAJE
             });
         }
 
@@ -355,7 +367,11 @@ namespace SGAP.comercial
                                 in_et_r29._TR29_DIAS_SEMANA = Convert.ToInt32(e.FormattedValue.ToString());
                                 break;
                             case "_COL_REMUNERACION":
-                                in_et_r29._TR29_REMUNERACION = Convert.ToDecimal(e.FormattedValue.ToString());
+                                //if(e.FormattedValue.ToString().Contains('.'))
+                                //    in_et_r29._TR29_REMUNERACION = Convert.ToDecimal(e.FormattedValue.ToString());
+                                //else
+                                    in_et_r29._TR29_REMUNERACION = Convert.ToDecimal(e.FormattedValue.ToString());
+
                                 break;
                         }
                         _lista_et_r29.Add(in_et_r29);
@@ -367,6 +383,47 @@ namespace SGAP.comercial
 
         private void dgv_entrada_datos_mano_de_obra_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+
+            DataGridView grid_view = (DataGridView)sender;
+
+            if (!string.IsNullOrEmpty(grid_view.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()))
+            {
+                if (e.ColumnIndex == 4)// remuneracion basica
+                {
+                    if (!grid_view.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Contains('.'))
+                        dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Cells[e.ColumnIndex].Value= string.Format("{0}.00", grid_view.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);       
+                }
+
+                //PARA CALCULAR LA REMUNERACION BASICA CUANDO SEA MENOR A 8 HORAS 
+                if (e.ColumnIndex == 1 || e.ColumnIndex == 2)
+                {
+                    DateTime HORA_ENTRADA  = new DateTime(1900, 1, 1, hour:
+                        Convert.ToDateTime(grid_view.Rows[e.RowIndex].Cells[1].Value.ToString()).Hour
+                        , minute:
+                        Convert.ToDateTime(grid_view.Rows[e.RowIndex].Cells[1].Value.ToString()).Minute, second:
+                        Convert.ToDateTime(grid_view.Rows[e.RowIndex].Cells[1].Value.ToString()).Second
+                        );
+                    DateTime HORA_SALIDA = new DateTime(1900, 1, 1, hour:
+                        Convert.ToDateTime(grid_view.Rows[e.RowIndex].Cells[2].Value.ToString()).Hour
+                        , minute:
+                        Convert.ToDateTime(grid_view.Rows[e.RowIndex].Cells[2].Value.ToString()).Minute, second:
+                        Convert.ToDateTime(grid_view.Rows[e.RowIndex].Cells[2].Value.ToString()).Second
+                        );
+
+                    int HORAS = (HORA_SALIDA - HORA_ENTRADA).Hours;
+                    if (HORAS <= 8)
+                    {
+                        // OBTENEMOS EL MINIMO VITAL -- 850.00
+                        decimal minimo_vital = 850.00M;
+                        decimal remuneracion_calculo = minimo_vital / HORAS;
+                        dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].Cells[4].Value = string.Format("{0}", remuneracion_calculo);
+                    }
+                }
+
+            }
+
+
+
             Indice_fila_grid_entrada_datos_mano_obra = e.RowIndex;
             dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].ErrorText = string.Empty;
             dgv_entrada_datos_mano_de_obra.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
@@ -407,6 +464,8 @@ namespace SGAP.comercial
                 this.dgv_entrada_datos_mano_de_obra.CellPainting += new DataGridViewCellPaintingEventHandler(this.dgv_entrada_datos_mano_de_obra_CellPainting);
 
             }
+
+
         }
 
         private void dgv_entrada_datos_mano_de_obra_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -778,7 +837,55 @@ namespace SGAP.comercial
             {
                 dgv_conceptos_remunerativos.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 bool valor_obtenido = Convert.ToBoolean(selected_cell.Value);
+
+                if (!Convert.ToBoolean(dgv_conceptos_remunerativos.Rows[e.RowIndex].Cells[0].Value))
+                {
+                    dgv_conceptos_remunerativos.Rows[e.RowIndex].Cells[0].Value = valor_obtenido;
+                } 
+
             }
+            if (e.ColumnIndex == 0)
+            {
+                dgv_conceptos_remunerativos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                bool valor_obtenido = Convert.ToBoolean(selected_cell.Value);
+
+                if (Convert.ToBoolean(dgv_conceptos_remunerativos.Rows[e.RowIndex].Cells[3].Value))
+                {
+                    if (!valor_obtenido)
+                        dgv_conceptos_remunerativos.Rows[e.RowIndex].Cells[3].Value = valor_obtenido;
+                }
+                else
+                {
+                    dgv_conceptos_remunerativos.Rows[e.RowIndex].Cells[3].Value = valor_obtenido;
+                }
+
+            }
+        }
+
+        private void dgv_conceptos_remunerativos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridView grid_view = (DataGridView)sender;
+
+            // para importes
+            if (e.ColumnIndex == 4)
+            {
+              
+            }
+            // para porcentajes
+
+            //if (e.ColumnIndex == 5)
+            //{
+            //    if (!string.IsNullOrEmpty(grid_view.Rows[e.RowIndex].Cells[5].Value.ToString()))
+            //    {
+            //        decimal valor_porcentaje = Convert.ToDecimal(grid_view.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            //        dgv_conceptos_remunerativos.Rows[e.RowIndex].Cells[5].Value = valor_porcentaje.ToString("P");
+            //    }
+            //}
+        }
+
+        private void dgv_conceptos_remunerativos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

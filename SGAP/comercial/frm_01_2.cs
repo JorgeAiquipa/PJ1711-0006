@@ -484,7 +484,6 @@ namespace SGAP.comercial
         }
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
-            _entro_por_primera_vez_mano_de_obra = false;
             frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _LISTA_ET_M40);
             form_2_1.ShowDialog();
             if (form_2_1.DialogResult == DialogResult.OK)
@@ -695,7 +694,7 @@ namespace SGAP.comercial
             Datos_Generales.Name = "Datos_Generales";
             Datos_Generales.Size = new System.Drawing.Size(132, 22);
             Datos_Generales.Text = "Datos Generales";
-            Datos_Generales.Image = Properties.Resources.agregar_reporte_dos;
+            Datos_Generales.Image = Properties.Resources.agregar_reporte_dorado;
 
             MenuStrip_AgregarServicio.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                         Datos_Generales, Add_service
@@ -762,7 +761,7 @@ namespace SGAP.comercial
                 _ET_ENTIDAD._lista_et_r27 = e._lista_et_r27;
 
 
-                Construir_DataGrid_Mano_Obra();
+                Construir_DataGrid_Mano_Obra(dgv_mano_de_obra,dgv_mano_de_obra_right);
                 CreateColumn();
 
             }
@@ -813,7 +812,6 @@ namespace SGAP.comercial
                 PreLoad(false);
         }
         #endregion
-        bool _entro_por_primera_vez_mano_de_obra = true;
         bool _cargo_data_mano_obra = false;
         private void Metodo_cargar_informacion_mano_de_obra()
         {
@@ -888,12 +886,12 @@ namespace SGAP.comercial
 
         private void dgv_mano_de_obra_right_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 if(dgv_mano_de_obra.RowCount > 0)
                     dgv_mano_de_obra.Rows[e.RowIndex].Selected = true;
-            }
-            catch (Exception ex) { }
+            //}
+            //catch (Exception ex) { }
         }
 
         private void btn_guardar_mano_de_obra_Click(object sender, EventArgs e)
@@ -1050,19 +1048,45 @@ namespace SGAP.comercial
                 else
                     fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
 
-                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS = 0.00M;
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS = 0.00M;
                 fila_._lista_et_r30.ForEach(X =>
                 {
-                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
+
+                    if (X._TR30_AFECTO)
+                    {
+                        if (X._TR30_IMPORTE != 0.00M) // TABAJA CON IMPORTE 
+                            SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS += X._TR30_IMPORTE;
+                        if (X._TR30_PORCENTAJE != 0.0M) // TRABAJA CON PORCENTAJE
+                        {
+                            if (fila_._TR29_REMUNERACION < 850.00M) // // OBTENEMOS EL PORCENTAJE DEL CONCEPTO EN BASE A LA REMUNERACION MINIMA VITAL
+                                SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS +=(850.00M * X._TR30_PORCENTAJE);
+                            else
+                                SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS += (X._TR30_IMPORTE * X._TR30_PORCENTAJE)*1.00M;
+                        }
+                    }
+                    else
+                    {
+                        if (X._TR30_IMPORTE != 0.00M) // TABAJA CON IMPORTE 
+                            SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS += X._TR30_IMPORTE;
+                        if (X._TR30_PORCENTAJE != 0.0M) // TRABAJA CON PORCENTAJE
+                        {
+                            if (fila_._TR29_REMUNERACION < 850.00M) // // OBTENEMOS EL PORCENTAJE DEL CONCEPTO EN BASE A LA REMUNERACION MINIMA VITAL
+                                SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS += (850.00M * X._TR30_PORCENTAJE);
+                            else
+                                SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS += (X._TR30_IMPORTE * X._TR30_PORCENTAJE) * 1.00M;
+                        }
+                    }
                 });
 
+                decimal SUMA_DE_AFECTOS_Y_NO_AFECTOS = SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS + SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS;
                 dgv_mano_de_obra_right.Rows.Add(
                     total_personal,
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION),
-                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
-                    "",
-                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M),
-                    string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M)
+                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS),
+                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS),
+                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1.00M + SUMA_DE_AFECTOS_Y_NO_AFECTOS * 1.00M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1.00M + SUMA_DE_AFECTOS_Y_NO_AFECTOS * 1.00M),
+                    string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_DE_AFECTOS_Y_NO_AFECTOS) * total_personal) * 1.00M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_DE_AFECTOS_Y_NO_AFECTOS) * total_personal) * 1.00M)
                  );
                 dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
             });
@@ -1109,23 +1133,23 @@ namespace SGAP.comercial
                 _et_r29_editable._Locales_por_cargo_cantidad_personal = nuevos_valores;// Convert.ToInt32(dgv_mano_de_obra.CurrentRow.Cells[e.ColumnIndex].Value);
             }
         }
-        private void Construir_DataGrid_Mano_Obra()
+        private void Construir_DataGrid_Mano_Obra(DataGridView _left, DataGridView _right)
         {
             bool ajustar = false;
             if (_ET_ENTIDAD._lista_et_r27.Count < 5)
                 ajustar = true;
 
-            dgv_mano_de_obra.AllowUserToAddRows = false;
-            dgv_mano_de_obra.ScrollBars = ScrollBars.Horizontal;
-            dgv_mano_de_obra_right.ScrollBars = ScrollBars.Vertical;
+            _left.AllowUserToAddRows = false;
+            _left.ScrollBars = ScrollBars.Horizontal;
+            _right.ScrollBars = ScrollBars.Vertical;
 
-            _NT_Helper.Set_Style_to_DatagridView(dgv_mano_de_obra);
-            _NT_Helper.Set_Style_to_DatagridView(dgv_mano_de_obra_right);
+            _NT_Helper.Set_Style_to_DatagridView(_left);
+            _NT_Helper.Set_Style_to_DatagridView(_right);
 
-            dgv_mano_de_obra.AutoGenerateColumns = false;
+            _left.AutoGenerateColumns = false;
 
             if (ajustar)
-                dgv_mano_de_obra.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                _left.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             DataGridViewColumn MANO_OBRA_COL_DESCRIPCION = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_DESCRIPCION.DataPropertyName = "MANO_OBRA_COL_DESCRIPCION";
@@ -1135,7 +1159,7 @@ namespace SGAP.comercial
             MANO_OBRA_COL_DESCRIPCION.Width = 240;
             MANO_OBRA_COL_DESCRIPCION.FillWeight = 240;
 
-            dgv_mano_de_obra.Columns.AddRange(new DataGridViewColumn[] {
+            _left.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_DESCRIPCION,
             });
 
@@ -1144,31 +1168,31 @@ namespace SGAP.comercial
             //// CARGAR COLUMNAS DE MANERA DINAMICA -> LOCALES
             if (_ET_ENTIDAD._lista_et_r27 != null)
             {
-                int cantidad_final_de_indices = (dgv_mano_de_obra.ColumnCount + _ET_ENTIDAD._lista_et_r27.Count);
-                dgv_mano_de_obra.ColumnCount = cantidad_final_de_indices;
+                int cantidad_final_de_indices = (_left.ColumnCount + _ET_ENTIDAD._lista_et_r27.Count);
+                _left.ColumnCount = cantidad_final_de_indices;
                 int indice_de_inicio = cantidad_final_de_indices - _ET_ENTIDAD._lista_et_r27.Count;
                 int indice_nn = 1;
                 _ET_ENTIDAD._lista_et_r27.ForEach(x =>
                 {
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Visible = true;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Width = 200;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}", indice_nn) : x._TR27_DESCRIP.Length > 26 ? string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
-                    dgv_mano_de_obra.Columns[indice_de_inicio].ToolTipText = x._TR27_DESCRIP;
+                    _left.Columns[indice_de_inicio].Visible = true;
+                    _left.Columns[indice_de_inicio].DefaultCellStyle.NullValue = "0";
+                    _left.Columns[indice_de_inicio].Width = 200;
+                    _left.Columns[indice_de_inicio].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    _left.Columns[indice_de_inicio].Name = x._TR27_DESCRIP;
+                    _left.Columns[indice_de_inicio].HeaderText = string.IsNullOrEmpty(x._TR27_DESCRIP) ? string.Format("Local {0}", indice_nn) : x._TR27_DESCRIP.Length > 26 ? string.Format("{0}...", x._TR27_DESCRIP.Substring(0, 26)) : x._TR27_DESCRIP;
+                    _left.Columns[indice_de_inicio].ToolTipText = x._TR27_DESCRIP;
                     indice_de_inicio++;
                     indice_nn++;
                 });
             }
-            for (int i = 0; i < dgv_mano_de_obra.Columns.Count; i++)
-                dgv_mano_de_obra.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+            for (int i = 0; i < _left.Columns.Count; i++)
+                _left.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-            dgv_mano_de_obra_right.AllowUserToAddRows = false;
-            dgv_mano_de_obra_right.AutoGenerateColumns = false;
-            dgv_mano_de_obra_right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dgv_mano_de_obra_right.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv_mano_de_obra_right.ReadOnly = true;
+            _right.AllowUserToAddRows = false;
+            _right.AutoGenerateColumns = false;
+            _right.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            _right.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            _right.ReadOnly = true;
 
             DataGridViewColumn MANO_OBRA_COL_SUELDO_BASICO = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUELDO_BASICO.DataPropertyName = "MANO_OBRA_COL_SUELDO_BASICO";
@@ -1208,7 +1232,7 @@ namespace SGAP.comercial
 
             DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.HeaderText = "Total conceptos no afectos";
+            MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.HeaderText = "No afectos";
             MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS";
             MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.Width = 90;
             MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS.ReadOnly = false;
@@ -1217,7 +1241,7 @@ namespace SGAP.comercial
 
             DataGridViewColumn MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS = new DataGridViewTextBoxColumn();
             MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.DataPropertyName = "MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS";
-            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.HeaderText = "Total conceptos afectos";
+            MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.HeaderText = "Afectos";
             MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.Name = "MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS";
             MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.Width = 90;
             MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS.ReadOnly = false;
@@ -1226,16 +1250,16 @@ namespace SGAP.comercial
 
 
 
-            dgv_mano_de_obra_right.Columns.AddRange(new DataGridViewColumn[] {
+            _right.Columns.AddRange(new DataGridViewColumn[] {
                 MANO_OBRA_COL_TOTAL_PERSONAL,
                 MANO_OBRA_COL_SUELDO_BASICO,
-                MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS,
                 MANO_OBRA_COL_SUM_CONCEPTOS_AFECTOS,
+                MANO_OBRA_COL_SUM_CONCEPTOS_NO_AFECTOS,
                 MANO_OBRA_COL_SUELDO_MENSUAL,
                 MANO_OBRA_COL_TOTAL
             });
-            for (int i = 0; i < dgv_mano_de_obra_right.Columns.Count; i++)
-                dgv_mano_de_obra_right.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+            for (int i = 0; i < _right.Columns.Count; i++)
+                _right.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             Definir_valores_scroll_de_mano_De_obra();
         }
@@ -1443,25 +1467,56 @@ namespace SGAP.comercial
                 else
                     fila_._Locales_por_cargo_cantidad_personal = rellenos;//new int[_entidad._lista_et_m27.Count];
 
-                decimal SUMA_CONCEPTOS_REMUNERATIVOS = 0M;
+
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS = 0.00M;
+                decimal SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS = 0.00M;
                 fila_._lista_et_r30.ForEach(X =>
                 {
-                    SUMA_CONCEPTOS_REMUNERATIVOS = SUMA_CONCEPTOS_REMUNERATIVOS * 1M + X._TR30_IMPORTE * 1M;
+
+                    if (X._TR30_AFECTO)
+                    {
+                        if (X._TR30_IMPORTE != 0.00M) // TABAJA CON IMPORTE 
+                        {
+                            SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS += X._TR30_IMPORTE;
+                        }
+                        if (X._TR30_PORCENTAJE != 0.0M) // TRABAJA CON PORCENTAJE
+                        {
+                            if (fila_._TR29_REMUNERACION >= 850.00M) // // OBTENEMOS EL PORCENTAJE DEL CONCEPTO EN BASE A LA REMUNERACION MINIMA VITAL
+                                SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS += ((fila_._TR29_REMUNERACION * X._TR30_PORCENTAJE) * 1.00M);
+                            else
+                                SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS += (850.00M * X._TR30_PORCENTAJE);
+
+                        }
+                    }
+                    else
+                    {
+                        if (X._TR30_IMPORTE != 0.00M) // TABAJA CON IMPORTE 
+                        {
+                            SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS += X._TR30_IMPORTE;
+                        }
+                        if (X._TR30_PORCENTAJE != 0.0M) // TRABAJA CON PORCENTAJE
+                        {
+                            if (fila_._TR29_REMUNERACION >= 850.00M) // // OBTENEMOS EL PORCENTAJE DEL CONCEPTO EN BASE A LA REMUNERACION MINIMA VITAL
+                                SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS += ((fila_._TR29_REMUNERACION * X._TR30_PORCENTAJE) * 1.00M);
+                            else
+                                SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS += (850.00M * X._TR30_PORCENTAJE);
+                        }
+                    }
                 });
 
+                decimal SUMA_DE_AFECTOS_Y_NO_AFECTOS = SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS + SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS;
                 dgv_mano_de_obra_right.Rows.Add(
                     total_personal,
                     string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION),
-                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS),
-                    "",
-                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M),
-                    string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M)
+                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_AFECTOS),
+                    string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", SUMA_CONCEPTOS_REMUNERATIVOS_NO_AFECTOS),
+                    string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1.00M + SUMA_DE_AFECTOS_Y_NO_AFECTOS * 1.00M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", fila_._TR29_REMUNERACION * 1.00M + SUMA_DE_AFECTOS_Y_NO_AFECTOS * 1.00M),
+                    string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_DE_AFECTOS_Y_NO_AFECTOS) * total_personal) * 1.00M).Equals(".00") ? "0.00" : string.Format("{0:#,#.00}", ((fila_._TR29_REMUNERACION + SUMA_DE_AFECTOS_Y_NO_AFECTOS) * total_personal) * 1.00M)
                  );
-
-                MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO[INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO] = fila_._TR29_REMUNERACION * 1M + SUMA_CONCEPTOS_REMUNERATIVOS * 1M;
+                MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO[INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO] = fila_._TR29_REMUNERACION * 1.00M + SUMA_DE_AFECTOS_Y_NO_AFECTOS * 1.00M;
                 INDICE_MANO_DE_OBRA_SUELDO_MENSUAL_POR_CARGO++;
 
-                MANO_OBRA_TOTAL = MANO_OBRA_TOTAL + (((fila_._TR29_REMUNERACION + SUMA_CONCEPTOS_REMUNERATIVOS) * total_personal) * 1M);
+                MANO_OBRA_TOTAL = MANO_OBRA_TOTAL + (((fila_._TR29_REMUNERACION + SUMA_DE_AFECTOS_Y_NO_AFECTOS) * total_personal) * 1.00M);
                 MANO_OBRA_TOTAL_PERSONAL = MANO_OBRA_TOTAL_PERSONAL + total_personal;
 
                 dgv_mano_de_obra.Rows.Add(fila_dgv_mano_obra);
@@ -1525,9 +1580,9 @@ namespace SGAP.comercial
             decimal suma_De_beneficios_sociales_cts = 0*1M;
             decimal suma_De_beneficios_sociales_gratificaciones = 0*1M;
 
-            decimal valor_vacaciones = 0.0833M;
-            decimal valor_cts = 0.0972M;
-            decimal valor_gratificaciones = 0.1667M;
+            decimal valor_vacaciones = 0.0833333333333333M;
+            decimal valor_cts = (0.0833333333333333M) + (0.166666666666667M) * (0.0833333333333333M);
+            decimal valor_gratificaciones = 16.6666666666667M;
             for (int a = 0; a < MANO_DE_OBRA_BENEFICIOS_SOCIALES_VACACIONES_LEFT.Count(); a++)
             {
                 if (a == 0)
@@ -1921,7 +1976,7 @@ namespace SGAP.comercial
             switch (dias_por_Semana)
             {
                 case 1:
-                    horario = "Jornal:";
+                    horario = "1 día:";
                     break;
 
                 case 2:
@@ -2144,6 +2199,7 @@ namespace SGAP.comercial
                 grid_left.Rows.Add(fila_titulo);
                 Font Font_ = new Font("Microsoft Sans Serif", 7F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                 Resaltar_filas_ingresadas(dgv_mano_de_obra, (dgv_mano_de_obra.Rows.Count - 1), textcolor, Font_);
+                Resaltar_filas_ingresadas(dgv_mano_de_obra_right, (dgv_mano_de_obra_right.Rows.Count - 1), textcolor, Font_);
             }
         }
 

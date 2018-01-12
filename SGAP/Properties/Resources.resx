@@ -217,4 +217,7 @@
   <data name="informacion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\informacion.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="agregar_reporte_dorado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\report1-add-16x16.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -22,8 +22,8 @@ namespace Win28etug
         public string _TR30_UACTUALIZA { get; set; }
         public DateTime _TR30_FACTUALIZA { get; set; }
         public string _TR30_ABREV { get; set; }//DIEGO
-
-
+        public bool _TR30_AFECTO { get; set; }
+        public decimal _TR30_PORCENTAJE { get; set; }
 
     }
 }

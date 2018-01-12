@@ -151,7 +151,7 @@ namespace SGAP.comercial
         }
         public void Cargar_explorador_De_cotizaciones(object sender , ET_entidad e)
         {
-            if (!e._hubo_error)
+            if (!e._hubo_error && e._lista_et_m39!=null)
             {
                 listView_Cotizaciones.Items.Clear();
                 listView_Cotizaciones.SmallImageList = icon;

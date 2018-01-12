@@ -187,7 +187,7 @@ namespace SGAP.comercial
         }
         private void Cargar_Busqueda_T_M19(object sender, ET_entidad e)
         {
-            if (!e._hubo_error && e._lista_et_m19.Count > 0)
+            if (!e._hubo_error && e._lista_et_m19!= null && e._lista_et_m19.Count > 0)
             {
                 _lista_m19 = e._lista_et_m19;
                 int count = e._lista_et_m19.Count;
@@ -203,7 +203,7 @@ namespace SGAP.comercial
         }
         private void Cargar_Busqueda_T_M27(object sender, ET_entidad e)
         {
-            if (!e._hubo_error && e._lista_et_m27.Count > 0)
+            if (!e._hubo_error && e._lista_et_m27!= null && e._lista_et_m27.Count > 0)
             {
                 _lista_m27 = new List<ET_M27>();
                 _lista_m27 = e._lista_et_m27;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Win28etug;
 namespace Win32dtug
 {
-    public class DT_M19 //: ET_generic<ET_M19>
+    public class DT_M19
     {
         DT_CNX _cnx = new DT_CNX();
         ET_entidad _Entidad = new ET_entidad();

@@ -25,7 +25,7 @@ namespace Win32dtug
             string Mensaje_error="";
 
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SGAP.Properties.Settings.ConectionString"].ToString()))
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
@@ -116,7 +116,7 @@ namespace Win32dtug
             {
                 cn.Open();
                 SqlTransaction sqlTran = cn.BeginTransaction();
-                SqlCommand cmd = new SqlCommand("pa_set54", cn, sqlTran);
+                SqlCommand cmd = new SqlCommand("pa_tr29set_001", cn, sqlTran);
                 cmd.CommandType = CommandType.StoredProcedure;
                 try
                 {

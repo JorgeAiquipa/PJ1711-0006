@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_sel101]') AND type in (N'P', N'PC')) --#1
-Drop procedure [dbo].pa_sel101;
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pa_tr19_sel001]') AND type in (N'P', N'PC')) --#1
+Drop procedure [dbo].pa_tr19_sel001;
 GO
 
 -- =============================================
@@ -7,7 +7,7 @@ GO
 -- Create date: 2017.12.13
 -- Descripcion : /OBTENER LISTA DE SERVICIOS POR TIPO.
 -- =============================================
-CREATE PROCEDURE pa_sel101
+CREATE PROCEDURE pa_tr19_sel001
 	 @p_TR19_TM2_ID varchar(50) -- pis
 	 --,@p_TR19_R19_ID int
 	,@p_TR19_TM42_ID int -- id tipo de servicio

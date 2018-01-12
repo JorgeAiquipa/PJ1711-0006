@@ -60,7 +60,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(717, 588);
+            this.panel2.Size = new System.Drawing.Size(754, 585);
             this.panel2.TabIndex = 7;
             // 
             // label1
@@ -68,7 +68,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 310);
+            this.label1.Location = new System.Drawing.Point(4, 307);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(164, 16);
             this.label1.TabIndex = 7;
@@ -79,10 +79,10 @@
             this.panel_conceptos_remuneratios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_conceptos_remuneratios.Controls.Add(this.dgv_conceptos_remunerativos);
-            this.panel_conceptos_remuneratios.Location = new System.Drawing.Point(0, 333);
+            this.panel_conceptos_remuneratios.Location = new System.Drawing.Point(0, 330);
             this.panel_conceptos_remuneratios.Name = "panel_conceptos_remuneratios";
             this.panel_conceptos_remuneratios.Padding = new System.Windows.Forms.Padding(7);
-            this.panel_conceptos_remuneratios.Size = new System.Drawing.Size(717, 217);
+            this.panel_conceptos_remuneratios.Size = new System.Drawing.Size(754, 217);
             this.panel_conceptos_remuneratios.TabIndex = 1;
             // 
             // dgv_conceptos_remunerativos
@@ -93,10 +93,12 @@
             this.dgv_conceptos_remunerativos.Name = "dgv_conceptos_remunerativos";
             this.dgv_conceptos_remunerativos.RowHeadersWidth = 30;
             this.dgv_conceptos_remunerativos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(703, 203);
+            this.dgv_conceptos_remunerativos.Size = new System.Drawing.Size(740, 203);
             this.dgv_conceptos_remunerativos.TabIndex = 0;
+            this.dgv_conceptos_remunerativos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_conceptos_remunerativos_CellClick);
             this.dgv_conceptos_remunerativos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_conceptos_remunerativos_CellContentClick);
             this.dgv_conceptos_remunerativos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_conceptos_remunerativos_CellEndEdit);
+            this.dgv_conceptos_remunerativos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgv_conceptos_remunerativos_CellFormatting);
             this.dgv_conceptos_remunerativos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_conceptos_remunerativos_KeyDown);
             // 
             // panel_cargos
@@ -108,7 +110,7 @@
             this.panel_cargos.Location = new System.Drawing.Point(0, 21);
             this.panel_cargos.Name = "panel_cargos";
             this.panel_cargos.Padding = new System.Windows.Forms.Padding(7);
-            this.panel_cargos.Size = new System.Drawing.Size(717, 276);
+            this.panel_cargos.Size = new System.Drawing.Size(754, 273);
             this.panel_cargos.TabIndex = 0;
             // 
             // dgv_entrada_datos_mano_de_obra
@@ -119,7 +121,7 @@
             this.dgv_entrada_datos_mano_de_obra.Margin = new System.Windows.Forms.Padding(0);
             this.dgv_entrada_datos_mano_de_obra.Name = "dgv_entrada_datos_mano_de_obra";
             this.dgv_entrada_datos_mano_de_obra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(703, 262);
+            this.dgv_entrada_datos_mano_de_obra.Size = new System.Drawing.Size(740, 259);
             this.dgv_entrada_datos_mano_de_obra.TabIndex = 0;
             this.dgv_entrada_datos_mano_de_obra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellClick);
             this.dgv_entrada_datos_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mano_de_obra_CellEndEdit);
@@ -140,7 +142,7 @@
             // btn_cancelar
             // 
             this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_cancelar.Location = new System.Drawing.Point(607, 556);
+            this.btn_cancelar.Location = new System.Drawing.Point(644, 553);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(100, 23);
             this.btn_cancelar.TabIndex = 3;
@@ -151,7 +153,7 @@
             // btn_continuar
             // 
             this.btn_continuar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_continuar.Location = new System.Drawing.Point(497, 556);
+            this.btn_continuar.Location = new System.Drawing.Point(534, 553);
             this.btn_continuar.Name = "btn_continuar";
             this.btn_continuar.Size = new System.Drawing.Size(100, 23);
             this.btn_continuar.TabIndex = 2;
@@ -166,7 +168,7 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(0, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(717, 22);
+            this.label10.Size = new System.Drawing.Size(754, 22);
             this.label10.TabIndex = 6;
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -203,7 +205,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 588);
+            this.ClientSize = new System.Drawing.Size(754, 585);
             this.Controls.Add(this.panel2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
