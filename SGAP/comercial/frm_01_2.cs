@@ -59,7 +59,7 @@ namespace SGAP.comercial
         int Id_Servicio_Padre;
         int Periodo_servicio;
         int Id_CotizacionServicio;
-
+        string servicio = "";
         string nodos;
         string Id_Cotizacion;
         #region Mano de obra
@@ -468,12 +468,13 @@ namespace SGAP.comercial
         {
             if (Id_CotizacionServicio == Id_Servicio_Padre)
             {
-                DialogResult decision2_msg = MessageBox.Show("No puede eliminar el servicio principal.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult decision2_msg = MessageBox.Show("No puede eliminar el servicio principal.", "Cotizador", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                DialogResult decision_msg = MessageBox.Show("Esta seguro de eliminar este servicio. \nSe eliminarán los registros asociados.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (decision_msg == DialogResult.OK)
+
+                DialogResult decision_msg = MessageBox.Show("Se eliminara la informacion asociada al: " + "'" + servicio + "'. \n¿Esta seguro de eliminar el servicio?", "Cotizador", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (decision_msg == DialogResult.Yes)
                 {
                     _ET_ENTIDAD._entity_r28._TR28_ID = Id_CotizacionServicio;
                     _ET_ENTIDAD._entity_r28._TR28_TM39_ID = Id_Cotizacion;
@@ -482,6 +483,10 @@ namespace SGAP.comercial
                 }
             }
         }
+
+
+
+
         private void Item_mano_de_obra_click(object sender, EventArgs e)
         {
             frm_01_2_01 form_2_1 = new frm_01_2_01(Id_servicio_hijo, _LISTA_ET_M40);
@@ -557,7 +562,7 @@ namespace SGAP.comercial
                         id_tipo_Servicio = row_u._TR28_TM42_ID;
                         nombre_servicio = row_u._TR28_TM42_DESCRIP;
                         Id_Servicio_Padre = row_u._TR28_PADRE;
-
+                        servicio = row_u._TR28_DESCRIP;
                         Id_Cotizacion = row_u._TR28_TM39_ID;
                         //Id_CotizacionServicio = row_u._TR28_ID;
 

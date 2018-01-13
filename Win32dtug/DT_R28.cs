@@ -269,5 +269,57 @@ namespace Win32dtug
             return _Entidad;
         }
 
+
+        // Actualizamos el periodo
+
+        public ET_entidad set_004(ET_R28 objEntity)
+        {
+            _Entidad = new ET_entidad();
+            _Entidad._entity_r28 = new ET_R28();
+
+            string Msg_respuesta;
+
+            using (SqlConnection cn = new SqlConnection(_cnx.conexion))
+            {
+                cn.Open();
+                SqlTransaction sqlTran = cn.BeginTransaction();
+                SqlCommand cmd = new SqlCommand("pa_tr28set_004", cn, sqlTran);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    cmd.Parameters.Add("@p_TR28_TM39_ID", SqlDbType.VarChar, 300).Value = objEntity._TR28_TM39_ID;
+                    cmd.Parameters.Add("@p_TR28_PERIODO", SqlDbType.Int).Value = objEntity._TR28_PERIODO;
+
+                    cmd.Parameters.Add("@p_TR28_UCREA", SqlDbType.VarChar, 20).Value = _globales._U_SESSION;
+                    cmd.Parameters.Add("@p_TR28_TM2_ID", SqlDbType.VarChar, 50).Value = _globales._TM2_ID;
+                    cmd.ExecuteNonQuery();
+                    sqlTran.Commit();
+                    
+                    _Entidad._hubo_error = false;
+                }
+                catch (SqlException exsql)
+                {
+                    Msg_respuesta = exsql.Message;
+                    try
+                    {
+                        sqlTran.Rollback();
+                    }
+                    catch (Exception exRollback)
+                    {
+                        Msg_respuesta = exRollback.Message;
+                    }
+
+                    _Entidad._hubo_error = true;
+                    _Entidad._contenido_mensaje = Msg_respuesta;
+
+                }
+                finally
+                {
+                    cn.Close();
+                }
+            }
+            return _Entidad;
+        }
+
     }
 }

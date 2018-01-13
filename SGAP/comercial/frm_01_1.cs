@@ -291,7 +291,7 @@ namespace SGAP.comercial
                             }
                             else
                             {
-                                DialogResult decision_msg = MessageBox.Show("Se requiere seleccionar por lo menos un local.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                DialogResult decision_msg = MessageBox.Show("Se requiere seleccionar por lo menos un local.", "Cotizador", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 if (decision_msg == DialogResult.OK) { dgv_informacion_locales.Focus(); }
                             }
                         }
@@ -299,18 +299,18 @@ namespace SGAP.comercial
                         {
                             panel2.Visible = true;
                             rb_tipo1.Focus();
-                            DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DialogResult decision_msg = MessageBox.Show("Seleccione un servicio.", "Cotizador", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        DialogResult decision_msg = MessageBox.Show("Este cliente no posee locales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult decision_msg = MessageBox.Show("Este cliente no posee locales.", "Cotizador", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
                     }
                 }
                 else
                 {
-                    DialogResult decision_msg = MessageBox.Show("Seleccione un cliente valido.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult decision_msg = MessageBox.Show("Seleccione un cliente valido.", "Cotizador", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (decision_msg == DialogResult.OK) { autoCompleteTextBox_t_m19.Focus(); }
                 }
                 #endregion
@@ -362,7 +362,7 @@ namespace SGAP.comercial
                 panel1.Visible = true;
                 MessageBox.Show
                 (
-                    " La búsqueda de cliente no obtubo resultados. \n Intente de nuevo.", "Alerta!",
+                    " La búsqueda de cliente no obtubo resultados. \n Intente de nuevo.", "Cotizador",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
