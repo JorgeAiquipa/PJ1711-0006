@@ -371,27 +371,29 @@ namespace SGAP.comercial
         }
         private void Mostrar_pagina_cotizador(int index)
         {
-            if (index <= 8)
+            if (index == 0)
             {
                 if (Panels.Count < 1) return;
 
-                if (VisiblePanel == Panels[index]) return;
+                if (VisiblePanel == Panels[0]) return;
 
                 if (VisiblePanel != null) VisiblePanel.Visible = false;
 
-                Panels[index].Visible = true;
-                VisiblePanel = Panels[index];
+                Panels[0].Visible = true;
+                VisiblePanel = Panels[0];
             }
-            else if (index == 10100)
+            else if (index < 10)
             {
+                display_page(index);
+
                 if (Panels.Count < 1) return;
 
-                if (VisiblePanel == Panels[9]) return;
+                if (VisiblePanel == Panels[2]) return;
 
                 if (VisiblePanel != null) VisiblePanel.Visible = false;
 
-                Panels[9].Visible = true;
-                VisiblePanel = Panels[9];
+                Panels[2].Visible = true;
+                VisiblePanel = Panels[2];
             }
         }
         private void tree_view_servicios_MouseUp(object sender, MouseEventArgs e)
@@ -541,7 +543,7 @@ namespace SGAP.comercial
                 string name_nodo = string.Format("{0} - {1}", _ET_ENTIDAD._entity_m39._TM39_ID, _ET_ENTIDAD._entity_m39._entity_et_m19._TM19_DESCRIP2);
                 Text = string.Format("Cotización: {0}", name_nodo);
                 TreeNode nodo_principal = new TreeNode();
-                nodo_principal.Tag = 10100;
+                nodo_principal.Tag = 9;
                 nodo_principal.Name = name_nodo;
                 nodo_principal.Text = name_nodo;
 
@@ -2256,6 +2258,69 @@ namespace SGAP.comercial
             Definir_valores_scroll_de_mano_De_obra();
         }
 
+        private void dgv_mano_de_obra_right_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgv_mano_de_obra_right_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
+
+        private void Mostrar_conceptos_remunerativos(List<ET_R30> var_lista)
+        {
+            Contenedor_De_conceptos_remunerativos.Items.Clear();
+            Contenedor_De_conceptos_remunerativos.BackColor = Color.White;
+            var_lista.ForEach(z => {
+                ToolStripMenuItem item_remuneracion = new ToolStripMenuItem();
+
+                item_remuneracion.Name = z._TR30_DESCRIP;
+                item_remuneracion.Size = new System.Drawing.Size(132, 22);
+                item_remuneracion.ForeColor = Color.Blue;
+                item_remuneracion.BackColor = Color.White;
+                if (z._TR30_PORCENTAJE != 0.00M)
+                    item_remuneracion.Text = string.Format("{0} %{1}", z._TR30_DESCRIP, (z._TR30_PORCENTAJE * 100));
+                if (z._TR30_IMPORTE != 0.00M)
+                    item_remuneracion.Text = string.Format("{0} {1}", z._TR30_DESCRIP, z._TR30_IMPORTE);
+
+
+                Contenedor_De_conceptos_remunerativos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                        item_remuneracion
+                    });
+            });
+
+        }
+
+        private void dgv_mano_de_obra_right_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Point p = new Point(e.X, e.Y);
+
+                if (e.ColumnIndex == 2 || e.ColumnIndex == 3) // es afecto
+                {
+
+                    bool es_afecto = false;
+                    if (e.ColumnIndex == 2)
+                        es_afecto = true;
+
+                    try
+                    {
+                        var lista_con_conceptos = _LISTA_ET_R29.FirstOrDefault(x => x._Fila == (Mano_de_obra_modo_vista_reporte == true ? e.RowIndex - 1 : e.RowIndex))._lista_et_r30.ToList();
+                        if (lista_con_conceptos != null && lista_con_conceptos.Count > 0)
+                        {
+                            Mostrar_conceptos_remunerativos(lista_con_conceptos.Where(row => row._TR30_AFECTO == es_afecto).ToList());
+                            Contenedor_De_conceptos_remunerativos.Show(dgv_mano_de_obra_right, p);
+                        }
+                    }
+                    catch { }
+                }
+
+            }
+        }
         #endregion
 
 
@@ -2438,66 +2503,69 @@ namespace SGAP.comercial
         }
         #endregion
 
-        private void dgv_mano_de_obra_right_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+
+        #region Control de paginas
+        private void display_page(int index)
         {
-
-        }
-
-        private void dgv_mano_de_obra_right_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void Mostrar_conceptos_remunerativos(List<ET_R30> var_lista)
-        {
-            Contenedor_De_conceptos_remunerativos.Items.Clear();
-            Contenedor_De_conceptos_remunerativos.BackColor = Color.White;
-            var_lista.ForEach(z=> {
-                ToolStripMenuItem item_remuneracion = new ToolStripMenuItem();
-
-                item_remuneracion.Name = z._TR30_DESCRIP;
-                item_remuneracion.Size = new System.Drawing.Size(132, 22);
-                item_remuneracion.ForeColor = Color.Blue;
-                item_remuneracion.BackColor = Color.White;
-                if(z._TR30_PORCENTAJE != 0.00M)
-                    item_remuneracion.Text = string.Format("{0} %{1}", z._TR30_DESCRIP, (z._TR30_PORCENTAJE * 100));
-                if(z._TR30_IMPORTE != 0.00M)
-                    item_remuneracion.Text = string.Format("{0} {1}", z._TR30_DESCRIP, z._TR30_IMPORTE);
-
-
-                Contenedor_De_conceptos_remunerativos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                        item_remuneracion
-                    });
-            });
-
-        }
-
-        private void dgv_mano_de_obra_right_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
+            if (pnl_canvas.Controls.Count > 0)
             {
-                Point p = new Point(e.X, e.Y);
+                pnl_canvas.Controls.Clear();
+                //try
+                //{
+                //    UserControl oldView = pnl_canvas.Controls[0] as UserControl;
+                //    pnl_canvas.Controls.Remove(oldView);
+                //    oldView.Dispose();
 
-                if (e.ColumnIndex == 2 || e.ColumnIndex == 3) // es afecto
-                {
+                //}
+                //catch (Exception ex)
+                //{ }
+            }
+            pnl_canvas.Controls.Add(InitView(index));
+            cc.Show();
+            cc.Dock = DockStyle.Fill;
+        }
 
-                    bool es_afecto = false;
-                    if (e.ColumnIndex == 2)
-                        es_afecto = true;
-
-                    try
-                    {
-                        var lista_con_conceptos = _LISTA_ET_R29.FirstOrDefault(x => x._Fila == (Mano_de_obra_modo_vista_reporte == true ? e.RowIndex - 1 : e.RowIndex))._lista_et_r30.ToList();
-                        if (lista_con_conceptos != null && lista_con_conceptos.Count > 0)
-                        {
-                            Mostrar_conceptos_remunerativos(lista_con_conceptos.Where(row => row._TR30_AFECTO == es_afecto).ToList());
-                            Contenedor_De_conceptos_remunerativos.Show(dgv_mano_de_obra_right, p);
-                        }
-                    }
-                    catch { }
-                }
+        UserControl cc;
+        private Control InitView(int vista)
+        {
+            switch (vista)
+            {
+                case 1:
+                    cc = new UserControls.Vistas.frm_01();
+                    break;
+                case 2:
+                    cc = new UserControls.Vistas.frm_02();
+                    break;
+                case 3:
+                    cc = new UserControls.Vistas.frm_03();
+                    break;
+                case 4:
+                    cc = new UserControls.Vistas.frm_04();
+                    break;
+                case 5:
+                    cc = new UserControls.Vistas.frm_05();
+                    break;
+                case 6:
+                    cc = new UserControls.Vistas.frm_06();
+                    break;
+                case 7:
+                    cc = new UserControls.Vistas.frm_07();
+                    break;
+                case 8:
+                    cc = new UserControls.Vistas.frm_08();
+                    break;
+                case 9:
+                    cc = new UserControls.Vistas.frm_09();
+                    break;
+                default:
+                    cc = new UserControls.Vistas.frm_01();
+                    break;
 
             }
+            return cc;
         }
+        #endregion
+
+
     }
 }

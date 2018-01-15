@@ -46,10 +46,18 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgv_entrada_datos_mq_eq = new System.Windows.Forms.DataGridView();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
+            this.pnl_canvas = new System.Windows.Forms.Panel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
@@ -84,15 +92,6 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.und = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maquinaria = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.equipos = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cantotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costounitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costototal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,6 +103,7 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panPages.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -116,7 +116,7 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mq_eq)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.pnl_canvas.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -145,11 +145,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tree_view_servicios.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tree_view_servicios.ItemHeight = 18;
-            this.tree_view_servicios.Location = new System.Drawing.Point(0, 34);
+            this.tree_view_servicios.Location = new System.Drawing.Point(0, 28);
             this.tree_view_servicios.Margin = new System.Windows.Forms.Padding(0);
             this.tree_view_servicios.Name = "tree_view_servicios";
             this.tree_view_servicios.ShowNodeToolTips = true;
-            this.tree_view_servicios.Size = new System.Drawing.Size(317, 589);
+            this.tree_view_servicios.Size = new System.Drawing.Size(237, 478);
             this.tree_view_servicios.TabIndex = 0;
             this.tree_view_servicios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tree_view_servicios_AfterSelect);
             this.tree_view_servicios.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tree_view_servicios_MouseUp);
@@ -161,7 +161,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1320, 626);
+            this.panel1.Size = new System.Drawing.Size(990, 508);
             this.panel1.TabIndex = 2;
             // 
             // panPages
@@ -171,7 +171,7 @@
             this.panPages.Location = new System.Drawing.Point(0, 0);
             this.panPages.Margin = new System.Windows.Forms.Padding(0);
             this.panPages.Name = "panPages";
-            this.panPages.Size = new System.Drawing.Size(1320, 626);
+            this.panPages.Size = new System.Drawing.Size(990, 508);
             this.panPages.TabIndex = 2;
             this.panPages.TabStop = true;
             // 
@@ -192,17 +192,16 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1320, 626);
+            this.tabControl1.Size = new System.Drawing.Size(990, 508);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.panel_mano_de_obra);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Size = new System.Drawing.Size(1312, 597);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Size = new System.Drawing.Size(982, 482);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -215,19 +214,18 @@
             this.panel_mano_de_obra.Controls.Add(this.dgv_mano_de_obra_right);
             this.panel_mano_de_obra.Controls.Add(this.dgv_mano_de_obra);
             this.panel_mano_de_obra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_mano_de_obra.Location = new System.Drawing.Point(4, 4);
-            this.panel_mano_de_obra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_mano_de_obra.Location = new System.Drawing.Point(3, 3);
             this.panel_mano_de_obra.Name = "panel_mano_de_obra";
-            this.panel_mano_de_obra.Size = new System.Drawing.Size(1304, 589);
+            this.panel_mano_de_obra.Size = new System.Drawing.Size(976, 476);
             this.panel_mano_de_obra.TabIndex = 6;
             // 
             // h_scroll_mano_de_obra
             // 
             this.h_scroll_mano_de_obra.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.h_scroll_mano_de_obra.Location = new System.Drawing.Point(0, 568);
+            this.h_scroll_mano_de_obra.Location = new System.Drawing.Point(0, 459);
             this.h_scroll_mano_de_obra.Name = "h_scroll_mano_de_obra";
-            this.h_scroll_mano_de_obra.Size = new System.Drawing.Size(1281, 17);
+            this.h_scroll_mano_de_obra.Size = new System.Drawing.Size(959, 17);
             this.h_scroll_mano_de_obra.TabIndex = 3;
             this.h_scroll_mano_de_obra.Scroll += new System.Windows.Forms.ScrollEventHandler(this.h_scroll_mano_de_obra_Scroll);
             // 
@@ -239,9 +237,8 @@
             this.panel13.Controls.Add(this.label10);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel13.Location = new System.Drawing.Point(0, 0);
-            this.panel13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1304, 62);
+            this.panel13.Size = new System.Drawing.Size(976, 50);
             this.panel13.TabIndex = 0;
             // 
             // btn_editar_mano_de_obra
@@ -249,10 +246,9 @@
             this.btn_editar_mano_de_obra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_editar_mano_de_obra.Image = global::SGAP.Properties.Resources.editar;
             this.btn_editar_mano_de_obra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_editar_mano_de_obra.Location = new System.Drawing.Point(101, 30);
-            this.btn_editar_mano_de_obra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_editar_mano_de_obra.Location = new System.Drawing.Point(76, 24);
             this.btn_editar_mano_de_obra.Name = "btn_editar_mano_de_obra";
-            this.btn_editar_mano_de_obra.Size = new System.Drawing.Size(81, 28);
+            this.btn_editar_mano_de_obra.Size = new System.Drawing.Size(61, 23);
             this.btn_editar_mano_de_obra.TabIndex = 2;
             this.btn_editar_mano_de_obra.Text = "Editar";
             this.btn_editar_mano_de_obra.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -264,10 +260,9 @@
             this.btn_guardar_mano_de_obra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_guardar_mano_de_obra.Image = global::SGAP.Properties.Resources.guardar;
             this.btn_guardar_mano_de_obra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_guardar_mano_de_obra.Location = new System.Drawing.Point(3, 30);
-            this.btn_guardar_mano_de_obra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_guardar_mano_de_obra.Location = new System.Drawing.Point(2, 24);
             this.btn_guardar_mano_de_obra.Name = "btn_guardar_mano_de_obra";
-            this.btn_guardar_mano_de_obra.Size = new System.Drawing.Size(93, 28);
+            this.btn_guardar_mano_de_obra.Size = new System.Drawing.Size(70, 23);
             this.btn_guardar_mano_de_obra.TabIndex = 1;
             this.btn_guardar_mano_de_obra.Text = "Guardar";
             this.btn_guardar_mano_de_obra.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -280,9 +275,8 @@
             this.label10.Dock = System.Windows.Forms.DockStyle.Top;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(0, 0);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(1304, 27);
+            this.label10.Size = new System.Drawing.Size(976, 22);
             this.label10.TabIndex = 0;
             this.label10.Text = "Mano de obra";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -294,11 +288,10 @@
             this.dgv_mano_de_obra_right.BackgroundColor = System.Drawing.Color.White;
             this.dgv_mano_de_obra_right.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_mano_de_obra_right.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(676, 62);
-            this.dgv_mano_de_obra_right.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_mano_de_obra_right.Location = new System.Drawing.Point(505, 50);
             this.dgv_mano_de_obra_right.Name = "dgv_mano_de_obra_right";
             this.dgv_mano_de_obra_right.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(628, 527);
+            this.dgv_mano_de_obra_right.Size = new System.Drawing.Size(471, 425);
             this.dgv_mano_de_obra_right.TabIndex = 2;
             this.dgv_mano_de_obra_right.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_CellMouseEnter);
             this.dgv_mano_de_obra_right.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_right_CellMouseLeave);
@@ -313,11 +306,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_mano_de_obra.BackgroundColor = System.Drawing.Color.White;
             this.dgv_mano_de_obra.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 62);
-            this.dgv_mano_de_obra.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_mano_de_obra.Location = new System.Drawing.Point(0, 50);
             this.dgv_mano_de_obra.MultiSelect = false;
             this.dgv_mano_de_obra.Name = "dgv_mano_de_obra";
-            this.dgv_mano_de_obra.Size = new System.Drawing.Size(677, 527);
+            this.dgv_mano_de_obra.Size = new System.Drawing.Size(506, 425);
             this.dgv_mano_de_obra.TabIndex = 1;
             this.dgv_mano_de_obra.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_mano_de_obra_CellEndEdit);
             this.dgv_mano_de_obra.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgv_mano_de_obra_CellFormatting);
@@ -332,11 +324,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(982, 482);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -347,10 +338,9 @@
             this.panel3.Controls.Add(this.dgv_entrada_datos_mq_eq);
             this.panel3.Controls.Add(this.label11);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(4, 4);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1303, 588);
+            this.panel3.Size = new System.Drawing.Size(976, 476);
             this.panel3.TabIndex = 4;
             // 
             // dgv_entrada_datos_mq_eq
@@ -370,11 +360,10 @@
             this.costototal});
             this.dgv_entrada_datos_mq_eq.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_entrada_datos_mq_eq.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dgv_entrada_datos_mq_eq.Location = new System.Drawing.Point(0, 27);
-            this.dgv_entrada_datos_mq_eq.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_entrada_datos_mq_eq.Location = new System.Drawing.Point(0, 22);
             this.dgv_entrada_datos_mq_eq.Name = "dgv_entrada_datos_mq_eq";
             this.dgv_entrada_datos_mq_eq.RowHeadersVisible = false;
-            this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(1303, 561);
+            this.dgv_entrada_datos_mq_eq.Size = new System.Drawing.Size(976, 454);
             this.dgv_entrada_datos_mq_eq.TabIndex = 10;
             this.dgv_entrada_datos_mq_eq.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgv_entrada_datos_mq_eq_CellBeginEdit);
             this.dgv_entrada_datos_mq_eq.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_entrada_datos_mq_eq_CellEndEdit);
@@ -382,63 +371,113 @@
             this.dgv_entrada_datos_mq_eq.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgv_entrada_datos_mq_eq_CellValidating);
             this.dgv_entrada_datos_mq_eq.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dvg_entrada_datos_mq_eq_EditingControlShowing_1);
             // 
+            // nombre
+            // 
+            this.nombre.Frozen = true;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 200;
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Codigo";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.ReadOnly = true;
+            this.Codigo.Width = 82;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            this.marca.Width = 82;
+            // 
+            // und
+            // 
+            this.und.HeaderText = "Und.";
+            this.und.Name = "und";
+            this.und.ReadOnly = true;
+            this.und.Width = 50;
+            // 
+            // maquinaria
+            // 
+            this.maquinaria.HeaderText = "Maquinaria";
+            this.maquinaria.Name = "maquinaria";
+            this.maquinaria.ReadOnly = true;
+            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.maquinaria.Width = 65;
+            // 
+            // equipos
+            // 
+            this.equipos.HeaderText = "Equipos";
+            this.equipos.Name = "equipos";
+            this.equipos.ReadOnly = true;
+            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.equipos.Width = 55;
+            // 
+            // cantotal
+            // 
+            this.cantotal.HeaderText = "Cant. total";
+            this.cantotal.Name = "cantotal";
+            this.cantotal.ReadOnly = true;
+            this.cantotal.Width = 82;
+            // 
+            // costounitario
+            // 
+            this.costounitario.HeaderText = "Costo unitario";
+            this.costounitario.Name = "costounitario";
+            this.costounitario.ReadOnly = true;
+            this.costounitario.Width = 82;
+            // 
+            // costototal
+            // 
+            this.costototal.HeaderText = "Costo total";
+            this.costototal.Name = "costototal";
+            this.costototal.ReadOnly = true;
+            this.costototal.Width = 82;
+            // 
             // label11
             // 
             this.label11.BackColor = System.Drawing.Color.LightGreen;
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(0, 0);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(1303, 27);
+            this.label11.Size = new System.Drawing.Size(976, 22);
             this.label11.TabIndex = 7;
             this.label11.Text = "Maquinaria y equipos";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.panel4);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Controls.Add(this.pnl_canvas);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage3.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Size = new System.Drawing.Size(982, 482);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // pnl_canvas
             // 
-            this.panel4.BackColor = System.Drawing.SystemColors.Control;
-            this.panel4.Controls.Add(this.label12);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(4, 4);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1303, 588);
-            this.panel4.TabIndex = 5;
-            // 
-            // label12
-            // 
-            this.label12.BackColor = System.Drawing.Color.LightGreen;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(0, 0);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(1303, 27);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "Materiales e insumos";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pnl_canvas.BackColor = System.Drawing.SystemColors.Control;
+            this.pnl_canvas.Controls.Add(this.label12);
+            this.pnl_canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnl_canvas.Location = new System.Drawing.Point(3, 3);
+            this.pnl_canvas.Name = "pnl_canvas";
+            this.pnl_canvas.Size = new System.Drawing.Size(976, 476);
+            this.pnl_canvas.TabIndex = 5;
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.panel5);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage4.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Size = new System.Drawing.Size(982, 482);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -448,10 +487,9 @@
             this.panel5.BackColor = System.Drawing.SystemColors.Control;
             this.panel5.Controls.Add(this.label13);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(4, 4);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1303, 588);
+            this.panel5.Size = new System.Drawing.Size(976, 476);
             this.panel5.TabIndex = 5;
             // 
             // label13
@@ -460,9 +498,8 @@
             this.label13.Dock = System.Windows.Forms.DockStyle.Top;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(0, 0);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(1303, 27);
+            this.label13.Size = new System.Drawing.Size(976, 22);
             this.label13.TabIndex = 7;
             this.label13.Text = "Implementos de limpieza";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -470,11 +507,10 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.panel6);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage5.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage5.Size = new System.Drawing.Size(982, 482);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -484,10 +520,9 @@
             this.panel6.BackColor = System.Drawing.SystemColors.Control;
             this.panel6.Controls.Add(this.label3);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(4, 4);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1303, 588);
+            this.panel6.Size = new System.Drawing.Size(976, 476);
             this.panel6.TabIndex = 5;
             // 
             // label3
@@ -496,9 +531,8 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1303, 27);
+            this.label3.Size = new System.Drawing.Size(976, 22);
             this.label3.TabIndex = 7;
             this.label3.Text = "Suministros";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -506,11 +540,10 @@
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.panel7);
-            this.tabPage6.Location = new System.Drawing.Point(4, 25);
-            this.tabPage6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage6.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage6.Size = new System.Drawing.Size(982, 482);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -520,10 +553,9 @@
             this.panel7.BackColor = System.Drawing.SystemColors.Control;
             this.panel7.Controls.Add(this.label4);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(4, 4);
-            this.panel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1303, 588);
+            this.panel7.Size = new System.Drawing.Size(976, 476);
             this.panel7.TabIndex = 5;
             // 
             // label4
@@ -532,9 +564,8 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(1303, 27);
+            this.label4.Size = new System.Drawing.Size(976, 22);
             this.label4.TabIndex = 7;
             this.label4.Text = "Indumentaria";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -542,10 +573,9 @@
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.panel8);
-            this.tabPage7.Location = new System.Drawing.Point(4, 25);
-            this.tabPage7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage7.Size = new System.Drawing.Size(982, 482);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -556,9 +586,8 @@
             this.panel8.Controls.Add(this.label2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(0, 0);
-            this.panel8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1311, 596);
+            this.panel8.Size = new System.Drawing.Size(982, 482);
             this.panel8.TabIndex = 6;
             // 
             // label2
@@ -567,9 +596,8 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1311, 27);
+            this.label2.Size = new System.Drawing.Size(982, 22);
             this.label2.TabIndex = 7;
             this.label2.Text = "epp";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -577,11 +605,10 @@
             // tabPage8
             // 
             this.tabPage8.Controls.Add(this.panel9);
-            this.tabPage8.Location = new System.Drawing.Point(4, 25);
-            this.tabPage8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage8.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage8.Size = new System.Drawing.Size(982, 482);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "tabPage8";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -591,10 +618,9 @@
             this.panel9.BackColor = System.Drawing.SystemColors.Control;
             this.panel9.Controls.Add(this.label1);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(4, 4);
-            this.panel9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel9.Location = new System.Drawing.Point(3, 3);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1303, 588);
+            this.panel9.Size = new System.Drawing.Size(976, 476);
             this.panel9.TabIndex = 0;
             // 
             // label1
@@ -603,9 +629,8 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1303, 27);
+            this.label1.Size = new System.Drawing.Size(976, 22);
             this.label1.TabIndex = 8;
             this.label1.Text = "Costos financieros";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -613,10 +638,9 @@
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.panel10);
-            this.tabPage9.Location = new System.Drawing.Point(4, 25);
-            this.tabPage9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage9.Size = new System.Drawing.Size(982, 482);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "tabPage9";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -627,9 +651,8 @@
             this.panel10.Controls.Add(this.label5);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 0);
-            this.panel10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1311, 596);
+            this.panel10.Size = new System.Drawing.Size(982, 482);
             this.panel10.TabIndex = 0;
             // 
             // label5
@@ -638,9 +661,8 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(1311, 27);
+            this.label5.Size = new System.Drawing.Size(982, 22);
             this.label5.TabIndex = 8;
             this.label5.Text = "Otros gastos indirectos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -648,11 +670,10 @@
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.panel11);
-            this.tabPage10.Location = new System.Drawing.Point(4, 25);
-            this.tabPage10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage10.Size = new System.Drawing.Size(1311, 596);
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage10.Size = new System.Drawing.Size(982, 482);
             this.tabPage10.TabIndex = 8;
             this.tabPage10.Text = "tabPage10";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -662,10 +683,9 @@
             this.panel11.BackColor = System.Drawing.SystemColors.Control;
             this.panel11.Controls.Add(this.label6);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(4, 4);
-            this.panel11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1303, 588);
+            this.panel11.Size = new System.Drawing.Size(976, 476);
             this.panel11.TabIndex = 1;
             // 
             // label6
@@ -674,9 +694,8 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(1303, 27);
+            this.label6.Size = new System.Drawing.Size(976, 22);
             this.label6.TabIndex = 8;
             this.label6.Text = "Resumen";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -687,7 +706,6 @@
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -695,16 +713,15 @@
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
             this.splitContainer1.Panel1.Controls.Add(this.panel12);
             this.splitContainer1.Panel1.Controls.Add(this.tree_view_servicios);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 27, 0, 0);
+            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 22, 0, 0);
             this.splitContainer1.Panel1.SizeChanged += new System.EventHandler(this.splitContainer1_Panel1_SizeChanged);
             this.splitContainer1.Panel1MinSize = 26;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1649, 628);
-            this.splitContainer1.SplitterDistance = 322;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1237, 510);
+            this.splitContainer1.SplitterDistance = 241;
             this.splitContainer1.TabIndex = 3;
             this.splitContainer1.TabStop = false;
             // 
@@ -717,17 +734,16 @@
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Margin = new System.Windows.Forms.Padding(0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(320, 27);
+            this.panel12.Size = new System.Drawing.Size(239, 22);
             this.panel12.TabIndex = 1;
             // 
             // panel_colapse
             // 
             this.panel_colapse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_colapse.BackColor = System.Drawing.Color.Transparent;
-            this.panel_colapse.Location = new System.Drawing.Point(293, 2);
-            this.panel_colapse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_colapse.Location = new System.Drawing.Point(219, 2);
             this.panel_colapse.Name = "panel_colapse";
-            this.panel_colapse.Size = new System.Drawing.Size(24, 22);
+            this.panel_colapse.Size = new System.Drawing.Size(18, 18);
             this.panel_colapse.TabIndex = 0;
             this.panel_colapse.Click += new System.EventHandler(this.panel_colapse_Click);
             this.panel_colapse.MouseLeave += new System.EventHandler(this.panel_colapse_MouseLeave);
@@ -737,10 +753,9 @@
             // 
             this.panel_colapse_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_colapse_2.BackColor = System.Drawing.Color.LightGreen;
-            this.panel_colapse_2.Location = new System.Drawing.Point(263, 4);
-            this.panel_colapse_2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_colapse_2.Location = new System.Drawing.Point(197, 3);
             this.panel_colapse_2.Name = "panel_colapse_2";
-            this.panel_colapse_2.Size = new System.Drawing.Size(24, 22);
+            this.panel_colapse_2.Size = new System.Drawing.Size(18, 18);
             this.panel_colapse_2.TabIndex = 12;
             this.panel_colapse_2.Click += new System.EventHandler(this.panel_colapse_2_Click);
             this.panel_colapse_2.MouseLeave += new System.EventHandler(this.panel_colapse_2_MouseLeave);
@@ -819,73 +834,6 @@
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 82;
             // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.Width = 200;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "Codigo";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.ReadOnly = true;
-            this.Codigo.Width = 82;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            this.marca.Width = 82;
-            // 
-            // und
-            // 
-            this.und.HeaderText = "Und.";
-            this.und.Name = "und";
-            this.und.ReadOnly = true;
-            this.und.Width = 50;
-            // 
-            // maquinaria
-            // 
-            this.maquinaria.HeaderText = "Maquinaria";
-            this.maquinaria.Name = "maquinaria";
-            this.maquinaria.ReadOnly = true;
-            this.maquinaria.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.maquinaria.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.maquinaria.Width = 65;
-            // 
-            // equipos
-            // 
-            this.equipos.HeaderText = "Equipos";
-            this.equipos.Name = "equipos";
-            this.equipos.ReadOnly = true;
-            this.equipos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.equipos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.equipos.Width = 55;
-            // 
-            // cantotal
-            // 
-            this.cantotal.HeaderText = "Cant. total";
-            this.cantotal.Name = "cantotal";
-            this.cantotal.ReadOnly = true;
-            this.cantotal.Width = 82;
-            // 
-            // costounitario
-            // 
-            this.costounitario.HeaderText = "Costo unitario";
-            this.costounitario.Name = "costounitario";
-            this.costounitario.ReadOnly = true;
-            this.costounitario.Width = 82;
-            // 
-            // costototal
-            // 
-            this.costototal.HeaderText = "Costo total";
-            this.costototal.Name = "costototal";
-            this.costototal.ReadOnly = true;
-            this.costototal.Width = 82;
-            // 
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.HeaderText = "Costo Unitario";
@@ -962,16 +910,27 @@
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 82;
             // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.LightGreen;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(0, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(976, 22);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Materiales e insumos";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frm_01_2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1649, 628);
+            this.ClientSize = new System.Drawing.Size(1237, 510);
             this.Controls.Add(this.panel_colapse_2);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MinimumSize = new System.Drawing.Size(1665, 660);
+            this.MinimumSize = new System.Drawing.Size(1027, 543);
             this.Name = "frm_01_2";
             this.Text = "Cotización";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -989,7 +948,7 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_entrada_datos_mq_eq)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
+            this.pnl_canvas.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
@@ -1025,8 +984,7 @@
             private System.Windows.Forms.Panel panel3;
             private System.Windows.Forms.Label label11;
             private System.Windows.Forms.TabPage tabPage3;
-            private System.Windows.Forms.Panel panel4;
-            private System.Windows.Forms.Label label12;
+            private System.Windows.Forms.Panel pnl_canvas;
             private System.Windows.Forms.TabPage tabPage4;
             private System.Windows.Forms.Panel panel5;
             private System.Windows.Forms.Label label13;
@@ -1089,5 +1047,6 @@
         private System.Windows.Forms.Button btn_guardar_mano_de_obra;
         public System.Windows.Forms.DataGridView dgv_mano_de_obra;
         private System.Windows.Forms.HScrollBar h_scroll_mano_de_obra;
+        private System.Windows.Forms.Label label12;
     }
     }

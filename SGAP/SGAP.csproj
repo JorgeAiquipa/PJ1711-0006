@@ -96,27 +96,81 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AutoCompleteTextBox.cs">
+    <Compile Include="UserControls\Controles\AutoCompleteTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\ControlIconTextColumn.cs" />
-    <Compile Include="UserControls\ControlListView.cs">
+    <Compile Include="UserControls\Controles\ControlIconTextColumn.cs" />
+    <Compile Include="UserControls\Controles\ControlListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\ControlLoader.cs">
+    <Compile Include="UserControls\Controles\ControlLoader.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ControlLoader.Designer.cs">
+    <Compile Include="UserControls\Controles\ControlLoader.Designer.cs">
       <DependentUpon>ControlLoader.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ControlTextBox.cs">
+    <Compile Include="UserControls\Controles\ControlTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\GridViewCheckBoxColumn .cs" />
-    <Compile Include="UserControls\NumericUpDown.cs" />
+    <Compile Include="UserControls\Controles\GridViewCheckBoxColumn .cs" />
+    <Compile Include="UserControls\Controles\NumericUpDown.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\GridTimeControl.cs" />
+    <Compile Include="UserControls\Controles\GridTimeControl.cs" />
+    <Compile Include="UserControls\Vistas\frm_01.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_01.Designer.cs">
+      <DependentUpon>frm_01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_02.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_02.Designer.cs">
+      <DependentUpon>frm_02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_03.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_03.Designer.cs">
+      <DependentUpon>frm_03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_04.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_04.Designer.cs">
+      <DependentUpon>frm_04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_05.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_05.Designer.cs">
+      <DependentUpon>frm_05.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_06.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_06.Designer.cs">
+      <DependentUpon>frm_06.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_07.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_07.Designer.cs">
+      <DependentUpon>frm_07.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_08.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_08.Designer.cs">
+      <DependentUpon>frm_08.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_09.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Vistas\frm_09.Designer.cs">
+      <DependentUpon>frm_09.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="comercial\frm_01.resx">
       <DependentUpon>frm_01.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,8 +197,35 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ControlLoader.resx">
+    <EmbeddedResource Include="UserControls\Controles\ControlLoader.resx">
       <DependentUpon>ControlLoader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_01.resx">
+      <DependentUpon>frm_01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_02.resx">
+      <DependentUpon>frm_02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_03.resx">
+      <DependentUpon>frm_03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_04.resx">
+      <DependentUpon>frm_04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_05.resx">
+      <DependentUpon>frm_05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_06.resx">
+      <DependentUpon>frm_06.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_07.resx">
+      <DependentUpon>frm_07.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_08.resx">
+      <DependentUpon>frm_08.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Vistas\frm_09.resx">
+      <DependentUpon>frm_09.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

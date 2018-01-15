@@ -50,6 +50,7 @@ namespace Win28ntug
             if (dato != null)
                 _et_m19 = dato;
         }
+
         #endregion
 
         #region Eventos
