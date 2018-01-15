@@ -45,6 +45,7 @@ namespace SGAP.comercial
         ContextMenuStrip MenuStrip_BorrarServicio = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_VerPropiedades = new ContextMenuStrip();
         ContextMenuStrip MenuStrip_DatosGenerales = new ContextMenuStrip();
+        ContextMenuStrip Contenedor_De_conceptos_remunerativos = new ContextMenuStrip();
 
         public string nom = "";
         public string cod = "";
@@ -2432,5 +2433,66 @@ namespace SGAP.comercial
         }
         #endregion
 
+        private void dgv_mano_de_obra_right_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgv_mano_de_obra_right_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Mostrar_conceptos_remunerativos(List<ET_R30> var_lista)
+        {
+            Contenedor_De_conceptos_remunerativos.Items.Clear();
+            Contenedor_De_conceptos_remunerativos.BackColor = Color.White;
+            var_lista.ForEach(z=> {
+                ToolStripMenuItem item_remuneracion = new ToolStripMenuItem();
+
+                item_remuneracion.Name = z._TR30_DESCRIP;
+                item_remuneracion.Size = new System.Drawing.Size(132, 22);
+                item_remuneracion.ForeColor = Color.Blue;
+                item_remuneracion.BackColor = Color.White;
+                if(z._TR30_PORCENTAJE != 0.00M)
+                    item_remuneracion.Text = string.Format("{0} %{1}", z._TR30_DESCRIP, (z._TR30_PORCENTAJE * 100));
+                if(z._TR30_IMPORTE != 0.00M)
+                    item_remuneracion.Text = string.Format("{0} {1}", z._TR30_DESCRIP, z._TR30_IMPORTE);
+
+
+                Contenedor_De_conceptos_remunerativos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                        item_remuneracion
+                    });
+            });
+
+        }
+
+        private void dgv_mano_de_obra_right_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Point p = new Point(e.X, e.Y);
+
+                if (e.ColumnIndex == 2 || e.ColumnIndex == 3) // es afecto
+                {
+
+                    bool es_afecto = false;
+                    if (e.ColumnIndex == 2)
+                        es_afecto = true;
+
+                    try
+                    {
+                        var lista_con_conceptos = _LISTA_ET_R29.FirstOrDefault(x => x._Fila == (Mano_de_obra_modo_vista_reporte == true ? e.RowIndex - 1 : e.RowIndex))._lista_et_r30.ToList();
+                        if (lista_con_conceptos != null && lista_con_conceptos.Count > 0)
+                        {
+                            Mostrar_conceptos_remunerativos(lista_con_conceptos.Where(row => row._TR30_AFECTO == es_afecto).ToList());
+                            Contenedor_De_conceptos_remunerativos.Show(dgv_mano_de_obra_right, p);
+                        }
+                    }
+                    catch { }
+                }
+
+            }
+        }
     }
 }
