@@ -250,14 +250,66 @@ namespace SGAP.comercial
         {
             if (_continuar)
             {
-                DialogResult decision_msg = MessageBox.Show("Las modificaciones realizadas afectaran la base de datos.", "Mensaje del sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (decision_msg == DialogResult.OK)
+                if (InputBox() == DialogResult.OK)
                 {
                     _nt_r29.set_001(_lista_et_r29, _lista_et_r29_los_eliminados);
                     DialogResult = DialogResult.OK;
                 }
+                //DialogResult decision_msg = MessageBox.Show("Los cambios realizados pueden afectar al calculo del costo de mano de obra. \n¿Esta seguro de guardar los cambios?", "Cotizador", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                //if (decision_msg == DialogResult.OK)
+                //{
+                //    _nt_r29.set_001(_lista_et_r29, _lista_et_r29_los_eliminados);
+                //    DialogResult = DialogResult.OK;
+                //}
             }
         }
+
+        public static DialogResult InputBox()
+        {
+            Form form = new Form();
+            Label label = new Label();
+
+            Panel gris = new Panel();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
+
+            form.Text = "Cotizador";
+            label.Text = "Los cambios realizados pueden afectar al calculo del costo de mano de obra. \n¿Esta seguro de guardar los cambios?";
+
+            buttonOk.Text = "Guardar";
+            buttonCancel.Text = "Cancelar";
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+            label.SetBounds(19, 20, 372, 13);
+            gris.SetBounds(0, 65, 372, 50);
+            buttonOk.SetBounds(200, 10, 75, 23);
+            buttonCancel.SetBounds(285, 10, 75, 23);
+
+            label.AutoSize = true;
+            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(335, 107);
+            form.Controls.AddRange(new Control[] { label, gris });
+            gris.Controls.AddRange(new Control[] { buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(250, label.Right + 10), form.ClientSize.Height);
+            gris.ClientSize = new Size(Math.Max(250, label.Right + 10), gris.ClientSize.Height);
+            buttonOk.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
+            buttonCancel.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.BackColor = Color.White;
+            gris.BackColor = Color.FromArgb(245, 245, 245);
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            return dialogResult;
+        }
+
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
             Close();
